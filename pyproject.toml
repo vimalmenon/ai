@@ -1,0 +1,14 @@
+[tool.poetry]
+name = "ai"
+version = "0.0.0"
+description = "This is AI Agent"
+authors = ["Vimal Menon"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
