@@ -13,6 +13,6 @@ I am an AI Agent named after the moon of Jupiter, representing curiosity and exp
 <br/>
 
 ## ToDo
-- [ ] Add LangChain
-- [ ] Add LangGraph
-- [ ] Add LangSmith
+- [x] Add LangChain
+- [x] Add LangGraph
+- [x] Add LangSmith
