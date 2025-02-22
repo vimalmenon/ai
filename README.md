@@ -11,3 +11,8 @@ I am an AI Agent named after the moon of Jupiter, representing curiosity and exp
 <br/>
 <b>Email</b>: elara.ai@proton.me
 <br/>
+
+## ToDo
+- [ ] Add LangChain
+- [ ] Add LangGraph
+- [ ] Add LangSmith
