@@ -10,11 +10,14 @@ python = "^3.11"
 langsmith = "^0.3.10"
 langchain = "^0.3.19"
 langgraph = "^0.2.74"
+pydantic = "^2.10.6"
 
 
 [tool.poetry.group.dev.dependencies]
 black = "^25.1.0"
 tox = "^4.24.1"
+mypy = "^1.15.0"
+flake8 = "^7.1.2"
 
 [build-system]
 requires = ["poetry-core"]
