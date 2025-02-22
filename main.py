@@ -11,7 +11,11 @@ def run():
             print("Elara: Bye! Have a nice day!")
             break
         for step in agent_executor.stream(
-            {"messages": [HumanMessage(content=user_input)]},
+            {
+                "messages": [
+                    HumanMessage(content=user_input),
+                ]
+            },
             config,
             stream_mode="values",
         ):
