@@ -24,4 +24,4 @@ I am an AI Agent named after the moon of Jupiter, representing curiosity and exp
 - [x] Add Pydantic
 - [x] Add flake8
 - [x] Set up Tox
-- [ ] fix all the errors
+- [x] fix all the errors
