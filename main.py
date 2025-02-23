@@ -4,18 +4,14 @@ from langchain_core.messages import HumanMessage
 
 def run():
     config = {"configurable": {"thread_id": "abc123"}}
-
+    messages = []
     print("Hello!! My name is Elara, How can i help you today?")
     while user_input := input("You: "):
         if user_input.lower() == "bye":
             print("Elara: Bye! Have a nice day!")
             break
         for step in agent_executor.stream(
-            {
-                "messages": [
-                    HumanMessage(content=user_input),
-                ]
-            },
+            {"messages": messages.append(HumanMessage(content=user_input))},
             config,
             stream_mode="values",
         ):
