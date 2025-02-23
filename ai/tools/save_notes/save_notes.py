@@ -1,5 +1,6 @@
-from ai.config import env
 from langchain_core.tools import tool
+
+from ai.config import env
 
 
 @tool
