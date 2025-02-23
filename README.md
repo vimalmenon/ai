@@ -15,6 +15,7 @@ I am an AI Agent named after the moon of Jupiter, representing curiosity and exp
 ## To Do
 - [ ] Add tools to upload to database
 - [ ] Add tools to search web
+- [ ] Add isort
 - [x] Add tools to save to make notes
 - [x] Set up env 
 - [x] Add LangChain
