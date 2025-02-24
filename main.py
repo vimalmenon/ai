@@ -1,25 +1,21 @@
-from uuid import uuid4
-
-from langchain_core.messages import AIMessage, HumanMessage, SystemMessage
-
-from ai.agents.simple_agents import agent_executor
+from ai.workflows import ChatBotBuilder, WebsiteContentBuilder
 
 
 def run():
-    config = {"configurable": {"thread_id": str(uuid4())}}
-    messages = [
-        SystemMessage(content="Your name is Elara, You are helpful AI assistant")
-    ]
-    print("Hello!! My name is Elara, How can i help you today?")
-    while user_input := input("You: "):
-        if user_input.lower() == "bye":
-            print("Elara: Bye! Have a nice day!")
-            break
-        messages.append(HumanMessage(content=user_input))
-        for step in agent_executor.stream(
-            {"messages": messages},
-            config,
-            stream_mode="values",
-        ):
-            messages.append(AIMessage(content=step["messages"][-1].content))
-            step["messages"][-1].pretty_print()
+    print(
+        """
+        1) Chat Bot
+        2) Website Content builder
+    """
+    )
+    try:
+        user_input = int(input("You : "))
+    except Exception:
+        user_input = 0
+
+    if user_input == 0:
+        print("Invalid Input")
+    if user_input == 1:
+        ChatBotBuilder().invoke()
+    if user_input == 2:
+        WebsiteContentBuilder().invoke()
