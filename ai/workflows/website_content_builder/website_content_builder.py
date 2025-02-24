@@ -26,10 +26,12 @@ class WebsiteContentBuilder(BaseBuilder):
 
     def invoke(self):
         app = self._connect_node_and_edge_and_compile()
-        response = app.invoke(
-            {"messages": [HumanMessage(content="Generate a About Me page")]}
+        events = app.stream(
+            {"messages": [HumanMessage(content="Generate a About Me page")]},
+            stream_mode="values",
         )
-        print(response)
+        for event in events:
+            event["messages"][-1].pretty_print()
 
     def _connect_node_and_edge_and_compile(self):
         self.graph_builder.add_node("CONTENTS", self._content_agent_node)
