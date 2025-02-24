@@ -1,7 +1,6 @@
 from langchain.chat_models import init_chat_model
+from langchain_google_genai import ChatGoogleGenerativeAI
 
 from ai.config import env
 
-google_llm = init_chat_model(
-    model_provider="google", temperature=env.temperature, model="gemini-1.5-pro"
-)
+google_llm = ChatGoogleGenerativeAI(temperature=env.temperature, model="gemini-1.5-pro")
