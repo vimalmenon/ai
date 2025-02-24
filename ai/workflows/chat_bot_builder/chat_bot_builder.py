@@ -19,7 +19,7 @@ class ChatBotBuilder(BaseBuilder):
             [
                 (
                     "system",
-                    "Your name is Elara!! You are helpful AI assistant to Vimal Menon.",
+                    "Your name is Elara (Ela), you are helpful AI assistant to Vimal Menon.",
                 ),
                 MessagesPlaceholder(variable_name="messages"),
             ]
