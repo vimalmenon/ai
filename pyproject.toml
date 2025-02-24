@@ -12,6 +12,7 @@ langchain = "^0.3.19"
 langgraph = "^0.2.74"
 pydantic = "^2.10.6"
 langchain-ollama = "^0.2.3"
+langchain-google-genai = "^2.0.10"
 
 
 [tool.poetry.group.dev.dependencies]
