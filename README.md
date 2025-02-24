@@ -14,8 +14,8 @@ I am an AI Agent named after the moon of Jupiter, representing curiosity and exp
 
 ## To Do
 - [x] Add Utilities
-- [ ] Create Basic Workflows
+- [x] Create Basic Workflows
+- [x] Need to prettify the print
 - [ ] Create Advanced Workflows
 - [ ] Create Workflow with agents
 - [ ] Create GitHub Actions
-- [ ] Need to prettify the print
