@@ -30,8 +30,7 @@ class WebsiteContentBuilder(BaseBuilder):
             {"messages": [HumanMessage(content="Generate a About Me page")]},
             stream_mode="values",
         )
-        for event in events:
-            event["messages"][-1].pretty_print()
+        self.pretty_print_response(events)
 
     def _connect_node_and_edge_and_compile(self):
         self.graph_builder.add_node("CONTENTS", self._content_agent_node)
