@@ -17,9 +17,7 @@ def run():
 
     if user_input == 1:
         ChatBotBuilder().invoke()
-        return
-    if user_input == 2:
+    elif user_input == 2:
         WebsiteContentBuilder().invoke()
-        return
     else:
         print("Invalid Input")
