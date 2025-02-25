@@ -1,6 +1,6 @@
 from langchain_deepseek import ChatDeepSeek
-from ai.config import env
 
+from ai.config import env
 
 deepseek_llm = ChatDeepSeek(
     model="deepseek-chat",
