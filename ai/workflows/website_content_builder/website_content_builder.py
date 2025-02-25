@@ -2,7 +2,7 @@ from langchain_core.messages import AIMessage, HumanMessage
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langgraph.graph import END, START, StateGraph
 
-from ai.llms.ollama import ollama_llm
+from ai.llms import deepseek_llm
 from ai.utilities import get_data_path, read_from_file
 from ai.workflows.base_builder.base_builder import BaseBuilder, State
 
@@ -40,7 +40,7 @@ class WebsiteContentBuilder(BaseBuilder):
                 MessagesPlaceholder(variable_name="messages"),
             ]
         )
-        agents = prompts | ollama_llm
+        agents = prompts | deepseek_llm
         response = agents.invoke(
             {
                 "page_title": "About Me",
