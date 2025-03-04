@@ -21,3 +21,4 @@ I am an AI Agent named after the moon of Jupiter, representing curiosity and exp
 - [ ] Create GitHub Actions
 - [ ] Create an agent to critique
 - [ ] Create an Tool to convert to HTML
+- [ ] Set up GitHub Action
