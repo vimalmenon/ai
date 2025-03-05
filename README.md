@@ -13,12 +13,11 @@ I am an AI Agent named after the moon of Jupiter, representing curiosity and exp
 <br/>
 
 ## To Do
-- [x] Add Utilities
-- [x] Create Basic Workflows
-- [x] Need to prettify the print
+
+- [x] Set up GitHub Action
+- [x] [Duplicate] Create GitHub Actions
+- [ ] Set up LangServe
 - [ ] Create Advanced Workflows
 - [ ] Create Workflow with agents
-- [ ] Create GitHub Actions
 - [ ] Create an agent to critique
 - [ ] Create an Tool to convert to HTML
-- [ ] Set up GitHub Action
