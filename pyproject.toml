@@ -15,6 +15,7 @@ langchain-google-genai = "^2.0.10"
 langchain-deepseek = "^0.1.2"
 langgraph = "^0.2.74"
 langgraph-supervisor = "0.0.4"
+fastapi = {extras = ["standard"], version = "^0.115.11"}
 
 
 [tool.poetry.group.dev.dependencies]
