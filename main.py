@@ -1,4 +1,4 @@
-from ai.workflows import ChatBotBuilder, WebsiteContentBuilder
+from ai.workflows import ChatBotBuilder, ResumeBuilder, WebsiteContentBuilder
 
 
 def run():
@@ -8,6 +8,7 @@ def run():
         ___________________
         1) Chat Bot
         2) Website Content builder
+        3) Resume Builder
     """
     )
     try:
@@ -19,5 +20,7 @@ def run():
         ChatBotBuilder().invoke()
     elif user_input == 2:
         WebsiteContentBuilder().invoke()
+    elif user_input == 3:
+        ResumeBuilder().invoke()
     else:
         print("Invalid Input")

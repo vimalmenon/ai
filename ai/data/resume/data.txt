@@ -1,0 +1,63 @@
+Name : Vimal Menon
+Location: HK
+LinkedIn: www.LinkedIn.com/real_vimal_menon
+Summery: Full-Stack Application Developer with extensive experience in the banking sector. Proven ability to deliver
+effective solutions to complex challenges. Strong adaptability to emerging technologies, leveraging AI to
+enhance problem-solving capabilities.
+
+Company: SocGen
+Position: Associate
+Duration: 06 September 2021 to Present
+Location: HK
+Technology: Python, FastAPI, ReactJs, PostgreSQL, typescript, LangChain, LangSmith, LangGraph, K8S, Docker
+Responsibility: 
+• Automate server lifecycle management, resulting in significant cost savings and increased efficiency.
+• Optimized various bank workflows and processes, leading to increased efficiency and reduced errors.
+• Automate repetitive and mundane tasks for higher-value activities.
+• Automated network processes, reducing manual errors and increasing network reliability.
+• Streamlined server inventory maintenance systems, ensuring accurate and up-to-date records and reducing
+administrative burdens.
+• Managed and deployed applications on the Private Cloud, ensuring scalability, security, and high availability.
+
+Company: Luxoft Hong Kong Pte. Limited.
+Position: Sr Software Engineer 
+Duration: 16 Nov 2020 to 13 Aug 2021
+Location: HK
+Technology: ReactJs, Javascript
+Responsibility:
+• Improved team efficiency by establishing coding standards and guidelines using various tools, resulting in
+reduced errors and improved code quality.
+• Conducted thorough code reviews to ensure adherence to coding standards.
+• Designed and developed reusable and highly configurable components to be used throughout the
+application.
+• Optimized app performance by structuring data and state for efficient utilization, resulting in improved user
+experience and speed.
+
+Company: Capgemini Hong Kong Limited.
+Position: Manager 
+Duration: 04 Nov 2019 to 08 Nov 2020
+Location: HK
+Technology: ReactJs, Javascript, Python, FastAPI
+Responsibility:
+• Guide mentor junior devs to meet the deliveries
+• Guide junior devs in efficiently using React and other UI libraries
+• Create reusable components and provide a sustainable and ready-to-expand structure for the application
+• Coordinate with other development teams and applications to understand the requirements and integrate
+with them
+
+
+Company: JP Morgan and Chase Pvt. Ltd.
+Position: Associate 
+Duration: 04 Apr 2016 to 07 Oct 2019
+Location: India
+Technology: ReactJs, Javascript, Java, SpringBoot, Java, Sybase
+Responsibility:
+• Develop end-to-end implementation as per the requirements.
+• Manage and maintain applications in React, SprintBoot, and Sybase
+
+CERTIFICATIONS
+name: Certified Kubernetes Application Developer (CKAD)
+Date Of Completion: 12 Nov 2023
+
+name: Microsoft Azure Fundamentals (AZ-900)
+Date Of Completion: 7 Oct 2024
