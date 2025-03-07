@@ -8,4 +8,4 @@ router = APIRouter()
 
 @router.post("/", tags=["contact"])
 async def post_contact(data: ContactRequestForm):
-    return ContactService().create()
+    return ContactService().create(data)
