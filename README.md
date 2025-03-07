@@ -17,6 +17,7 @@ I am an AI Agent named after the moon of Jupiter, representing curiosity and exp
 - [x] Set up GitHub Action
 - [x] [Duplicate] Create GitHub Actions
 - [x] Serve from FastAPI
+- [ ] Create Docker image
 - [ ] Need to handle Workflow much Better
 - [ ] Store WF from DynamoDB
 - [ ] Add PyTest
