@@ -8,4 +8,4 @@ class ContactData:
     title: str
     message: str
     read: bool
-    created_at: str
+    creation_date: str

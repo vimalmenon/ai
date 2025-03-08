@@ -14,6 +14,6 @@ class ContactService:
             title=data.title,
             message=data.message,
             read=False,
-            created_at=datetime.now().isoformat(),
+            creation_date=datetime.now().isoformat(),
         )
         return contact_data
