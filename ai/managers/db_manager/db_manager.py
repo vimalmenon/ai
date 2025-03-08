@@ -10,9 +10,6 @@ class DbManager:
         dynamodb = session.resource("dynamodb")
         self.table = dynamodb.Table(env.table)
 
-    def create(self):
-        return self.table.creation_date_time
-
     def add_item(self, item):
         return self.table.put_item(Item=item)
 
