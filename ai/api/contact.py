@@ -13,4 +13,4 @@ async def post_contact(data: ContactRequestForm):
 
 @router.get("/", tags=["contact"])
 async def get_contacts():
-    return [{"read": "tests"}]
+    return ContactService().get_items()

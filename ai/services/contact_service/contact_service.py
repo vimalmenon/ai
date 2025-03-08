@@ -10,8 +10,8 @@ class ContactService:
 
     def create(self, data: ContactRequestForm):
         contact_data = ContactData(
+            name="ai#contact",
             id=str(uuid4()),
-            app="ai#contact",
             title=data.title,
             message=data.message,
             read=False,
@@ -19,3 +19,6 @@ class ContactService:
         )
         DbManager().add_item(contact_data.toJSON())
         return contact_data
+
+    def get_items(self):
+        return DbManager().query_items("ai#contact")

@@ -3,8 +3,8 @@ from dataclasses import dataclass
 
 @dataclass
 class ContactData:
+    name: str
     id: str
-    app: str
     title: str
     message: str
     read: bool

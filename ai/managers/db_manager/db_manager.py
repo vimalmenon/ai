@@ -1,3 +1,5 @@
+from boto3.dynamodb.conditions import Key
+
 from ai.config.env import env
 from ai.managers.aws.session import Session
 
@@ -17,8 +19,12 @@ class DbManager:
     def remove_item(self, item):
         return self.table.delete_item(Key=item)
 
-    def query_items(self):
-        pass
+    def query_items(self, data):
+        return self.table.query(
+            Select="ALL_ATTRIBUTES",
+            ConsistentRead=True,
+            KeyConditionExpression=(Key("name").eq(data)),
+        )
 
     def update_item(self):
         pass
