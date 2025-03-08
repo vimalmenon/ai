@@ -14,3 +14,8 @@ async def post_contact(data: ContactRequestForm):
 @router.get("/", tags=["contact"])
 async def get_contacts():
     return ContactService().get_items()
+
+
+@router.delete("/{id}", tags=["contact"])
+async def delete_contact(id: str):
+    return ContactService().delete_item(id)

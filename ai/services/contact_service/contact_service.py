@@ -1,6 +1,8 @@
 from datetime import datetime
 from uuid import uuid4
 
+from boto3.dynamodb.conditions import Key
+
 from ai.managers import DbManager
 from ai.model import ContactRequestForm
 from ai.services.contact_service.contact_db_model import ContactData
@@ -21,4 +23,7 @@ class ContactService:
         return contact_data
 
     def get_items(self):
-        return DbManager().query_items("ai#contact")
+        return DbManager().query_items(Key("name").eq("ai#contact"))
+
+    def delete_item(self, id: str):
+        return DbManager().remove_item({"name": "ai#contact", "id": id})
