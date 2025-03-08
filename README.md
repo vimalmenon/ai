@@ -14,9 +14,10 @@ I am an AI Agent named after the moon of Jupiter, representing curiosity and exp
 
 ## To Do
 
-- [ ] Create service to get data
-- [ ] Create service to delete data
+- [x] Create service to get data
+- [x] Create service to delete data
 - [ ] Create service to update data
+- [ ] Set up Auth
 - [ ] Create Docker image
 - [ ] Need to handle Workflow much Better
 - [ ] Store WF from DynamoDB

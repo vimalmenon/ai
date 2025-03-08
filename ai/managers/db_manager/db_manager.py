@@ -29,5 +29,5 @@ class DbManager:
         except ClientError:
             return []
 
-    def update_item(self):
-        pass
+    def update_item(self, data):
+        return self.table.update_item(Key=data)
