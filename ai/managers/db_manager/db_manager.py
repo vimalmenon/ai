@@ -14,8 +14,8 @@ class DbManager:
     def add_item(self, item):
         return self.table.put_item(Item=item)
 
-    def remove_item(self):
-        pass
+    def remove_item(self, item):
+        return self.table.delete_item(Key=item)
 
     def query_items(self):
         pass

@@ -27,3 +27,9 @@ I am an AI Agent named after the moon of Jupiter, representing curiosity and exp
 - [ ] Create Workflow with agents
 - [ ] Create an agent to critique
 - [ ] Create an Tool to convert to HTML
+
+
+## Command
+```sh
+poetry run fastapi dev main.py
+```

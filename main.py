@@ -2,9 +2,9 @@ import uvicorn
 from fastapi import FastAPI
 
 from ai.api import router_contact
+from ai.config.env import env
 
-app = FastAPI()
-
+app = FastAPI(debug=env.debug)
 
 app.include_router(
     router_contact,
