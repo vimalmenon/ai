@@ -12,5 +12,5 @@ class LLmService:
         elif llm == "Google":
             self.item = google_llm
 
-    def get_llm(self):
+    def get_llm(self) -> Any | None:
         return self.item
