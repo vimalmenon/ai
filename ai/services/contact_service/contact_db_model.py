@@ -9,3 +9,6 @@ class ContactData:
     message: str
     read: bool
     creation_date: str
+
+    def toJSON(self):
+        return self.__dict__
