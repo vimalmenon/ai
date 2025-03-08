@@ -54,6 +54,7 @@ class ResumeBuilder(BaseBuilder):
         return create_supervisor(
             [resume_writer, resume_critique],
             model=deepseek_llm,
+            name="supervisor",
             prompt=(
                 "You are a team supervisor managing a resume writer and a resume critique. "
                 "Get feedback from critique once resume is written"
