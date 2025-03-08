@@ -30,4 +30,4 @@ class DbManager:
             return []
 
     def update_item(self, data):
-        return self.table.update_item(Key=data)
+        return self.table.update_item(**data)
