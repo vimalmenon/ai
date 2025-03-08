@@ -12,7 +12,7 @@ class ContactService:
     def __init__(self):
         self._name = "ai#contact"
 
-    def create(self, data: ContactRequestForm):
+    def add_item(self, data: ContactRequestForm):
         contact_data = ContactData(
             name=self._name,
             id=str(uuid4()),
