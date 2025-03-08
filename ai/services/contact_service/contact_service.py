@@ -9,10 +9,12 @@ from ai.services.contact_service.contact_db_model import ContactData
 
 
 class ContactService:
+    def __init__(self):
+        self._name = "ai#contact"
 
     def create(self, data: ContactRequestForm):
         contact_data = ContactData(
-            name="ai#contact",
+            name=self._name,
             id=str(uuid4()),
             title=data.title,
             message=data.message,
@@ -23,7 +25,7 @@ class ContactService:
         return contact_data
 
     def get_items(self):
-        return DbManager().query_items(Key("name").eq("ai#contact"))
+        return DbManager().query_items(Key("name").eq(self._name))
 
     def delete_item(self, id: str):
-        return DbManager().remove_item({"name": "ai#contact", "id": id})
+        return DbManager().remove_item({"name": self._name, "id": id})
