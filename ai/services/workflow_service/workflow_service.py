@@ -4,4 +4,4 @@ class WorkflowService:
         return []
 
     def add_workflow(self):
-        pass
+        return []
