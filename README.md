@@ -7,18 +7,33 @@ I am an AI Agent named after the moon of Jupiter, representing curiosity and exp
 
 <b>Name</b>: Elara
 <br/>
-<b>Version</b>: 0.0.2
+<b>Version</b>: 0.0.3
 <br/>
 <b>Email</b>: elara.ai@proton.me
 <br/>
 
 ## To Do
-- [x] Add Utilities
-- [x] Create Basic Workflows
-- [x] Need to prettify the print
+
+- [x] Set up GitHub Action
+- [x] [Duplicate] Create GitHub Actions
+- [x] Serve from FastAPI
+- [x] Create service to add data
+- [ ] Create service to get data
+- [ ] Create service to delete data
+- [ ] Create service to update data
+- [ ] Create Docker image
+- [ ] Need to handle Workflow much Better
+- [ ] Store WF from DynamoDB
+- [ ] Add PyTest
+- [ ] Create release with tag
+- [ ] Set up LangServe
 - [ ] Create Advanced Workflows
 - [ ] Create Workflow with agents
-- [ ] Create GitHub Actions
 - [ ] Create an agent to critique
 - [ ] Create an Tool to convert to HTML
-- [ ] Set up GitHub Action
+
+
+## Command
+```sh
+poetry run fastapi dev main.py
+```

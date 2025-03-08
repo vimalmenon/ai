@@ -1,23 +1,16 @@
-from ai.workflows import ChatBotBuilder, WebsiteContentBuilder
+import uvicorn
+from fastapi import FastAPI
+
+from ai.api import router_contact
+from ai.config.env import env
+
+app = FastAPI(debug=env.debug)
+
+app.include_router(
+    router_contact,
+    prefix="/contact",
+)
 
 
 def run():
-    print(
-        """
-        Choose a workflow:
-        ___________________
-        1) Chat Bot
-        2) Website Content builder
-    """
-    )
-    try:
-        user_input = int(input("You : "))
-    except Exception:
-        user_input = 0
-
-    if user_input == 1:
-        ChatBotBuilder().invoke()
-    elif user_input == 2:
-        WebsiteContentBuilder().invoke()
-    else:
-        print("Invalid Input")
+    uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)

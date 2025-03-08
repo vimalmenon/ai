@@ -3,7 +3,7 @@ name: Quality Check
 on: [push]
 
 jobs:
-  build:
+  quality-check:
     runs-on: ubuntu-latest
     strategy:
       matrix:
