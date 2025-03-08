@@ -32,3 +32,6 @@ class DbManager:
 
     def query_items(self):
         pass
+
+    def update_item(self):
+        pass
