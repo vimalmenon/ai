@@ -1,5 +1,6 @@
 from fastapi import APIRouter
 
+from ai.enum import LLMs
 from ai.services import WorkflowService
 from ai.workflows import TopicWorkflow
 
@@ -12,7 +13,7 @@ async def get_workflows():
     return WorkflowService().get_workflows()
 
 
-@router.post("/execute_workflow", tags=["workflow"])
-async def execute_workflow():
+@router.post("/execute_workflow/{llm}", tags=["workflow"])
+async def execute_workflow(llm: LLMs):
     """This will execute the workflow"""
-    return TopicWorkflow("Deepseek").execute()
+    return TopicWorkflow(llm).execute()

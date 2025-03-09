@@ -2,13 +2,14 @@ from langchain_core.messages import HumanMessage
 from langgraph.graph import END, START, StateGraph
 from langgraph.prebuilt import create_react_agent
 
+from ai.enum import LLMs
 from ai.exceptions.exception import LLmException
 from ai.services import LLmService
 from ai.workflows.base_builder.base_builder import State
 
 
 class TopicWorkflow:
-    def __init__(self, llm: str):
+    def __init__(self, llm: LLMs):
         self.llm_model = LLmService(llm=llm).get_llm()
         self.graph_builder = StateGraph(State)
         self.messages: list = []
