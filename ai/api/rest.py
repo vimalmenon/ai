@@ -1,9 +1,8 @@
-from uuid import uuid4
-
 from fastapi import APIRouter
 
 from ai.model import LLMResponse
 from ai.services import ListLLMServices
+from ai.utilities import generate_uuid
 
 router = APIRouter()
 
@@ -11,7 +10,7 @@ router = APIRouter()
 @router.get("/uuid/")
 async def get_uuid():
     """This List out all llm's"""
-    return {"data": uuid4()}
+    return {"data": generate_uuid()}
 
 
 @router.get("/llm", response_model=LLMResponse)
