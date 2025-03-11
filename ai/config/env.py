@@ -10,7 +10,7 @@ class Env(BaseModel):
     table: str = str(os.getenv("TABLE"))
     aws_client_id: str = str(os.getenv("AWS_CLIENT_ID"))
     aws_secret: str = str(os.getenv("AWS_SECRET"))
-    supported_llm: list[str] = ",".split(os.getenv("SUPPORTED_LLM"))
+    supported_llm: list[str] = os.getenv("SUPPORTED_LLM", "").split(",")
 
 
 env = Env()
