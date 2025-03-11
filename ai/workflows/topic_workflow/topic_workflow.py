@@ -9,6 +9,8 @@ from ai.workflows.base_builder.base_builder import State
 
 
 class TopicWorkflow:
+    wf_id = "9454830b-6daf-47f7-8fca-13d966660cf1"
+
     def __init__(self, llm: LLMs):
         self.llm_model = LLmService(llm=llm).get_llm()
         self.graph_builder = StateGraph(State)

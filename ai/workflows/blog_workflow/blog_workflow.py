@@ -6,6 +6,7 @@ from ai.services import LLmService
 
 
 class BlogWorkflow:
+    wf_id = "18aad31b-ef41-4853-a97a-17fd8647574c"
 
     def __init__(self, llm: LLMs):
         self.llm_model = LLmService(llm=llm).get_llm()

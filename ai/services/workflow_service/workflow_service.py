@@ -18,7 +18,12 @@ class WorkflowService:
                     {"name": "blog_critique", "type": "agent"},
                     {"name": "supervisor", "type": "supervisor"},
                 ],
-                "workflow": {},
+                "workflow": {
+                    "START": ["supervisor"],
+                    "supervisor": ["blog_writer", "blog_critique", "END"],
+                    "blog_writer": ["supervisor"],
+                    "blog_critique": ["supervisor"],
+                },
             },
         ]
 
