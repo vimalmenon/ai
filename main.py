@@ -1,7 +1,7 @@
 import uvicorn
 from fastapi import FastAPI
 
-from ai.api import router_contact, router_llm, router_rest, router_workflow
+from ai.api import router_contact, router_rest, router_workflow
 from ai.config.env import env
 
 app = FastAPI(debug=env.debug)
@@ -13,11 +13,6 @@ app.include_router(
 app.include_router(
     router_workflow,
     prefix="/workflow",
-)
-
-app.include_router(
-    router_llm,
-    prefix="/llm",
 )
 
 app.include_router(
