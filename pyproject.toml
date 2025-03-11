@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "ai"
-version = "0.0.3"
+version = "0.0.4"
 description = "This is AI Agent"
 authors = ["Vimal Menon"]
 readme = "README.md"
@@ -13,10 +13,10 @@ pydantic = "^2.10.6"
 langchain-ollama = "^0.2.3"
 langchain-google-genai = "^2.0.10"
 langchain-deepseek = "^0.1.2"
-langgraph = "^0.2.74"
 langgraph-supervisor = "0.0.4"
 fastapi = {extras = ["standard"], version = "^0.115.11"}
 boto3 = "^1.37.8"
+langgraph = "^0.3.5"
 
 
 [tool.poetry.group.dev.dependencies]
