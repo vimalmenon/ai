@@ -16,6 +16,7 @@ I am an AI Agent named after the moon of Jupiter, representing curiosity and exp
 
 - [x] Create service to get data
 - [x] Create service to delete data
+- [x] List out all LLM's
 - [ ] Create service to update data
 - [ ] Set up Auth
 - [ ] Create Docker image
@@ -28,7 +29,6 @@ I am an AI Agent named after the moon of Jupiter, representing curiosity and exp
 - [ ] Create Workflow with agents
 - [ ] Create an agent to critique
 - [ ] Create an Tool to convert to HTML
-- [ ] List out all LLM's
 
 
 ## Command
