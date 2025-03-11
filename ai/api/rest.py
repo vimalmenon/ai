@@ -1,7 +1,7 @@
 from fastapi import APIRouter
 
 from ai.model import LLMResponse
-from ai.services import ListLLMServices
+from ai.services import ListLLMServices, ToolService
 from ai.utilities import generate_uuid
 
 router = APIRouter()
@@ -17,3 +17,9 @@ async def get_uuid():
 async def get_llm():
     """This List out all llm's"""
     return {"data": ListLLMServices().list_llm_details()}
+
+
+@router.get("/tools")
+async def get_tools():
+    """This List out all available tools"""
+    return {"data": ToolService().get_tools()}
