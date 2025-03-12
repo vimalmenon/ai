@@ -15,6 +15,9 @@ I am an AI Agent named after the moon of Jupiter, representing curiosity and exp
 ## To Do
 
 - [ ] Create service to update data
+- [ ] Add upload to S3
+- [ ] Add delete from S3
+- [ ] Read from S3
 - [ ] Set up Auth
 - [ ] Create Docker image
 - [ ] Need to handle Workflow much Better
