@@ -12,6 +12,7 @@ class Env(BaseModel):
     aws_secret: str = str(os.getenv("AWS_SECRET"))
     supported_llm: list[str] = os.getenv("SUPPORTED_LLM", "").split(",")
     port: int = int(os.getenv("PORT", 8000))
+    bucket: str = str(os.getenv("S3_BUCKET"))
 
 
 env = Env()
