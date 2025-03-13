@@ -1,5 +1,6 @@
 from fastapi import APIRouter
 
+from ai.model import S3Request
 from ai.services import S3Service
 
 router = APIRouter()
@@ -18,5 +19,5 @@ async def read_items(item: str):
 
 
 @router.post("/upload_item", tags=["S3"])
-async def upload_item():
+async def upload_item(data: S3Request):
     return {"data": ""}

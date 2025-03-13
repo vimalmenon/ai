@@ -8,3 +8,6 @@ class S3Service:
 
     def read_item(self, _):
         return S3Manager().read_item()
+
+    def upload_item(self):
+        return ""
