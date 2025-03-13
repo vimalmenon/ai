@@ -25,4 +25,5 @@ async def upload_item(data: S3Request):
 
 @router.post("/sync", tags=["S3"])
 async def sync_bucket():
+    """Sync the data to Table"""
     return {"data": S3Service().sync_bucket()}

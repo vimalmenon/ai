@@ -37,5 +37,8 @@ class S3Manager:
     def read_item(self):
         return ""
 
+    def get_object(self, file_name: str):
+        return self.s3_client.get_object(Bucket=env.bucket, Key=file_name)
+
     def upload_item(self, buffer, file_name: str):
         self.s3_client.upload_fileobj(buffer, env.bucket, file_name)
