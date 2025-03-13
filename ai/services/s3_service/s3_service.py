@@ -19,3 +19,6 @@ class S3Service:
 
     def sync_bucket(self):
         return ""
+
+    def delete_item(self, file_name: str):
+        return S3Manager().delete_item(file_name)

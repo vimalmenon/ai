@@ -27,3 +27,9 @@ async def upload_item(data: S3Request):
 async def sync_bucket():
     """Sync the data to Table"""
     return {"data": S3Service().sync_bucket()}
+
+
+@router.delete("/delete_item/{item}", tags=["S3"])
+async def delete_item(item: str):
+    """Delete the item from S3 Bucket"""
+    return {"data": S3Service().delete_item(item)}

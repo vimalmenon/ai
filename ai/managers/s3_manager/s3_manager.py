@@ -22,20 +22,10 @@ class S3Manager:
                     name=item.key, last_modified=str(item.last_modified), size=item.size
                 )
             )
-        # objects = self.s3_client.list_objects_v2(
-        #     Bucket=env.bucket,
-        #     Delimiter='string',
-        # )
         return items
 
-    def put_item(self):
-        pass
-
-    def delete_item(self):
-        pass
-
-    def read_item(self):
-        return ""
+    def delete_item(self, file_name: str):
+        return self.s3_client.delete_object(Bucket=env.bucket, Key=file_name)
 
     def get_object(self, file_name: str):
         return self.s3_client.get_object(Bucket=env.bucket, Key=file_name)
