@@ -21,3 +21,8 @@ async def read_items(item: str):
 @router.post("/upload_item", tags=["S3"])
 async def upload_item(data: S3Request):
     return {"data": S3Service().upload_item(data)}
+
+
+@router.post("/sync", tags=["S3"])
+async def sync_bucket():
+    return {"data": S3Service().sync_bucket()}
