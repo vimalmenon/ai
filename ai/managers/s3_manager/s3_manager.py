@@ -35,4 +35,4 @@ class S3Manager:
         pass
 
     def read_item(self):
-        pass
+        return ""

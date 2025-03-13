@@ -7,4 +7,4 @@ class S3Service:
         return S3Manager().get_items()
 
     def read_item(self, _):
-        return ""
+        return S3Manager().read_item()
