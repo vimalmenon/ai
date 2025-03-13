@@ -15,3 +15,8 @@ async def get_items():
 async def read_items(item: str):
     """Read the data based on item key provided"""
     return {"data": S3Service().read_item(item)}
+
+
+@router.post("/upload_item", tags=["S3"])
+async def upload_item():
+    return {"data": ""}
