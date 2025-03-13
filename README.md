@@ -16,6 +16,7 @@ I am an AI Agent named after the moon of Jupiter, representing curiosity and exp
 
 - [x] Add upload to S3
 - [x] Read from S3
+- [x] Create an agent to critique
 - [ ] Create service to update data
 - [ ] Add delete from S3
 - [ ] Set up Auth
@@ -27,7 +28,6 @@ I am an AI Agent named after the moon of Jupiter, representing curiosity and exp
 - [ ] Set up LangServe
 - [ ] Create Advanced Workflows
 - [ ] Create Workflow with agents
-- [ ] Create an agent to critique
 - [ ] Create an Tool to convert to HTML
 
 
