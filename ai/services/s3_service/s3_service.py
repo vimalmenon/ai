@@ -1,3 +1,5 @@
+import io
+
 from ai.managers import S3Manager
 
 
@@ -9,5 +11,7 @@ class S3Service:
     def read_item(self, _):
         return S3Manager().read_item()
 
-    def upload_item(self):
+    def upload_item(self, data):
+        f = io.StringIO(data.data)
+        S3Manager().upload_item(io.BytesIO(f.read().encode("utf8")))
         return ""
