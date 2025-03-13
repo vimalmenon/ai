@@ -13,5 +13,5 @@ class S3Service:
 
     def upload_item(self, data):
         f = io.StringIO(data.data)
-        S3Manager().upload_item(io.BytesIO(f.read().encode("utf8")))
+        S3Manager().upload_item(io.BytesIO(f.read().encode("utf8")), data.name)
         return ""
