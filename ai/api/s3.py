@@ -8,10 +8,10 @@ router = APIRouter()
 @router.get("/", tags=["S3"])
 async def get_items():
     """Get data from S3 Bucket data"""
-    return S3Service().get_items()
+    return {"data": S3Service().get_items()}
 
 
 @router.get("/read_item/{item}", tags=["S3"])
 async def read_items(item: str):
     """Read the data based on item key provided"""
-    return S3Service().read_item(item)
+    return {"data": S3Service().read_item(item)}
