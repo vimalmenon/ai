@@ -22,7 +22,6 @@ class S3Manager:
                     name=item.key, last_modified=str(item.last_modified), size=item.size
                 )
             )
-            breakpoint()
         # objects = self.s3_client.list_objects_v2(
         #     Bucket=env.bucket,
         #     Delimiter='string',
