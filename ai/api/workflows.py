@@ -10,7 +10,7 @@ router = APIRouter()
 @router.get("", tags=["workflow"])
 async def get_workflows():
     """This List out all workflows details"""
-    return WorkflowService().get_workflows()
+    return {"data": WorkflowService().get_workflows()}
 
 
 @router.post("/execute_workflow/{llm}", tags=["workflow"])
