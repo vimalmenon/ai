@@ -1526,13 +1526,13 @@ xai = ["langchain-xai"]
 
 [[package]]
 name = "langchain-core"
-version = "0.3.44"
+version = "0.3.45"
 description = "Building applications with LLMs through composability"
 optional = false
 python-versions = "<4.0,>=3.9"
 files = [
-    {file = "langchain_core-0.3.44-py3-none-any.whl", hash = "sha256:d989ce8bd62f1d07765acd575e6ec1254aec0cf7775aaea39fe4af8102377459"},
-    {file = "langchain_core-0.3.44.tar.gz", hash = "sha256:7c0a01e78360f007cbca448178fe7e032404068e6431dbe8ce905f84febbdfa5"},
+    {file = "langchain_core-0.3.45-py3-none-any.whl", hash = "sha256:fe560d644c102c3f5dcfb44eb5295e26d22deab259fdd084f6b1b55a0350b77c"},
+    {file = "langchain_core-0.3.45.tar.gz", hash = "sha256:a39b8446495d1ea97311aa726478c0a13ef1d77cb7644350bad6d9d3c0141a0c"},
 ]
 
 [package.dependencies]
@@ -1626,13 +1626,13 @@ langchain-core = ">=0.3.34,<1.0.0"
 
 [[package]]
 name = "langgraph"
-version = "0.3.9"
+version = "0.3.10"
 description = "Building stateful, multi-actor applications with LLMs"
 optional = false
 python-versions = "<4.0,>=3.9.0"
 files = [
-    {file = "langgraph-0.3.9-py3-none-any.whl", hash = "sha256:836ef8568da14443ed2c23cd6f5de8b6c75b7f4945bcd315ae7a0e1e33cef0d4"},
-    {file = "langgraph-0.3.9.tar.gz", hash = "sha256:9ced13587697de3a28c14d6ef68e879596fbde770b893d9ce394eb913c282903"},
+    {file = "langgraph-0.3.10-py3-none-any.whl", hash = "sha256:60cd9bbc16843cc6a9de33012d0a12e93ce1a69b90b568ea49971b92a293be7f"},
+    {file = "langgraph-0.3.10.tar.gz", hash = "sha256:0b6275b00037b6261e7c94469eb4555b22b224babe0ad56d3770b5878fc4afd0"},
 ]
 
 [package.dependencies]
