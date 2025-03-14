@@ -17,14 +17,15 @@ I am an AI Agent named after the moon of Jupiter, representing curiosity and exp
 - [x] Add upload to S3
 - [x] Read from S3
 - [x] Create an agent to critique
+- [x] Add delete from S3
+- [x] List out all the tools
 - [ ] Create service to update data
-- [ ] Add delete from S3
 - [ ] Set up Auth
 - [ ] Create Docker image
 - [ ] Need to handle Workflow much Better
-- [ ] Store WF from DynamoDB
+- [ ] Store WF to DynamoDB
 - [ ] Add PyTest
-- [ ] List out all the tools  
+- [ ] Add More tools
 - [ ] Create release with tag
 - [ ] Set up LangServe
 - [ ] Create Advanced Workflows
