@@ -12,4 +12,9 @@ class ToolService:
                 "name": "Upload To S3 Bucket",
                 "tool_name": "save_to_s3",
             },
+            {
+                "id": "6d73d308-733a-453d-90fb-707a6c215760",
+                "name": "Save to DB",
+                "tool_name": "save_to_db",
+            },
         ]
