@@ -1,5 +1,5 @@
 from ai.managers import DbManager
-from ai.services.workflow_service.workflow_data import WorkflowItem
+from ai.services.workflow_service.workflow_data import WorkflowDBItem
 from ai.utilities import generate_uuid
 
 
@@ -45,7 +45,7 @@ class WorkflowService:
     def create_workflow(self, data):
         uuid = generate_uuid()
         key = "AI#WORKFLOWS"
-        item = WorkflowItem(name=key, id=uuid, wf_name=data.name, detail=data.detail)
+        item = WorkflowDBItem(name=key, id=uuid, wf_name=data.name, detail=data.detail)
         DbManager().add_item(item.to_json())
         return item.to_json()
 

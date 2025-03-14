@@ -1,16 +1,21 @@
-from dataclasses import dataclass
+from ai.model.base_db import BaseDb
 
 
-@dataclass
-class WorkflowItem:
-    name: str
+class WorkflowDBItem(BaseDb):
     id: str
-    wf_name: str
+    name: str
     detail: str
+
+    def __init__(self, table, app_id, id, name, detail):
+        super().__init__(table, app_id, id, name, detail)
+        self.id = id
+        self.name = name
+        self.detail = detail
 
     def to_json(self):
         return {
-            "name": self.name,
+            "table": self.table,
+            "app_id": self.app_id,
             "id": self.id,
             "wf_name": self.name,
             "detail": self.detail,
