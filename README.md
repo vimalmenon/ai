@@ -24,6 +24,7 @@ I am an AI Agent named after the moon of Jupiter, representing curiosity and exp
 - [ ] Need to handle Workflow much Better
 - [ ] Store WF from DynamoDB
 - [ ] Add PyTest
+- [ ] List out all the tools  
 - [ ] Create release with tag
 - [ ] Set up LangServe
 - [ ] Create Advanced Workflows
