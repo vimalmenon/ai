@@ -17,6 +17,8 @@ class WorkflowDBItem(BaseDb):
             "table": self.table,
             "app_id": self.app_id,
             "id": self.id,
-            "wf_name": self.name,
+            "name": self.name,
             "detail": self.detail,
+            "created_date": self.created_date,
+            "updated_date": self.updated_date,
         }

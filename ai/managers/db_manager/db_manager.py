@@ -16,12 +16,12 @@ class DbManager:
     def remove_item(self, data):
         return self.table.delete_item(Key=data)
 
-    def query_items(self, data):
+    def query_items(self, keys):
         try:
             return self.table.query(
                 Select="ALL_ATTRIBUTES",
                 ConsistentRead=True,
-                KeyConditionExpression=(data),
+                KeyConditionExpression=(keys),
             )["Items"]
         except ClientError:
             return []
