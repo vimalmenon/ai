@@ -65,3 +65,15 @@ class WorkflowService:
         if len(items) == 1:
             return items[0]
         return None
+
+    def create_workflow_node(self, id):
+        table = f"AI#WORKFLOW#{id}"
+        uuid = generate_uuid()
+        return {
+            "table": table,
+            "app_id": uuid,
+            "id": uuid,
+        }
+
+    def update_workflow_node(self, id):
+        return {"id": id}
