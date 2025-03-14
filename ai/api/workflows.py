@@ -15,15 +15,21 @@ async def get_workflows():
 
 
 @router.put("/create", tags=["workflow"])
-async def create_workflow(data: CreateWorkflowRequest):
+async def create_workflow(body: CreateWorkflowRequest):
     """Create workflow to execute"""
-    return {"data": WorkflowService().create_workflow(data)}
+    return {"data": WorkflowService().create_workflow(body)}
 
 
 @router.post("/execute_workflow/{llm}", tags=["workflow"])
 async def execute_workflow(llm: LLMs):
     """This will execute the workflow"""
     return TopicWorkflow(llm).execute()
+
+
+@router.delete("/{id}", tags=["workflow"])
+async def delete_workflows_by_id(id: str):
+    """Give the workflow detail by ID"""
+    return {"data": WorkflowService().delete_workflows_by_id(id)}
 
 
 @router.get("/{id}", tags=["workflow"])
