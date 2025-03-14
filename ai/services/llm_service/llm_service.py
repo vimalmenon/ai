@@ -39,3 +39,7 @@ class ListLLMServices:
                 "supported": LLMs.OLLAMA.value in env.supported_llm,
             },
         ]
+
+
+class CreateLLMServices:
+    pass

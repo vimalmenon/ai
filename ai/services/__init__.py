@@ -1,3 +1,4 @@
+from ai.services.agent_service.agent_service import AgentService
 from ai.services.contact_service.contact_service import ContactService
 from ai.services.llm_service.llm_service import ListLLMServices, LLmService
 from ai.services.s3_service.s3_service import S3Service
@@ -11,4 +12,5 @@ __all__ = [
     "ListLLMServices",
     "ToolService",
     "S3Service",
+    "AgentService",
 ]
