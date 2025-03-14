@@ -50,4 +50,6 @@ class WorkflowService:
         return item.to_json()
 
     def get_workflow_by_id(self, id):
-        return {"id": id}
+        table = "AI#WORKFLOWS"
+        app_id = id
+        return {"id": app_id, "table": table}
