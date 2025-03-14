@@ -10,7 +10,7 @@ router = APIRouter()
 
 @router.get("", tags=["workflow"])
 async def get_workflows():
-    """This List out all workflows details"""
+    """This list out all workflows details"""
     return {"data": WorkflowService().get_workflows()}
 
 
@@ -24,3 +24,9 @@ async def create_workflow(data: CreateWorkflowRequest):
 async def execute_workflow(llm: LLMs):
     """This will execute the workflow"""
     return TopicWorkflow(llm).execute()
+
+
+@router.get("/{id}", tags=["workflow"])
+async def get_workflows_by_id(id: str):
+    """Give the workflow detail by ID"""
+    return {"data": WorkflowService().get_workflow_by_id(id)}

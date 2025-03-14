@@ -48,3 +48,6 @@ class WorkflowService:
         item = WorkflowItem(name=key, id=uuid, wf_name=data.name, detail=data.detail)
         DbManager().add_item(item.to_json())
         return item.to_json()
+
+    def get_workflow_by_id(self, id):
+        return {"id": id}
