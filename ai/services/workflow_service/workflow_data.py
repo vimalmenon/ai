@@ -7,7 +7,7 @@ class WorkflowDBItem(BaseDb):
     detail: str
 
     def __init__(self, table, app_id, id, name, detail):
-        super().__init__(table, app_id, id, name, detail)
+        super().__init__(table, app_id)
         self.id = id
         self.name = name
         self.detail = detail
