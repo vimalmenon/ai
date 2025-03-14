@@ -17,7 +17,7 @@ async def get_workflows():
 @router.put("/create", tags=["workflow"])
 async def create_workflow(data: CreateWorkflowRequest):
     """Create workflow to execute"""
-    return {"data": []}
+    return {"data": WorkflowService().create_workflow(data)}
 
 
 @router.post("/execute_workflow/{llm}", tags=["workflow"])
