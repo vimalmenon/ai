@@ -14,7 +14,7 @@ I am an AI Agent named after the moon of Jupiter, representing curiosity and exp
 
 ## To Do
 
-- [x] Service the WF as API
+- [x] Serve the WF as API
 - [ ] Create service to update data
 - [ ] Set up Auth
 - [ ] Create Docker image
