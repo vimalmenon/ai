@@ -6,13 +6,13 @@ from ai.services import ContactService
 router = APIRouter()
 
 
-@router.post("/", tags=["contact"])
+@router.post("", tags=["contact"])
 async def post_contact(data: ContactRequestForm):
     """This Add contact"""
     return ContactService().add_item(data)
 
 
-@router.get("/", tags=["contact"])
+@router.get("", tags=["contact"])
 async def get_contacts():
     """This List out all contact details"""
     return ContactService().get_items()

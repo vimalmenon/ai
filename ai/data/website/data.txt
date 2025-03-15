@@ -1,0 +1,8 @@
+About Me:
+    My Name : Vimal Menon
+    Location : Hong Kong
+    Interest : Software Engineering, AI
+    Expertise: Python, JavaScript, AI
+    YouTube Channel: real_vimal_menon
+    Email: realvimalmenon@proton.me
+    Details: I make blogs and videos on my interested topic. 

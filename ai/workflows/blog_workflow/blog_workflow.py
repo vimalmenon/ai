@@ -3,11 +3,14 @@ from langgraph.prebuilt import create_react_agent
 from ai.enum import LLMs
 from ai.exceptions.exception import LLmException
 from ai.services import LLmService
+from ai.utilities import generate_uuid
 
 
 class BlogWorkflow:
+    wf_id = "18aad31b-ef41-4853-a97a-17fd8647574c"
 
     def __init__(self, llm: LLMs):
+        self.id = generate_uuid()
         self.llm_model = LLmService(llm=llm).get_llm()
         if not self.llm_model:
             raise LLmException(detail="LLM not selected")

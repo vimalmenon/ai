@@ -5,11 +5,15 @@ from langgraph.prebuilt import create_react_agent
 from ai.enum import LLMs
 from ai.exceptions.exception import LLmException
 from ai.services import LLmService
+from ai.utilities import generate_uuid
 from ai.workflows.base_builder.base_builder import State
 
 
 class TopicWorkflow:
+    wf_id = "9454830b-6daf-47f7-8fca-13d966660cf1"
+
     def __init__(self, llm: LLMs):
+        self.id = generate_uuid()
         self.llm_model = LLmService(llm=llm).get_llm()
         self.graph_builder = StateGraph(State)
         self.messages: list = []

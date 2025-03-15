@@ -7,27 +7,29 @@ I am an AI Agent named after the moon of Jupiter, representing curiosity and exp
 
 <b>Name</b>: Elara
 <br/>
-<b>Version</b>: 0.0.4
+<b>Version</b>: 0.0.5
 <br/>
 <b>Email</b>: elara.ai@proton.me
 <br/>
 
 ## To Do
 
-- [x] Create service to get data
-- [x] Create service to delete data
-- [x] List out all LLM's
+- [x] Add upload to S3
+- [x] Read from S3
+- [x] Create an agent to critique
+- [x] Add delete from S3
+- [x] List out all the tools
 - [ ] Create service to update data
 - [ ] Set up Auth
 - [ ] Create Docker image
 - [ ] Need to handle Workflow much Better
-- [ ] Store WF from DynamoDB
+- [ ] Store WF to DynamoDB
 - [ ] Add PyTest
+- [ ] Add More tools
 - [ ] Create release with tag
 - [ ] Set up LangServe
 - [ ] Create Advanced Workflows
 - [ ] Create Workflow with agents
-- [ ] Create an agent to critique
 - [ ] Create an Tool to convert to HTML
 
 
