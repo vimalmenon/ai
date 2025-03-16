@@ -11,6 +11,7 @@ class WorkflowDBItem(BaseDb):
         self.id = id
         self.name = name
         self.detail = detail
+        self.nodes = {}
 
     def to_json(self):
         return {
@@ -21,4 +22,5 @@ class WorkflowDBItem(BaseDb):
             "detail": self.detail,
             "created_date": self.created_date,
             "updated_date": self.updated_date,
+            "nodes": self.nodes,
         }

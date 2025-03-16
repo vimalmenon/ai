@@ -12,3 +12,7 @@ class WorkflowNodeRequest(BaseModel):
     type: str | None
     llm: str | None
     connections: list[str] | None
+
+
+class CreateNodeRequest(BaseModel):
+    name: str

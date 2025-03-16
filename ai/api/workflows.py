@@ -1,7 +1,7 @@
 from fastapi import APIRouter
 
 from ai.enum import LLMs
-from ai.model import CreateWorkflowRequest
+from ai.model import CreateNodeRequest, CreateWorkflowRequest
 from ai.services import WorkflowService
 from ai.workflows import TopicWorkflow
 
@@ -20,14 +20,14 @@ async def create_workflow(body: CreateWorkflowRequest):
     return {"data": WorkflowService().create_workflow(body)}
 
 
-@router.put("/node/create/{id}", tags=["workflow"])
-async def create_workflow_node(id: str):
+@router.put("/node/create/{wf_id}", tags=["workflow"])
+async def create_workflow_node(wf_id: str, body: CreateNodeRequest):
     """Create the node for workflow"""
-    return {"data": WorkflowService().create_workflow_node(id)}
+    return {"data": WorkflowService().create_workflow_node(wf_id, body)}
 
 
-@router.put("/node/updated/{id}", tags=["workflow"])
-async def update_workflow_node(id: str):
+@router.post("/node/updated/{wf_id}/{id}", tags=["workflow"])
+async def update_workflow_node(wf_id: str, id: str):
     """Updated the node for workflow"""
     return {"data": WorkflowService().update_workflow_node(id)}
 

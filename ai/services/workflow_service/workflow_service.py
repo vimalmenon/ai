@@ -66,14 +66,19 @@ class WorkflowService:
             return items[0]
         return None
 
-    def create_workflow_node(self, id):
-        table = f"AI#WORKFLOW#{id}"
-        uuid = generate_uuid()
-        return {
-            "table": table,
-            "app_id": uuid,
-            "id": uuid,
-        }
+    def create_workflow_node(self, wf_id, body):
+        item = DbManager().get_item({"table": "AI#WORKFLOWS", "app_id": wf_id})
+        if item:
+            uuid = generate_uuid()
+            nodes = item.get("nodes", {})
+            nodes[uuid] = {"id": uuid, "name": body.name}
+            new_items = {**item, "nodes": nodes}
+            DbManager().update_item(
+                Key={"table": "AI#WORKFLOWS", "app_id": wf_id},
+                UpdateExpression="set nodes= :nodes",
+                ExpressionAttributeValues={":nodes": nodes},
+            )
+            return new_items
 
     def update_workflow_node(self, id):
         return {"id": id}
