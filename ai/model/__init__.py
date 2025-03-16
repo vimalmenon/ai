@@ -4,6 +4,7 @@ from ai.model.s3 import S3Item, S3Request
 from ai.model.workflow import (
     CreateNodeRequest,
     CreateWorkflowRequest,
+    UpdateWorkflowRequest,
     WorkflowNodeRequest,
 )
 
@@ -15,4 +16,5 @@ __all__ = [
     "CreateWorkflowRequest",
     "WorkflowNodeRequest",
     "CreateNodeRequest",
+    "UpdateWorkflowRequest",
 ]

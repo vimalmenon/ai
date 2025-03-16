@@ -55,6 +55,9 @@ class WorkflowService:
         DbManager().add_item(item.to_json())
         return item.to_json()
 
+    def update_workflow(self, id):
+        pass
+
     def delete_workflows_by_id(self, id):
         table = "AI#WORKFLOWS"
         return DbManager().remove_item({"table": table, "app_id": id})
