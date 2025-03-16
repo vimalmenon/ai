@@ -32,6 +32,12 @@ async def update_workflow_node(wf_id: str, id: str):
     return {"data": WorkflowService().update_workflow_node(id)}
 
 
+@router.delete("/node/delete/{wf_id}/{id}", tags=["workflow"])
+async def delete_workflow_node(wf_id: str, id: str):
+    """Delete the node for workflow"""
+    return {"data": WorkflowService().delete_workflow_nodes(wf_id, id)}
+
+
 @router.post("/execute_workflow/{llm}", tags=["workflow"])
 async def execute_workflow(llm: LLMs):
     """This will execute the workflow"""

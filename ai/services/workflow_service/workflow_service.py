@@ -61,10 +61,24 @@ class WorkflowService:
 
     def get_workflow_by_id(self, id):
         table = "AI#WORKFLOWS"
-        items = DbManager().query_items(Key("table").eq(table) & Key("app_id").eq(id))
-        if len(items) == 1:
-            return items[0]
+        # items = DbManager().query_items(Key("table").eq(table) & Key("app_id").eq(id))
+        item = DbManager().get_item({"table": table, "app_id": id})
+        if item:
+            return item
         return None
+
+    def delete_workflow_nodes(self, wf_id, id):
+        item = DbManager().get_item({"table": "AI#WORKFLOWS", "app_id": wf_id})
+        if item:
+            nodes = item.get("nodes", {})
+            del nodes[id]
+            new_items = {**item, "nodes": nodes}
+            DbManager().update_item(
+                Key={"table": "AI#WORKFLOWS", "app_id": wf_id},
+                UpdateExpression="set nodes= :nodes",
+                ExpressionAttributeValues={":nodes": nodes},
+            )
+            return new_items
 
     def create_workflow_node(self, wf_id, body):
         item = DbManager().get_item({"table": "AI#WORKFLOWS", "app_id": wf_id})
