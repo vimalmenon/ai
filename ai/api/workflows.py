@@ -20,12 +20,6 @@ async def create_workflow(body: CreateWorkflowRequest):
     return {"data": WorkflowService().create_workflow(body)}
 
 
-@router.post("/execute_workflow/{llm}", tags=["workflow"])
-async def execute_workflow(llm: LLMs):
-    """This will execute the workflow"""
-    return TopicWorkflow(llm).execute()
-
-
 @router.put("/node/create/{id}", tags=["workflow"])
 async def create_workflow_node(id: str):
     """Create the node for workflow"""
@@ -36,6 +30,12 @@ async def create_workflow_node(id: str):
 async def update_workflow_node(id: str):
     """Updated the node for workflow"""
     return {"data": WorkflowService().update_workflow_node(id)}
+
+
+@router.post("/execute_workflow/{llm}", tags=["workflow"])
+async def execute_workflow(llm: LLMs):
+    """This will execute the workflow"""
+    return TopicWorkflow(llm).execute()
 
 
 @router.delete("/{id}", tags=["workflow"])

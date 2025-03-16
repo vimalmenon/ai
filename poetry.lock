@@ -3024,13 +3024,13 @@ typing-extensions = ">=3.7.4.3"
 
 [[package]]
 name = "types-awscrt"
-version = "0.24.1"
+version = "0.24.2"
 description = "Type annotations and code completion for awscrt"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "types_awscrt-0.24.1-py3-none-any.whl", hash = "sha256:f3f2578ff74a254a79882b95961fb493ba217cebc350b3eb239d1cd948d4d7fa"},
-    {file = "types_awscrt-0.24.1.tar.gz", hash = "sha256:fc6eae56f8dc5a3f8cc93cc2c7c332fa82909f8284fbe25e014c575757af397d"},
+    {file = "types_awscrt-0.24.2-py3-none-any.whl", hash = "sha256:345ab84a4f75b26bfb816b249657855824a4f2d1ce5b58268c549f81fce6eccc"},
+    {file = "types_awscrt-0.24.2.tar.gz", hash = "sha256:5826baf69ad5d29c76be49fc7df00222281fa31b14f99e9fb4492d71ec98fea5"},
 ]
 
 [[package]]
