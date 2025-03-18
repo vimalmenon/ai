@@ -16,7 +16,17 @@ class WorkflowNodeRequest(BaseModel):
     prompt: str | None
     type: str | None
     llm: str | None
-    connections: list[str] | None
+    tools: list[str] | None
+    # connections: Optional[list[str]] | None
+
+    def to_dict(self):
+        return {
+            "name": self.name,
+            "prompt": self.prompt,
+            "type": self.type,
+            "llm": self.llm,
+            "tools": self.tools,
+        }
 
 
 class CreateNodeRequest(BaseModel):

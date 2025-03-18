@@ -97,5 +97,20 @@ class WorkflowService:
             )
             return new_items
 
-    def update_workflow_node(self, id):
-        return {"id": id}
+    def update_workflow_node(self, wf_id, id, data):
+        item = DbManager().get_item({"table": "AI#WORKFLOWS", "app_id": wf_id})
+        if item:
+            nodes = item.get("nodes", {})
+            node = nodes.get(id, {})
+            new_data = {
+                **node,
+                **data.to_dict(),
+            }
+            nodes[id] = new_data
+            new_items = {**item, "nodes": nodes}
+            DbManager().update_item(
+                Key={"table": "AI#WORKFLOWS", "app_id": wf_id},
+                UpdateExpression="set nodes= :nodes",
+                ExpressionAttributeValues={":nodes": nodes},
+            )
+            return new_items
