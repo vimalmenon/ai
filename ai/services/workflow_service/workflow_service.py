@@ -8,41 +8,6 @@ from ai.utilities import generate_uuid
 class WorkflowService:
 
     def get_workflows(self):
-        #  [
-        #     {
-        #         "id": "9454830b-6daf-47f7-8fca-13d966660cf1",
-        #         "name": "TopicWorkflow",
-        #         "detail": "This workflow generate topic for blogs",
-        #         "agents": [
-        #             {
-        #                 "name": "topic_writer",
-        #                 "type": "agent",
-        #                 "prompt": (
-        #                     "You have to come up with 10 titles for the blogs based on topic."
-        #                     "Give the output as a list."
-        #                     "Topic should be innovative and interesting"
-        #                 ),
-        #             }
-        #         ],
-        #         "connections": {"START": ["topic_writer"], "topic_writer": ["END"]},
-        #     },
-        #     {
-        #         "id": "18aad31b-ef41-4853-a97a-17fd8647574c",
-        #         "name": "BlogWorkflow",
-        #         "detail": "This workflow help to create blogs",
-        #         "agents": [
-        #             {"name": "blog_writer", "type": "agent"},
-        #             {"name": "blog_critique", "type": "agent"},
-        #             {"name": "supervisor", "type": "supervisor"},
-        #         ],
-        #         "connections": {
-        #             "START": ["supervisor"],
-        #             "supervisor": ["blog_writer", "blog_critique", "END"],
-        #             "blog_writer": ["supervisor"],
-        #             "blog_critique": ["supervisor"],
-        #         },
-        #     },
-        # ]
         table = "AI#WORKFLOWS"
         return DbManager().query_items(Key("table").eq(table))
 
@@ -55,8 +20,23 @@ class WorkflowService:
         DbManager().add_item(item.to_json())
         return item.to_json()
 
-    def update_workflow(self, id):
-        pass
+    def update_workflow(self, id, data):
+        table = "AI#WORKFLOWS"
+        item = DbManager().get_item({"table": table, "app_id": id})
+        if item:
+            (
+                update_expression,
+                expression_attribute_values,
+                expression_attribute_names,
+            ) = self._get_workflow_details(data)
+            breakpoint()
+            DbManager().update_item(
+                Key={"table": "AI#WORKFLOWS", "app_id": id},
+                UpdateExpression=update_expression,
+                ExpressionAttributeValues=expression_attribute_values,
+                ExpressionAttributeNames=expression_attribute_names,
+            )
+            return item
 
     def delete_workflows_by_id(self, id):
         table = "AI#WORKFLOWS"
@@ -114,3 +94,37 @@ class WorkflowService:
                 ExpressionAttributeValues={":nodes": nodes},
             )
             return new_items
+
+    def _get_workflow_details(self, data):
+        expression = {}
+        if data.name:
+            expression["name"] = {
+                "name": "#name",
+                "key": ":name",
+                "value": data.name,
+            }
+        if data.detail:
+            expression["detail"] = {
+                "name": "#detail",
+                "key": ":detail",
+                "value": data.detail,
+            }
+        if data.complete:
+            expression["complete"] = {
+                "name": "#complete",
+                "key": ":complete",
+                "value": data.complete,
+            }
+        update_expression = []
+        expression_attribute_values = {}
+        expression_attribute_names = {}
+        for key, value in expression.items():
+            update_expression.append(f"{value['name']} = {value['key']}")
+            expression_attribute_values[value["key"]] = value["value"]
+            expression_attribute_names[value["name"]] = key
+
+        return (
+            "set " + ", ".join(update_expression),
+            expression_attribute_values,
+            expression_attribute_names,
+        )

@@ -26,9 +26,9 @@ async def create_workflow(body: CreateWorkflowRequest):
 
 
 @router.post("/{id}", tags=["workflow"])
-async def update_workflow(wf_id: str, body: UpdateWorkflowRequest):
+async def update_workflow(id: str, body: UpdateWorkflowRequest):
     """Update workflow"""
-    return {"data": WorkflowService().update_workflow(wf_id)}
+    return {"data": WorkflowService().update_workflow(id, body)}
 
 
 @router.put("/node/{wf_id}", tags=["workflow"])
