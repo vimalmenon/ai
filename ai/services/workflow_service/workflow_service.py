@@ -29,7 +29,6 @@ class WorkflowService:
                 expression_attribute_values,
                 expression_attribute_names,
             ) = self._get_workflow_details(data)
-            breakpoint()
             DbManager().update_item(
                 Key={"table": "AI#WORKFLOWS", "app_id": id},
                 UpdateExpression=update_expression,
