@@ -17,6 +17,7 @@ class WorkflowNodeRequest(BaseModel):
     type: str | None
     llm: str | None
     tools: list[str] | None
+    input: str | None
     # connections: Optional[list[str]] | None
 
     def to_dict(self):
@@ -26,6 +27,7 @@ class WorkflowNodeRequest(BaseModel):
             "type": self.type,
             "llm": self.llm,
             "tools": self.tools,
+            "input": self.input,
         }
 
 

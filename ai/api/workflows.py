@@ -1,6 +1,5 @@
 from fastapi import APIRouter
 
-from ai.enum import LLMs
 from ai.model import (
     CreateNodeRequest,
     CreateWorkflowRequest,
@@ -8,7 +7,7 @@ from ai.model import (
     WorkflowNodeRequest,
 )
 from ai.services import WorkflowService
-from ai.workflows import TopicWorkflow
+from ai.workflows import ExecuteWorkflow
 
 router = APIRouter()
 
@@ -49,10 +48,10 @@ async def delete_workflow_node(wf_id: str, id: str):
     return {"data": WorkflowService().delete_workflow_nodes(wf_id, id)}
 
 
-@router.post("/execute_workflow/{llm}", tags=["workflow"])
-async def execute_workflow(llm: LLMs):
+@router.post("/execute/{wf_id}", tags=["workflow"])
+async def execute_workflow(wf_id: str):
     """This will execute the workflow"""
-    return TopicWorkflow(llm).execute()
+    return ExecuteWorkflow().execute(wf_id)
 
 
 @router.delete("/{id}", tags=["workflow"])
