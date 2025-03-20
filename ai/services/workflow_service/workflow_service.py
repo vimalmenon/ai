@@ -108,7 +108,7 @@ class WorkflowService:
                 "key": ":detail",
                 "value": data.detail,
             }
-        if data.complete:
+        if data.complete is not None:
             expression["complete"] = {
                 "name": "#complete",
                 "key": ":complete",
