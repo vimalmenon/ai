@@ -1582,17 +1582,17 @@ pydantic = ">=2,<3"
 
 [[package]]
 name = "langchain-ollama"
-version = "0.2.3"
+version = "0.3.0"
 description = "An integration package connecting Ollama and LangChain"
 optional = false
 python-versions = "<4.0,>=3.9"
 files = [
-    {file = "langchain_ollama-0.2.3-py3-none-any.whl", hash = "sha256:c47700ca68b013358b1e954493ecafb3bd10fa2cda71a9f15ba7897587a9aab2"},
-    {file = "langchain_ollama-0.2.3.tar.gz", hash = "sha256:d13fe8735176b652ca6e6656d7902c1265e8c0601097569f7c95433f3d034b38"},
+    {file = "langchain_ollama-0.3.0-py3-none-any.whl", hash = "sha256:33716a912419d00a17da446f1b6ec8ec45c7b9376c6a1c0b688cc0cecd4b9c39"},
+    {file = "langchain_ollama-0.3.0.tar.gz", hash = "sha256:4989f79d4b2d0d51f3a95e53b4c368c95c6bb64922a9ea40a7a376b43187803b"},
 ]
 
 [package.dependencies]
-langchain-core = ">=0.3.33,<0.4.0"
+langchain-core = ">=0.3.47,<1.0.0"
 ollama = ">=0.4.4,<1"
 
 [[package]]
@@ -1689,13 +1689,13 @@ orjson = ">=3.10.1"
 
 [[package]]
 name = "langgraph-supervisor"
-version = "0.0.9"
+version = "0.0.10"
 description = "An implementation of a supervisor multi-agent architecture using LangGraph"
 optional = false
 python-versions = ">=3.10"
 files = [
-    {file = "langgraph_supervisor-0.0.9-py3-none-any.whl", hash = "sha256:6dd365871a006d3a99accde94f0c349d6db5329cbe6eb9cca188c3bd9d3071b3"},
-    {file = "langgraph_supervisor-0.0.9.tar.gz", hash = "sha256:86c0b6e5bf0bc20ebc53ffa4319014e8f293a32da894e4ef9f10fc737f843bed"},
+    {file = "langgraph_supervisor-0.0.10-py3-none-any.whl", hash = "sha256:69cb375c128741eb1e6150b72172b03be9e525c63ca402d7be9c0fdf7ebaf482"},
+    {file = "langgraph_supervisor-0.0.10.tar.gz", hash = "sha256:55f65e824a132f2e3e7819772e525b1055a4070a9e62e6012391c1f27af3024c"},
 ]
 
 [package.dependencies]
@@ -3445,4 +3445,4 @@ cffi = ["cffi (>=1.11)"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "86124f1e8cfce67cd04003ab9233870705b508a2c1312d7eab9344606b208c65"
+content-hash = "b882a0e593a893ed8dd91a6338bef5d9acbf4b26d19fe571f1e63343faa739bc"
