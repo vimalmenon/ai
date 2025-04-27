@@ -34,6 +34,9 @@ I am an AI Agent named after the moon of Jupiter, representing curiosity and exp
 ```sh
 poetry run fastapi dev main.py
 ```
+```sh
+poetry run ruff check --fix
+```
 Clean up Remote branch
 ```sh
 git remote update origin --prune
