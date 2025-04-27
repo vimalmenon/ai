@@ -7,4 +7,7 @@ class ExecuteWorkflow:
 
     def execute(self):
         item = WorkflowService().get_workflow_by_id(self.id)
-        return {"item": item}
+        if item:
+            nodes = item.get("nodes", [])
+            print(nodes)
+        return {"item": None}
