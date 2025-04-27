@@ -15,6 +15,7 @@ I am an AI Agent named after the moon of Jupiter, representing curiosity and exp
 ## To Do
 
 - [x] Serve the WF as API
+- [ ] Need to change secondary key
 - [ ] Add Logger
 - [ ] Create service to update data
 - [ ] Set up Auth

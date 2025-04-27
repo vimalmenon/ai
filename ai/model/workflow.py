@@ -43,5 +43,31 @@ class WorkflowNodeRequest(BaseModel):
         )
 
 
+class WorkflowRequest(BaseModel):
+    id: str
+    name: str
+    detail: str | None
+    nodes: dict[str, WorkflowNodeRequest]
+    complete: bool = False
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "name": self.name,
+            "detail": self.detail,
+            "nodes": self.nodes,
+            "complete": self.complete,
+        }
+
+    def from_dict(self, data):
+        return WorkflowRequest(
+            id=data.get("id"),
+            name=data.get("name"),
+            detail=data.get("detail"),
+            nodes=data.get("nodes"),
+            complete=data.get("complete", False),
+        )
+
+
 class CreateNodeRequest(BaseModel):
     name: str
