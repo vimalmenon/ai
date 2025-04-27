@@ -51,7 +51,7 @@ async def delete_workflow_node(wf_id: str, id: str):
 @router.post("/execute/{wf_id}", tags=["workflow"])
 async def execute_workflow(wf_id: str):
     """This will execute the workflow"""
-    return ExecuteWorkflow().execute(wf_id)
+    return {"data": ExecuteWorkflow(wf_id).execute()}
 
 
 @router.delete("/{id}", tags=["workflow"])
