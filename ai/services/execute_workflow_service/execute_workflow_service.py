@@ -1,4 +1,4 @@
-from ai.services import WorkflowService
+from ai.services.workflow_service.workflow_service import WorkflowService
 
 
 class ExecuteWorkflowService:
@@ -8,6 +8,9 @@ class ExecuteWorkflowService:
     def execute(self):
         item = WorkflowService().get_workflow_by_id(self.id)
         if item:
-            nodes = item.get("nodes", [])
-            print(nodes)
+            nodes = item.get("nodes", {})
+            [self.__execute_node(node) for id, node in nodes.items()]
         return {"item": None}
+
+    def __execute_node(self, node):
+        print(node)
