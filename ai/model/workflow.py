@@ -31,6 +31,17 @@ class WorkflowNodeRequest(BaseModel):
             "next": self.next,
         }
 
+    def from_dict(self, data):
+        return WorkflowNodeRequest(
+            name=data.get("name"),
+            prompt=data.get("prompt"),
+            type=data.get("type"),
+            llm=data.get("llm"),
+            tools=data.get("tools"),
+            input=data.get("input"),
+            next=data.get("next"),
+        )
+
 
 class CreateNodeRequest(BaseModel):
     name: str
