@@ -6,8 +6,7 @@ from ai.model import (
     UpdateWorkflowRequest,
     WorkflowNodeRequest,
 )
-from ai.services import WorkflowService
-from ai.workflows import ExecuteWorkflow
+from ai.services import ExecuteWorkflowService, WorkflowService
 
 router = APIRouter()
 
@@ -51,7 +50,7 @@ async def delete_workflow_node(wf_id: str, id: str):
 @router.post("/execute/{wf_id}", tags=["workflow"])
 async def execute_workflow(wf_id: str):
     """This will execute the workflow"""
-    return {"data": ExecuteWorkflow(wf_id).execute()}
+    return {"data": ExecuteWorkflowService(wf_id).execute()}
 
 
 @router.delete("/{id}", tags=["workflow"])

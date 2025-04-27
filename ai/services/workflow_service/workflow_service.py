@@ -43,7 +43,6 @@ class WorkflowService:
 
     def get_workflow_by_id(self, id):
         table = "AI#WORKFLOWS"
-        # items = DbManager().query_items(Key("table").eq(table) & Key("app_id").eq(id))
         item = DbManager().get_item({"table": table, "app_id": id})
         if item:
             return item
