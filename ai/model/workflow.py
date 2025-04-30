@@ -54,9 +54,9 @@ class WorkflowSlimModel(BaseModel):
 class WorkflowModel(BaseModel):
     id: str
     name: str
-    detail: str | None
+    detail: str | None = None
     complete: bool = False
-    created_at: str | None
+    created_at: str | None = None
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -76,14 +76,13 @@ class WorkflowModel(BaseModel):
             created_at=data.get("created_at"),
         )
 
-    @classmethod
-    def to_dict(cls):
+    def to_dict(self):
         return {
-            "id": cls.id,
-            "name": cls.name,
-            "detail": cls.detail,
-            "complete": cls.complete,
-            "created_at": cls.created_at,
+            "id": self.id,
+            "name": self.name,
+            "detail": self.detail,
+            "complete": self.complete,
+            "created_at": self.created_at,
         }
 
 

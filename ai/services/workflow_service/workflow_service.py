@@ -2,7 +2,6 @@ from fastapi import HTTPException
 
 from ai.managers import DbManager, WorkflowManager
 from ai.model import WorkflowModel
-from ai.services.workflow_service.workflow_data import WorkflowDBItem
 from ai.utilities import generate_uuid
 
 
@@ -29,13 +28,14 @@ class WorkflowService:
             ) from None
 
     def create_workflow(self, data):
-        uuid = generate_uuid()
-        table = "AI#WORKFLOWS"
-        item = WorkflowDBItem(
-            table=table, app_id=uuid, id=uuid, name=data.name, detail=data.detail
-        )
-        DbManager().add_item(item.to_json())
-        return item.to_json()
+        """Create workflow"""
+        try:
+            return WorkflowManager().create_workflow(data)
+        except Exception as exc:
+            raise HTTPException(
+                status_code=500,
+                detail=f"Error creating workflow: {str(exc)}",
+            ) from None
 
     def update_workflow(self, id, data):
         table = "AI#WORKFLOWS"
