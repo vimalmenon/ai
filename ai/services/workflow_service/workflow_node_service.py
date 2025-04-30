@@ -1,0 +1,2 @@
+class WorkflowNodeService:
+    pass

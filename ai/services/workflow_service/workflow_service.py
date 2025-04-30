@@ -1,15 +1,26 @@
-from boto3.dynamodb.conditions import Key
+from fastapi import HTTPException
 
-from ai.managers import DbManager
+from ai.managers import DbManager, WorkflowManager
+from ai.model import WorkflowModel
 from ai.services.workflow_service.workflow_data import WorkflowDBItem
 from ai.utilities import generate_uuid
 
 
 class WorkflowService:
 
-    def get_workflows(self):
-        table = "AI#WORKFLOWS"
-        return DbManager().query_items(Key("table").eq(table))
+    def get_workflows(self) -> list[WorkflowModel]:
+        """This List out all workflows details"""
+        try:
+            return WorkflowManager().get_workflows()
+        except Exception as exc:
+            raise HTTPException(
+                status_code=500,
+                detail=f"Error fetching workflows: {str(exc)}",
+            ) from None
+
+    def get_workflow_by_id(self, id: str) -> WorkflowModel | None:
+        """Get the workflow by ID"""
+        return WorkflowManager().get_workflow_by_id(id)
 
     def create_workflow(self, data):
         uuid = generate_uuid()
@@ -40,13 +51,6 @@ class WorkflowService:
     def delete_workflows_by_id(self, id):
         table = "AI#WORKFLOWS"
         return DbManager().remove_item({"table": table, "app_id": id})
-
-    def get_workflow_by_id(self, id):
-        table = "AI#WORKFLOWS"
-        item = DbManager().get_item({"table": table, "app_id": id})
-        if item:
-            return item
-        return None
 
     def delete_workflow_nodes(self, wf_id, id):
         item = DbManager().get_item({"table": "AI#WORKFLOWS", "app_id": wf_id})

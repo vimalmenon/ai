@@ -5,7 +5,9 @@ from ai.model.workflow import (
     CreateNodeRequest,
     CreateWorkflowRequest,
     UpdateWorkflowRequest,
+    WorkflowModel,
     WorkflowNodeRequest,
+    WorkflowSlimModel,
 )
 
 __all__ = [
@@ -17,4 +19,6 @@ __all__ = [
     "WorkflowNodeRequest",
     "CreateNodeRequest",
     "UpdateWorkflowRequest",
+    "WorkflowSlimModel",
+    "WorkflowModel",
 ]
