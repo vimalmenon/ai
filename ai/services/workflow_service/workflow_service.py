@@ -20,7 +20,13 @@ class WorkflowService:
 
     def get_workflow_by_id(self, id: str) -> WorkflowModel | None:
         """Get the workflow by ID"""
-        return WorkflowManager().get_workflow_by_id(id)
+        try:
+            return WorkflowManager().get_workflow_by_id(id)
+        except Exception as exc:
+            raise HTTPException(
+                status_code=500,
+                detail=f"Error fetching workflow by ID: {str(exc)}",
+            ) from None
 
     def create_workflow(self, data):
         uuid = generate_uuid()
