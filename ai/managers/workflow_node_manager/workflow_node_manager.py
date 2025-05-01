@@ -1,16 +1,18 @@
 from ai.exceptions.exceptions import ClientError
 from ai.managers.workflow_manager.workflow_manager import WorkflowManager
-from ai.model import WorkflowModel, WorkflowNodeRequest
+from ai.model import CreateNodeRequest, WorkflowModel, WorkflowNodeRequest
 from ai.utilities import generate_uuid
 
 
 class WorkflowNodeManager:
-    def create_workflow_node(self, wf_id: str, body):
+    def create_workflow_node(self, wf_id: str, body: CreateNodeRequest):
         """Create the workflow node"""
         workflow = self.__validate_and_return_workflow(wf_id)
         uuid = generate_uuid()
-        workflow.nodes[uuid] = WorkflowNodeRequest.from_dict(body)
-        return WorkflowManager().update_workflow_node(wf_id, workflow.nodes)
+        workflow.nodes[uuid] = WorkflowNodeRequest(name=body.name)
+        return WorkflowManager().update_workflow_node(
+            wf_id, self.__convert_nodes_to_dict(workflow.nodes)
+        )
 
     def delete_workflow_nodes(self, wf_id: str, id: str):
         """Delete the workflow node by ID"""
@@ -47,3 +49,7 @@ class WorkflowNodeManager:
                 detail=f"Workflow node with ID {id} not found.",
             )
         return node
+
+    def __convert_nodes_to_dict(self, nodes: dict[str, WorkflowNodeRequest]) -> dict:
+        """Convert nodes to dictionary"""
+        return {key: node.to_dict() for key, node in nodes.items()}

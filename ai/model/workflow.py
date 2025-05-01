@@ -9,12 +9,22 @@ class UpdateWorkflowRequest(BaseModel):
 
 class WorkflowNodeRequest(BaseModel):
     name: str
-    prompt: str | None
-    type: str | None
-    llm: str | None
-    tools: list[str] | None
-    input: str | None
-    next: list[str] | None
+    prompt: str | None = None
+    type: str | None = None
+    llm: str | None = None
+    tools: list[str] = []
+    input: str | None = None
+    next: list[str] = []
+
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.name = kwargs.get("name")
+        self.prompt = kwargs.get("prompt")
+        self.type = kwargs.get("type")
+        self.llm = kwargs.get("llm")
+        self.tools = kwargs.get("tools", [])
+        self.input = kwargs.get("input")
+        self.next = kwargs.get("next", [])
 
     def to_dict(self):
         return {
