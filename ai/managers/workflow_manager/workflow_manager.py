@@ -25,12 +25,12 @@ class WorkflowManager:
             return WorkflowModel.from_dict(item)
         return None
 
-    def create_workflow(self, data: WorkflowSlimModel):
+    def create_workflow(self, data: WorkflowSlimModel) -> WorkflowModel:
         """Create workflow"""
         uuid = generate_uuid()
         item = WorkflowModel(id=uuid, name=data.name)
         DbManager().add_item({"table": self.table, "app_id": uuid, **item.to_dict()})
-        return item.to_dict()
+        return item
 
     def update_workflow(self, id, data: WorkflowModel):
         """Update workflow"""

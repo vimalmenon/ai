@@ -76,12 +76,12 @@ class WorkflowModel(BaseModel):
             name=data.get("name"),
             detail=data.get("detail"),
             complete=data.get("complete", False),
-            nodes=cls._convert_nodes_from_dict(data.get("nodes", {})),
+            nodes=cls.__convert_nodes_from_dict(data.get("nodes", {})),
             created_at=data.get("created_at"),
         )
 
     @classmethod
-    def _convert_nodes_from_dict(cls, nodes):
+    def __convert_nodes_from_dict(cls, nodes):
         items = {}
         for id, node in nodes.items():
             items[id] = WorkflowNodeRequest.from_dict(node)
@@ -93,11 +93,11 @@ class WorkflowModel(BaseModel):
             "name": self.name,
             "detail": self.detail,
             "complete": self.complete,
-            "nodes": self._convert_nodes_to_dict(self.nodes),
+            "nodes": self.__convert_nodes_to_dict(self.nodes),
             "created_at": self.created_at,
         }
 
-    def _convert_nodes_to_dict(self, nodes):
+    def __convert_nodes_to_dict(self, nodes):
         items = {}
         for id, node in nodes.items():
             items[id] = node.to_dict()
