@@ -40,7 +40,7 @@ class WorkflowManager:
                 update_expression,
                 expression_attribute_values,
                 expression_attribute_names,
-            ) = self._get_workflow_details(data)
+            ) = self.__get_workflow_details(data)
             DbManager().update_item(
                 Key={"table": self.table, "app_id": id},
                 UpdateExpression=update_expression,
@@ -67,7 +67,7 @@ class WorkflowManager:
         )
         return nodes
 
-    def _get_workflow_details(self, data: WorkflowModel):
+    def __get_workflow_details(self, data: WorkflowModel):
         expression: dict[str, Any] = {}
         if data.name:
             expression["name"] = {
