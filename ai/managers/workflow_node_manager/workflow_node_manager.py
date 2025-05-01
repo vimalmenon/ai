@@ -23,12 +23,14 @@ class WorkflowNodeManager:
             wf_id, self.__convert_nodes_to_dict(workflow.nodes)
         )
 
-    def update_workflow_node(self, wf_id, id, data):
+    def update_workflow_node(self, wf_id, id, data: WorkflowNodeRequest):
         """Update the workflow node by ID"""
         workflow = self.__validate_and_return_workflow(wf_id)
         self.__validate_and_return_node(workflow, id)
-        workflow.nodes[id] = WorkflowNodeRequest.from_dict(data)
-        return WorkflowManager().update_workflow_node(wf_id, workflow.nodes)
+        workflow.nodes[id] = data
+        return WorkflowManager().update_workflow_node(
+            wf_id, self.__convert_nodes_to_dict(workflow.nodes)
+        )
 
     def __validate_and_return_workflow(self, wf_id: str) -> WorkflowModel:
         """Validate the workflow"""
