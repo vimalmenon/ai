@@ -26,5 +26,11 @@ class DbManager:
         except ClientError:
             return []
 
-    def update_item(self, data):
+    def update_item(self, **data):
         return self.table.update_item(**data)
+
+    def get_item(self, key):
+        try:
+            return self.table.get_item(Key=key)["Item"]
+        except ClientError:
+            return []

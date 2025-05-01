@@ -1,7 +1,14 @@
 from ai.model.contact import ContactRequestForm
 from ai.model.llm import LLMResponse
 from ai.model.s3 import S3Item, S3Request
-from ai.model.workflow import CreateWorkflowRequest, WorkflowNodeRequest
+from ai.model.workflow import (
+    CreateNodeRequest,
+    CreateWorkflowRequest,
+    UpdateWorkflowRequest,
+    WorkflowModel,
+    WorkflowNodeRequest,
+    WorkflowSlimModel,
+)
 
 __all__ = [
     "ContactRequestForm",
@@ -10,4 +17,8 @@ __all__ = [
     "S3Request",
     "CreateWorkflowRequest",
     "WorkflowNodeRequest",
+    "CreateNodeRequest",
+    "UpdateWorkflowRequest",
+    "WorkflowSlimModel",
+    "WorkflowModel",
 ]

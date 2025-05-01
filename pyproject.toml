@@ -1,22 +1,22 @@
 [tool.poetry]
 name = "ai"
-version = "0.0.5"
+version = "0.0.6"
 description = "This is AI Agent"
 authors = ["Vimal Menon"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.11"
-langsmith = "^0.3.10"
 langchain = "^0.3.19"
 pydantic = "^2.10.6"
-langchain-ollama = "^0.2.3"
 langchain-google-genai = "^2.0.10"
 langchain-deepseek = "^0.1.2"
 fastapi = {extras = ["standard"], version = "^0.115.11"}
 boto3 = "^1.37.8"
-langgraph = "^0.3.5"
-langgraph-supervisor = "^0.0.9"
+langchain-ollama = "^0.3.0"
+langgraph = "^0.3.20"
+langsmith = "^0.3.23"
+langgraph-supervisor = "^0.0.16"
 
 
 [tool.poetry.group.dev.dependencies]
@@ -27,7 +27,7 @@ flake8 = "^7.1.2"
 isort = "^6.0.0"
 autoflake = "^2.3.1"
 boto3-stubs = "^1.37.9"
-ruff = "^0.10.0"
+ruff = "^0.11.2"
 
 [build-system]
 requires = ["poetry-core"]
