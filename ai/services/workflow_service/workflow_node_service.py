@@ -1,4 +1,4 @@
-from ai.common.exceptions import ClientError, ServerError
+from ai.exceptions.exceptions import ClientError, ServerError
 from ai.managers import WorkflowNodeManager
 
 

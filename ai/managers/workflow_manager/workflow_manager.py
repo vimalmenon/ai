@@ -2,7 +2,7 @@ from typing import Any
 
 from boto3.dynamodb.conditions import Key
 
-from ai.common import ClientError
+from ai.exceptions.exceptions import ClientError
 from ai.managers import DbManager
 from ai.model import WorkflowModel, WorkflowSlimModel
 from ai.utilities import generate_uuid

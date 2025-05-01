@@ -1,4 +1,4 @@
-from ai.common import ClientError
+from ai.exceptions.exceptions import ClientError
 from ai.managers.workflow_manager.workflow_manager import WorkflowManager
 from ai.model import WorkflowModel, WorkflowNodeRequest
 from ai.utilities import generate_uuid
