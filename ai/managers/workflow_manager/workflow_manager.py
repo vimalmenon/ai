@@ -1,8 +1,8 @@
 from typing import Any
 
 from boto3.dynamodb.conditions import Key
-from fastapi import HTTPException
 
+from ai.common import ClientError
 from ai.managers import DbManager
 from ai.model import WorkflowModel, WorkflowSlimModel
 from ai.utilities import generate_uuid
@@ -48,14 +48,21 @@ class WorkflowManager:
                 ExpressionAttributeNames=expression_attribute_names,
             )
         else:
-            raise HTTPException(
+            raise ClientError(
                 status_code=404,
                 detail=f"Workflow with ID {id} not found.",
             )
 
     def delete_workflows_by_id(self, id: str):
         """Delete the workflow by ID"""
-        return DbManager().remove_item({"table": self.table, "app_id": id})
+        item = DbManager().get_item({"table": self.table, "app_id": id})
+        if item:
+            return DbManager().remove_item({"table": self.table, "app_id": id})
+        else:
+            raise ClientError(
+                status_code=404,
+                detail=f"Workflow with ID {id} not found.",
+            )
 
     def update_workflow_node(self, wf_id: str, nodes):
         """Update the workflow node by ID"""

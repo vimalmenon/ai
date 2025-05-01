@@ -1,4 +1,4 @@
-from ai.common.exceptions import ServerError
+from ai.common.exceptions import ClientError, ServerError
 from ai.managers import WorkflowManager
 from ai.model import WorkflowModel, WorkflowSlimModel
 
@@ -49,6 +49,11 @@ class WorkflowService:
         """Delete the workflow by ID"""
         try:
             return WorkflowManager().delete_workflows_by_id(id)
+        except ClientError as ce:
+            raise ClientError(
+                status_code=ce.status_code,
+                detail=ce.detail,
+            ) from ce
         except Exception as exc:
             raise ServerError(
                 status_code=500,
