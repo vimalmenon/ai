@@ -1613,20 +1613,21 @@ langchain-core = ">=0.3.51,<1.0.0"
 
 [[package]]
 name = "langgraph"
-version = "0.3.34"
+version = "0.4.1"
 description = "Building stateful, multi-actor applications with LLMs"
 optional = false
-python-versions = "<4.0,>=3.9.0"
+python-versions = ">=3.9"
 files = [
-    {file = "langgraph-0.3.34-py3-none-any.whl", hash = "sha256:4bf8af313ce7686e8a7597ca5441341ec89f9a9fe73ba1b07c116755efa3117d"},
-    {file = "langgraph-0.3.34.tar.gz", hash = "sha256:d4107b2101ee4a6f93f33b0fac1064d46ac3491f783200affac29f229ab0b93c"},
+    {file = "langgraph-0.4.1-py3-none-any.whl", hash = "sha256:ad0a5fb4707ec46eb69a9905d629e3712ac14d58bd41fc63df18502dbb8e44b9"},
+    {file = "langgraph-0.4.1.tar.gz", hash = "sha256:c6de009e638c3128232e8defa6e9a3218c03bcc2348ec7f06fba23ffcef4b98d"},
 ]
 
 [package.dependencies]
-langchain-core = ">=0.1,<0.4"
+langchain-core = {version = ">=0.1", markers = "python_version < \"4.0\""}
 langgraph-checkpoint = ">=2.0.10,<3.0.0"
-langgraph-prebuilt = ">=0.1.8,<0.2"
-langgraph-sdk = ">=0.1.42,<0.2.0"
+langgraph-prebuilt = {version = ">=0.1.8", markers = "python_version < \"4.0\""}
+langgraph-sdk = {version = ">=0.1.42", markers = "python_version < \"4.0\""}
+pydantic = ">=2.7.4"
 xxhash = ">=3.5.0,<4.0.0"
 
 [[package]]
@@ -1676,18 +1677,18 @@ orjson = ">=3.10.1"
 
 [[package]]
 name = "langgraph-supervisor"
-version = "0.0.16"
+version = "0.0.19"
 description = "An implementation of a supervisor multi-agent architecture using LangGraph"
 optional = false
 python-versions = ">=3.10"
 files = [
-    {file = "langgraph_supervisor-0.0.16-py3-none-any.whl", hash = "sha256:9fe1883c1b4868f1b1e45dc9e116cdaad8947c1aa5a6f145b33ce20eeb576498"},
-    {file = "langgraph_supervisor-0.0.16.tar.gz", hash = "sha256:1576a150f527f10895cbe61d954924f30f72dcf489337713b61e4c158c6b4d7a"},
+    {file = "langgraph_supervisor-0.0.19-py3-none-any.whl", hash = "sha256:474d5078b70b536012e44e731d5c0642ecdb056f5a67468287184a886dd49139"},
+    {file = "langgraph_supervisor-0.0.19.tar.gz", hash = "sha256:a32254dd458794af46ed5b495387f932e30da8a95b4e5c0948f83f1b61275d09"},
 ]
 
 [package.dependencies]
 langchain-core = ">=0.3.40,<0.4.0"
-langgraph = ">=0.3.5,<0.4.0"
+langgraph = ">=0.3.5"
 langgraph-prebuilt = ">=0.1.7,<0.2.0"
 
 [[package]]
@@ -3549,4 +3550,4 @@ cffi = ["cffi (>=1.11)"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "7b58a0938565e8cbae1054fcb8e5b07e1c801fcecda3b48d47191104200d420f"
+content-hash = "079427996c131639544afc8b4a6aa535736b7deea94787a01502cc7d08930cb4"
