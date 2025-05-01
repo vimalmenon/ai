@@ -32,7 +32,7 @@ class WorkflowManager:
         DbManager().add_item({"table": self.table, "app_id": uuid, **item.to_dict()})
         return item
 
-    def update_workflow(self, id, data: WorkflowModel):
+    def update_workflow(self, id, data: WorkflowModel) -> None:
         """Update workflow"""
         item = DbManager().get_item({"table": self.table, "app_id": id})
         if item:
@@ -47,7 +47,6 @@ class WorkflowManager:
                 ExpressionAttributeValues=expression_attribute_values,
                 ExpressionAttributeNames=expression_attribute_names,
             )
-            return item
         else:
             raise HTTPException(
                 status_code=404,
