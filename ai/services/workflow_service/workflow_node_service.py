@@ -1,4 +1,4 @@
-from ai.common.exceptions import ServerError
+from ai.common.exceptions import ClientError, ServerError
 from ai.managers import WorkflowNodeManager
 
 
@@ -7,6 +7,11 @@ class WorkflowNodeService:
         """Delete the workflow node by ID"""
         try:
             return WorkflowNodeManager().delete_workflow_nodes(wf_id, id)
+        except ClientError as ce:
+            raise ClientError(
+                status_code=ce.status_code,
+                detail=ce.detail,
+            ) from ce
         except Exception as e:
             raise ServerError(
                 status_code=404,
