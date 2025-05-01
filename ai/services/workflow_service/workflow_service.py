@@ -1,7 +1,7 @@
 from fastapi import HTTPException
 
 from ai.managers import WorkflowManager
-from ai.model import WorkflowModel
+from ai.model import WorkflowModel, WorkflowSlimModel
 
 
 class WorkflowService:
@@ -26,7 +26,7 @@ class WorkflowService:
                 detail=f"Error fetching workflow by ID: {str(exc)}",
             ) from None
 
-    def create_workflow(self, data):
+    def create_workflow(self, data: WorkflowSlimModel) -> WorkflowModel:
         """Create workflow"""
         try:
             return WorkflowManager().create_workflow(data)

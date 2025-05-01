@@ -1,10 +1,6 @@
 from pydantic import BaseModel
 
 
-class CreateWorkflowRequest(BaseModel):
-    name: str
-
-
 class UpdateWorkflowRequest(BaseModel):
     name: str
     detail: str | None
