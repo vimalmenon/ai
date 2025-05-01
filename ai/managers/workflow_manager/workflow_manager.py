@@ -35,4 +35,4 @@ class WorkflowManager:
 
     def delete_workflows_by_id(self, id: str):
         """Delete the workflow by ID"""
-        pass
+        return DbManager().remove_item({"table": self.table, "app_id": id})

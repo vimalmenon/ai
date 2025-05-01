@@ -55,8 +55,14 @@ class WorkflowService:
             return item
 
     def delete_workflows_by_id(self, id):
-        table = "AI#WORKFLOWS"
-        return DbManager().remove_item({"table": table, "app_id": id})
+        """Delete the workflow by ID"""
+        try:
+            return WorkflowManager().delete_workflows_by_id(id)
+        except Exception as exc:
+            raise HTTPException(
+                status_code=500,
+                detail=f"Error deleting workflow by ID: {str(exc)}",
+            ) from None
 
     def delete_workflow_nodes(self, wf_id, id):
         item = DbManager().get_item({"table": "AI#WORKFLOWS", "app_id": wf_id})
