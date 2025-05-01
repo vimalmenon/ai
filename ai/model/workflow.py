@@ -8,6 +8,7 @@ class UpdateWorkflowRequest(BaseModel):
 
 
 class WorkflowNodeRequest(BaseModel):
+    id: str | None = None
     name: str
     prompt: str | None = None
     type: str | None = None
@@ -19,6 +20,7 @@ class WorkflowNodeRequest(BaseModel):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.name = kwargs.get("name")
+        self.id = kwargs.get("id")
         self.prompt = kwargs.get("prompt")
         self.type = kwargs.get("type")
         self.llm = kwargs.get("llm")
@@ -28,6 +30,7 @@ class WorkflowNodeRequest(BaseModel):
 
     def to_dict(self):
         return {
+            "id": self.id,
             "name": self.name,
             "prompt": self.prompt,
             "type": self.type,
@@ -40,6 +43,7 @@ class WorkflowNodeRequest(BaseModel):
     @classmethod
     def from_dict(cls, data):
         return cls(
+            id=data.get("id"),
             name=data.get("name"),
             prompt=data.get("prompt"),
             type=data.get("type"),

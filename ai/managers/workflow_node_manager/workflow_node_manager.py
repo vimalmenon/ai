@@ -9,7 +9,7 @@ class WorkflowNodeManager:
         """Create the workflow node"""
         workflow = self.__validate_and_return_workflow(wf_id)
         uuid = generate_uuid()
-        workflow.nodes[uuid] = WorkflowNodeRequest(name=body.name)
+        workflow.nodes[uuid] = WorkflowNodeRequest(id=uuid, name=body.name)
         return WorkflowManager().update_workflow_node(
             wf_id, self.__convert_nodes_to_dict(workflow.nodes)
         )
@@ -19,7 +19,9 @@ class WorkflowNodeManager:
         workflow = self.__validate_and_return_workflow(wf_id)
         self.__validate_and_return_node(workflow, id)
         del workflow.nodes[id]
-        return WorkflowManager().update_workflow_node(wf_id, workflow.nodes)
+        return WorkflowManager().update_workflow_node(
+            wf_id, self.__convert_nodes_to_dict(workflow.nodes)
+        )
 
     def update_workflow_node(self, wf_id, id, data):
         """Update the workflow node by ID"""
