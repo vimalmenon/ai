@@ -100,39 +100,5 @@ class WorkflowModel(BaseModel):
         return items
 
 
-class WorkflowRequest(BaseModel):
-    id: str
-    name: str
-    detail: str | None
-    nodes: dict[str, WorkflowNodeRequest]
-    complete: bool = False
-
-    @classmethod
-    def to_dict(cls):
-        return {
-            "id": cls.id,
-            "name": cls.name,
-            "detail": cls.detail,
-            "nodes": [node.to_dict() for node in cls.nodes],
-            "complete": cls.complete,
-        }
-
-    @classmethod
-    def from_dict(cls, data):
-        return cls(
-            id=data.get("id"),
-            name=data.get("name"),
-            detail=data.get("detail"),
-            nodes=cls.__convert_nodes_to_class(data.get("nodes")),
-            complete=data.get("complete", False),
-        )
-
-    def __convert_nodes_to_class(self, nodes):
-        items = {}
-        for id, node in nodes.items():
-            items[id] = WorkflowNodeRequest().from_dict(node)
-        return items
-
-
 class CreateNodeRequest(BaseModel):
     name: str
