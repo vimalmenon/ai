@@ -6,7 +6,7 @@ from ai.model import (
     UpdateWorkflowRequest,
     WorkflowNodeRequest,
 )
-from ai.services import ExecuteWorkflowService, WorkflowService
+from ai.services import ExecuteWorkflowService, WorkflowNodeService, WorkflowService
 
 router = APIRouter()
 
@@ -32,19 +32,19 @@ async def update_workflow(id: str, body: UpdateWorkflowRequest):
 @router.put("/node/{wf_id}", tags=["workflow"])
 async def create_workflow_node(wf_id: str, body: CreateNodeRequest):
     """Create the node for workflow"""
-    return {"data": WorkflowService().create_workflow_node(wf_id, body)}
+    return {"data": WorkflowNodeService().create_workflow_node(wf_id, body)}
 
 
 @router.post("/node/{wf_id}/{id}", tags=["workflow"])
 async def update_workflow_node(wf_id: str, id: str, data: WorkflowNodeRequest):
     """Updated the node for workflow"""
-    return {"data": WorkflowService().update_workflow_node(wf_id, id, data)}
+    return {"data": WorkflowNodeService().update_workflow_node(wf_id, id, data)}
 
 
 @router.delete("/node/{wf_id}/{id}", tags=["workflow"])
 async def delete_workflow_node(wf_id: str, id: str):
     """Delete the node for workflow"""
-    return {"data": WorkflowService().delete_workflow_nodes(wf_id, id)}
+    return {"data": WorkflowNodeService().delete_workflow_nodes(wf_id, id)}
 
 
 @router.post("/execute/{wf_id}", tags=["workflow"])

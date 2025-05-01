@@ -1,8 +1,7 @@
 from fastapi import HTTPException
 
-from ai.managers import DbManager, WorkflowManager
+from ai.managers import WorkflowManager
 from ai.model import WorkflowModel
-from ai.utilities import generate_uuid
 
 
 class WorkflowService:
@@ -56,48 +55,3 @@ class WorkflowService:
                 status_code=500,
                 detail=f"Error deleting workflow by ID: {str(exc)}",
             ) from None
-
-    def delete_workflow_nodes(self, wf_id, id):
-        item = DbManager().get_item({"table": "AI#WORKFLOWS", "app_id": wf_id})
-        if item:
-            nodes = item.get("nodes", {})
-            del nodes[id]
-            new_items = {**item, "nodes": nodes}
-            DbManager().update_item(
-                Key={"table": "AI#WORKFLOWS", "app_id": wf_id},
-                UpdateExpression="set nodes= :nodes",
-                ExpressionAttributeValues={":nodes": nodes},
-            )
-            return new_items
-
-    def create_workflow_node(self, wf_id, body):
-        item = DbManager().get_item({"table": "AI#WORKFLOWS", "app_id": wf_id})
-        if item:
-            uuid = generate_uuid()
-            nodes = item.get("nodes", {})
-            nodes[uuid] = {"id": uuid, "name": body.name}
-            new_items = {**item, "nodes": nodes}
-            DbManager().update_item(
-                Key={"table": "AI#WORKFLOWS", "app_id": wf_id},
-                UpdateExpression="set nodes= :nodes",
-                ExpressionAttributeValues={":nodes": nodes},
-            )
-            return new_items
-
-    def update_workflow_node(self, wf_id, id, data):
-        item = DbManager().get_item({"table": "AI#WORKFLOWS", "app_id": wf_id})
-        if item:
-            nodes = item.get("nodes", {})
-            node = nodes.get(id, {})
-            new_data = {
-                **node,
-                **data.to_dict(),
-            }
-            nodes[id] = new_data
-            new_items = {**item, "nodes": nodes}
-            DbManager().update_item(
-                Key={"table": "AI#WORKFLOWS", "app_id": wf_id},
-                UpdateExpression="set nodes= :nodes",
-                ExpressionAttributeValues={":nodes": nodes},
-            )
-            return new_items
