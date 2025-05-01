@@ -31,8 +31,9 @@ class WorkflowNodeRequest(BaseModel):
             "next": self.next,
         }
 
-    def from_dict(self, data):
-        return WorkflowNodeRequest(
+    @classmethod
+    def from_dict(cls, data):
+        return cls(
             name=data.get("name"),
             prompt=data.get("prompt"),
             type=data.get("type"),
@@ -57,6 +58,7 @@ class WorkflowModel(BaseModel):
     detail: str | None = None
     complete: bool = False
     created_at: str | None = None
+    nodes: dict[str, WorkflowNodeRequest] = {}
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -65,6 +67,7 @@ class WorkflowModel(BaseModel):
         self.created_at = kwargs.get("created_at")
         self.detail = kwargs.get("detail")
         self.complete = kwargs.get("complete", False)
+        self.nodes = kwargs.get("nodes", {})
 
     @classmethod
     def from_dict(cls, data):
@@ -73,8 +76,16 @@ class WorkflowModel(BaseModel):
             name=data.get("name"),
             detail=data.get("detail"),
             complete=data.get("complete", False),
+            nodes=cls._convert_nodes_from_dict(data.get("nodes", {})),
             created_at=data.get("created_at"),
         )
+
+    @classmethod
+    def _convert_nodes_from_dict(cls, nodes):
+        items = {}
+        for id, node in nodes.items():
+            items[id] = WorkflowNodeRequest.from_dict(node)
+        return items
 
     def to_dict(self):
         return {
@@ -82,8 +93,15 @@ class WorkflowModel(BaseModel):
             "name": self.name,
             "detail": self.detail,
             "complete": self.complete,
+            "nodes": self._convert_nodes_to_dict(self.nodes),
             "created_at": self.created_at,
         }
+
+    def _convert_nodes_to_dict(self, nodes):
+        items = {}
+        for id, node in nodes.items():
+            items[id] = node.to_dict()
+        return items
 
 
 class WorkflowRequest(BaseModel):

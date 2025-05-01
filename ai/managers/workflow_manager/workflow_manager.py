@@ -58,6 +58,15 @@ class WorkflowManager:
         """Delete the workflow by ID"""
         return DbManager().remove_item({"table": self.table, "app_id": id})
 
+    def update_workflow_node(self, wf_id: str, nodes):
+        """Update the workflow node by ID"""
+        DbManager().update_item(
+            Key={"table": self.table, "app_id": wf_id},
+            UpdateExpression="set nodes= :nodes",
+            ExpressionAttributeValues={":nodes": nodes},
+        )
+        return nodes
+
     def _get_workflow_details(self, data: WorkflowModel):
         expression: dict[str, Any] = {}
         if data.name:
