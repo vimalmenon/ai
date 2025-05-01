@@ -12,4 +12,4 @@ class WorkflowNodeService:
 
     def update_workflow_node(self, wf_id, id, data):
         """Update the workflow node"""
-        pass
+        return WorkflowNodeManager().update_workflow_node(wf_id, id, data)
