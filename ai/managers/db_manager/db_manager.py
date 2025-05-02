@@ -31,6 +31,9 @@ class DbManager:
 
     def get_item(self, key):
         try:
-            return self.table.get_item(Key=key)["Item"]
+            value = self.table.get_item(Key=key)
+            if "Item" in value:
+                return value["Item"]
+            return None
         except ClientError:
-            return []
+            return None

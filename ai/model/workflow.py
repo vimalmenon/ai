@@ -1,10 +1,6 @@
 from pydantic import BaseModel
 
 
-class CreateWorkflowRequest(BaseModel):
-    name: str
-
-
 class UpdateWorkflowRequest(BaseModel):
     name: str
     detail: str | None
@@ -12,16 +8,29 @@ class UpdateWorkflowRequest(BaseModel):
 
 
 class WorkflowNodeRequest(BaseModel):
+    id: str | None = None
     name: str
-    prompt: str | None
-    type: str | None
-    llm: str | None
-    tools: list[str] | None
-    input: str | None
-    next: list[str] | None
+    prompt: str | None = None
+    type: str | None = None
+    llm: str | None = None
+    tools: list[str] = []
+    input: str | None = None
+    next: list[str] = []
+
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.name = kwargs.get("name")
+        self.id = kwargs.get("id")
+        self.prompt = kwargs.get("prompt")
+        self.type = kwargs.get("type")
+        self.llm = kwargs.get("llm")
+        self.tools = kwargs.get("tools", [])
+        self.input = kwargs.get("input")
+        self.next = kwargs.get("next", [])
 
     def to_dict(self):
         return {
+            "id": self.id,
             "name": self.name,
             "prompt": self.prompt,
             "type": self.type,
@@ -32,8 +41,9 @@ class WorkflowNodeRequest(BaseModel):
         }
 
     @classmethod
-    def from_dict(cls, data):
+    def to_cls(cls, data):
         return cls(
+            id=data.get("id"),
             name=data.get("name"),
             prompt=data.get("prompt"),
             type=data.get("type"),
@@ -70,22 +80,19 @@ class WorkflowModel(BaseModel):
         self.nodes = kwargs.get("nodes", {})
 
     @classmethod
-    def from_dict(cls, data):
+    def to_cls(cls, data):
         return cls(
             id=data.get("id"),
             name=data.get("name"),
             detail=data.get("detail"),
             complete=data.get("complete", False),
-            nodes=cls._convert_nodes_from_dict(data.get("nodes", {})),
+            nodes=cls.__convert_nodes_from_dict(data.get("nodes", {})),
             created_at=data.get("created_at"),
         )
 
     @classmethod
-    def _convert_nodes_from_dict(cls, nodes):
-        items = {}
-        for id, node in nodes.items():
-            items[id] = WorkflowNodeRequest.from_dict(node)
-        return items
+    def __convert_nodes_from_dict(cls, nodes):
+        return {id: WorkflowNodeRequest.to_cls(node) for id, node in nodes.items()}
 
     def to_dict(self):
         return {
@@ -93,49 +100,12 @@ class WorkflowModel(BaseModel):
             "name": self.name,
             "detail": self.detail,
             "complete": self.complete,
-            "nodes": self._convert_nodes_to_dict(self.nodes),
+            "nodes": self.__convert_nodes_to_dict(self.nodes),
             "created_at": self.created_at,
         }
 
-    def _convert_nodes_to_dict(self, nodes):
-        items = {}
-        for id, node in nodes.items():
-            items[id] = node.to_dict()
-        return items
-
-
-class WorkflowRequest(BaseModel):
-    id: str
-    name: str
-    detail: str | None
-    nodes: dict[str, WorkflowNodeRequest]
-    complete: bool = False
-
-    @classmethod
-    def to_dict(cls):
-        return {
-            "id": cls.id,
-            "name": cls.name,
-            "detail": cls.detail,
-            "nodes": [node.to_dict() for node in cls.nodes],
-            "complete": cls.complete,
-        }
-
-    @classmethod
-    def from_dict(cls, data):
-        return cls(
-            id=data.get("id"),
-            name=data.get("name"),
-            detail=data.get("detail"),
-            nodes=cls.__convert_nodes_to_class(data.get("nodes")),
-            complete=data.get("complete", False),
-        )
-
-    def __convert_nodes_to_class(self, nodes):
-        items = {}
-        for id, node in nodes.items():
-            items[id] = WorkflowNodeRequest().from_dict(node)
-        return items
+    def __convert_nodes_to_dict(self, nodes):
+        return {id: node.to_dict() for id, node in nodes.items()}
 
 
 class CreateNodeRequest(BaseModel):

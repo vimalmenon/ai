@@ -1,8 +1,8 @@
 from typing import Any
 
 from boto3.dynamodb.conditions import Key
-from fastapi import HTTPException
 
+from ai.exceptions.exceptions import ClientError
 from ai.managers import DbManager
 from ai.model import WorkflowModel, WorkflowSlimModel
 from ai.utilities import generate_uuid
@@ -16,23 +16,23 @@ class WorkflowManager:
         items = DbManager().query_items(Key("table").eq(self.table))
         if not items:
             return []
-        return [WorkflowModel.from_dict(item) for item in items]
+        return [WorkflowModel.to_cls(item) for item in items]
 
     def get_workflow_by_id(self, id: str) -> WorkflowModel | None:
         """Get the workflow by ID"""
         item = DbManager().get_item({"table": self.table, "app_id": id})
         if item:
-            return WorkflowModel.from_dict(item)
+            return WorkflowModel.to_cls(item)
         return None
 
-    def create_workflow(self, data: WorkflowSlimModel):
+    def create_workflow(self, data: WorkflowSlimModel) -> WorkflowModel:
         """Create workflow"""
         uuid = generate_uuid()
         item = WorkflowModel(id=uuid, name=data.name)
         DbManager().add_item({"table": self.table, "app_id": uuid, **item.to_dict()})
-        return item.to_dict()
+        return item
 
-    def update_workflow(self, id, data: WorkflowModel):
+    def update_workflow(self, id, data: WorkflowModel) -> None:
         """Update workflow"""
         item = DbManager().get_item({"table": self.table, "app_id": id})
         if item:
@@ -47,16 +47,22 @@ class WorkflowManager:
                 ExpressionAttributeValues=expression_attribute_values,
                 ExpressionAttributeNames=expression_attribute_names,
             )
-            return item
         else:
-            raise HTTPException(
+            raise ClientError(
                 status_code=404,
                 detail=f"Workflow with ID {id} not found.",
             )
 
     def delete_workflows_by_id(self, id: str):
         """Delete the workflow by ID"""
-        return DbManager().remove_item({"table": self.table, "app_id": id})
+        item = DbManager().get_item({"table": self.table, "app_id": id})
+        if item:
+            return DbManager().remove_item({"table": self.table, "app_id": id})
+        else:
+            raise ClientError(
+                status_code=404,
+                detail=f"Workflow with ID {id} not found.",
+            )
 
     def update_workflow_node(self, wf_id: str, nodes):
         """Update the workflow node by ID"""

@@ -2,9 +2,9 @@ from fastapi import APIRouter
 
 from ai.model import (
     CreateNodeRequest,
-    CreateWorkflowRequest,
     UpdateWorkflowRequest,
     WorkflowNodeRequest,
+    WorkflowSlimModel,
 )
 from ai.services import ExecuteWorkflowService, WorkflowNodeService, WorkflowService
 
@@ -18,7 +18,7 @@ async def get_workflows():
 
 
 @router.put("/create", tags=["workflow"])
-async def create_workflow(body: CreateWorkflowRequest):
+async def create_workflow(body: WorkflowSlimModel):
     """Create workflow"""
     return {"data": WorkflowService().create_workflow(body)}
 
