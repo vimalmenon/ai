@@ -16,13 +16,13 @@ class WorkflowManager:
         items = DbManager().query_items(Key("table").eq(self.table))
         if not items:
             return []
-        return [WorkflowModel.from_dict(item) for item in items]
+        return [WorkflowModel.to_cls(item) for item in items]
 
     def get_workflow_by_id(self, id: str) -> WorkflowModel | None:
         """Get the workflow by ID"""
         item = DbManager().get_item({"table": self.table, "app_id": id})
         if item:
-            return WorkflowModel.from_dict(item)
+            return WorkflowModel.to_cls(item)
         return None
 
     def create_workflow(self, data: WorkflowSlimModel) -> WorkflowModel:

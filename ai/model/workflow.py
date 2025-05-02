@@ -41,7 +41,7 @@ class WorkflowNodeRequest(BaseModel):
         }
 
     @classmethod
-    def from_dict(cls, data):
+    def to_cls(cls, data):
         return cls(
             id=data.get("id"),
             name=data.get("name"),
@@ -80,7 +80,7 @@ class WorkflowModel(BaseModel):
         self.nodes = kwargs.get("nodes", {})
 
     @classmethod
-    def from_dict(cls, data):
+    def to_cls(cls, data):
         return cls(
             id=data.get("id"),
             name=data.get("name"),
@@ -92,10 +92,7 @@ class WorkflowModel(BaseModel):
 
     @classmethod
     def __convert_nodes_from_dict(cls, nodes):
-        items = {}
-        for id, node in nodes.items():
-            items[id] = WorkflowNodeRequest.from_dict(node)
-        return items
+        return {id: WorkflowNodeRequest.to_cls(node) for id, node in nodes.items()}
 
     def to_dict(self):
         return {
@@ -108,10 +105,7 @@ class WorkflowModel(BaseModel):
         }
 
     def __convert_nodes_to_dict(self, nodes):
-        items = {}
-        for id, node in nodes.items():
-            items[id] = node.to_dict()
-        return items
+        return {id: node.to_dict() for id, node in nodes.items()}
 
 
 class CreateNodeRequest(BaseModel):
