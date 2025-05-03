@@ -1,3 +1,5 @@
+from typing import Self
+
 from pydantic import BaseModel
 
 
@@ -28,7 +30,8 @@ class WorkflowNodeRequest(BaseModel):
         self.input = kwargs.get("input")
         self.next = kwargs.get("next", [])
 
-    def to_dict(self):
+    def to_dict(self) -> dict:
+        """Convert the object to a dictionary."""
         return {
             "id": self.id,
             "name": self.name,
@@ -41,7 +44,7 @@ class WorkflowNodeRequest(BaseModel):
         }
 
     @classmethod
-    def to_cls(cls, data):
+    def to_cls(cls, data: dict) -> Self:
         return cls(
             id=data.get("id"),
             name=data.get("name"),
@@ -80,7 +83,7 @@ class WorkflowModel(BaseModel):
         self.nodes = kwargs.get("nodes", {})
 
     @classmethod
-    def to_cls(cls, data):
+    def to_cls(cls, data: dict) -> Self:
         return cls(
             id=data.get("id"),
             name=data.get("name"),
@@ -94,7 +97,8 @@ class WorkflowModel(BaseModel):
     def __convert_nodes_from_dict(cls, nodes):
         return {id: WorkflowNodeRequest.to_cls(node) for id, node in nodes.items()}
 
-    def to_dict(self):
+    def to_dict(self) -> dict:
+        """Convert the object to a dictionary."""
         return {
             "id": self.id,
             "name": self.name,
