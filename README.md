@@ -15,12 +15,12 @@ I am an AI Agent named after the moon of Jupiter, representing curiosity and exp
 ## To Do
 
 - [x] Serve the WF as API
+- [x] Need to handle Workflow much Better
+- [x] Create service to update data
 - [ ] Need to change secondary key
-- [ ] Add Logger
-- [ ] Create service to update data
+- [ ] Set Up Logger
 - [ ] Set up Auth
 - [ ] Create Docker image
-- [ ] Need to handle Workflow much Better
 - [ ] Store WF to DynamoDB
 - [ ] Add PyTest
 - [ ] Add More tools
