@@ -4,7 +4,7 @@ from ai.model import (
     UpdateWorkflowRequest,
     WorkflowSlimModel,
 )
-from ai.services import ExecuteWorkflowService, WorkflowService
+from ai.services import WorkflowService
 
 router = APIRouter()
 
@@ -31,12 +31,6 @@ async def update_workflow(id: str, body: UpdateWorkflowRequest):
 async def delete_workflows_by_id(id: str):
     """Give the workflow detail by ID"""
     return {"data": WorkflowService().delete_workflows_by_id(id)}
-
-
-@router.post("/execute/{wf_id}", tags=["execute"])
-async def execute_workflow(wf_id: str):
-    """This will execute the workflow"""
-    return {"data": ExecuteWorkflowService(wf_id).execute()}
 
 
 @router.get("/history", tags=["history"])
