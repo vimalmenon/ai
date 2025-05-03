@@ -1,12 +1,10 @@
 from fastapi import APIRouter
 
 from ai.model import (
-    CreateNodeRequest,
     UpdateWorkflowRequest,
-    WorkflowNodeRequest,
     WorkflowSlimModel,
 )
-from ai.services import ExecuteWorkflowService, WorkflowNodeService, WorkflowService
+from ai.services import ExecuteWorkflowService, WorkflowService
 
 router = APIRouter()
 
@@ -15,12 +13,6 @@ router = APIRouter()
 async def get_workflows():
     """This list out all workflows details"""
     return {"data": WorkflowService().get_workflows()}
-
-
-@router.get("/{id}", tags=["workflow"])
-async def get_workflows_by_id(id: str):
-    """Give the workflow detail by ID"""
-    return {"data": WorkflowService().get_workflow_by_id(id)}
 
 
 @router.put("/create", tags=["workflow"])
@@ -41,24 +33,6 @@ async def delete_workflows_by_id(id: str):
     return {"data": WorkflowService().delete_workflows_by_id(id)}
 
 
-@router.put("/node/{wf_id}", tags=["node"])
-async def create_workflow_node(wf_id: str, body: CreateNodeRequest):
-    """Create the node for workflow"""
-    return {"data": WorkflowNodeService().create_workflow_node(wf_id, body)}
-
-
-@router.post("/node/{wf_id}/{id}", tags=["node"])
-async def update_workflow_node(wf_id: str, id: str, data: WorkflowNodeRequest):
-    """Updated the node for workflow"""
-    return {"data": WorkflowNodeService().update_workflow_node(wf_id, id, data)}
-
-
-@router.delete("/node/{wf_id}/{id}", tags=["node"])
-async def delete_workflow_node(wf_id: str, id: str):
-    """Delete the node for workflow"""
-    return {"data": WorkflowNodeService().delete_workflow_nodes(wf_id, id)}
-
-
 @router.post("/execute/{wf_id}", tags=["execute"])
 async def execute_workflow(wf_id: str):
     """This will execute the workflow"""
@@ -69,3 +43,9 @@ async def execute_workflow(wf_id: str):
 async def get_workflow_history():
     """This list out all workflows details"""
     return {"data": []}
+
+
+@router.get("/{id}", tags=["workflow"])
+async def get_workflows_by_id(id: str):
+    """Give the workflow detail by ID"""
+    return {"data": WorkflowService().get_workflow_by_id(id)}

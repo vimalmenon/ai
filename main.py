@@ -7,7 +7,8 @@ from ai.api import (
     router_contact,
     router_rest,
     router_s3,
-    router_workflows,
+    router_workflow,
+    router_workflow_node,
 )
 from ai.config.env import env
 
@@ -18,8 +19,12 @@ app.include_router(
     prefix="/contact",
 )
 app.include_router(
-    router_workflows,
-    prefix="/workflows",
+    router_workflow,
+    prefix="/workflow",
+)
+app.include_router(
+    router_workflow_node,
+    prefix="/workflow/node",
 )
 
 app.include_router(
