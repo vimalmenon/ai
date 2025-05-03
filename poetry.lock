@@ -92,17 +92,17 @@ uvloop = ["uvloop (>=0.15.2)"]
 
 [[package]]
 name = "boto3"
-version = "1.38.7"
+version = "1.38.8"
 description = "The AWS SDK for Python"
 optional = false
 python-versions = ">=3.9"
 files = [
-    {file = "boto3-1.38.7-py3-none-any.whl", hash = "sha256:c548983189b0a88f09cd4c572519b1923695b25cd877def58b61e03f41a6fd96"},
-    {file = "boto3-1.38.7.tar.gz", hash = "sha256:0269f793f0affc646b95c2cd12d42a4db49d5f30ef1073f616a112a384933f8e"},
+    {file = "boto3-1.38.8-py3-none-any.whl", hash = "sha256:f3a4d79f499f567d327d2d8846d02ad18244d2927f88858a42a2438f52d9a0ef"},
+    {file = "boto3-1.38.8.tar.gz", hash = "sha256:6bbc75bb51be9c5a33d07a4adf13d133c60f77b7c47bef1c46fda90b1297a867"},
 ]
 
 [package.dependencies]
-botocore = ">=1.38.7,<1.39.0"
+botocore = ">=1.38.8,<1.39.0"
 jmespath = ">=0.7.1,<2.0.0"
 s3transfer = ">=0.12.0,<0.13.0"
 
@@ -111,13 +111,13 @@ crt = ["botocore[crt] (>=1.21.0,<2.0a0)"]
 
 [[package]]
 name = "boto3-stubs"
-version = "1.38.7"
-description = "Type annotations for boto3 1.38.7 generated with mypy-boto3-builder 8.10.1"
+version = "1.38.8"
+description = "Type annotations for boto3 1.38.8 generated with mypy-boto3-builder 8.10.1"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "boto3_stubs-1.38.7-py3-none-any.whl", hash = "sha256:1d3fbc6a3a79d1bf91da081c22a83797297d261190b4a36052aac4953425fb17"},
-    {file = "boto3_stubs-1.38.7.tar.gz", hash = "sha256:fda87e0ef0dbada1179b6bf563567ddf45d6d014c5d682d2b5db101263c2eb44"},
+    {file = "boto3_stubs-1.38.8-py3-none-any.whl", hash = "sha256:1011c745b9d5a451008af217433cbb72de01cfb4ee526c91487188748bfb6478"},
+    {file = "boto3_stubs-1.38.8.tar.gz", hash = "sha256:aadb9c1b0e9a7c5c04d2d0243b08b02363ab8405dc0294763223486b6978fa91"},
 ]
 
 [package.dependencies]
@@ -173,7 +173,7 @@ bedrock-data-automation-runtime = ["mypy-boto3-bedrock-data-automation-runtime (
 bedrock-runtime = ["mypy-boto3-bedrock-runtime (>=1.38.0,<1.39.0)"]
 billing = ["mypy-boto3-billing (>=1.38.0,<1.39.0)"]
 billingconductor = ["mypy-boto3-billingconductor (>=1.38.0,<1.39.0)"]
-boto3 = ["boto3 (==1.38.7)"]
+boto3 = ["boto3 (==1.38.8)"]
 braket = ["mypy-boto3-braket (>=1.38.0,<1.39.0)"]
 budgets = ["mypy-boto3-budgets (>=1.38.0,<1.39.0)"]
 ce = ["mypy-boto3-ce (>=1.38.0,<1.39.0)"]
@@ -538,13 +538,13 @@ xray = ["mypy-boto3-xray (>=1.38.0,<1.39.0)"]
 
 [[package]]
 name = "botocore"
-version = "1.38.7"
+version = "1.38.8"
 description = "Low-level, data-driven core of boto 3."
 optional = false
 python-versions = ">=3.9"
 files = [
-    {file = "botocore-1.38.7-py3-none-any.whl", hash = "sha256:a002ec18cc02c4b039d20c39ca88ecf2fdb9533c0a5f3670e8c0fcdd3ee4a045"},
-    {file = "botocore-1.38.7.tar.gz", hash = "sha256:5c6df7171390437683072aadc0d2dfbcbfa72df52a134a5d4bed811ed214c3df"},
+    {file = "botocore-1.38.8-py3-none-any.whl", hash = "sha256:f6ae08a56fe94e18d2aa223611a3b5e94123315d0cb3cb85764b029b2326c710"},
+    {file = "botocore-1.38.8.tar.gz", hash = "sha256:68d739300cc94232373517b27c5570de6ae6d809a2db644f30219f5c8e0371ce"},
 ]
 
 [package.dependencies]
@@ -557,13 +557,13 @@ crt = ["awscrt (==0.23.8)"]
 
 [[package]]
 name = "botocore-stubs"
-version = "1.38.7"
+version = "1.38.8"
 description = "Type annotations and code completion for botocore"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "botocore_stubs-1.38.7-py3-none-any.whl", hash = "sha256:2962994f615bb20c2456029ba71291bd8936505fc8459d9df05a869f225ebe3b"},
-    {file = "botocore_stubs-1.38.7.tar.gz", hash = "sha256:c61f6353217ef0f993da9ac59162ae45b79038431ea3a68475af2f4403b08e95"},
+    {file = "botocore_stubs-1.38.8-py3-none-any.whl", hash = "sha256:52bafa2a55b66d356969187e555e65b27b38456f724944fbe3549998539e4893"},
+    {file = "botocore_stubs-1.38.8.tar.gz", hash = "sha256:d7f3783b664029a7f9da140530b82193ccb2ad0f2a9e13748fb35a7803c3ffc0"},
 ]
 
 [package.dependencies]
@@ -1693,13 +1693,13 @@ langgraph-prebuilt = ">=0.1.7,<0.2.0"
 
 [[package]]
 name = "langsmith"
-version = "0.3.41"
+version = "0.3.42"
 description = "Client library to connect to the LangSmith LLM Tracing and Evaluation Platform."
 optional = false
 python-versions = ">=3.9"
 files = [
-    {file = "langsmith-0.3.41-py3-none-any.whl", hash = "sha256:b6bc8808dd71a93866a420399d9040ada1649aae41dcd5c9e3f7f8d8caff469e"},
-    {file = "langsmith-0.3.41.tar.gz", hash = "sha256:ea6b4e22015f3eca7e1c666ede3f60c2ae27d06d34471e2fb769eeb6e298b0db"},
+    {file = "langsmith-0.3.42-py3-none-any.whl", hash = "sha256:18114327f3364385dae4026ebfd57d1c1cb46d8f80931098f0f10abe533475ff"},
+    {file = "langsmith-0.3.42.tar.gz", hash = "sha256:2b5cbc450ab808b992362aac6943bb1d285579aa68a3a8be901d30a393458f25"},
 ]
 
 [package.dependencies]
