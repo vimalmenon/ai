@@ -109,7 +109,7 @@ class WorkflowModel(BaseModel):
             "created_at": self.created_at,
         }
 
-    def __convert_nodes_to_dict(self, nodes) -> dict:
+    def __convert_nodes_to_dict(self, nodes: dict[str, WorkflowNodeRequest]) -> dict:
         return {id: node.to_dict() for id, node in nodes.items()}
 
 
