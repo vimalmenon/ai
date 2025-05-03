@@ -33,12 +33,6 @@ async def delete_workflows_by_id(id: str):
     return {"data": WorkflowService().delete_workflows_by_id(id)}
 
 
-@router.get("/history", tags=["history"])
-async def get_workflow_history():
-    """This list out all workflows details"""
-    return {"data": []}
-
-
 @router.get("/{id}", tags=["workflow"])
 async def get_workflows_by_id(id: str):
     """Give the workflow detail by ID"""
