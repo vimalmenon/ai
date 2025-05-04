@@ -16,7 +16,7 @@ boto3 = "^1.37.8"
 langchain-ollama = "^0.3.0"
 langsmith = "^0.3.23"
 langgraph = "^0.4.1"
-langgraph-supervisor = "^0.0.19"
+langgraph-supervisor = "^0.0.20"
 
 
 [tool.poetry.group.dev.dependencies]

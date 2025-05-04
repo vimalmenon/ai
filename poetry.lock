@@ -1677,13 +1677,13 @@ orjson = ">=3.10.1"
 
 [[package]]
 name = "langgraph-supervisor"
-version = "0.0.19"
+version = "0.0.20"
 description = "An implementation of a supervisor multi-agent architecture using LangGraph"
 optional = false
 python-versions = ">=3.10"
 files = [
-    {file = "langgraph_supervisor-0.0.19-py3-none-any.whl", hash = "sha256:474d5078b70b536012e44e731d5c0642ecdb056f5a67468287184a886dd49139"},
-    {file = "langgraph_supervisor-0.0.19.tar.gz", hash = "sha256:a32254dd458794af46ed5b495387f932e30da8a95b4e5c0948f83f1b61275d09"},
+    {file = "langgraph_supervisor-0.0.20-py3-none-any.whl", hash = "sha256:24dbbcd8bda396bb647f7b980aca5a1e7da1a1750715c3c936150ae6342a61fc"},
+    {file = "langgraph_supervisor-0.0.20.tar.gz", hash = "sha256:c359bf848401a2f0e7d34edd32425aca699862f71c2780e864debcbd9acae15e"},
 ]
 
 [package.dependencies]
@@ -3550,4 +3550,4 @@ cffi = ["cffi (>=1.11)"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "079427996c131639544afc8b4a6aa535736b7deea94787a01502cc7d08930cb4"
+content-hash = "d9938b29c4701eea1efefa39f3de3986619e88ce88279dbd8a064a3183ae0a5b"
