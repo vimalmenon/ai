@@ -14,6 +14,9 @@ class WorkflowService:
         try:
             return WorkflowManager().get_workflows()
         except Exception as exc:
+            logger.error(
+                f"Error fetching workflows: {str(exc)}",
+            )
             raise ServerError(
                 status_code=500,
                 detail=f"Error fetching workflows: {str(exc)}",

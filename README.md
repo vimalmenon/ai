@@ -19,8 +19,8 @@ I am an AI Agent named after the moon of Jupiter, representing curiosity and exp
 - [x] Create service to update data
 - [x] Store WF to DynamoDB
 - [x] Set Up Logger
+- [x] Add PyTest
 - [ ] Set up env in Test
-- [ ] Add PyTest
 - [ ] Add Test for all endpoints
 - [ ] All test for all managers
 - [ ] Add test for all services
