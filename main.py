@@ -1,3 +1,5 @@
+from logging import getLogger
+
 import uvicorn
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
@@ -13,6 +15,8 @@ from ai.api import (
     router_workflow_node,
 )
 from ai.config.env import env
+
+logger = getLogger(__name__)
 
 app = FastAPI(debug=env.debug)
 
