@@ -1,4 +1,4 @@
-from logging import getLogger
+from logging import INFO, basicConfig, getLogger
 
 import uvicorn
 from fastapi import FastAPI
@@ -17,6 +17,8 @@ from ai.api import (
 from ai.config.env import env
 
 logger = getLogger(__name__)
+basicConfig(filename="myapp.log", level=INFO)
+
 
 app = FastAPI(debug=env.debug)
 
