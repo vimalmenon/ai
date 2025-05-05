@@ -17,7 +17,10 @@ from ai.api import (
 from ai.config.env import env
 
 logger = getLogger(__name__)
-basicConfig(filename="myapp.log", level=INFO)
+basicConfig(
+    filename="myapp.log", level=INFO, format="%(asctime)s - %(levelname)s - %(message)s"
+)
+logger.info("Starting the application...")
 
 
 app = FastAPI(debug=env.debug)

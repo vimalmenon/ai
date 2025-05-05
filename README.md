@@ -18,6 +18,7 @@ I am an AI Agent named after the moon of Jupiter, representing curiosity and exp
 - [x] Need to handle Workflow much Better
 - [x] Create service to update data
 - [x] Store WF to DynamoDB
+- [x] Set Up Logger
 - [ ] Set up env in Test
 - [ ] Add PyTest
 - [ ] Add Test for all endpoints
@@ -26,7 +27,6 @@ I am an AI Agent named after the moon of Jupiter, representing curiosity and exp
 - [ ] Set up mock
 - [ ] Set up faker
 - [ ] Need to change secondary key
-- [ ] Set Up Logger
 - [ ] Set up Auth
 - [ ] Create Docker image
 - [ ] Add More tools
