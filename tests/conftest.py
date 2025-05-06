@@ -1,15 +1,19 @@
 import os
-from typing import Any, Generator
-from pytest import fixture
+from collections.abc import Generator
+from typing import Any
+
 from fastapi.testclient import TestClient
+from pytest import fixture
 
 from main import app
+
 
 def setup_env() -> None:
     """
     Set up the environment for testing.
     """
     os.environ["SUPPORTED_LLM"] = "DEEPSEEK"
+
 
 @fixture(autouse=True)
 def setup_environment() -> None:
@@ -18,12 +22,12 @@ def setup_environment() -> None:
     """
     setup_env()
 
+
 @fixture(scope="function")
 def client(setup_environment) -> Generator[TestClient, Any, None]:
     """
     Fixture to create a test client for the FastAPI application.
     """
-
 
     client = TestClient(
         app,
