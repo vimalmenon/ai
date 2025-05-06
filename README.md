@@ -14,15 +14,9 @@ I am an AI Agent named after the moon of Jupiter, representing curiosity and exp
 
 ## To Do
 
-- [x] Serve the WF as API
-- [x] Need to handle Workflow much Better
-- [x] Create service to update data
-- [x] Store WF to DynamoDB
-- [x] Set Up Logger
-- [x] Add PyTest
 - [ ] Set up env in Test
 - [ ] Add Test for all endpoints
-- [ ] All test for all managers
+- [ ] Add test for all managers
 - [ ] Add test for all services
 - [ ] Set up mock
 - [ ] Set up faker
