@@ -1,3 +1,4 @@
+from logging import getLogger
 from typing import Any
 
 from boto3.dynamodb.conditions import Key
@@ -6,6 +7,8 @@ from ai.exceptions.exceptions import ClientError
 from ai.managers import DbManager
 from ai.model import WorkflowModel, WorkflowSlimModel
 from ai.utilities import generate_uuid
+
+logger = getLogger(__name__)
 
 
 class WorkflowManager:
@@ -48,6 +51,7 @@ class WorkflowManager:
                 ExpressionAttributeNames=expression_attribute_names,
             )
         else:
+            logger.warning(f"Workflow with ID {id} not found.")
             raise ClientError(
                 status_code=404,
                 detail=f"Workflow with ID {id} not found.",
@@ -59,6 +63,7 @@ class WorkflowManager:
         if item:
             return DbManager().remove_item({"table": self.table, "app_id": id})
         else:
+            logger.warning(f"Workflow with ID {id} not found.")
             raise ClientError(
                 status_code=404,
                 detail=f"Workflow with ID {id} not found.",

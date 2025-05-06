@@ -1,6 +1,10 @@
+from logging import getLogger
+
 from ai.exceptions.exceptions import ClientError, ServerError
 from ai.managers import WorkflowManager
 from ai.model import WorkflowModel, WorkflowSlimModel
+
+logger = getLogger(__name__)
 
 
 class WorkflowService:
@@ -10,6 +14,9 @@ class WorkflowService:
         try:
             return WorkflowManager().get_workflows()
         except Exception as exc:
+            logger.error(
+                f"Error fetching workflows: {str(exc)}",
+            )
             raise ServerError(
                 status_code=500,
                 detail=f"Error fetching workflows: {str(exc)}",
@@ -20,6 +27,7 @@ class WorkflowService:
         try:
             return WorkflowManager().get_workflow_by_id(id)
         except Exception as exc:
+            logger.error(f"Error fetching workflow by ID: {str(exc)}")
             raise ServerError(
                 status_code=500,
                 detail=f"Error fetching workflow by ID: {str(exc)}",
@@ -30,6 +38,7 @@ class WorkflowService:
         try:
             return WorkflowManager().create_workflow(data)
         except Exception as exc:
+            logger.error(f"Error creating workflow: {str(exc)}")
             raise ServerError(
                 status_code=500,
                 detail=f"Error creating workflow: {str(exc)}",
@@ -40,6 +49,7 @@ class WorkflowService:
         try:
             return WorkflowManager().update_workflow(id, data)
         except Exception as exc:
+            logger.error(f"Error updating workflow: {str(exc)}")
             raise ServerError(
                 status_code=500,
                 detail=f"Error updating workflow: {str(exc)}",
@@ -50,11 +60,14 @@ class WorkflowService:
         try:
             return WorkflowManager().delete_workflows_by_id(id)
         except ClientError as ce:
+            logger.error(ce.detail)
+
             raise ClientError(
                 status_code=ce.status_code,
                 detail=ce.detail,
             ) from ce
         except Exception as exc:
+            logger.error(f"Error deleting workflow by ID: {str(exc)}")
             raise ServerError(
                 status_code=500,
                 detail=f"Error deleting workflow by ID: {str(exc)}",

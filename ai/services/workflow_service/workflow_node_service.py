@@ -1,5 +1,9 @@
+from logging import getLogger
+
 from ai.exceptions.exceptions import ClientError, ServerError
 from ai.managers import WorkflowNodeManager
+
+logger = getLogger(__name__)
 
 
 class WorkflowNodeService:
@@ -8,11 +12,13 @@ class WorkflowNodeService:
         try:
             return WorkflowNodeManager().delete_workflow_nodes(wf_id, id)
         except ClientError as ce:
+            logger.error(f"Client error deleting workflow node: {str(ce)}")
             raise ClientError(
                 status_code=ce.status_code,
                 detail=ce.detail,
             ) from ce
         except Exception as e:
+            logger.error(f"Error deleting workflow node: {str(e)}")
             raise ServerError(
                 status_code=404,
                 detail=f"Workflow node with ID {id} not found.",
@@ -23,6 +29,7 @@ class WorkflowNodeService:
         try:
             return WorkflowNodeManager().create_workflow_node(wf_id, body)
         except Exception as e:
+            logger.error(f"Error creating workflow node: {str(e)}")
             raise ServerError(
                 status_code=500,
                 detail=f"Error creating workflow node: {str(e)}",
@@ -33,6 +40,7 @@ class WorkflowNodeService:
         try:
             return WorkflowNodeManager().update_workflow_node(wf_id, id, data)
         except Exception as e:
+            logger.error(f"Error updating workflow node: {str(e)}")
             raise ServerError(
                 status_code=500,
                 detail=f"Error updating workflow node: {str(e)}",
