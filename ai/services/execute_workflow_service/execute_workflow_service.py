@@ -2,6 +2,7 @@ from logging import getLogger
 
 from langgraph.prebuilt import create_react_agent
 
+from ai.exceptions.exceptions import ClientError
 from ai.llms import deepseek_llm
 from ai.model import WorkflowNodeRequest
 from ai.services.workflow_service.workflow_service import WorkflowService
@@ -14,12 +15,22 @@ class ExecuteWorkflowService:
         self.id = id
 
     def execute(self):
-        item = WorkflowService().get_workflow_by_id(self.id)
-        if item:
-            nodes = item.nodes
-            for _id, node in nodes.items():
-                self.__execute_node(node)
+        nodes = self.__validate_item_nodes_and_return()
+        for _id, node in nodes.items():
+            self.__execute_node(node)
         return {"item": None}
+
+    def resume_execute(self):
+        self.__validate_item_nodes_and_return()
+
+    def __validate_item_nodes_and_return(self) -> dict[str, WorkflowNodeRequest]:
+        item = WorkflowService().get_workflow_by_id(self.id)
+        if not item:
+            raise ClientError(
+                status_code=404,
+                detail=f"Workflow with ID {id} not found.",
+            )
+        return item.nodes
 
     def __execute_node(self, node: WorkflowNodeRequest):
         if node.type == "agent":
@@ -35,4 +46,4 @@ class ExecuteWorkflowService:
         result = agent_llm.invoke(
             {"messages": [{"role": "user", "content": node.prompt}]}
         )
-        logger.warning(result["messages"][-1].content)
+        logger.warning(result["messages"][-1])
