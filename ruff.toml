@@ -21,4 +21,11 @@ select = [
     "SIM",
     # isort
     "I",
+    # # flake8-annotations
+    # "ANN",
+    # flake8-logging-format
+    "LOG001",
+    # flake8-implicit-str-concat
+    "ISC001",
+
 ]
