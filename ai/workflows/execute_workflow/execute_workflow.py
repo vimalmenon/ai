@@ -2,7 +2,7 @@ from ai.services import WorkflowService
 
 
 class ExecuteWorkflow:
-    def __init__(self, id: str):
+    def __init__(self, id: str) -> None:
         self.id = id
 
     def execute(self):
