@@ -2,6 +2,8 @@ from typing import Self
 
 from pydantic import BaseModel
 
+from ai.model.llm import LLMs
+
 
 class UpdateWorkflowRequest(BaseModel):
     name: str
@@ -14,7 +16,7 @@ class WorkflowNodeRequest(BaseModel):
     name: str
     prompt: str | None = None
     type: str | None = None
-    llm: str | None = None
+    llm: LLMs | None = None
     tools: list[str] = []
     input: str | None = None
     next: list[str] = []
@@ -50,7 +52,7 @@ class WorkflowNodeRequest(BaseModel):
             name=data.get("name"),
             prompt=data.get("prompt"),
             type=data.get("type"),
-            llm=data.get("llm"),
+            llm=LLMs[data.get("llm", "")],
             tools=data.get("tools"),
             input=data.get("input"),
             next=data.get("next"),
