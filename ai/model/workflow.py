@@ -120,10 +120,22 @@ class CreateNodeRequest(BaseModel):
 
 
 class ExecuteWorkflowModel(BaseModel):
-    id: str | None
+    id: str
     name: str
     content: str
     created_at: str
     total_tokens: int
     model_name: str
     status: str
+
+    @classmethod
+    def to_cls(cls, data: dict[str, str]) -> Self:
+        return cls(
+            id=data.get("id", ""),
+            name=data.get("name", ""),
+            content=data.get("content", ""),
+            status="COMPLETE",
+            total_tokens=int(data.get("total_tokens", "0")),
+            model_name=data.get("model_name", ""),
+            created_at=data.get("model_name", ""),
+        )

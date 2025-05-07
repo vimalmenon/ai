@@ -1,5 +1,6 @@
 from logging import getLogger
 
+from langchain_core.messages.ai import AIMessage
 from langgraph.prebuilt import create_react_agent
 
 from ai.exceptions.exceptions import ClientError
@@ -46,4 +47,16 @@ class ExecuteWorkflowService:
         result = agent_llm.invoke(
             {"messages": [{"role": "user", "content": node.prompt}]}
         )
-        logger.warning(result["messages"][-1])
+
+        logger.warning(self.__parse_response(result["messages"][-1]))
+
+    def __parse_response(self, response: AIMessage) -> dict[str, str]:
+        response_metadata = response.response_metadata
+        return {
+            "content": str(response.content) or "",
+            "model_name": response_metadata.get("model_name", ""),
+            "name": response.name or "",
+            "total_tokens": response_metadata.get("token_usage", {}).get(
+                "total_tokens", ""
+            ),
+        }
