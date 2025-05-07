@@ -32,7 +32,7 @@ class ExecuteWorkflowService:
             )
         return item.nodes
 
-    def __execute_node(self, node: WorkflowNodeRequest):
+    def __execute_node(self, node: WorkflowNodeRequest) -> None:
         if node.type == "agent":
             self.__execute_agent_node(node)
 
@@ -40,7 +40,7 @@ class ExecuteWorkflowService:
         agent_llm = create_react_agent(
             model=deepseek_llm,
             tools=[],
-            name="resume_critique",
+            name=node.name,
             prompt="You are a helpful assistant",
         )
         result = agent_llm.invoke(

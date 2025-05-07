@@ -117,3 +117,13 @@ class WorkflowModel(BaseModel):
 
 class CreateNodeRequest(BaseModel):
     name: str
+
+
+class ExecuteWorkflowModel(BaseModel):
+    id: str | None
+    name: str
+    content: str
+    created_at: str
+    total_tokens: int
+    model_name: str
+    status: str
