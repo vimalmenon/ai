@@ -4,10 +4,10 @@ from langchain_core.messages.ai import AIMessage
 from langgraph.prebuilt import create_react_agent
 
 from ai.exceptions.exceptions import ClientError
-from ai.llms import deepseek_llm
 from ai.model import ExecuteWorkflowModel, WorkflowNodeRequest
+from ai.services.llm_service.llm_service import LLmService
 from ai.services.workflow_service.workflow_service import WorkflowService
-from ai.utilities import created_date
+from ai.utilities import created_date, generate_uuid
 
 logger = getLogger(__name__)
 
@@ -38,9 +38,9 @@ class ExecuteWorkflowService:
         if node.type == "agent":
             self.__execute_agent_node(node)
 
-    def __execute_agent_node(self, node: WorkflowNodeRequest):
+    def __execute_agent_node(self, node: WorkflowNodeRequest) -> None:
         agent_llm = create_react_agent(
-            model=deepseek_llm,
+            model=LLmService(llm=node.llm).get_llm(),
             tools=[],
             name=node.name,
             prompt="You are a helpful assistant",
@@ -55,6 +55,7 @@ class ExecuteWorkflowService:
     def __parse_response(self, response: AIMessage) -> dict[str, str]:
         response_metadata = response.response_metadata
         return {
+            "id": generate_uuid(),
             "content": str(response.content) or "",
             "model_name": response_metadata.get("model_name", ""),
             "name": response.name or "",
