@@ -5,8 +5,9 @@ from langgraph.prebuilt import create_react_agent
 
 from ai.exceptions.exceptions import ClientError
 from ai.llms import deepseek_llm
-from ai.model import WorkflowNodeRequest
+from ai.model import ExecuteWorkflowModel, WorkflowNodeRequest
 from ai.services.workflow_service.workflow_service import WorkflowService
+from ai.utilities import created_date
 
 logger = getLogger(__name__)
 
@@ -47,8 +48,9 @@ class ExecuteWorkflowService:
         result = agent_llm.invoke(
             {"messages": [{"role": "user", "content": node.prompt}]}
         )
-
-        logger.warning(self.__parse_response(result["messages"][-1]))
+        logger.warning(
+            ExecuteWorkflowModel.to_cls(self.__parse_response(result["messages"][-1]))
+        )
 
     def __parse_response(self, response: AIMessage) -> dict[str, str]:
         response_metadata = response.response_metadata
@@ -59,4 +61,5 @@ class ExecuteWorkflowService:
             "total_tokens": response_metadata.get("token_usage", {}).get(
                 "total_tokens", ""
             ),
+            "created_at": created_date(),
         }

@@ -139,3 +139,14 @@ class ExecuteWorkflowModel(BaseModel):
             model_name=data.get("model_name", ""),
             created_at=data.get("model_name", ""),
         )
+
+    def to_dict(self) -> dict[str, str | int]:
+        return {
+            "id": self.id,
+            "name": self.name,
+            "content": self.content,
+            "status": self.status,
+            "total_tokens": self.total_tokens,
+            "model_name": self.model_name,
+            "created_at": self.created_at,
+        }
