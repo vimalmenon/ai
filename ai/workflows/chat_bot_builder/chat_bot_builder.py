@@ -2,7 +2,7 @@ from langchain_core.messages import AIMessage, HumanMessage
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langgraph.graph import END, START, StateGraph
 
-from ai.llms.ollama import ollama_llm
+from ai.services.llm_service.ollama import ollama_llm
 from ai.workflows.base_builder.base_builder import BaseBuilder, State
 
 

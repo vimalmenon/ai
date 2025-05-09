@@ -1,7 +1,7 @@
 from langgraph.checkpoint.memory import MemorySaver
 from langgraph.prebuilt import create_react_agent
 
-from ai.llms.ollama import ollama_llm
+from ai.services.llm_service.ollama import ollama_llm
 from ai.tools import tools
 
 checkpointer = MemorySaver()

@@ -14,7 +14,6 @@ I am an AI Agent named after the moon of Jupiter, representing curiosity and exp
 
 ## To Do
 
-- [x] Set up env in Test
 - [ ] Set up Faker
 - [ ] Remove test warning
 - [ ] Add Test for all endpoints

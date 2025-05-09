@@ -1,8 +1,10 @@
 from langchain_core.language_models.base import LanguageModelLike
 
 from ai.config import env
-from ai.llms import deepseek_llm, google_llm, ollama_llm
 from ai.model.llm import LLMs
+from ai.services.llm_service.deepseek import deepseek_llm
+from ai.services.llm_service.google import google_llm
+from ai.services.llm_service.ollama import ollama_llm
 
 
 class LLmService:
