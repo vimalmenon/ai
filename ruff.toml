@@ -8,6 +8,7 @@ target-version = "py311"
 # explicitly adding the rule.
 # unfixable = ["F401"]
 extend-select = ["E501"]
+ignore = []
 select = [
     # pycodestyle
     "E",
@@ -21,4 +22,13 @@ select = [
     "SIM",
     # isort
     "I",
+    # # flake8-annotations
+    # "ANN",
+    # flake8-logging-format
+    "LOG001",
+    # flake8-implicit-str-concat
+    "ISC001",
+    # flake8-simplify
+    "SIM",
+
 ]

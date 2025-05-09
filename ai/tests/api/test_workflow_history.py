@@ -3,7 +3,7 @@ from fastapi.testclient import TestClient
 from main import app
 
 
-def test_workflow_history():
+def test_workflow_history() -> None:
     """
     Test the workflow API endpoints.
     """

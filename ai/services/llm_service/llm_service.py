@@ -1,14 +1,14 @@
-from typing import Any
+from langchain_core.language_models.base import LanguageModelLike
 
 from ai.config import env
-from ai.enum import LLMs
 from ai.llms import deepseek_llm, google_llm, ollama_llm
+from ai.model.llm import LLMs
 
 
 class LLmService:
-    item: Any | None = None
+    item: LanguageModelLike
 
-    def __init__(self, llm: LLMs):
+    def __init__(self, llm: LLMs | None = LLMs.DEEPSEEK) -> None:
         if llm == LLMs.DEEPSEEK:
             self.item = deepseek_llm
         elif llm == LLMs.GOOGLE:
@@ -16,7 +16,7 @@ class LLmService:
         elif llm == LLMs.OLLAMA:
             self.item = ollama_llm
 
-    def get_llm(self) -> Any | None:
+    def get_llm(self) -> LanguageModelLike:
         return self.item
 
 

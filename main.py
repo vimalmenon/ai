@@ -70,5 +70,6 @@ app.add_middleware(
 )
 
 
-def run():
+def run() -> None:
+    """Run the FastAPI application."""
     uvicorn.run("main:app", host="0.0.0.0", port=env.port, reload=True)

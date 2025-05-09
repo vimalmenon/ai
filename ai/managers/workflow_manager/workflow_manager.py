@@ -69,14 +69,13 @@ class WorkflowManager:
                 detail=f"Workflow with ID {id} not found.",
             )
 
-    def update_workflow_node(self, wf_id: str, nodes):
+    def update_workflow_node(self, wf_id: str, nodes: dict) -> None:
         """Update the workflow node by ID"""
         DbManager().update_item(
             Key={"table": self.table, "app_id": wf_id},
             UpdateExpression="set nodes= :nodes",
             ExpressionAttributeValues={":nodes": nodes},
         )
-        return nodes
 
     def __get_workflow_details(self, data: WorkflowModel):
         expression: dict[str, Any] = {}

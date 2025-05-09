@@ -2,6 +2,8 @@ from typing import Self
 
 from pydantic import BaseModel
 
+from ai.model.llm import LLMs
+
 
 class UpdateWorkflowRequest(BaseModel):
     name: str
@@ -14,7 +16,7 @@ class WorkflowNodeRequest(BaseModel):
     name: str
     prompt: str | None = None
     type: str | None = None
-    llm: str | None = None
+    llm: LLMs | None = None
     tools: list[str] = []
     input: str | None = None
     next: list[str] = []
@@ -50,7 +52,7 @@ class WorkflowNodeRequest(BaseModel):
             name=data.get("name"),
             prompt=data.get("prompt"),
             type=data.get("type"),
-            llm=data.get("llm"),
+            llm=LLMs[data.get("llm", "")],
             tools=data.get("tools"),
             input=data.get("input"),
             next=data.get("next"),
@@ -115,3 +117,36 @@ class WorkflowModel(BaseModel):
 
 class CreateNodeRequest(BaseModel):
     name: str
+
+
+class ExecuteWorkflowModel(BaseModel):
+    id: str
+    name: str
+    content: str
+    created_at: str
+    total_tokens: int
+    model_name: str
+    status: str
+
+    @classmethod
+    def to_cls(cls, data: dict[str, str]) -> Self:
+        return cls(
+            id=data.get("id", ""),
+            name=data.get("name", ""),
+            content=data.get("content", ""),
+            status="COMPLETE",
+            total_tokens=int(data.get("total_tokens", "0")),
+            model_name=data.get("model_name", ""),
+            created_at=data.get("model_name", ""),
+        )
+
+    def to_dict(self) -> dict[str, str | int]:
+        return {
+            "id": self.id,
+            "name": self.name,
+            "content": self.content,
+            "status": self.status,
+            "total_tokens": self.total_tokens,
+            "model_name": self.model_name,
+            "created_at": self.created_at,
+        }

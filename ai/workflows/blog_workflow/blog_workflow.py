@@ -1,7 +1,7 @@
 from langgraph.prebuilt import create_react_agent
 
-from ai.enum import LLMs
 from ai.exceptions.exceptions import LLmException
+from ai.model.llm import LLMs
 from ai.services import LLmService
 from ai.utilities import generate_uuid
 

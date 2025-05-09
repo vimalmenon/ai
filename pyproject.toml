@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "ai"
-version = "0.0.8"
+version = "0.0.9"
 description = "This is AI Agent"
 authors = ["Vimal Menon"]
 readme = "README.md"
@@ -29,6 +29,7 @@ boto3-stubs = "^1.37.9"
 ruff = "^0.11.2"
 black = "^25.1.0"
 pytest = "^8.3.5"
+pytest-faker = "^2.0.0"
 
 [build-system]
 requires = ["poetry-core"]

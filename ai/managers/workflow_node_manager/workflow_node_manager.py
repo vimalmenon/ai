@@ -5,30 +5,30 @@ from ai.utilities import generate_uuid
 
 
 class WorkflowNodeManager:
-    def create_workflow_node(self, wf_id: str, body: CreateNodeRequest):
+    def create_workflow_node(self, wf_id: str, body: CreateNodeRequest) -> None:
         """Create the workflow node"""
         workflow = self.__validate_and_return_workflow(wf_id)
         uuid = generate_uuid()
         workflow.nodes[uuid] = WorkflowNodeRequest(id=uuid, name=body.name)
-        return WorkflowManager().update_workflow_node(
+        WorkflowManager().update_workflow_node(
             wf_id, self.__convert_nodes_to_dict(workflow.nodes)
         )
 
-    def delete_workflow_nodes(self, wf_id: str, id: str):
+    def delete_workflow_nodes(self, wf_id: str, id: str) -> None:
         """Delete the workflow node by ID"""
         workflow = self.__validate_and_return_workflow(wf_id)
         self.__validate_and_return_node(workflow, id)
         del workflow.nodes[id]
-        return WorkflowManager().update_workflow_node(
+        WorkflowManager().update_workflow_node(
             wf_id, self.__convert_nodes_to_dict(workflow.nodes)
         )
 
-    def update_workflow_node(self, wf_id, id, data: WorkflowNodeRequest):
+    def update_workflow_node(self, wf_id, id, data: WorkflowNodeRequest) -> None:
         """Update the workflow node by ID"""
         workflow = self.__validate_and_return_workflow(wf_id)
         self.__validate_and_return_node(workflow, id)
         workflow.nodes[id] = data
-        return WorkflowManager().update_workflow_node(
+        WorkflowManager().update_workflow_node(
             wf_id, self.__convert_nodes_to_dict(workflow.nodes)
         )
 
