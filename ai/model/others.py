@@ -6,3 +6,4 @@ class WorkflowType(Enum):
     LLM = "LLM"
     Tool = "Tool"
     HumanInput = "HumanInput"
+    Service = "Service"

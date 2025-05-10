@@ -3,6 +3,7 @@ from typing import Self
 from pydantic import BaseModel
 
 from ai.model.llm import LLMs
+from ai.model.others import WorkflowType
 
 
 class UpdateWorkflowRequest(BaseModel):
@@ -15,7 +16,7 @@ class WorkflowNodeRequest(BaseModel):
     id: str | None = None
     name: str
     prompt: str | None = None
-    type: str | None = None
+    type: WorkflowType | None = None
     llm: LLMs | None = None
     tools: list[str] = []
     input: str | None = None
@@ -51,7 +52,11 @@ class WorkflowNodeRequest(BaseModel):
             id=data.get("id"),
             name=data.get("name"),
             prompt=data.get("prompt"),
-            type=data.get("type"),
+            type=(
+                WorkflowType[data.get("type", "")]
+                if data.get("type")
+                else data.get("type")
+            ),
             llm=LLMs[data.get("llm", "")],
             tools=data.get("tools"),
             input=data.get("input"),
