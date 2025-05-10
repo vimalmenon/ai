@@ -1,4 +1,3 @@
-from ai.services.agent_service.agent_service import AgentService
 from ai.services.contact_service.contact_service import ContactService
 from ai.services.execute_workflow_service.execute_workflow_service import (
     ExecuteWorkflowService,
@@ -18,7 +17,6 @@ __all__ = [
     "ListLLMServices",
     "ToolService",
     "S3Service",
-    "AgentService",
     "ExecuteWorkflowService",
     "WorkflowNodeService",
 ]
