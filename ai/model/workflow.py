@@ -57,7 +57,7 @@ class WorkflowNodeRequest(BaseModel):
                 if data.get("type")
                 else data.get("type")
             ),
-            llm=LLMs[data.get("llm", "")],
+            llm=LLMs[data.get("llm", "")] if data.get("llm") else data.get("llm"),
             tools=data.get("tools"),
             input=data.get("input"),
             next=data.get("next"),
