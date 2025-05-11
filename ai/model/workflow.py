@@ -18,7 +18,7 @@ class WorkflowNodeRequest(BaseModel):
     prompt: str | None = None
     type: WorkflowType | None = None
     llm: LLMs | None = None
-    tools: list[str] = []
+    tools: list[Tool] = []
     input: str | None = None
     next: list[str] = []
 

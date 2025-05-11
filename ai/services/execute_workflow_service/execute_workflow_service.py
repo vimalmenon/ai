@@ -7,6 +7,7 @@ from ai.exceptions.exceptions import ClientError
 from ai.model import ExecuteWorkflowModel, WorkflowNodeRequest
 from ai.model.others import WorkflowType
 from ai.services.llm_service.llm_service import LLmService
+from ai.services.tool_service.tool_service import ToolService
 from ai.services.workflow_service.workflow_service import WorkflowService
 from ai.utilities import created_date, generate_uuid
 
@@ -42,7 +43,7 @@ class ExecuteWorkflowService:
     def __execute_agent_node(self, node: WorkflowNodeRequest) -> None:
         agent_llm = create_react_agent(
             model=LLmService(llm=node.llm).get_llm(),
-            tools=[],
+            tools=[ToolService().get_tool_func(tool) for tool in node.tools],
             name=node.name,
             prompt="You are a helpful assistant",
         )
