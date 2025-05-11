@@ -13,6 +13,7 @@ def setup_env() -> None:
     Set up the environment for testing.
     """
     os.environ["SUPPORTED_LLM"] = "DEEPSEEK"
+    os.environ["DEEPSEEK_API_KEY"] = "DEEPSEEK"
 
 
 @fixture(autouse=True)
