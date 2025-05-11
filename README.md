@@ -14,9 +14,10 @@ I am an AI Agent named after the moon of Jupiter, representing curiosity and exp
 
 ## To Do
 
+- [ ] Add humps to response
 - [ ] Set up faker
 - [ ] Remove test warning
-- [ ] Add Test for all endpoints
+- [ ] Add test for all endpoints
 - [ ] Add test for all managers
 - [ ] Add test for all services
 - [ ] Set up mock
@@ -27,7 +28,6 @@ I am an AI Agent named after the moon of Jupiter, representing curiosity and exp
 - [ ] Create release with tag
 - [ ] Create advanced workflows
 - [ ] Create workflow with agents
-- [ ] Add humps to response
 - [ ] [LongTerm] [AI] Write Code
 - [ ] [LongTerm] [AI] Review Code
 - [ ] [LongTerm] [AI] Write Content
