@@ -5,6 +5,7 @@ from langgraph.prebuilt import create_react_agent
 
 from ai.exceptions.exceptions import ClientError
 from ai.model import ExecuteWorkflowModel, WorkflowNodeRequest
+from ai.model.others import WorkflowType
 from ai.services.llm_service.llm_service import LLmService
 from ai.services.workflow_service.workflow_service import WorkflowService
 from ai.utilities import created_date, generate_uuid
@@ -35,7 +36,7 @@ class ExecuteWorkflowService:
         return item.nodes
 
     def __execute_node(self, node: WorkflowNodeRequest) -> None:
-        if node.type == "agent":
+        if node.type == WorkflowType.Agent:
             self.__execute_agent_node(node)
 
     def __execute_agent_node(self, node: WorkflowNodeRequest) -> None:
