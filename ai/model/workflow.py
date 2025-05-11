@@ -142,7 +142,7 @@ class ExecuteWorkflowModel(BaseModel):
             status="COMPLETE",
             total_tokens=int(data.get("total_tokens", "0")),
             model_name=data.get("model_name", ""),
-            created_at=data.get("model_name", ""),
+            created_at=data.get("created_at", ""),
         )
 
     def to_dict(self) -> dict[str, str | int]:
