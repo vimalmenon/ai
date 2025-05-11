@@ -5,8 +5,8 @@ from boto3.dynamodb.conditions import Key
 
 from ai.exceptions.exceptions import ClientError
 from ai.managers import DbManager
-from ai.model import WorkflowModel, WorkflowSlimModel
-from ai.utilities import generate_uuid
+from ai.model import UpdateWorkflowRequest, WorkflowModel, WorkflowSlimModel
+from ai.utilities import created_date, generate_uuid
 
 logger = getLogger(__name__)
 
@@ -35,7 +35,7 @@ class WorkflowManager:
         DbManager().add_item({"table": self.table, "app_id": uuid, **item.to_dict()})
         return item
 
-    def update_workflow(self, id, data: WorkflowModel) -> None:
+    def update_workflow(self, id, data: UpdateWorkflowRequest) -> None:
         """Update workflow"""
         item = DbManager().get_item({"table": self.table, "app_id": id})
         if item:
@@ -77,7 +77,7 @@ class WorkflowManager:
             ExpressionAttributeValues={":nodes": nodes},
         )
 
-    def __get_workflow_details(self, data: WorkflowModel):
+    def __get_workflow_details(self, data: WorkflowModel | UpdateWorkflowRequest):
         expression: dict[str, Any] = {}
         if data.name:
             expression["name"] = {
@@ -97,12 +97,11 @@ class WorkflowManager:
                 "key": ":complete",
                 "value": data.complete,
             }
-        if data.updated_at is not None:
-            expression["updated_at"] = {
-                "name": "#updated_at",
-                "key": ":updated_at",
-                "value": data.updated_at,
-            }
+        expression["updated_at"] = {
+            "name": "#updated_at",
+            "key": ":updated_at",
+            "value": created_date(),
+        }
         update_expression = []
         expression_attribute_values = {}
         expression_attribute_names = {}
