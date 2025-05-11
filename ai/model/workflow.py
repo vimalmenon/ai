@@ -3,7 +3,7 @@ from typing import Self
 from pydantic import BaseModel
 
 from ai.model.llm import LLMs
-from ai.model.others import WorkflowType
+from ai.model.others import Tool, WorkflowType
 
 
 class UpdateWorkflowRequest(BaseModel):
@@ -58,7 +58,7 @@ class WorkflowNodeRequest(BaseModel):
                 else data.get("type")
             ),
             llm=LLMs[data.get("llm", "")] if data.get("llm") else data.get("llm"),
-            tools=data.get("tools"),
+            tools=[Tool[tool] for tool in data.get("tools", [])],
             input=data.get("input"),
             next=data.get("next"),
         )
