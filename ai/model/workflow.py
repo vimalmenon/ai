@@ -4,6 +4,7 @@ from pydantic import BaseModel
 
 from ai.model.llm import LLMs
 from ai.model.others import Tool, WorkflowType
+from ai.utilities import created_date
 
 
 class UpdateWorkflowRequest(BaseModel):
@@ -77,14 +78,14 @@ class WorkflowModel(BaseModel):
     name: str
     detail: str | None = None
     complete: bool = False
-    created_at: str | None = None
+    updated_at: str | None = None
     nodes: dict[str, WorkflowNodeRequest] = {}
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.id = kwargs.get("id")
         self.name = kwargs.get("name")
-        self.created_at = kwargs.get("created_at")
+        self.updated_at = kwargs.get("updated_at", created_date())
         self.detail = kwargs.get("detail")
         self.complete = kwargs.get("complete", False)
         self.nodes = kwargs.get("nodes", {})
@@ -97,7 +98,7 @@ class WorkflowModel(BaseModel):
             detail=data.get("detail"),
             complete=data.get("complete", False),
             nodes=cls.__convert_nodes_from_dict(data.get("nodes", {})),
-            created_at=data.get("created_at"),
+            updated_at=data.get("updated_at", created_date()),
         )
 
     @classmethod
@@ -113,7 +114,7 @@ class WorkflowModel(BaseModel):
             "detail": self.detail,
             "complete": self.complete,
             "nodes": self.__convert_nodes_to_dict(self.nodes),
-            "created_at": self.created_at,
+            "updated_at": self.updated_at,
         }
 
     def __convert_nodes_to_dict(self, nodes: dict[str, WorkflowNodeRequest]) -> dict:

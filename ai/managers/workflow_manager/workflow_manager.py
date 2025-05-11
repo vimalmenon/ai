@@ -97,6 +97,12 @@ class WorkflowManager:
                 "key": ":complete",
                 "value": data.complete,
             }
+        if data.updated_at is not None:
+            expression["updated_at"] = {
+                "name": "#updated_at",
+                "key": ":updated_at",
+                "value": data.updated_at,
+            }
         update_expression = []
         expression_attribute_values = {}
         expression_attribute_names = {}
