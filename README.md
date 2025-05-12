@@ -15,7 +15,7 @@ I am an AI Agent named after the moon of Jupiter, representing curiosity and exp
 ## To Do
 
 - [x] Show updated at workflow
-- [ ] Fix the error while adding nodes
+- [x] Fix the error while adding nodes
 - [ ] Show updated at in nodes
 - [ ] Add humps to response
 - [ ] Set up faker
