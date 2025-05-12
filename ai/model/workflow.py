@@ -28,7 +28,9 @@ class WorkflowNodeRequest(BaseModel):
         self.name = kwargs.get("name")
         self.id = kwargs.get("id")
         self.prompt = kwargs.get("prompt")
-        self.type = kwargs.get("type")
+        self.type = (
+            WorkflowType[str(kwargs.get("type"))] if kwargs.get("type") else None
+        )
         self.llm = kwargs.get("llm")
         self.tools = kwargs.get("tools", [])
         self.input = kwargs.get("input")
@@ -40,7 +42,7 @@ class WorkflowNodeRequest(BaseModel):
             "id": self.id,
             "name": self.name,
             "prompt": self.prompt,
-            "type": self.type,
+            "type": self.type.value if self.type else None,
             "llm": self.llm,
             "tools": self.tools,
             "input": self.input,
@@ -53,11 +55,7 @@ class WorkflowNodeRequest(BaseModel):
             id=data.get("id"),
             name=data.get("name"),
             prompt=data.get("prompt"),
-            type=(
-                WorkflowType[data.get("type", "")]
-                if data.get("type")
-                else data.get("type")
-            ),
+            type=data.get("type"),
             llm=LLMs[data.get("llm", "")] if data.get("llm") else data.get("llm"),
             tools=[Tool[tool] for tool in data.get("tools", [])],
             input=data.get("input"),

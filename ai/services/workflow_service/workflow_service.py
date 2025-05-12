@@ -1,3 +1,4 @@
+import traceback
 from logging import getLogger
 
 from ai.exceptions.exceptions import ClientError, ServerError
@@ -17,6 +18,7 @@ class WorkflowService:
             logger.error(
                 f"Error fetching workflows: {str(exc)}",
             )
+            traceback.print_exc()
             raise ServerError(
                 status_code=500,
                 detail=f"Error fetching workflows: {str(exc)}",
