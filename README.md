@@ -16,7 +16,8 @@ I am an AI Agent named after the moon of Jupiter, representing curiosity and exp
 
 - [x] Show updated at workflow
 - [x] Fix the error while adding nodes
-- [ ] Show updated at in nodes
+- [x] Show updated at in nodes
+- [x] Create workflow with agents
 - [ ] Add humps to response
 - [ ] Set up faker
 - [ ] Remove test warning
@@ -30,7 +31,6 @@ I am an AI Agent named after the moon of Jupiter, representing curiosity and exp
 - [ ] Add more tools
 - [ ] Create release with tag
 - [ ] Create advanced workflows
-- [ ] Create workflow with agents
 - [ ] [LongTerm] [AI] Write Code
 - [ ] [LongTerm] [AI] Review Code
 - [ ] [LongTerm] [AI] Write Content
