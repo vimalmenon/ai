@@ -22,6 +22,7 @@ class WorkflowNodeRequest(BaseModel):
     tools: list[Tool] = []
     input: str | None = None
     next: list[str] = []
+    updated_at: str | None = None
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -35,6 +36,7 @@ class WorkflowNodeRequest(BaseModel):
         self.tools = [Tool[tool] for tool in kwargs.get("tools", [])]
         self.input = kwargs.get("input")
         self.next = kwargs.get("next", [])
+        self.updated_at = kwargs.get("updated_at", created_date())
 
     def to_dict(self) -> dict:
         """Convert the object to a dictionary."""
@@ -47,6 +49,7 @@ class WorkflowNodeRequest(BaseModel):
             "tools": [tool.value for tool in self.tools],
             "input": self.input,
             "next": self.next,
+            "updated_at": self.updated_at,
         }
 
     @classmethod
@@ -60,6 +63,7 @@ class WorkflowNodeRequest(BaseModel):
             tools=data.get("tools", []),
             input=data.get("input"),
             next=data.get("next"),
+            updated_at=data.get("updated_at", created_date()),
         )
 
 
