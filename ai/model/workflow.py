@@ -32,7 +32,7 @@ class WorkflowNodeRequest(BaseModel):
             WorkflowType[str(kwargs.get("type"))] if kwargs.get("type") else None
         )
         self.llm = LLMs[str(kwargs.get("llm"))] if kwargs.get("llm") else None
-        self.tools = ([Tool[tool] for tool in kwargs.get("tools", [])],)
+        self.tools = [Tool[tool] for tool in kwargs.get("tools", [])]
         self.input = kwargs.get("input")
         self.next = kwargs.get("next", [])
 
