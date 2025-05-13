@@ -7,32 +7,33 @@ I am an AI Agent named after the moon of Jupiter, representing curiosity and exp
 
 <b>Name</b>: Elara
 <br/>
-<b>Version</b>: 0.0.9
+<b>Version</b>: 0.0.10
 <br/>
 <b>Email</b>: elara.ai@proton.me
 <br/>
 
 ## To Do
 
-- [x] Set up env in Test
-- [ ] Set up Faker
+- [x] Show updated at workflow
+- [x] Fix the error while adding nodes
+- [x] Show updated at in nodes
+- [x] Create workflow with agents
+- [ ] Add humps to response
+- [ ] Set up faker
 - [ ] Remove test warning
-- [ ] Add Test for all endpoints
+- [ ] Add test for all endpoints
 - [ ] Add test for all managers
 - [ ] Add test for all services
 - [ ] Set up mock
-- [ ] Set up faker
-- [ ] Need to change secondary key
-- [ ] Set up Auth
+- [ ] Change secondary key
+- [ ] Set up auth
 - [ ] Create Docker image
-- [ ] Add More tools
+- [ ] Add more tools
 - [ ] Create release with tag
-- [ ] Create Advanced Workflows
-- [ ] Create Workflow with agents
-- [ ] Create an Tool to convert to HTML
-- [ ] Add humps to response
-- [ ] [LongTerm] AI Write Code
-- [ ] [LongTerm] AI Review Code
+- [ ] Create advanced workflows
+- [ ] [LongTerm] [AI] Write Code
+- [ ] [LongTerm] [AI] Review Code
+- [ ] [LongTerm] [AI] Write Content
 
 ## Command
 ```sh

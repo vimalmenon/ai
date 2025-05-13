@@ -5,7 +5,7 @@ from ai.services import ExecuteWorkflowService
 router = APIRouter()
 
 
-@router.post("/{wf_id}", tags=["execute"])
+@router.post("/{wf_id}", tags=["Execute"])
 async def execute_workflow(wf_id: str):
     """This will execute the workflow"""
     return {"data": ExecuteWorkflowService(wf_id).execute()}

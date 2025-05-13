@@ -1,0 +1,2 @@
+class WorkflowHistoryService:
+    pass

@@ -1,7 +1,7 @@
 from langgraph.prebuilt import create_react_agent
 from langgraph_supervisor import create_supervisor
 
-from ai.llms import deepseek_llm
+from ai.services.llm_service.deepseek import deepseek_llm
 from ai.utilities import get_data_path, read_from_file
 from ai.workflows.base_builder.base_builder import BaseBuilder
 

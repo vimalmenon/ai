@@ -5,8 +5,6 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from ai.api import (
-    router_agent,
-    router_contact,
     router_rest,
     router_s3,
     router_workflow,
@@ -25,10 +23,6 @@ logger.info("Starting the application...")
 
 app = FastAPI(debug=env.debug)
 
-app.include_router(
-    router_contact,
-    prefix="/contact",
-)
 app.include_router(
     router_workflow,
     prefix="/workflow",
@@ -50,11 +44,6 @@ app.include_router(
 app.include_router(
     router_s3,
     prefix="/s3",
-)
-
-app.include_router(
-    router_agent,
-    prefix="/agent",
 )
 
 app.include_router(
