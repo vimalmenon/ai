@@ -20,6 +20,7 @@ class WorkflowNodeRequest(BaseModel):
     type: WorkflowType | None = None
     llm: LLMs | None = None
     tools: list[Tool] = []
+    tool: Tool | None = None
     input: str | None = None
     next: list[str] = []
     updated_at: str | None = None
@@ -34,6 +35,7 @@ class WorkflowNodeRequest(BaseModel):
         )
         self.llm = LLMs[str(kwargs.get("llm"))] if kwargs.get("llm") else None
         self.tools = [Tool[tool] for tool in kwargs.get("tools", [])]
+        self.tool = Tool[kwargs.get("tool")] if kwargs.get("tool") else None
         self.input = kwargs.get("input")
         self.next = kwargs.get("next", [])
         self.updated_at = kwargs.get("updated_at", created_date())
@@ -47,6 +49,7 @@ class WorkflowNodeRequest(BaseModel):
             "type": self.type.value if self.type else None,
             "llm": self.llm.value if self.llm else None,
             "tools": [tool.value for tool in self.tools],
+            "tool": self.tool.value if self.tool else None,
             "input": self.input,
             "next": self.next,
             "updated_at": self.updated_at,
@@ -61,6 +64,7 @@ class WorkflowNodeRequest(BaseModel):
             type=data.get("type"),
             llm=data.get("llm"),
             tools=data.get("tools", []),
+            tool=data.get("tool"),
             input=data.get("input"),
             next=data.get("next"),
             updated_at=data.get("updated_at", created_date()),
