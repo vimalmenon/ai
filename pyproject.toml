@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "ai"
-version = "0.0.10"
+version = "0.0.11"
 description = "This is AI Agent"
 authors = ["Vimal Menon"]
 readme = "README.md"
@@ -20,7 +20,6 @@ langsmith = "^0.3.42"
 
 
 [tool.poetry.group.dev.dependencies]
-tox = "^4.24.1"
 mypy = "^1.15.0"
 flake8 = "^7.1.2"
 isort = "^6.0.0"
@@ -30,6 +29,7 @@ ruff = "^0.11.2"
 black = "^25.1.0"
 pytest = "^8.3.5"
 pytest-faker = "^2.0.0"
+tox = "^4.26.0"
 
 [build-system]
 requires = ["poetry-core"]
