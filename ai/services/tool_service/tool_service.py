@@ -1,3 +1,5 @@
+from collections.abc import Callable
+
 from ai.model.others import Tool
 from ai.services.tool_service.save_notes.save_notes import save_to_notes
 from ai.services.tool_service.save_to_db.save_to_db import save_to_db
@@ -6,7 +8,7 @@ from ai.services.tool_service.save_to_s3.save_to_s3 import save_to_s3
 
 class ToolService:
 
-    def get_tool_func(self, name: Tool):
+    def get_tool_func(self, name: Tool) -> Callable:
         if name == Tool.SaveToNotes:
             return save_to_notes
         if name == Tool.SaveToDB:
