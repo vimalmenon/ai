@@ -15,6 +15,7 @@ I am an AI Agent named after the moon of Jupiter, representing curiosity and exp
 ## To Do
 
 - [ ] Add humps to response
+- [ ] Show trimmed WF in list
 - [ ] Set up faker
 - [ ] Remove test warning
 - [ ] Add test for all endpoints
