@@ -14,10 +14,10 @@ I am an AI Agent named after the moon of Jupiter, representing curiosity and exp
 
 ## To Do
 
+- [x] Set up faker
 - [ ] Add humps to response
 - [ ] Show trimmed WF in list page
 - [ ] Handle exception better
-- [ ] Set up faker
 - [ ] Remove test warning
 - [ ] Add test for all endpoints
 - [ ] Add test for all managers
