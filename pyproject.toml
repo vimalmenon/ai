@@ -15,8 +15,8 @@ fastapi = {extras = ["standard"], version = "^0.115.11"}
 boto3 = "^1.37.8"
 langchain-ollama = "^0.3.0"
 langgraph = "^0.4.1"
-langgraph-supervisor = "^0.0.20"
 langsmith = "^0.3.42"
+langgraph-supervisor = "^0.0.21"
 
 
 [tool.poetry.group.dev.dependencies]
