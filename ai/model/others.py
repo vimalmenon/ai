@@ -13,3 +13,4 @@ class Tool(Enum):
     SaveToNotes = "SaveToNotes"
     SaveToDB = "SaveToDB"
     SaveToS3 = "SaveToS3"
+    TextToSpeech = "TextToSpeech"

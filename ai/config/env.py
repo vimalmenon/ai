@@ -13,6 +13,7 @@ class Env(BaseModel):
     supported_llm: list[str] = os.getenv("SUPPORTED_LLM", "").split(",")
     port: int = int(os.getenv("PORT", 8000))
     bucket: str = str(os.getenv("S3_BUCKET"))
+    eden_ai_api: str = str(os.getenv("EDEN_AI_API"))
 
 
 env = Env()
