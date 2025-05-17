@@ -14,3 +14,8 @@ class Tool(Enum):
     SaveToDB = "SaveToDB"
     SaveToS3 = "SaveToS3"
     TextToSpeech = "TextToSpeech"
+
+
+class Service(Enum):
+    GetFromDB = "GetFromDB"
+    GetFromS3 = "GetFromS3"
