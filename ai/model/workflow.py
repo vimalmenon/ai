@@ -55,7 +55,7 @@ class WorkflowNodeRequest(BaseModel):
             "input": self.input,
             "next": self.next,
             "updated_at": self.updated_at,
-            "is_start": self.is_start or False
+            "is_start": self.is_start or False,
         }
 
     @classmethod
@@ -143,7 +143,6 @@ class ExecuteWorkflowModel(BaseModel):
     total_tokens: int
     model_name: str
     status: str
-
 
     @classmethod
     def to_cls(cls, data: dict[str, str]) -> Self:
