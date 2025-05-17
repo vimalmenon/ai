@@ -24,6 +24,7 @@ class WorkflowNodeRequest(BaseModel):
     input: str | None = None
     next: list[str] = []
     updated_at: str | None = None
+    is_start: bool = False
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -39,6 +40,7 @@ class WorkflowNodeRequest(BaseModel):
         self.input = kwargs.get("input")
         self.next = kwargs.get("next", [])
         self.updated_at = kwargs.get("updated_at", created_date())
+        self.is_start = kwargs.get("is_start", False)
 
     def to_dict(self) -> dict:
         """Convert the object to a dictionary."""
@@ -53,6 +55,7 @@ class WorkflowNodeRequest(BaseModel):
             "input": self.input,
             "next": self.next,
             "updated_at": self.updated_at,
+            "is_start": self.is_start or False
         }
 
     @classmethod
@@ -68,6 +71,7 @@ class WorkflowNodeRequest(BaseModel):
             input=data.get("input"),
             next=data.get("next"),
             updated_at=data.get("updated_at", created_date()),
+            is_start=data.get("is_start", False),
         )
 
 
@@ -139,6 +143,7 @@ class ExecuteWorkflowModel(BaseModel):
     total_tokens: int
     model_name: str
     status: str
+
 
     @classmethod
     def to_cls(cls, data: dict[str, str]) -> Self:
