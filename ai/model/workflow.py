@@ -3,7 +3,7 @@ from typing import Self
 from pydantic import BaseModel
 
 from ai.model.llm import LLMs
-from ai.model.others import Tool, WorkflowType
+from ai.model.others import Service, Tool, WorkflowType
 from ai.utilities import created_date
 
 
@@ -24,6 +24,7 @@ class WorkflowNodeRequest(BaseModel):
     input: str | None = None
     next: list[str] = []
     updated_at: str | None = None
+    service: Service | None = None
     is_start: bool = False
 
     def __init__(self, **kwargs):
@@ -41,6 +42,9 @@ class WorkflowNodeRequest(BaseModel):
         self.next = kwargs.get("next", [])
         self.updated_at = kwargs.get("updated_at", created_date())
         self.is_start = kwargs.get("is_start", False)
+        self.service = (
+            Service[str(kwargs.get("service"))] if kwargs.get("service") else None
+        )
 
     def to_dict(self) -> dict:
         """Convert the object to a dictionary."""
@@ -56,6 +60,7 @@ class WorkflowNodeRequest(BaseModel):
             "next": self.next,
             "updated_at": self.updated_at,
             "is_start": self.is_start or False,
+            "service": self.service.value if self.service else None,
         }
 
     @classmethod
@@ -72,6 +77,7 @@ class WorkflowNodeRequest(BaseModel):
             next=data.get("next"),
             updated_at=data.get("updated_at", created_date()),
             is_start=data.get("is_start", False),
+            service=data.get("service"),
         )
 
 
