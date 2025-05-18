@@ -19,3 +19,13 @@ class Tool(Enum):
 class Service(Enum):
     GetFromDB = "GetFromDB"
     GetFromS3 = "GetFromS3"
+
+
+class WorkflowStatus(Enum):
+    NEW = "NEW"
+    RUNNING = "RUNNING"
+    PENDING = "PENDING"
+    COMPLETED = "COMPLETED"
+    IN_PROGRESS = "IN_PROGRESS"
+    FAILED = "FAILED"
+    CANCELLED = "CANCELLED"

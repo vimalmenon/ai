@@ -65,6 +65,7 @@ class WorkflowNodeRequest(BaseModel):
 
     @classmethod
     def to_cls(cls, data: dict) -> Self:
+        """Convert a dictionary to a WorkflowNodeRequest object."""
         return cls(
             id=data.get("id"),
             name=data.get("name"),
@@ -141,7 +142,7 @@ class CreateNodeRequest(BaseModel):
     name: str
 
 
-class ExecuteWorkflowModel(BaseModel):
+class ExecuteWorkflowNodeModel(BaseModel):
     id: str
     name: str
     content: str
@@ -171,4 +172,20 @@ class ExecuteWorkflowModel(BaseModel):
             "total_tokens": self.total_tokens,
             "model_name": self.model_name,
             "created_at": self.created_at,
+        }
+
+
+class ExecuteWorkflowModel(BaseModel):
+    id: str
+    name: str
+    created_at: str
+    status: str
+
+    def to_dict(self) -> dict[str, str]:
+        """Convert the object to a dictionary."""
+        return {
+            "id": self.id,
+            "name": self.name,
+            "created_at": self.created_at,
+            "status": self.status,
         }
