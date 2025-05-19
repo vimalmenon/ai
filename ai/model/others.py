@@ -23,9 +23,16 @@ class Service(Enum):
 
 class WorkflowStatus(Enum):
     NEW = "NEW"
-    RUNNING = "RUNNING"
     PENDING = "PENDING"
+    RUNNING = "RUNNING"
     COMPLETED = "COMPLETED"
-    IN_PROGRESS = "IN_PROGRESS"
+    FAILED = "FAILED"
+    CANCELLED = "CANCELLED"
+
+
+class WorkflowNodeStatus(Enum):
+    NEW = "NEW"
+    RUNNING = "RUNNING"
+    COMPLETED = "COMPLETED"
     FAILED = "FAILED"
     CANCELLED = "CANCELLED"
