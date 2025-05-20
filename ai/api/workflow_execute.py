@@ -14,11 +14,11 @@ async def execute_workflow(wf_id: str, data: CreateExecuteWorkflowRequest):
 
 @router.post("/resume/{wf_id}", tags=["Execute"])
 async def resume_workflow(wf_id: str):
-    """This will resume the workflow"""
+    """This will resume the pending workflow"""
     return {"data": ExecuteWorkflowService(wf_id).resume_execute()}
 
 
 @router.get("/{wf_id}", tags=["Execute"])
 async def get_workflow(wf_id: str):
-    """This will get the workflow"""
-    return {"data": []}
+    """This will get the executed workflow"""
+    return {"data": ExecuteWorkflowService(wf_id).get()}

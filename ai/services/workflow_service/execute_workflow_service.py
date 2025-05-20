@@ -23,6 +23,10 @@ class ExecuteWorkflowService:
     def __init__(self, id: str):
         self.id = id
 
+    def get(self):
+        """This will get the execute workflow"""
+        return []
+
     def execute(self):
         nodes = self.__validate_item_nodes_and_return()
         model = self.__create_execute_workflow_model()
