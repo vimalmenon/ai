@@ -179,6 +179,7 @@ class ExecuteWorkflowModel(BaseModel):
     id: str
     name: str
     created_at: str
+    completed_at: str | None = None
     status: WorkflowStatus
 
     def __init__(self, **kwargs):
@@ -187,21 +188,25 @@ class ExecuteWorkflowModel(BaseModel):
         self.name = kwargs.get("name", "")
         self.created_at = kwargs.get("created_at", created_date())
         self.status = WorkflowStatus[kwargs.get("status", WorkflowStatus.NEW.value)]
+        self.completed_at = kwargs.get("completed_at")
 
-    def to_dict(self) -> dict[str, str]:
+    def to_dict(self) -> dict[str, str | None]:
         """Convert the object to a dictionary."""
         return {
             "id": self.id,
             "name": self.name,
             "created_at": self.created_at,
             "status": self.status.value,
+            "completed_at": self.completed_at,
         }
 
     @classmethod
     def to_cls(cls, data: dict[str, str]) -> Self:
+        """Convert a dictionary to an ExecuteWorkflowModel object."""
         return cls(
             id=data.get("id", ""),
             name=data.get("name", ""),
             created_at=data.get("created_at", ""),
             status=data.get("status", ""),
+            completed_at=data.get("completed_at"),
         )

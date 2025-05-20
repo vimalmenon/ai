@@ -4,8 +4,7 @@ from langchain_core.messages.ai import AIMessage
 from langgraph.prebuilt import create_react_agent
 
 from ai.exceptions.exceptions import ClientError
-from ai.model import ExecuteWorkflowNodeModel, WorkflowNodeRequest
-from ai.model.others import WorkflowType
+from ai.model import ExecuteWorkflowNodeModel, WorkflowNodeRequest, WorkflowType
 from ai.services.llm_service.llm_service import LLmService
 from ai.services.tool_service.tool_service import ToolService
 from ai.services.workflow_service.workflow_service import WorkflowService
