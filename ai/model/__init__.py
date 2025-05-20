@@ -3,6 +3,7 @@ from ai.model.llm import LLMResponse, LLMs
 from ai.model.others import WorkflowType
 from ai.model.s3 import S3Item, S3Request
 from ai.model.workflow import (
+    CreateExecuteWorkflowRequest,
     CreateNodeRequest,
     ExecuteWorkflowModel,
     ExecuteWorkflowNodeModel,
@@ -28,4 +29,5 @@ __all__ = [
     "WorkflowType",
     "ExecuteWorkflowNodeModel",
     "WorkflowStatus",
+    "CreateExecuteWorkflowRequest",
 ]

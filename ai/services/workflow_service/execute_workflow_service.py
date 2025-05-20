@@ -27,9 +27,9 @@ class ExecuteWorkflowService:
         nodes = self.__validate_item_nodes_and_return()
         model = self.__create_execute_workflow_model()
         logger.info(model)
-        for _id, node in nodes.items():
-            self.__execute_node(node)
-        return {"item": None}
+        # for _id, node in nodes.items():
+        #     self.__execute_node(node)
+        return {"item": nodes}
 
     def resume_execute(self):
         self.__validate_item_nodes_and_return()

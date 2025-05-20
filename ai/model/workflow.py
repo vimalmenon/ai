@@ -142,6 +142,10 @@ class CreateNodeRequest(BaseModel):
     name: str
 
 
+class CreateExecuteWorkflowRequest(BaseModel):
+    name: str
+
+
 class ExecuteWorkflowNodeModel(BaseModel):
     id: str
     name: str
