@@ -10,6 +10,7 @@ from ai.model.workflow import (
     WorkflowModel,
     WorkflowNodeRequest,
     WorkflowSlimModel,
+    WorkflowStatus,
 )
 
 __all__ = [
@@ -26,4 +27,5 @@ __all__ = [
     "ExecuteWorkflowModel",
     "WorkflowType",
     "ExecuteWorkflowNodeModel",
+    "WorkflowStatus",
 ]

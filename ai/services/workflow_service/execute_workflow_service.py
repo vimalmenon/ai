@@ -4,7 +4,13 @@ from langchain_core.messages.ai import AIMessage
 from langgraph.prebuilt import create_react_agent
 
 from ai.exceptions.exceptions import ClientError
-from ai.model import ExecuteWorkflowNodeModel, WorkflowNodeRequest, WorkflowType
+from ai.model import (
+    ExecuteWorkflowModel,
+    ExecuteWorkflowNodeModel,
+    WorkflowNodeRequest,
+    WorkflowStatus,
+    WorkflowType,
+)
 from ai.services.llm_service.llm_service import LLmService
 from ai.services.tool_service.tool_service import ToolService
 from ai.services.workflow_service.workflow_service import WorkflowService
@@ -19,6 +25,8 @@ class ExecuteWorkflowService:
 
     def execute(self):
         nodes = self.__validate_item_nodes_and_return()
+        model = self.__create_execute_workflow_model()
+        logger.info(model)
         for _id, node in nodes.items():
             self.__execute_node(node)
         return {"item": None}
@@ -67,3 +75,14 @@ class ExecuteWorkflowService:
             ),
             "created_at": created_date(),
         }
+
+    def __create_execute_workflow_model(self) -> ExecuteWorkflowModel:
+        """
+        Create a new ExecuteWorkflowModel instance with default values.
+        """
+        return ExecuteWorkflowModel(
+            id=generate_uuid(),
+            name="",
+            created_at=created_date(),
+            status=WorkflowStatus.PENDING.value,
+        )
