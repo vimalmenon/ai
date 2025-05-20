@@ -3,7 +3,7 @@ from typing import Self
 from pydantic import BaseModel
 
 from ai.model.llm import LLMs
-from ai.model.others import Service, Tool, WorkflowType
+from ai.model.others import Service, Tool, WorkflowStatus, WorkflowType
 from ai.utilities import created_date
 
 
@@ -179,7 +179,14 @@ class ExecuteWorkflowModel(BaseModel):
     id: str
     name: str
     created_at: str
-    status: str
+    status: WorkflowStatus
+
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.id = kwargs.get("id", "")
+        self.name = kwargs.get("name", "")
+        self.created_at = kwargs.get("created_at", created_date())
+        self.status = WorkflowStatus[kwargs.get("status", WorkflowStatus.NEW.value)]
 
     def to_dict(self) -> dict[str, str]:
         """Convert the object to a dictionary."""
@@ -187,5 +194,14 @@ class ExecuteWorkflowModel(BaseModel):
             "id": self.id,
             "name": self.name,
             "created_at": self.created_at,
-            "status": self.status,
+            "status": self.status.value,
         }
+
+    @classmethod
+    def to_cls(cls, data: dict[str, str]) -> Self:
+        return cls(
+            id=data.get("id", ""),
+            name=data.get("name", ""),
+            created_at=data.get("created_at", ""),
+            status=data.get("status", ""),
+        )
