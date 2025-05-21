@@ -28,7 +28,7 @@ class ExecuteWorkflowService:
 
     def execute(self, id: str, data: CreateExecuteWorkflowRequest):
         nodes = self.__validate_item_nodes_and_return(id)
-        model = self.__create_execute_workflow_model()
+        model = self.__create_and_execute_workflow_model(data)
         logger.info(model)
         # for _id, node in nodes.items():
         #     self.__execute_node(node)
@@ -81,13 +81,15 @@ class ExecuteWorkflowService:
             "created_at": created_date(),
         }
 
-    def __create_execute_workflow_model(self) -> ExecuteWorkflowModel:
+    def __create_and_execute_workflow_model(
+        self, data: CreateExecuteWorkflowRequest
+    ) -> ExecuteWorkflowModel:
         """
         Create a new ExecuteWorkflowModel instance with default values.
         """
         return ExecuteWorkflowModel(
             id=generate_uuid(),
-            name="",
+            name=data.name,
             created_at=created_date(),
             status=WorkflowStatus.PENDING.value,
         )
