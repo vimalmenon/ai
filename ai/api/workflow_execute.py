@@ -9,16 +9,16 @@ router = APIRouter()
 @router.put("/{wf_id}", tags=["Execute"])
 async def execute_workflow(wf_id: str, data: CreateExecuteWorkflowRequest):
     """This will execute the workflow"""
-    return {"data": ExecuteWorkflowService(wf_id).execute()}
+    return {"data": ExecuteWorkflowService().execute(wf_id, data)}
 
 
 @router.post("/resume/{wf_id}", tags=["Execute"])
 async def resume_workflow(wf_id: str):
     """This will resume the pending workflow"""
-    return {"data": ExecuteWorkflowService(wf_id).resume_execute()}
+    return {"data": ExecuteWorkflowService().resume_execute(wf_id)}
 
 
 @router.get("/{wf_id}", tags=["Execute"])
 async def get_workflow(wf_id: str):
     """This will get the executed workflow"""
-    return {"data": ExecuteWorkflowService(wf_id).get()}
+    return {"data": ExecuteWorkflowService().get(wf_id)}

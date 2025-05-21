@@ -5,6 +5,7 @@ from langgraph.prebuilt import create_react_agent
 
 from ai.exceptions.exceptions import ClientError
 from ai.model import (
+    CreateExecuteWorkflowRequest,
     ExecuteWorkflowModel,
     ExecuteWorkflowNodeModel,
     WorkflowNodeRequest,
@@ -20,26 +21,26 @@ logger = getLogger(__name__)
 
 
 class ExecuteWorkflowService:
-    def __init__(self, id: str):
-        self.id = id
 
-    def get(self):
+    def get(self, id: str):
         """This will get the execute workflow"""
         return []
 
-    def execute(self):
-        nodes = self.__validate_item_nodes_and_return()
+    def execute(self, id: str, data: CreateExecuteWorkflowRequest):
+        nodes = self.__validate_item_nodes_and_return(id)
         model = self.__create_execute_workflow_model()
         logger.info(model)
         # for _id, node in nodes.items():
         #     self.__execute_node(node)
         return {"item": nodes}
 
-    def resume_execute(self):
-        self.__validate_item_nodes_and_return()
+    def resume_execute(self, id: str):
+        self.__validate_item_nodes_and_return(id)
 
-    def __validate_item_nodes_and_return(self) -> dict[str, WorkflowNodeRequest]:
-        item = WorkflowService().get_workflow_by_id(self.id)
+    def __validate_item_nodes_and_return(
+        self, id: str
+    ) -> dict[str, WorkflowNodeRequest]:
+        item = WorkflowService().get_workflow_by_id(id)
         if not item:
             raise ClientError(
                 status_code=404,

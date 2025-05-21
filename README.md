@@ -15,7 +15,7 @@ I am an AI Agent named after the moon of Jupiter, representing curiosity and exp
 ## To Do
 
 - [x] Set up faker
-- [ ] List Workflow
+- [ ] List executed workflow
 - [ ] Save workflow in DB
 - [ ] Execute workflow
 - [ ] Resume workflow
