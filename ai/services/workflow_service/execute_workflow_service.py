@@ -4,6 +4,7 @@ from langchain_core.messages.ai import AIMessage
 from langgraph.prebuilt import create_react_agent
 
 from ai.exceptions.exceptions import ClientError
+from ai.managers import WorkflowExecuteManager
 from ai.model import (
     CreateExecuteWorkflowRequest,
     ExecuteWorkflowModel,
@@ -29,6 +30,7 @@ class ExecuteWorkflowService:
     def execute(self, id: str, data: CreateExecuteWorkflowRequest):
         nodes = self.__validate_item_nodes_and_return(id)
         model = self.__create_and_execute_workflow_model(data)
+        WorkflowExecuteManager().execute_workflow()
         logger.info(model)
         # for _id, node in nodes.items():
         #     self.__execute_node(node)

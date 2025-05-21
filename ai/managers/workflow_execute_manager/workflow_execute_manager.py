@@ -1,5 +1,5 @@
 class WorkflowExecuteManager:
     table = "AI#EXECUTE"
 
-    def save_results(self):
+    def execute_workflow(self):
         pass
