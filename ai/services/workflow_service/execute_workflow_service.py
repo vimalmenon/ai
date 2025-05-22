@@ -30,7 +30,7 @@ class ExecuteWorkflowService:
     def execute(self, id: str, data: CreateExecuteWorkflowRequest):
         nodes = self.__validate_item_nodes_and_return(id)
         model = self.__create_and_execute_workflow_model(data)
-        WorkflowExecuteManager().execute_workflow(model)
+        WorkflowExecuteManager().execute_workflow(id, model)
         logger.info(model)
         # for _id, node in nodes.items():
         #     self.__execute_node(node)
@@ -93,5 +93,5 @@ class ExecuteWorkflowService:
             id=generate_uuid(),
             name=data.name,
             created_at=created_date(),
-            status=WorkflowStatus.PENDING.value,
+            status=WorkflowStatus.RUNNING.value,
         )
