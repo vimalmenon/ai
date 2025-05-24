@@ -96,3 +96,7 @@ class ExecuteWorkflowService:
             created_at=created_date(),
             status=WorkflowStatus.RUNNING.value,
         )
+
+    def delete(self, wf_id: str, id: str):
+        """This will delete the execute workflow"""
+        return WorkflowExecuteManager().delete_executed_workflow(wf_id, id)

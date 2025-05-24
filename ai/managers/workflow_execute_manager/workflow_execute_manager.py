@@ -16,3 +16,12 @@ class WorkflowExecuteManager:
     def get_executed_workflow(self, id: str):
         """This will get the executed workflow"""
         return DbManager().query_items(Key("table").eq(self.table))
+
+    def delete_executed_workflow(self, wf_id: str, id: str):
+        """This will delete the executed workflow"""
+        DbManager().remove_item(
+            {
+                "table": self.table,
+                "app_id": f"{wf_id}#{id}",
+            }
+        )
