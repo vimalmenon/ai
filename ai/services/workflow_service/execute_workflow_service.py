@@ -25,7 +25,8 @@ class ExecuteWorkflowService:
 
     def get(self, id: str):
         """This will get the execute workflow"""
-        return WorkflowExecuteManager().get_executed_workflow(id)
+        items = WorkflowExecuteManager().get_executed_workflow(id)
+        return [ExecuteWorkflowModel.to_cls(item) for item in items]
 
     def execute(self, id: str, data: CreateExecuteWorkflowRequest):
         nodes = self.__validate_item_nodes_and_return(id)
