@@ -15,10 +15,10 @@ I am an AI Agent named after the moon of Jupiter, representing curiosity and exp
 ## To Do
 
 - [x] Set up faker
-- [ ] List executed workflow
+- [x] List executed workflow
+- [x] Execute workflow
 - [ ] Save executed workflow in DB
 - [ ] Create a job to run the workflow
-- [ ] Execute workflow
 - [ ] Resume workflow
 - [ ] Add humps to response
 - [ ] Show trimmed WF in list page
