@@ -151,9 +151,21 @@ class ExecuteWorkflowNodeModel(BaseModel):
     name: str
     content: str
     created_at: str
-    total_tokens: int
+    total_tokens: int | None = None
     model_name: str
     status: str
+
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.id = kwargs.get("id", "")
+        self.name = kwargs.get("name", "")
+        self.content = kwargs.get("content", "")
+        self.status = kwargs.get("status", "COMPLETE")
+        self.total_tokens = (
+            int(kwargs.get("total_tokens")) if kwargs.get("total_tokens") else None
+        )
+        self.model_name = kwargs.get("model_name", "")
+        self.created_at = kwargs.get("created_at", created_date())
 
     @classmethod
     def to_cls(cls, data: dict[str, str]) -> Self:
@@ -162,12 +174,12 @@ class ExecuteWorkflowNodeModel(BaseModel):
             name=data.get("name", ""),
             content=data.get("content", ""),
             status="COMPLETE",
-            total_tokens=int(data.get("total_tokens", "0")),
+            total_tokens=data.get("total_tokens"),
             model_name=data.get("model_name", ""),
             created_at=data.get("created_at", ""),
         )
 
-    def to_dict(self) -> dict[str, str | int]:
+    def to_dict(self) -> dict[str, str | int | None]:
         return {
             "id": self.id,
             "name": self.name,
@@ -185,6 +197,7 @@ class ExecuteWorkflowModel(BaseModel):
     created_at: str
     completed_at: str | None = None
     status: WorkflowStatus
+    nodes: list[ExecuteWorkflowNodeModel] = []
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -193,6 +206,7 @@ class ExecuteWorkflowModel(BaseModel):
         self.created_at = kwargs.get("created_at", created_date())
         self.status = WorkflowStatus[kwargs.get("status", WorkflowStatus.NEW.value)]
         self.completed_at = kwargs.get("completed_at")
+        self.nodes = kwargs.get("nodes", [])
 
     def to_dict(self) -> dict[str, str | None]:
         """Convert the object to a dictionary."""
