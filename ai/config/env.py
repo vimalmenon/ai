@@ -14,6 +14,7 @@ class Env(BaseModel):
     port: int = int(os.getenv("PORT", 8000))
     bucket: str = str(os.getenv("S3_BUCKET"))
     eden_ai_api: str = str(os.getenv("EDEN_AI_API"))
+    openai_api: str = str(os.getenv("OPENAI_API_KEY"))
 
 
 env = Env()
