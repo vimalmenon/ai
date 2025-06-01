@@ -3,7 +3,13 @@ from typing import Self
 from pydantic import BaseModel
 
 from ai.model.llm import LLMs
-from ai.model.others import Service, Tool, WorkflowStatus, WorkflowType
+from ai.model.others import (
+    Service,
+    Tool,
+    WorkflowNodeStatus,
+    WorkflowStatus,
+    WorkflowType,
+)
 from ai.utilities import created_date
 
 
@@ -160,7 +166,7 @@ class ExecuteWorkflowNodeModel(BaseModel):
         self.id = kwargs.get("id", "")
         self.name = kwargs.get("name", "")
         self.content = kwargs.get("content", "")
-        self.status = kwargs.get("status", "COMPLETE")
+        self.status = kwargs.get("status", WorkflowNodeStatus.NEW.value)
         self.total_tokens = (
             int(kwargs.get("total_tokens")) if kwargs.get("total_tokens") else None
         )
