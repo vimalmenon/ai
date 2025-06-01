@@ -28,7 +28,7 @@ class ExecuteWorkflowService:
         logger.info(model)
         for _id, node in nodes.items():
             if node.is_start:
-                self.__execute_node(node)
+                self.__update_node(node)
         WorkflowExecuteManager().execute_workflow(id, model)
         return {"item": nodes}
 
@@ -46,7 +46,7 @@ class ExecuteWorkflowService:
             )
         return item.nodes
 
-    def __execute_node(self, node: WorkflowNodeRequest) -> None:
+    def __update_node(self, node: WorkflowNodeRequest) -> None:
         if node.type == WorkflowType.Agent:
             print(node)
 

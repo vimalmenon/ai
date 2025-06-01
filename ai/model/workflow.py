@@ -173,7 +173,7 @@ class ExecuteWorkflowNodeModel(BaseModel):
             id=data.get("id", ""),
             name=data.get("name", ""),
             content=data.get("content", ""),
-            status="COMPLETE",
+            status=data.get("status", "COMPLETE"),
             total_tokens=data.get("total_tokens"),
             model_name=data.get("model_name", ""),
             created_at=data.get("created_at", ""),
