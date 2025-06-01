@@ -31,10 +31,11 @@ class ExecuteWorkflowService:
     def execute(self, id: str, data: CreateExecuteWorkflowRequest):
         nodes = self.__validate_item_nodes_and_return(id)
         model = self.__create_and_execute_workflow_model(data)
-        WorkflowExecuteManager().execute_workflow(id, model)
         logger.info(model)
-        # for _id, node in nodes.items():
-        #     self.__execute_node(node)
+        for _id, node in nodes.items():
+            if node.is_start:
+                self.__execute_node(node)
+        WorkflowExecuteManager().execute_workflow(id, model)
         return {"item": nodes}
 
     def resume_execute(self, id: str):

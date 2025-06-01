@@ -24,9 +24,6 @@ I am an AI Agent named after the moon of Jupiter, representing curiosity and exp
 - [ ] Show trimmed WF in list page
 - [ ] Handle exception better
 - [ ] Remove test warning
-- [ ] Add test for all endpoints
-- [ ] Add test for all managers
-- [ ] Add test for all services
 - [ ] Set up mock
 - [ ] Change secondary key
 - [ ] Set up auth
@@ -34,6 +31,9 @@ I am an AI Agent named after the moon of Jupiter, representing curiosity and exp
 - [ ] Add more tools
 - [ ] Create release with tag
 - [ ] Create advanced workflows
+- [ ] [Endpoints] Add test
+- [ ] [Managers] Add test
+- [ ] [Services] Add test
 - [ ] [LongTerm] [AI] Write Code
 - [ ] [LongTerm] [AI] Review Code
 - [ ] [LongTerm] [AI] Write Content
