@@ -159,14 +159,14 @@ class ExecuteWorkflowNodeModel(BaseModel):
     created_at: str
     total_tokens: int | None = None
     model_name: str
-    status: str
+    status: WorkflowNodeStatus
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.id = kwargs.get("id", "")
         self.name = kwargs.get("name", "")
         self.content = kwargs.get("content", "")
-        self.status = kwargs.get("status", WorkflowNodeStatus.NEW.value)
+        self.status = WorkflowNodeStatus[kwargs.get("status")]
         self.total_tokens = (
             int(kwargs.get("total_tokens")) if kwargs.get("total_tokens") else None
         )
@@ -179,7 +179,7 @@ class ExecuteWorkflowNodeModel(BaseModel):
             id=data.get("id", ""),
             name=data.get("name", ""),
             content=data.get("content", ""),
-            status=data.get("status", "COMPLETE"),
+            status=data.get("status", WorkflowNodeStatus.NEW.value),
             total_tokens=data.get("total_tokens"),
             model_name=data.get("model_name", ""),
             created_at=data.get("created_at", ""),
@@ -190,7 +190,7 @@ class ExecuteWorkflowNodeModel(BaseModel):
             "id": self.id,
             "name": self.name,
             "content": self.content,
-            "status": self.status,
+            "status": self.status.value,
             "total_tokens": self.total_tokens,
             "model_name": self.model_name,
             "created_at": self.created_at,
