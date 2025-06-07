@@ -7,7 +7,6 @@ from ai.model import (
     ExecuteWorkflowModel,
     WorkflowNodeRequest,
     WorkflowStatus,
-    WorkflowType,
 )
 from ai.services.workflow_service.workflow_service import WorkflowService
 from ai.utilities import created_date, generate_uuid
@@ -28,12 +27,9 @@ class ExecuteWorkflowService:
         logger.info(model)
         for _id, node in nodes.items():
             if node.is_start:
-                self.__update_node(node)
-        WorkflowExecuteManager().execute_workflow(id, model)
+                breakpoint()
+        # WorkflowExecuteManager().execute_workflow(id, model)
         return {"item": nodes}
-
-    def resume_execute(self, id: str):
-        self.__validate_item_nodes_and_return(id)
 
     def __validate_item_nodes_and_return(
         self, id: str
@@ -45,10 +41,6 @@ class ExecuteWorkflowService:
                 detail=f"Workflow with ID {id} not found.",
             )
         return item.nodes
-
-    def __update_node(self, node: WorkflowNodeRequest) -> None:
-        if node.type == WorkflowType.Agent:
-            print(node)
 
     def __create_and_execute_workflow_model(
         self, data: CreateExecuteWorkflowRequest
@@ -62,6 +54,9 @@ class ExecuteWorkflowService:
             created_at=created_date(),
             status=WorkflowStatus.RUNNING.value,
         )
+
+    def resume_execute(self, id: str):
+        self.__validate_item_nodes_and_return(id)
 
     def delete(self, wf_id: str, id: str):
         """This will delete the execute workflow"""
