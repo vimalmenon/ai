@@ -20,10 +20,10 @@ class LLMExecuteService:
             model=LLmService(llm=node.llm).get_llm(),
             tools=[ToolService().get_tool_func(tool) for tool in node.tools],
             name=node.name,
-            prompt="You are a helpful assistant",
+            prompt=node.prompt,
         )
         result = agent_llm.invoke(
-            {"messages": [{"role": "user", "content": node.prompt}]}
+            {"messages": [{"role": "user", "content": node.message}]}
         )
         logger.warning(self.__parse_response(result["messages"][-1]))
         return self.__parse_response(result["messages"][-1])
