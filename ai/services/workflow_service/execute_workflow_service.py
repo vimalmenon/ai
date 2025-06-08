@@ -5,6 +5,7 @@ from ai.managers import WorkflowExecuteManager
 from ai.model import (
     CreateExecuteWorkflowRequest,
     ExecuteWorkflowModel,
+    ExecuteWorkflowNodeModel,
     WorkflowNodeRequest,
     WorkflowStatus,
 )
@@ -18,18 +19,41 @@ class ExecuteWorkflowService:
 
     def get(self, id: str):
         """This will get the execute workflow"""
-        items = WorkflowExecuteManager().get_executed_workflow(id)
+        items = WorkflowExecuteManager().get_workflow(id)
         return [ExecuteWorkflowModel.to_cls(item) for item in items]
 
     def execute(self, id: str, data: CreateExecuteWorkflowRequest):
         nodes = self.__validate_item_nodes_and_return(id)
-        model = self.__create_and_execute_workflow_model(data)
-        logger.info(model)
+        model = self.__create_execute_workflow_model(data)
+        _node_list: list[ExecuteWorkflowNodeModel] = []
         for _id, node in nodes.items():
             if node.is_start:
+                self.__create_node_model(node, nodes, _node_list)
                 breakpoint()
+        logger.info(model)
         # WorkflowExecuteManager().execute_workflow(id, model)
         return {"item": nodes}
+
+    def __create_node_model(
+        self,
+        node: WorkflowNodeRequest,
+        node_map: dict[str, WorkflowNodeRequest],
+        node_list: list[ExecuteWorkflowNodeModel],
+    ) -> None:
+        if node.next:
+            self.__create_node_model(node_map[node.next], node_map, node_list)
+        else:
+            node_list.append(
+                ExecuteWorkflowNodeModel(
+                    id=generate_uuid(),
+                    name=node.name,
+                    created_at=created_date(),
+                    model_name=node.llm if node.llm else None,
+                    type=node.type,
+                    execute_at_run_time=False,
+                    status=WorkflowStatus.NEW.value,
+                )
+            )
 
     def __validate_item_nodes_and_return(
         self, id: str
@@ -42,7 +66,7 @@ class ExecuteWorkflowService:
             )
         return item.nodes
 
-    def __create_and_execute_workflow_model(
+    def __create_execute_workflow_model(
         self, data: CreateExecuteWorkflowRequest
     ) -> ExecuteWorkflowModel:
         """
@@ -60,4 +84,4 @@ class ExecuteWorkflowService:
 
     def delete(self, wf_id: str, id: str):
         """This will delete the execute workflow"""
-        return WorkflowExecuteManager().delete_executed_workflow(wf_id, id)
+        return WorkflowExecuteManager().delete_workflow(wf_id, id)
