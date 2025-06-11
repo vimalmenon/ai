@@ -89,10 +89,10 @@ class WorkflowNodeRequest(BaseModel):
             tool=data.get("tool"),
             input=data.get("input"),
             next=data.get("next"),
-            updated_at=data.get("updated_at", created_date()),
-            is_start=data.get("is_start", False),
+            updated_at=data.get("updated_at"),
+            is_start=data.get("is_start"),
             service=data.get("service"),
-            request_at_run_time=data.get("request_at_run_time", False),
+            request_at_run_time=data.get("request_at_run_time"),
         )
 
 
@@ -162,54 +162,42 @@ class CreateExecuteWorkflowRequest(BaseModel):
 
 class ExecuteWorkflowNodeModel(BaseModel):
     id: str
-    name: str
     content: str | None = None
     created_at: str
     total_tokens: int | None = None
-    model_name: str | None = None
-    type: WorkflowType
-    execute_at_run_time: bool = False
     status: WorkflowNodeStatus
+    node: WorkflowNodeRequest
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.id = kwargs.get("id", "")
-        self.name = kwargs.get("name", "")
         self.content = kwargs.get("content")
         self.status = WorkflowNodeStatus[kwargs.get("status")]
         self.total_tokens = (
             int(kwargs.get("total_tokens")) if kwargs.get("total_tokens") else None
         )
-        self.type = self.type = WorkflowType[str(kwargs.get("type"))]
-        self.execute_at_run_time = kwargs.get("execute_at_run_time", False)
-        self.model_name = kwargs.get("model_name")
         self.created_at = kwargs.get("created_at", created_date())
+        self.node = kwargs.get("node")
 
     @classmethod
-    def to_cls(cls, data: dict[str, str]) -> Self:
+    def to_cls(cls, data: dict) -> Self:
         return cls(
             id=data.get("id", ""),
-            name=data.get("name", ""),
             content=data.get("content"),
             status=data.get("status", WorkflowNodeStatus.NEW.value),
             total_tokens=data.get("total_tokens"),
-            type=data.get("type"),
-            model_name=data.get("model_name"),
             created_at=data.get("created_at"),
-            execute_at_run_time=data.get("execute_at_run_time"),
+            node=WorkflowNodeRequest.to_cls(data.get("node", {})),
         )
 
-    def to_dict(self) -> dict[str, str | int | None]:
+    def to_dict(self) -> dict[str, str | int | None | dict]:
         return {
             "id": self.id,
-            "name": self.name,
             "content": self.content,
-            "type": self.type.value,
             "status": self.status.value,
             "total_tokens": self.total_tokens,
-            "model_name": self.model_name,
             "created_at": self.created_at,
-            "execute_at_run_time": self.execute_at_run_time,
+            "node": self.node.to_dict(),
         }
 
 
