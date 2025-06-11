@@ -33,6 +33,7 @@ class WorkflowNodeRequest(BaseModel):
     updated_at: str | None = None
     service: Service | None = None
     is_start: bool = False
+    request_at_run_time: bool = False
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -53,6 +54,7 @@ class WorkflowNodeRequest(BaseModel):
         self.service = (
             Service[str(kwargs.get("service"))] if kwargs.get("service") else None
         )
+        self.request_at_run_time = kwargs.get("request_at_run_time", False)
 
     def to_dict(self) -> dict:
         """Convert the object to a dictionary."""
@@ -70,6 +72,7 @@ class WorkflowNodeRequest(BaseModel):
             "updated_at": self.updated_at,
             "is_start": self.is_start or False,
             "service": self.service.value if self.service else None,
+            "request_at_run_time": self.request_at_run_time,
         }
 
     @classmethod
@@ -89,6 +92,7 @@ class WorkflowNodeRequest(BaseModel):
             updated_at=data.get("updated_at", created_date()),
             is_start=data.get("is_start", False),
             service=data.get("service"),
+            request_at_run_time=data.get("request_at_run_time", False),
         )
 
 
