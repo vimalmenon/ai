@@ -2,7 +2,7 @@ from logging import getLogger
 
 from ai.exceptions.exceptions import ClientError, ServerError
 from ai.managers import WorkflowNodeManager
-from ai.model import CreateNodeRequest, WorkflowNodeRequest
+from ai.model import CreateNodeRequest, WorkflowNodeRequest, WorkflowType
 
 logger = getLogger(__name__)
 
@@ -41,10 +41,21 @@ class WorkflowNodeService:
     ) -> None:
         """Update the workflow node"""
         try:
-            WorkflowNodeManager().update_workflow_node(wf_id, id, data)
+            WorkflowNodeManager().update_workflow_node(
+                wf_id, id, self.__update_workflow_node_request(data)
+            )
         except Exception as e:
             logger.error(f"Error updating workflow node: {str(e)}")
             raise ServerError(
                 status_code=500,
                 detail=f"Error updating workflow node: {str(e)}",
             ) from e
+
+    def __update_workflow_node_request(
+        self, data: WorkflowNodeRequest
+    ) -> WorkflowNodeRequest:
+        if data.type == WorkflowType.HumanInput or data.type == WorkflowType.Service:
+            data.request_at_run_time = True
+        else:
+            data.request_at_run_time = False
+        return data
