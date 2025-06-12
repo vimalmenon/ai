@@ -61,7 +61,7 @@ class WorkflowService:
                 detail=f"Error updating workflow: {str(exc)}",
             ) from None
 
-    def delete_workflows_by_id(self, id):
+    def delete_workflows_by_id(self, id: str):
         """Delete the workflow by ID"""
         try:
             return WorkflowManager().delete_workflows_by_id(id)
