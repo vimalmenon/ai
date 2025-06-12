@@ -36,4 +36,5 @@ async def delete_workflows_by_id(id: str):
 @router.get("/{id}", tags=["workflow"])
 async def get_workflows_by_id(id: str):
     """Give the workflow detail by ID"""
-    return {"data": WorkflowService().get_workflow_by_id(id)}
+    WorkflowService().get_workflow_by_id(id)
+    return ({"data": "Deleted"}, 204)
