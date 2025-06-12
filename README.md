@@ -7,17 +7,13 @@ I am an AI Agent named after the moon of Jupiter, representing curiosity and exp
 
 <b>Name</b>: Elara
 <br/>
-<b>Version</b>: 0.0.11
+<b>Version</b>: 0.0.12
 <br/>
 <b>Email</b>: elara.ai@proton.me
 <br/>
 
 ## To Do
 
-- [x] Set up faker
-- [x] List executed workflow
-- [x] Execute workflow
-- [x] Add humps to response
 - [ ] Save executed workflow in DB
 - [ ] Create a job to run the workflow
 - [ ] Resume workflow
