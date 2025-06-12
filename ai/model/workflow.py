@@ -2,6 +2,7 @@ from typing import Self
 
 from pydantic import BaseModel
 
+from ai.model.base_model import Base
 from ai.model.llm import LLMs
 from ai.model.others import (
     Service,
@@ -19,7 +20,7 @@ class UpdateWorkflowRequest(BaseModel):
     complete: bool
 
 
-class WorkflowNodeRequest(BaseModel):
+class WorkflowNodeRequest(Base):
     id: str | None = None
     name: str
     prompt: str | None = None
@@ -104,7 +105,7 @@ class WorkflowSlimModel(BaseModel):
         self.name = name
 
 
-class WorkflowModel(BaseModel):
+class WorkflowModel(Base):
     id: str
     name: str
     detail: str | None = None
