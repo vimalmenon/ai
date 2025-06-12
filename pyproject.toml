@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "ai"
-version = "0.0.10"
+version = "0.0.11"
 description = "This is AI Agent"
 authors = ["Vimal Menon"]
 readme = "README.md"
@@ -14,22 +14,24 @@ langchain-deepseek = "^0.1.2"
 fastapi = {extras = ["standard"], version = "^0.115.11"}
 boto3 = "^1.37.8"
 langchain-ollama = "^0.3.0"
-langgraph = "^0.4.1"
-langgraph-supervisor = "^0.0.20"
-langsmith = "^0.3.42"
+langgraph = "^0.4.7"
+langgraph-supervisor = "^0.0.27"
+langsmith = "^0.3.43"
+pyhumps = "^3.8.0"
+humps = "^0.2.2"
 
 
 [tool.poetry.group.dev.dependencies]
-tox = "^4.24.1"
 mypy = "^1.15.0"
 flake8 = "^7.1.2"
 isort = "^6.0.0"
 autoflake = "^2.3.1"
 boto3-stubs = "^1.37.9"
-ruff = "^0.11.2"
 black = "^25.1.0"
 pytest = "^8.3.5"
 pytest-faker = "^2.0.0"
+tox = "^4.26.0"
+ruff = "^0.11.12"
 
 [build-system]
 requires = ["poetry-core"]

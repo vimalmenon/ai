@@ -2,8 +2,15 @@ from typing import Self
 
 from pydantic import BaseModel
 
+from ai.model.base_model import Base
 from ai.model.llm import LLMs
-from ai.model.others import Tool, WorkflowType
+from ai.model.others import (
+    Service,
+    Tool,
+    WorkflowNodeStatus,
+    WorkflowStatus,
+    WorkflowType,
+)
 from ai.utilities import created_date
 
 
@@ -13,23 +20,28 @@ class UpdateWorkflowRequest(BaseModel):
     complete: bool
 
 
-class WorkflowNodeRequest(BaseModel):
+class WorkflowNodeRequest(Base):
     id: str | None = None
     name: str
     prompt: str | None = None
+    message: str | None = None
     type: WorkflowType | None = None
     llm: LLMs | None = None
     tools: list[Tool] = []
     tool: Tool | None = None
     input: str | None = None
-    next: list[str] = []
+    next: str | None = None
     updated_at: str | None = None
+    service: Service | None = None
+    is_start: bool = False
+    request_at_run_time: bool = False
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.name = kwargs.get("name")
         self.id = kwargs.get("id")
         self.prompt = kwargs.get("prompt")
+        self.message = kwargs.get("message")
         self.type = (
             WorkflowType[str(kwargs.get("type"))] if kwargs.get("type") else None
         )
@@ -37,8 +49,13 @@ class WorkflowNodeRequest(BaseModel):
         self.tools = [Tool[tool] for tool in kwargs.get("tools", [])]
         self.tool = Tool[kwargs.get("tool")] if kwargs.get("tool") else None
         self.input = kwargs.get("input")
-        self.next = kwargs.get("next", [])
+        self.next = kwargs.get("next")
         self.updated_at = kwargs.get("updated_at", created_date())
+        self.is_start = kwargs.get("is_start", False)
+        self.service = (
+            Service[str(kwargs.get("service"))] if kwargs.get("service") else None
+        )
+        self.request_at_run_time = kwargs.get("request_at_run_time", False)
 
     def to_dict(self) -> dict:
         """Convert the object to a dictionary."""
@@ -46,6 +63,7 @@ class WorkflowNodeRequest(BaseModel):
             "id": self.id,
             "name": self.name,
             "prompt": self.prompt,
+            "message": self.message,
             "type": self.type.value if self.type else None,
             "llm": self.llm.value if self.llm else None,
             "tools": [tool.value for tool in self.tools],
@@ -53,21 +71,29 @@ class WorkflowNodeRequest(BaseModel):
             "input": self.input,
             "next": self.next,
             "updated_at": self.updated_at,
+            "is_start": self.is_start or False,
+            "service": self.service.value if self.service else None,
+            "request_at_run_time": self.request_at_run_time,
         }
 
     @classmethod
     def to_cls(cls, data: dict) -> Self:
+        """Convert a dictionary to a WorkflowNodeRequest object."""
         return cls(
             id=data.get("id"),
             name=data.get("name"),
             prompt=data.get("prompt"),
+            message=data.get("message"),
             type=data.get("type"),
             llm=data.get("llm"),
             tools=data.get("tools", []),
             tool=data.get("tool"),
             input=data.get("input"),
             next=data.get("next"),
-            updated_at=data.get("updated_at", created_date()),
+            updated_at=data.get("updated_at"),
+            is_start=data.get("is_start"),
+            service=data.get("service"),
+            request_at_run_time=data.get("request_at_run_time"),
         )
 
 
@@ -79,7 +105,7 @@ class WorkflowSlimModel(BaseModel):
         self.name = name
 
 
-class WorkflowModel(BaseModel):
+class WorkflowModel(Base):
     id: str
     name: str
     detail: str | None = None
@@ -131,34 +157,94 @@ class CreateNodeRequest(BaseModel):
     name: str
 
 
+class CreateExecuteWorkflowRequest(BaseModel):
+    name: str
+
+
+class ExecuteWorkflowNodeModel(BaseModel):
+    id: str
+    content: str | None = None
+    created_at: str
+    total_tokens: int | None = None
+    status: WorkflowNodeStatus
+    node: WorkflowNodeRequest
+
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.id = kwargs.get("id", "")
+        self.content = kwargs.get("content")
+        self.status = WorkflowNodeStatus[kwargs.get("status")]
+        self.total_tokens = (
+            int(kwargs.get("total_tokens")) if kwargs.get("total_tokens") else None
+        )
+        self.created_at = kwargs.get("created_at", created_date())
+        self.node = kwargs.get("node")
+
+    @classmethod
+    def to_cls(cls, data: dict) -> Self:
+        return cls(
+            id=data.get("id", ""),
+            content=data.get("content"),
+            status=data.get("status", WorkflowNodeStatus.NEW.value),
+            total_tokens=data.get("total_tokens"),
+            created_at=data.get("created_at"),
+            node=WorkflowNodeRequest.to_cls(data.get("node", {})),
+        )
+
+    def to_dict(self) -> dict[str, str | int | None | dict]:
+        return {
+            "id": self.id,
+            "content": self.content,
+            "status": self.status.value,
+            "total_tokens": self.total_tokens,
+            "created_at": self.created_at,
+            "node": self.node.to_dict(),
+        }
+
+
 class ExecuteWorkflowModel(BaseModel):
     id: str
     name: str
-    content: str
     created_at: str
-    total_tokens: int
-    model_name: str
-    status: str
+    status: WorkflowStatus
+    completed_at: str | None = None
+    type: WorkflowType | None = None
+    nodes: list[ExecuteWorkflowNodeModel] = []
 
-    @classmethod
-    def to_cls(cls, data: dict[str, str]) -> Self:
-        return cls(
-            id=data.get("id", ""),
-            name=data.get("name", ""),
-            content=data.get("content", ""),
-            status="COMPLETE",
-            total_tokens=int(data.get("total_tokens", "0")),
-            model_name=data.get("model_name", ""),
-            created_at=data.get("created_at", ""),
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.id = kwargs.get("id", "")
+        self.name = kwargs.get("name", "")
+        self.created_at = kwargs.get("created_at", created_date())
+        self.status = WorkflowStatus[kwargs.get("status", WorkflowStatus.NEW.value)]
+        self.completed_at = kwargs.get("completed_at")
+        self.nodes = kwargs.get("nodes", [])
+        self.type = (
+            WorkflowType[str(kwargs.get("type"))] if kwargs.get("type") else None
         )
 
-    def to_dict(self) -> dict[str, str | int]:
+    def to_dict(self) -> dict[str, str | None]:
+        """Convert the object to a dictionary."""
         return {
             "id": self.id,
             "name": self.name,
-            "content": self.content,
-            "status": self.status,
-            "total_tokens": self.total_tokens,
-            "model_name": self.model_name,
             "created_at": self.created_at,
+            "status": self.status.value,
+            "completed_at": self.completed_at,
+            "type": self.type.value if self.type else None,
         }
+
+    @classmethod
+    def to_cls(cls, data: dict) -> Self:
+        """Convert a dictionary to an ExecuteWorkflowModel object."""
+        return cls(
+            id=data.get("id", ""),
+            name=data.get("name", ""),
+            created_at=data.get("created_at", ""),
+            status=data.get("status", ""),
+            completed_at=data.get("completed_at"),
+            nodes=[
+                ExecuteWorkflowNodeModel.to_cls(node) for node in data.get("nodes", [])
+            ],
+            type=WorkflowType[str(data.get("type"))] if data.get("type") else None,
+        )

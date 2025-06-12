@@ -9,7 +9,6 @@ from ai.api import (
     router_s3,
     router_workflow,
     router_workflow_execute,
-    router_workflow_history,
     router_workflow_node,
 )
 from ai.config.env import env
@@ -34,11 +33,6 @@ app.include_router(
 app.include_router(
     router_workflow_execute,
     prefix="/workflow/execute",
-)
-
-app.include_router(
-    router_workflow_history,
-    prefix="/workflow/history",
 )
 
 app.include_router(

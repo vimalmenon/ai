@@ -1,7 +1,7 @@
 from fastapi import APIRouter
 
 from ai.model import LLMResponse, WorkflowType
-from ai.model.others import Tool
+from ai.model.others import Service, Tool
 from ai.services import ListLLMServices
 from ai.utilities import generate_uuid
 
@@ -24,6 +24,12 @@ async def get_llm():
 async def get_tools():
     """This List out all available tools"""
     return {"data": list(Tool)}
+
+
+@router.get("/services")
+async def get_services():
+    """This List out all available services"""
+    return {"data": list(Service)}
 
 
 @router.get("/workflow_types")

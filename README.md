@@ -7,23 +7,23 @@ I am an AI Agent named after the moon of Jupiter, representing curiosity and exp
 
 <b>Name</b>: Elara
 <br/>
-<b>Version</b>: 0.0.10
+<b>Version</b>: 0.0.11
 <br/>
 <b>Email</b>: elara.ai@proton.me
 <br/>
 
 ## To Do
 
-- [x] Show updated at workflow
-- [x] Fix the error while adding nodes
-- [x] Show updated at in nodes
-- [x] Create workflow with agents
-- [ ] Add humps to response
-- [ ] Set up faker
+- [x] Set up faker
+- [x] List executed workflow
+- [x] Execute workflow
+- [x] Add humps to response
+- [ ] Save executed workflow in DB
+- [ ] Create a job to run the workflow
+- [ ] Resume workflow
+- [ ] Show trimmed WF in list page
+- [ ] Handle exception better
 - [ ] Remove test warning
-- [ ] Add test for all endpoints
-- [ ] Add test for all managers
-- [ ] Add test for all services
 - [ ] Set up mock
 - [ ] Change secondary key
 - [ ] Set up auth
@@ -31,6 +31,9 @@ I am an AI Agent named after the moon of Jupiter, representing curiosity and exp
 - [ ] Add more tools
 - [ ] Create release with tag
 - [ ] Create advanced workflows
+- [ ] [Endpoints] Add test
+- [ ] [Managers] Add test
+- [ ] [Services] Add test
 - [ ] [LongTerm] [AI] Write Code
 - [ ] [LongTerm] [AI] Review Code
 - [ ] [LongTerm] [AI] Write Content
