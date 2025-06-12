@@ -35,7 +35,7 @@ class WorkflowManager:
         DbManager().add_item({"table": self.table, "app_id": uuid, **item.to_dict()})
         return item
 
-    def update_workflow(self, id, data: UpdateWorkflowRequest) -> None:
+    def update_workflow(self, id: str, data: UpdateWorkflowRequest) -> None:
         """Update workflow"""
         item = DbManager().get_item({"table": self.table, "app_id": id})
         if item:

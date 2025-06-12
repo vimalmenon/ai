@@ -3,7 +3,7 @@ from logging import getLogger
 
 from ai.exceptions.exceptions import ClientError, ServerError
 from ai.managers import WorkflowManager
-from ai.model import WorkflowModel, WorkflowSlimModel
+from ai.model import UpdateWorkflowRequest, WorkflowModel, WorkflowSlimModel
 
 logger = getLogger(__name__)
 
@@ -46,10 +46,14 @@ class WorkflowService:
                 detail=f"Error creating workflow: {str(exc)}",
             ) from None
 
-    def update_workflow(self, id, data):
+    def update_workflow(
+        self, id: str, data: UpdateWorkflowRequest
+    ) -> WorkflowModel | None:
         """Update workflow"""
         try:
-            return WorkflowManager().update_workflow(id, data)
+            WorkflowManager().update_workflow(id, data)
+            return WorkflowManager().get_workflow_by_id(id)
+
         except Exception as exc:
             logger.error(f"Error updating workflow: {str(exc)}")
             raise ServerError(
