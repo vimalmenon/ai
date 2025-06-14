@@ -29,7 +29,6 @@ class WorkflowNodeRequest(Base):
     llm: LLMs | None = None
     tools: list[Tool] = []
     tool: Tool | None = None
-    input: str | None = None
     next: str | None = None
     updated_at: str | None = None
     service: Service | None = None
@@ -48,7 +47,6 @@ class WorkflowNodeRequest(Base):
         self.llm = LLMs[str(kwargs.get("llm"))] if kwargs.get("llm") else None
         self.tools = [Tool[tool] for tool in kwargs.get("tools", [])]
         self.tool = Tool[kwargs.get("tool")] if kwargs.get("tool") else None
-        self.input = kwargs.get("input")
         self.next = kwargs.get("next")
         self.updated_at = kwargs.get("updated_at", created_date())
         self.is_start = kwargs.get("is_start", False)
@@ -68,7 +66,6 @@ class WorkflowNodeRequest(Base):
             "llm": self.llm.value if self.llm else None,
             "tools": [tool.value for tool in self.tools],
             "tool": self.tool.value if self.tool else None,
-            "input": self.input,
             "next": self.next,
             "updated_at": self.updated_at,
             "is_start": self.is_start or False,
@@ -88,7 +85,6 @@ class WorkflowNodeRequest(Base):
             llm=data.get("llm"),
             tools=data.get("tools", []),
             tool=data.get("tool"),
-            input=data.get("input"),
             next=data.get("next"),
             updated_at=data.get("updated_at"),
             is_start=data.get("is_start"),
