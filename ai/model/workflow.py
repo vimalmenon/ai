@@ -34,6 +34,7 @@ class WorkflowNodeRequest(Base):
     service: Service | None = None
     is_start: bool = False
     request_at_run_time: bool = False
+    data_from_previous_node: bool = False
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -54,6 +55,7 @@ class WorkflowNodeRequest(Base):
             Service[str(kwargs.get("service"))] if kwargs.get("service") else None
         )
         self.request_at_run_time = kwargs.get("request_at_run_time", False)
+        self.data_from_previous_node = kwargs.get("data_from_previous_node", False)
 
     def to_dict(self) -> dict:
         """Convert the object to a dictionary."""
@@ -71,6 +73,7 @@ class WorkflowNodeRequest(Base):
             "is_start": self.is_start or False,
             "service": self.service.value if self.service else None,
             "request_at_run_time": self.request_at_run_time,
+            "data_from_previous_node": self.data_from_previous_node,
         }
 
     @classmethod
@@ -90,6 +93,7 @@ class WorkflowNodeRequest(Base):
             is_start=data.get("is_start"),
             service=data.get("service"),
             request_at_run_time=data.get("request_at_run_time"),
+            data_from_previous_node=data.get("data_from_previous_node", False),
         )
 
 
