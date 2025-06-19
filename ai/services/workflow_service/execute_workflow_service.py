@@ -33,8 +33,7 @@ class ExecuteWorkflowService:
                 self.__create_node_model(node, nodes, _node_list)
         model.nodes = _node_list
         logger.info(model)
-        # Save the model to the database or any storage
-        # WorkflowExecuteManager().execute_workflow(id, model)
+        WorkflowExecuteManager().add_workflow(id, model)
         return model
 
     def __create_node_model(

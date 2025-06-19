@@ -227,7 +227,7 @@ class ExecuteWorkflowModel(Base):
             WorkflowType[str(kwargs.get("type"))] if kwargs.get("type") else None
         )
 
-    def to_dict(self) -> dict[str, str | None]:
+    def to_dict(self) -> dict:
         """Convert the object to a dictionary."""
         return {
             "id": self.id,
@@ -236,6 +236,7 @@ class ExecuteWorkflowModel(Base):
             "status": self.status.value,
             "completed_at": self.completed_at,
             "type": self.type.value if self.type else None,
+            "nodes": [node.to_dict() for node in self.nodes],
         }
 
     @classmethod
