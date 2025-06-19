@@ -164,8 +164,9 @@ class CreateExecuteWorkflowRequest(BaseModel):
 class ExecuteWorkflowNodeModel(BaseModel):
     id: str
     content: str | None = None
-    created_at: str
     total_tokens: int | None = None
+    started_at: str | None = None
+    completed_at: str | None = None
     status: WorkflowNodeStatus
     node: WorkflowNodeRequest
 
@@ -177,8 +178,9 @@ class ExecuteWorkflowNodeModel(BaseModel):
         self.total_tokens = (
             int(kwargs.get("total_tokens")) if kwargs.get("total_tokens") else None
         )
-        self.created_at = kwargs.get("created_at", created_date())
         self.node = kwargs.get("node")
+        self.started_at = kwargs.get("started_at")
+        self.completed_at = kwargs.get("completed_at")
 
     @classmethod
     def to_cls(cls, data: dict) -> Self:
@@ -187,8 +189,9 @@ class ExecuteWorkflowNodeModel(BaseModel):
             content=data.get("content"),
             status=data.get("status", WorkflowNodeStatus.NEW.value),
             total_tokens=data.get("total_tokens"),
-            created_at=data.get("created_at"),
             node=WorkflowNodeRequest.to_cls(data.get("node", {})),
+            started_at=data.get("started_at"),
+            completed_at=data.get("completed_at"),
         )
 
     def to_dict(self) -> dict[str, str | int | None | dict]:
@@ -197,8 +200,9 @@ class ExecuteWorkflowNodeModel(BaseModel):
             "content": self.content,
             "status": self.status.value,
             "total_tokens": self.total_tokens,
-            "created_at": self.created_at,
             "node": self.node.to_dict(),
+            "started_at": self.started_at,
+            "completed_at": self.completed_at,
         }
 
 
