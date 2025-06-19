@@ -47,11 +47,8 @@ class ExecuteWorkflowService:
                 ExecuteWorkflowNodeModel(
                     id=generate_uuid(),
                     name=node.name,
-                    created_at=created_date(),
-                    model_name=node.llm if node.llm else None,
-                    type=node.type,
-                    execute_at_run_time=False,
                     status=WorkflowStatus.NEW.value,
+                    node=node,
                 )
             )
 

@@ -206,7 +206,7 @@ class ExecuteWorkflowNodeModel(BaseModel):
         }
 
 
-class ExecuteWorkflowModel(BaseModel):
+class ExecuteWorkflowModel(Base):
     id: str
     name: str
     created_at: str
