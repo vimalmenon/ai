@@ -161,7 +161,7 @@ class CreateExecuteWorkflowRequest(BaseModel):
     name: str
 
 
-class ExecuteWorkflowNodeModel(BaseModel):
+class ExecuteWorkflowNodeModel(Base):
     id: str
     content: str | None = None
     total_tokens: int | None = None

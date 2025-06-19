@@ -22,17 +22,20 @@ class ExecuteWorkflowService:
         items = WorkflowExecuteManager().get_workflow(id)
         return [ExecuteWorkflowModel.to_cls(item) for item in items]
 
-    def execute(self, id: str, data: CreateExecuteWorkflowRequest):
+    def execute(
+        self, id: str, data: CreateExecuteWorkflowRequest
+    ) -> ExecuteWorkflowModel:
         nodes = self.__validate_item_nodes_and_return(id)
         model = self.__create_execute_workflow_model(data)
         _node_list: list[ExecuteWorkflowNodeModel] = []
         for _id, node in nodes.items():
             if node.is_start:
                 self.__create_node_model(node, nodes, _node_list)
-                breakpoint()
+        model.nodes = _node_list
         logger.info(model)
+        # Save the model to the database or any storage
         # WorkflowExecuteManager().execute_workflow(id, model)
-        return {"item": nodes}
+        return model
 
     def __create_node_model(
         self,
@@ -44,7 +47,6 @@ class ExecuteWorkflowService:
             node_list.append(
                 ExecuteWorkflowNodeModel(
                     id=generate_uuid(),
-                    name=node.name,
                     status=WorkflowStatus.NEW.value,
                     node=node,
                 )
@@ -54,7 +56,6 @@ class ExecuteWorkflowService:
             node_list.append(
                 ExecuteWorkflowNodeModel(
                     id=generate_uuid(),
-                    name=node.name,
                     status=WorkflowStatus.NEW.value,
                     node=node,
                 )
