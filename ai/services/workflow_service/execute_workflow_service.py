@@ -41,6 +41,14 @@ class ExecuteWorkflowService:
         node_list: list[ExecuteWorkflowNodeModel],
     ) -> None:
         if node.next:
+            node_list.append(
+                ExecuteWorkflowNodeModel(
+                    id=generate_uuid(),
+                    name=node.name,
+                    status=WorkflowStatus.NEW.value,
+                    node=node,
+                )
+            )
             self.__create_node_model(node_map[node.next], node_map, node_list)
         else:
             node_list.append(
