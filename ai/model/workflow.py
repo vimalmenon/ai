@@ -212,7 +212,6 @@ class ExecuteWorkflowModel(Base):
     created_at: str
     status: WorkflowStatus
     completed_at: str | None = None
-    type: WorkflowType | None = None
     nodes: list[ExecuteWorkflowNodeModel] = []
 
     def __init__(self, **kwargs):
@@ -223,9 +222,6 @@ class ExecuteWorkflowModel(Base):
         self.status = WorkflowStatus[kwargs.get("status", WorkflowStatus.NEW.value)]
         self.completed_at = kwargs.get("completed_at")
         self.nodes = kwargs.get("nodes", [])
-        self.type = (
-            WorkflowType[str(kwargs.get("type"))] if kwargs.get("type") else None
-        )
 
     def to_dict(self) -> dict:
         """Convert the object to a dictionary."""
@@ -235,7 +231,6 @@ class ExecuteWorkflowModel(Base):
             "created_at": self.created_at,
             "status": self.status.value,
             "completed_at": self.completed_at,
-            "type": self.type.value if self.type else None,
             "nodes": [node.to_dict() for node in self.nodes],
         }
 
@@ -251,5 +246,4 @@ class ExecuteWorkflowModel(Base):
             nodes=[
                 ExecuteWorkflowNodeModel.to_cls(node) for node in data.get("nodes", [])
             ],
-            type=WorkflowType[str(data.get("type"))] if data.get("type") else None,
         )
