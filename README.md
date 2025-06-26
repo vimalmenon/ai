@@ -45,3 +45,6 @@ Clean up Remote branch
 ```sh
 git remote update origin --prune
 ```
+```sh
+sudo lsof -i :8000
+```
