@@ -1,6 +1,7 @@
 from ai.model.contact import ContactRequestForm
 from ai.model.llm import LLMResponse, LLMs
 from ai.model.others import WorkflowType
+from ai.model.request import ResumeWorkflowRequest
 from ai.model.s3 import S3Item, S3Request
 from ai.model.workflow import (
     CreateExecuteWorkflowRequest,
@@ -30,4 +31,5 @@ __all__ = [
     "ExecuteWorkflowNodeModel",
     "WorkflowStatus",
     "CreateExecuteWorkflowRequest",
+    "ResumeWorkflowRequest",
 ]

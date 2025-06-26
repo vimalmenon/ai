@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 
-from ai.model import CreateExecuteWorkflowRequest
+from ai.model import CreateExecuteWorkflowRequest, ResumeWorkflowRequest
 from ai.services import ExecuteWorkflowService
 
 router = APIRouter()
@@ -13,9 +13,9 @@ async def execute_workflow(wf_id: str, data: CreateExecuteWorkflowRequest):
 
 
 @router.post("/resume/{wf_id}/{id}", tags=["Execute"])
-async def resume_workflow(wf_id: str, id: str):
+async def resume_workflow(wf_id: str, id: str, data: ResumeWorkflowRequest):
     """This will resume the pending workflow"""
-    return {"data": ExecuteWorkflowService().resume_execute(wf_id, id)}
+    return {"data": ExecuteWorkflowService().resume_execute(wf_id, id, data)}
 
 
 @router.get("/{wf_id}", tags=["Execute"])

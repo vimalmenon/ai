@@ -6,6 +6,7 @@ from ai.model import (
     CreateExecuteWorkflowRequest,
     ExecuteWorkflowModel,
     ExecuteWorkflowNodeModel,
+    ResumeWorkflowRequest,
     WorkflowNodeRequest,
     WorkflowStatus,
 )
@@ -18,19 +19,20 @@ logger = getLogger(__name__)
 class ExecuteWorkflowService:
 
     def get(self, id: str) -> list[ExecuteWorkflowModel]:
-        """This will get the execute workflow"""
+        """This will get the executed workflow"""
         return WorkflowExecuteManager().get_workflow(id)
 
     def execute(
         self, id: str, data: CreateExecuteWorkflowRequest
     ) -> ExecuteWorkflowModel:
+        """This will execute the workflow"""
         nodes = self.__validate_item_nodes_and_return(id)
         model = self.__create_execute_workflow_model(data)
-        _node_list: list[ExecuteWorkflowNodeModel] = []
+        node_list: list[ExecuteWorkflowNodeModel] = []
         for _id, node in nodes.items():
             if node.is_start:
-                self.__create_node_model(node, nodes, _node_list)
-        model.nodes = _node_list
+                self.__create_node_model(node, nodes, node_list)
+        model.nodes = node_list
         logger.info(model)
         WorkflowExecuteManager().add_workflow(id, model)
         return model
@@ -83,7 +85,7 @@ class ExecuteWorkflowService:
             status=WorkflowStatus.RUNNING.value,
         )
 
-    def resume_execute(self, wf_id: str, id: str):
+    def resume_execute(self, wf_id: str, id: str, data: ResumeWorkflowRequest):
         """This will resume the pending workflow"""
         workflow = WorkflowExecuteManager().get_workflow_by_id(wf_id, id)
         return workflow
