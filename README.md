@@ -45,6 +45,7 @@ Clean up Remote branch
 ```sh
 git remote update origin --prune
 ```
+Find the process running in 8000
 ```sh
 sudo lsof -i :8000
 ```
