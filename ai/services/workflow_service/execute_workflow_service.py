@@ -17,10 +17,9 @@ logger = getLogger(__name__)
 
 class ExecuteWorkflowService:
 
-    def get(self, id: str):
+    def get(self, id: str) -> list[ExecuteWorkflowModel]:
         """This will get the execute workflow"""
-        items = WorkflowExecuteManager().get_workflow(id)
-        return [ExecuteWorkflowModel.to_cls(item) for item in items]
+        return WorkflowExecuteManager().get_workflow(id)
 
     def execute(
         self, id: str, data: CreateExecuteWorkflowRequest

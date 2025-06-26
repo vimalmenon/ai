@@ -17,12 +17,12 @@ class WorkflowExecuteManager:
         """This will update the executed workflow"""
         pass
 
-    def get_workflow(self, id: str):
+    def get_workflow(self, id: str) -> list[ExecuteWorkflowModel]:
         """This will get the executed workflow"""
-        result = DbManager().query_items(
+        items = DbManager().query_items(
             Key("table").eq(self.table) & Key("app_id").begins_with(f"{id}#")
         )
-        return result
+        return [ExecuteWorkflowModel.to_cls(item) for item in items]
 
     def get_workflow_by_id(self, wf_id: str, id: str):
         """This will get the executed workflow by ID"""
