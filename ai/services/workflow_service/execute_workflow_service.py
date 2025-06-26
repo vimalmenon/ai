@@ -88,7 +88,16 @@ class ExecuteWorkflowService:
     def resume_execute(self, wf_id: str, id: str, data: ResumeWorkflowRequest):
         """This will resume the pending workflow"""
         workflow = WorkflowExecuteManager().get_workflow_by_id(wf_id, id)
-        return workflow
+        if workflow:
+            for node in workflow.nodes:
+                if node.id == data.id:
+                    node.status = WorkflowStatus.COMPLETED.value
+                    node.content = data.value
+                    node.started_at = created_date()
+                    node.completed_at = created_date()
+                    break
+            WorkflowExecuteManager().update_workflow(wf_id, workflow)
+            return workflow
 
     def delete(self, wf_id: str, id: str):
         """This will delete the execute workflow"""
