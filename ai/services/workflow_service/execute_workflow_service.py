@@ -84,8 +84,9 @@ class ExecuteWorkflowService:
             status=WorkflowStatus.RUNNING.value,
         )
 
-    def resume_execute(self, id: str):
-        self.__validate_item_nodes_and_return(id)
+    def resume_execute(self, wf_id: str, id: str):
+        """This will resume the pending workflow"""
+        WorkflowExecuteManager().get_workflow_by_id(wf_id, id)
 
     def delete(self, wf_id: str, id: str):
         """This will delete the execute workflow"""
