@@ -32,7 +32,7 @@ def client(setup_environment) -> Generator[TestClient, Any, None]:
 
     client = TestClient(
         app,
-        base_url="http://testserver",
+        base_url="https://testserver",
         raise_server_exceptions=True,
         backend="asyncio",
         follow_redirects=True,
