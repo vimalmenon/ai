@@ -30,11 +30,5 @@ def client(setup_environment) -> Generator[TestClient, Any, None]:
     Fixture to create a test client for the FastAPI application.
     """
 
-    client = TestClient(
-        app,
-        base_url="https://testserver",
-        raise_server_exceptions=True,
-        backend="asyncio",
-        follow_redirects=True,
-    )
+    client = TestClient(app)
     yield client
