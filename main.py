@@ -1,8 +1,10 @@
+from json import JSONDecodeError, dumps, loads
 from logging import INFO, basicConfig, getLogger
 
 import uvicorn
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
+from humps import decamelize
 
 from ai.api import (
     router_rest,
@@ -21,6 +23,28 @@ logger.info("Starting the application...")
 
 
 app = FastAPI(debug=env.debug)
+
+
+@app.middleware("http")
+async def convert_camel_to_snake(request: Request, call_next):
+    if request.method in (
+        "POST",
+        "PUT",
+        "PATCH",
+    ) and "application/json" in request.headers.get("content-type", ""):
+        body = await request.body()
+        if body:
+            try:
+                json_data = loads(body)
+                snake_data = decamelize(json_data)
+                # Modify request to use snake_case data
+                request._body = dumps(snake_data).encode()
+            except JSONDecodeError:
+                pass
+
+    response = await call_next(request)
+    return response
+
 
 app.include_router(
     router_workflow,

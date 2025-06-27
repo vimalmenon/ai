@@ -23,8 +23,7 @@ async def update_workflow_node(wf_id: str, id: str, data: WorkflowNodeRequest):
     return {"data": WorkflowService().get_workflow_by_id(wf_id)}
 
 
-@router.delete("/{wf_id}/{id}", tags=["node"])
-async def delete_workflow_node(wf_id: str, id: str):
+@router.delete("/{wf_id}/{id}", tags=["node"], status_code=204)
+async def delete_workflow_node(wf_id: str, id: str) -> None:
     """Delete the node for workflow"""
     WorkflowNodeService().delete_workflow_nodes(wf_id, id)
-    return ({"data": "Deleted"}, 200)
