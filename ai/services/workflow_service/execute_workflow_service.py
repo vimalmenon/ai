@@ -96,7 +96,7 @@ class ExecuteWorkflowService:
                     node.started_at = created_date()
                     node.completed_at = created_date()
                     break
-            WorkflowExecuteManager().update_workflow(wf_id, workflow)
+            WorkflowExecuteManager().update_workflow(wf_id, id, workflow)
             return workflow
 
     def delete(self, wf_id: str, id: str):

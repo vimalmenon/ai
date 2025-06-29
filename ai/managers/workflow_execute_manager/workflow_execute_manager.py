@@ -13,7 +13,7 @@ class WorkflowExecuteManager:
             {"table": self.table, "app_id": f"{id}#{data.id}", **data.to_dict()}
         )
 
-    def update_workflow(self, id: str, data: ExecuteWorkflowModel):
+    def update_workflow(self, wf_id: str, id: str, data: ExecuteWorkflowModel):
         """This will update the executed workflow"""
         (
             update_expression,
@@ -21,7 +21,7 @@ class WorkflowExecuteManager:
             expression_attribute_names,
         ) = self.__get_updated_executed_details(data)
         DbManager().update_item(
-            Key={"table": self.table, "app_id": id},
+            Key={"table": self.table, "app_id": f"{wf_id}#{id}"},
             UpdateExpression=update_expression,
             ExpressionAttributeValues=expression_attribute_values,
             ExpressionAttributeNames=expression_attribute_names,
