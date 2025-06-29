@@ -56,7 +56,7 @@ class WorkflowExecuteManager:
             expression["nodes"] = {
                 "name": "#nodes",
                 "key": ":nodes",
-                "value": data.nodes,
+                "value": [node.to_dict() for node in data.nodes],
             }
         update_expression = []
         expression_attribute_values = {}

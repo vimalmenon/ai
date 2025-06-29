@@ -91,7 +91,7 @@ class ExecuteWorkflowService:
         if workflow:
             for node in workflow.nodes:
                 if node.id == data.id:
-                    node.status = WorkflowStatus.COMPLETED.value
+                    node.status = WorkflowStatus.COMPLETED
                     node.content = data.data
                     node.started_at = created_date()
                     node.completed_at = created_date()
