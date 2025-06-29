@@ -10,6 +10,9 @@ from ai.model import (
     WorkflowNodeRequest,
     WorkflowStatus,
 )
+from ai.model.others import (
+    WorkflowNodeStatus,
+)
 from ai.services.workflow_service.workflow_service import WorkflowService
 from ai.utilities import created_date, generate_uuid
 
@@ -47,7 +50,7 @@ class ExecuteWorkflowService:
             node_list.append(
                 ExecuteWorkflowNodeModel(
                     id=generate_uuid(),
-                    status=WorkflowStatus.NEW.value,
+                    status=WorkflowNodeStatus.NEW,
                     node=node,
                 )
             )
@@ -56,7 +59,7 @@ class ExecuteWorkflowService:
             node_list.append(
                 ExecuteWorkflowNodeModel(
                     id=generate_uuid(),
-                    status=WorkflowStatus.NEW.value,
+                    status=WorkflowNodeStatus.NEW,
                     node=node,
                 )
             )
