@@ -88,7 +88,9 @@ class ExecuteWorkflowService:
             status=WorkflowStatus.RUNNING.value,
         )
 
-    def resume_execute(self, wf_id: str, id: str, data: ResumeWorkflowRequest):
+    def resume_execute(
+        self, wf_id: str, id: str, data: ResumeWorkflowRequest
+    ) -> ExecuteWorkflowModel | None:
         """This will resume the pending workflow"""
         workflow = WorkflowExecuteManager().get_workflow_by_id(wf_id, id)
         if workflow:
@@ -101,6 +103,7 @@ class ExecuteWorkflowService:
                     break
             WorkflowExecuteManager().update_workflow(wf_id, id, workflow)
             return workflow
+        return None
 
     def delete(self, wf_id: str, id: str):
         """This will delete the execute workflow"""
