@@ -15,7 +15,17 @@ class WorkflowExecuteManager:
 
     def update_workflow(self, id: str, data: ExecuteWorkflowModel):
         """This will update the executed workflow"""
-        pass
+        (
+            update_expression,
+            expression_attribute_values,
+            expression_attribute_names,
+        ) = self.__get_updated_executed_details(data)
+        DbManager().update_item(
+            Key={"table": self.table, "app_id": id},
+            UpdateExpression=update_expression,
+            ExpressionAttributeValues=expression_attribute_values,
+            ExpressionAttributeNames=expression_attribute_names,
+        )
 
     def get_workflow(self, id: str) -> list[ExecuteWorkflowModel]:
         """This will get the executed workflow"""
@@ -38,4 +48,26 @@ class WorkflowExecuteManager:
                 "table": self.table,
                 "app_id": f"{wf_id}#{id}",
             }
+        )
+
+    def __get_updated_executed_details(self, data: ExecuteWorkflowModel):
+        expression: dict = {}
+        if data.nodes:
+            expression["nodes"] = {
+                "name": "#nodes",
+                "key": ":nodes",
+                "value": data.nodes,
+            }
+        update_expression = []
+        expression_attribute_values = {}
+        expression_attribute_names = {}
+        for key, value in expression.items():
+            update_expression.append(f"{value['name']} = {value['key']}")
+            expression_attribute_values[value["key"]] = value["value"]
+            expression_attribute_names[value["name"]] = key
+
+        return (
+            "set " + ", ".join(update_expression),
+            expression_attribute_values,
+            expression_attribute_names,
         )
