@@ -1,9 +1,6 @@
 from ai.services.llm_service.llm_service import ListLLMServices, LLmService
 from ai.services.s3_service.s3_service import S3Service
 from ai.services.tool_service.tool_service import ToolService
-from ai.services.workflow_history_service.workflow_history_service import (
-    WorkflowHistoryService,
-)
 from ai.services.workflow_service.execute_workflow_service import (
     ExecuteWorkflowService,
 )
@@ -20,5 +17,4 @@ __all__ = [
     "S3Service",
     "ExecuteWorkflowService",
     "WorkflowNodeService",
-    "WorkflowHistoryService",
 ]

@@ -7,13 +7,13 @@ from ai.model import ExecuteWorkflowModel
 class WorkflowExecuteManager:
     table = "AI#EXECUTE"
 
-    def add_workflow(self, id: str, data: ExecuteWorkflowModel):
+    def add_workflow(self, id: str, data: ExecuteWorkflowModel) -> None:
         """This will save executed workflow"""
         DbManager().add_item(
             {"table": self.table, "app_id": f"{id}#{data.id}", **data.to_dict()}
         )
 
-    def update_workflow(self, wf_id: str, id: str, data: ExecuteWorkflowModel):
+    def update_workflow(self, wf_id: str, id: str, data: ExecuteWorkflowModel) -> None:
         """This will update the executed workflow"""
         (
             update_expression,
@@ -34,14 +34,14 @@ class WorkflowExecuteManager:
         )
         return [ExecuteWorkflowModel.to_cls(item) for item in items]
 
-    def get_workflow_by_id(self, wf_id: str, id: str):
+    def get_workflow_by_id(self, wf_id: str, id: str) -> ExecuteWorkflowModel | None:
         """This will get the executed workflow by ID"""
         item = DbManager().get_item({"table": self.table, "app_id": f"{wf_id}#{id}"})
         if item:
             return ExecuteWorkflowModel.to_cls(item)
         return None
 
-    def delete_workflow(self, wf_id: str, id: str):
+    def delete_workflow(self, wf_id: str, id: str) -> None:
         """This will delete the executed workflow"""
         DbManager().remove_item(
             {

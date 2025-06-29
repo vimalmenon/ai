@@ -96,7 +96,7 @@ class ExecuteWorkflowService:
         if workflow:
             for node in workflow.nodes:
                 if node.id == data.id:
-                    node.status = WorkflowStatus.COMPLETED
+                    node.status = WorkflowNodeStatus.COMPLETED
                     node.content = data.data
                     node.started_at = created_date()
                     node.completed_at = created_date()
@@ -105,6 +105,6 @@ class ExecuteWorkflowService:
             return workflow
         return None
 
-    def delete(self, wf_id: str, id: str):
+    def delete(self, wf_id: str, id: str) -> None:
         """This will delete the execute workflow"""
-        return WorkflowExecuteManager().delete_workflow(wf_id, id)
+        WorkflowExecuteManager().delete_workflow(wf_id, id)
