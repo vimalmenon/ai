@@ -57,11 +57,11 @@ class WorkflowManager:
                 detail=f"Workflow with ID {id} not found.",
             )
 
-    def delete_workflows_by_id(self, id: str):
+    def delete_workflows_by_id(self, id: str) -> None:
         """Delete the workflow by ID"""
         item = DbManager().get_item({"table": self.table, "app_id": id})
         if item:
-            return DbManager().remove_item({"table": self.table, "app_id": id})
+            DbManager().remove_item({"table": self.table, "app_id": id})
         else:
             logger.warning(f"Workflow with ID {id} not found.")
             raise ClientError(

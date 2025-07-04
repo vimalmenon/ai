@@ -27,11 +27,10 @@ async def update_workflow(id: str, body: UpdateWorkflowRequest):
     return {"data": WorkflowService().update_workflow(id, body)}
 
 
-@router.delete("/{id}", tags=["workflow"])
+@router.delete("/{id}", tags=["workflow"], status_code=204)
 async def delete_workflows_by_id(id: str):
     """Give the workflow detail by ID"""
     WorkflowService().delete_workflows_by_id(id)
-    return ({"data": "Deleted"}, 204)
 
 
 @router.get("/{id}", tags=["workflow"])

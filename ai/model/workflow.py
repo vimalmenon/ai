@@ -174,7 +174,7 @@ class ExecuteWorkflowNodeModel(Base):
         super().__init__(**kwargs)
         self.id = kwargs.get("id", "")
         self.content = kwargs.get("content")
-        self.status = WorkflowNodeStatus[kwargs.get("status")]
+        self.status = kwargs.get("status")
         self.total_tokens = (
             int(kwargs.get("total_tokens")) if kwargs.get("total_tokens") else None
         )
@@ -187,18 +187,24 @@ class ExecuteWorkflowNodeModel(Base):
         return cls(
             id=data.get("id", ""),
             content=data.get("content"),
-            status=data.get("status", WorkflowNodeStatus.NEW.value),
+            status=(
+                WorkflowNodeStatus[str(data.get("status"))]
+                if data.get("status")
+                else WorkflowNodeStatus.NEW
+            ),
             total_tokens=data.get("total_tokens"),
             node=WorkflowNodeRequest.to_cls(data.get("node", {})),
             started_at=data.get("started_at"),
             completed_at=data.get("completed_at"),
         )
 
-    def to_dict(self) -> dict[str, str | int | None | dict]:
+    def to_dict(self) -> dict:
         return {
             "id": self.id,
             "content": self.content,
-            "status": self.status.value,
+            "status": (
+                self.status.value if self.status else WorkflowNodeStatus.NEW.value
+            ),
             "total_tokens": self.total_tokens,
             "node": self.node.to_dict(),
             "started_at": self.started_at,
