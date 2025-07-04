@@ -18,6 +18,7 @@ I am an AI Agent named after the moon of Jupiter, representing curiosity and exp
 - [x] Create a job to run the workflow
 - [x] Resume workflow
 - [x] Show trimmed WF in list page
+- [ ] Create advanced workflows
 - [ ] Handle exception better
 - [ ] Remove test warning
 - [ ] Set up mock
@@ -26,7 +27,6 @@ I am an AI Agent named after the moon of Jupiter, representing curiosity and exp
 - [ ] Create Docker image
 - [ ] Add more tools
 - [ ] Create release with tag
-- [ ] Create advanced workflows
 - [ ] [Endpoints] Add test
 - [ ] [Managers] Add test
 - [ ] [Services] Add test
