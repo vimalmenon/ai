@@ -102,11 +102,13 @@ class ExecuteWorkflowService:
                         node.completed_at = created_date()
                         if len(workflow.nodes) > index + 1:
                             self.__process_next_node(node, workflow.nodes[index + 1])
+                        self.__check_if_workflow_is_completed(index, workflow)
                         break
                     elif node.node.type == WorkflowType.LLM:
                         self.__execute_llm_workflow_node(node)
                         if len(workflow.nodes) > index + 1:
                             self.__process_next_node(node, workflow.nodes[index + 1])
+                        self.__check_if_workflow_is_completed(index, workflow)
                         break
             WorkflowExecuteManager().update_workflow(wf_id, id, workflow)
             return workflow
@@ -120,6 +122,14 @@ class ExecuteWorkflowService:
         node.total_tokens = int(content["total_tokens"])
         node.status = WorkflowNodeStatus.COMPLETED
         node.completed_at = created_date()
+
+    def __check_if_workflow_is_completed(
+        self, index: int, workflow: ExecuteWorkflowModel
+    ) -> None:
+        """Check if the workflow is completed"""
+        if index == len(workflow.nodes) - 1:
+            workflow.status = WorkflowStatus.COMPLETED
+            workflow.completed_at = created_date()
 
     def __process_next_node(
         self, node: ExecuteWorkflowNodeModel, next_node: ExecuteWorkflowNodeModel
