@@ -117,7 +117,7 @@ class ExecuteWorkflowService:
         node.started_at = created_date()
         content = LLMExecuteService().execute(node.node)
         node.content = content["content"]
-        node.total_tokens = content["total_tokens"]
+        node.total_tokens = int(content["total_tokens"])
         node.status = WorkflowNodeStatus.COMPLETED
         node.completed_at = created_date()
 
