@@ -10,9 +10,8 @@ from ai.model import (
     WorkflowNodeRequest,
     WorkflowStatus,
 )
-from ai.model.others import (
-    WorkflowNodeStatus,
-)
+from ai.model.others import WorkflowNodeStatus, WorkflowType
+from ai.services.llm_execute.llm_execute_service import LLMExecuteService
 from ai.services.workflow_service.workflow_service import WorkflowService
 from ai.utilities import created_date, generate_uuid
 
@@ -94,16 +93,38 @@ class ExecuteWorkflowService:
         """This will resume the pending workflow"""
         workflow = WorkflowExecuteManager().get_workflow_by_id(wf_id, id)
         if workflow:
-            for node in workflow.nodes:
+            for index, node in enumerate(workflow.nodes):
                 if node.id == data.id:
-                    node.status = WorkflowNodeStatus.COMPLETED
-                    node.content = data.data
-                    node.started_at = created_date()
-                    node.completed_at = created_date()
-                    break
+                    if node.node.type == WorkflowType.HumanInput:
+                        node.status = WorkflowNodeStatus.COMPLETED
+                        node.content = data.data
+                        node.started_at = created_date()
+                        node.completed_at = created_date()
+                        self.__process_next_node(node, workflow.nodes[index + 1])
+                        break
+                    elif node.node.type == WorkflowType.LLM:
+                        self.__execute_llm_workflow_node(node)
+                        self.__process_next_node(node, workflow.nodes[index + 1])
+
+                        break
             WorkflowExecuteManager().update_workflow(wf_id, id, workflow)
             return workflow
         return None
+
+    def __execute_llm_workflow_node(self, node: ExecuteWorkflowNodeModel) -> None:
+        """This will execute the LLM workflow node"""
+        breakpoint()
+        node.started_at = created_date()
+        LLMExecuteService().execute(node.node)
+        node.status = WorkflowNodeStatus.RUNNING
+        node.completed_at = created_date()
+        # node.content = created_date()
+
+    def __process_next_node(
+        self, node: ExecuteWorkflowNodeModel, next_node: ExecuteWorkflowNodeModel
+    ) -> None:
+        if next_node.node.data_from_previous_node:
+            next_node.node.message = node.content
 
     def delete(self, wf_id: str, id: str) -> None:
         """This will delete the execute workflow"""
