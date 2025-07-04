@@ -100,12 +100,13 @@ class ExecuteWorkflowService:
                         node.content = data.data
                         node.started_at = created_date()
                         node.completed_at = created_date()
-                        self.__process_next_node(node, workflow.nodes[index + 1])
+                        if len(workflow.nodes) > index + 1:
+                            self.__process_next_node(node, workflow.nodes[index + 1])
                         break
                     elif node.node.type == WorkflowType.LLM:
                         self.__execute_llm_workflow_node(node)
-                        self.__process_next_node(node, workflow.nodes[index + 1])
-
+                        if len(workflow.nodes) > index + 1:
+                            self.__process_next_node(node, workflow.nodes[index + 1])
                         break
             WorkflowExecuteManager().update_workflow(wf_id, id, workflow)
             return workflow
@@ -113,12 +114,12 @@ class ExecuteWorkflowService:
 
     def __execute_llm_workflow_node(self, node: ExecuteWorkflowNodeModel) -> None:
         """This will execute the LLM workflow node"""
-        breakpoint()
         node.started_at = created_date()
-        LLMExecuteService().execute(node.node)
-        node.status = WorkflowNodeStatus.RUNNING
+        content = LLMExecuteService().execute(node.node)
+        node.content = content["content"]
+        node.total_tokens = content["total_tokens"]
+        node.status = WorkflowNodeStatus.COMPLETED
         node.completed_at = created_date()
-        # node.content = created_date()
 
     def __process_next_node(
         self, node: ExecuteWorkflowNodeModel, next_node: ExecuteWorkflowNodeModel

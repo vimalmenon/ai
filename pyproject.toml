@@ -14,11 +14,11 @@ langchain-deepseek = "^0.1.2"
 fastapi = {extras = ["standard"], version = "^0.115.11"}
 boto3 = "^1.37.8"
 langchain-ollama = "^0.3.0"
-langgraph = "^0.4.7"
 langgraph-supervisor = "^0.0.27"
-langsmith = "^0.3.43"
 pyhumps = "^3.8.0"
 humps = "^0.2.2"
+langgraph = "^0.5.1"
+langsmith = "^0.4.4"
 
 
 [tool.poetry.group.dev.dependencies]
