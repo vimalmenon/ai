@@ -7,12 +7,14 @@ class WorkflowType(Enum):
     Tool = "Tool"
     HumanInput = "HumanInput"
     Service = "Service"
+    ManualConfirmation = "ManualConfirmation"
 
 
 class Tool(Enum):
     SaveToNotes = "SaveToNotes"
     SaveToDB = "SaveToDB"
     SaveToS3 = "SaveToS3"
+    InternetSearch = "InternetSearch"
     TextToSpeech = "TextToSpeech"
 
 
