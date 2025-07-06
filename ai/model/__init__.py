@@ -3,6 +3,7 @@ from ai.model.llm import LLMResponse, LLMs
 from ai.model.others import WorkflowType
 from ai.model.request import ResumeWorkflowRequest
 from ai.model.s3 import S3Item, S3Request
+from ai.model.service import DbServiceModel
 from ai.model.workflow import (
     CreateExecuteWorkflowRequest,
     CreateNodeRequest,
@@ -32,4 +33,5 @@ __all__ = [
     "WorkflowStatus",
     "CreateExecuteWorkflowRequest",
     "ResumeWorkflowRequest",
+    "DbServiceModel",
 ]

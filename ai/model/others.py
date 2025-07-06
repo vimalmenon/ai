@@ -22,6 +22,7 @@ class Service(Enum):
     GetFromS3 = "GetFromS3"
     SaveToDB = "SaveToDB"
     SaveToS3 = "SaveToS3"
+    InternetSearch = "InternetSearch"
 
 
 class WorkflowStatus(Enum):

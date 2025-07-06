@@ -12,6 +12,7 @@ from ai.model import (
 )
 from ai.model.others import WorkflowNodeStatus, WorkflowType
 from ai.services.llm_execute.llm_execute_service import LLMExecuteService
+from ai.services.service.service import DbService
 from ai.services.workflow_service.workflow_service import WorkflowService
 from ai.utilities import created_date, generate_uuid
 
@@ -111,7 +112,7 @@ class ExecuteWorkflowService:
         node: ExecuteWorkflowNodeModel,
         workflow: ExecuteWorkflowModel,
         data: ResumeWorkflowRequest,
-    ):
+    ) -> bool:
         if node.node.type == WorkflowType.HumanInput:
             node.status = WorkflowNodeStatus.COMPLETED
             node.content = data.data
@@ -126,7 +127,17 @@ class ExecuteWorkflowService:
                 self.__process_next_node(node, workflow.nodes[index + 1])
             self.__check_if_workflow_is_completed(index, workflow)
         elif node.node.type == WorkflowType.Service:
-            pass
+            self.__execute_service_workflow_node(workflow.id, node)
+        return True
+
+    def __execute_service_workflow_node(
+        self, id: str, node: ExecuteWorkflowNodeModel
+    ) -> None:
+        node.started_at = created_date()
+        content = DbService().execute(id, node.node)
+        node.content = content["data"]
+        node.status = WorkflowNodeStatus.COMPLETED
+        node.completed_at = created_date()
 
     def __execute_llm_workflow_node(self, node: ExecuteWorkflowNodeModel) -> None:
         """This will execute the LLM workflow node"""
