@@ -12,7 +12,6 @@ from ai.model import (
 )
 from ai.model.others import WorkflowNodeStatus, WorkflowType
 from ai.services.llm_execute.llm_execute_service import LLMExecuteService
-from ai.services.tool_service.tool_service import ToolService
 from ai.services.workflow_service.workflow_service import WorkflowService
 from ai.utilities import created_date, generate_uuid
 
@@ -34,7 +33,7 @@ class ExecuteWorkflowService:
         node_list: list[ExecuteWorkflowNodeModel] = []
         for _id, node in nodes.items():
             if node.is_start:
-                self.__create_node_model(node, nodes, node_list)
+                self.__create_node_model(node, nodes, node_list, True)
         model.nodes = node_list
         logger.info(model)
         WorkflowExecuteManager().add_workflow(id, model)
@@ -45,16 +44,19 @@ class ExecuteWorkflowService:
         node: WorkflowNodeRequest,
         node_map: dict[str, WorkflowNodeRequest],
         node_list: list[ExecuteWorkflowNodeModel],
+        is_start: bool,
     ) -> None:
         if node.next:
             node_list.append(
                 ExecuteWorkflowNodeModel(
                     id=generate_uuid(),
-                    status=WorkflowNodeStatus.NEW,
+                    status=(
+                        WorkflowNodeStatus.READY if is_start else WorkflowNodeStatus.NEW
+                    ),
                     node=node,
                 )
             )
-            self.__create_node_model(node_map[node.next], node_map, node_list)
+            self.__create_node_model(node_map[node.next], node_map, node_list, False)
         else:
             node_list.append(
                 ExecuteWorkflowNodeModel(
@@ -94,31 +96,37 @@ class ExecuteWorkflowService:
         """This will resume the pending workflow"""
         workflow = WorkflowExecuteManager().get_workflow_by_id(wf_id, id)
         if workflow:
-            for index, node in enumerate(workflow.nodes):
-                if node.id == data.id:
-                    if node.node.type == WorkflowType.HumanInput:
-                        node.status = WorkflowNodeStatus.COMPLETED
-                        node.content = data.data
-                        node.started_at = created_date()
-                        node.completed_at = created_date()
-                        if len(workflow.nodes) > index + 1:
-                            self.__process_next_node(node, workflow.nodes[index + 1])
-                        self.__check_if_workflow_is_completed(index, workflow)
-                        break
-                    elif node.node.type == WorkflowType.LLM:
-                        self.__execute_llm_workflow_node(node)
-                        if len(workflow.nodes) > index + 1:
-                            self.__process_next_node(node, workflow.nodes[index + 1])
-                        self.__check_if_workflow_is_completed(index, workflow)
-                        break
-                    elif node.node.type == WorkflowType.Tool:
-                        self.__execute_tool_workflow_node(node)
-                        # if len(workflow.nodes) > index + 1:
-                        #     self.__process_next_node(node, workflow.nodes[index + 1])
-                        self.__check_if_workflow_is_completed(index, workflow)
+            [
+                self.__process_workflow_node(index, node, workflow, data)
+                for index, node in enumerate(workflow.nodes)
+                if node.id == data.id
+            ]
             WorkflowExecuteManager().update_workflow(wf_id, id, workflow)
             return workflow
         return None
+
+    def __process_workflow_node(
+        self,
+        index: int,
+        node: ExecuteWorkflowNodeModel,
+        workflow: ExecuteWorkflowModel,
+        data: ResumeWorkflowRequest,
+    ):
+        if node.node.type == WorkflowType.HumanInput:
+            node.status = WorkflowNodeStatus.COMPLETED
+            node.content = data.data
+            node.started_at = created_date()
+            node.completed_at = created_date()
+            if len(workflow.nodes) > index + 1:
+                self.__process_next_node(node, workflow.nodes[index + 1])
+            self.__check_if_workflow_is_completed(index, workflow)
+        elif node.node.type == WorkflowType.LLM:
+            self.__execute_llm_workflow_node(node)
+            if len(workflow.nodes) > index + 1:
+                self.__process_next_node(node, workflow.nodes[index + 1])
+            self.__check_if_workflow_is_completed(index, workflow)
+        elif node.node.type == WorkflowType.Service:
+            pass
 
     def __execute_llm_workflow_node(self, node: ExecuteWorkflowNodeModel) -> None:
         """This will execute the LLM workflow node"""
@@ -128,12 +136,6 @@ class ExecuteWorkflowService:
         node.total_tokens = int(content["total_tokens"])
         node.status = WorkflowNodeStatus.COMPLETED
         node.completed_at = created_date()
-
-    def __execute_tool_workflow_node(self, node: ExecuteWorkflowNodeModel) -> None:
-        if node.node.tool:
-            # To Do : this needs to be refined
-            tool = ToolService().get_tool_func(node.node.tool)
-            tool(node.node.message)
 
     def __check_if_workflow_is_completed(
         self, index: int, workflow: ExecuteWorkflowModel

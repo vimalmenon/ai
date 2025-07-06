@@ -4,7 +4,6 @@ from enum import Enum
 class WorkflowType(Enum):
     Agent = "Agent"
     LLM = "LLM"
-    Tool = "Tool"
     HumanInput = "HumanInput"
     Service = "Service"
     ManualConfirmation = "ManualConfirmation"
@@ -21,6 +20,8 @@ class Tool(Enum):
 class Service(Enum):
     GetFromDB = "GetFromDB"
     GetFromS3 = "GetFromS3"
+    SaveToDB = "SaveToDB"
+    SaveToS3 = "SaveToS3"
 
 
 class WorkflowStatus(Enum):
