@@ -12,6 +12,7 @@ from ai.model import (
 )
 from ai.model.others import WorkflowNodeStatus, WorkflowType
 from ai.services.llm_execute.llm_execute_service import LLMExecuteService
+from ai.services.tool_service.tool_service import ToolService
 from ai.services.workflow_service.workflow_service import WorkflowService
 from ai.utilities import created_date, generate_uuid
 
@@ -110,6 +111,11 @@ class ExecuteWorkflowService:
                             self.__process_next_node(node, workflow.nodes[index + 1])
                         self.__check_if_workflow_is_completed(index, workflow)
                         break
+                    elif node.node.type == WorkflowType.Tool:
+                        self.__execute_tool_workflow_node(node)
+                        # if len(workflow.nodes) > index + 1:
+                        #     self.__process_next_node(node, workflow.nodes[index + 1])
+                        self.__check_if_workflow_is_completed(index, workflow)
             WorkflowExecuteManager().update_workflow(wf_id, id, workflow)
             return workflow
         return None
@@ -123,6 +129,12 @@ class ExecuteWorkflowService:
         node.status = WorkflowNodeStatus.COMPLETED
         node.completed_at = created_date()
 
+    def __execute_tool_workflow_node(self, node: ExecuteWorkflowNodeModel) -> None:
+        if node.node.tool:
+            # To Do : this needs to be refined
+            tool = ToolService().get_tool_func(node.node.tool)
+            tool(node.node.message)
+
     def __check_if_workflow_is_completed(
         self, index: int, workflow: ExecuteWorkflowModel
     ) -> None:
@@ -134,6 +146,7 @@ class ExecuteWorkflowService:
     def __process_next_node(
         self, node: ExecuteWorkflowNodeModel, next_node: ExecuteWorkflowNodeModel
     ) -> None:
+        next_node.status = WorkflowNodeStatus.READY
         if next_node.node.data_from_previous_node:
             next_node.node.message = node.content
 

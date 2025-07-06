@@ -34,6 +34,7 @@ class WorkflowStatus(Enum):
 
 class WorkflowNodeStatus(Enum):
     NEW = "NEW"
+    READY = "READY"
     RUNNING = "RUNNING"
     COMPLETED = "COMPLETED"
     FAILED = "FAILED"
