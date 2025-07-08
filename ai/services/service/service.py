@@ -22,3 +22,6 @@ class DbService:
             return {"data": "Saved to DB"}
         elif node.service == ServiceModel.GetFromDB:
             return {"data": "Get from DB"}
+
+    def get_by_id(self, id: str) -> list[DbServiceModel]:
+        return DbServiceManager().get(id)

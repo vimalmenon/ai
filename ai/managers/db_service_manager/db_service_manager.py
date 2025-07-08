@@ -15,8 +15,6 @@ class DbServiceManager:
         )
         return data
 
-    def get(self) -> list[DbServiceModel]:
-        items = DbManager().query_items(
-            Key("table").eq(self.table) & Key("app_id").begins_with(f"{id}#")
-        )
+    def get(self, id: str) -> list[DbServiceModel]:
+        items = DbManager().query_items(Key("table").eq(f"{self.table}#{id}"))
         return [DbServiceModel.to_cls(item) for item in items]
