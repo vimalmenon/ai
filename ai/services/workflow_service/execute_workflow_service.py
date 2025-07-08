@@ -128,6 +128,9 @@ class ExecuteWorkflowService:
             self.__check_if_workflow_is_completed(index, workflow)
         elif node.node.type == WorkflowType.Service:
             self.__execute_service_workflow_node(workflow.id, node)
+            if len(workflow.nodes) > index + 1:
+                self.__process_next_node(node, workflow.nodes[index + 1])
+            self.__check_if_workflow_is_completed(index, workflow)
         return True
 
     def __execute_service_workflow_node(
