@@ -253,3 +253,11 @@ class ExecuteWorkflowModel(Base):
                 ExecuteWorkflowNodeModel.to_cls(node) for node in data.get("nodes", [])
             ],
         )
+
+
+class WorkflowModelWithExecutedWorkflow(WorkflowModel):
+    executed_workflows: list[ExecuteWorkflowModel]
+
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.executed_workflows = kwargs.get("executed_workflows")

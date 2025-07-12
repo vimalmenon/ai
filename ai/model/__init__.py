@@ -11,6 +11,7 @@ from ai.model.workflow import (
     ExecuteWorkflowNodeModel,
     UpdateWorkflowRequest,
     WorkflowModel,
+    WorkflowModelWithExecutedWorkflow,
     WorkflowNodeRequest,
     WorkflowSlimModel,
     WorkflowStatus,
@@ -34,4 +35,5 @@ __all__ = [
     "CreateExecuteWorkflowRequest",
     "ResumeWorkflowRequest",
     "DbServiceModel",
+    "WorkflowModelWithExecutedWorkflow",
 ]
