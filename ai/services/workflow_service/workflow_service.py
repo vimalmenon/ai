@@ -86,7 +86,6 @@ class WorkflowService:
             return WorkflowManager().delete_workflows_by_id(id)
         except ClientError as ce:
             logger.error(ce.detail)
-
             raise ClientError(
                 status_code=ce.status_code,
                 detail=ce.detail,
