@@ -25,6 +25,13 @@ class ExecuteWorkflowService:
         """This will get the executed workflow"""
         return WorkflowExecuteManager().get_workflow(id)
 
+    def get_executed_workflow_id(self, wf_id: str, id: str) -> ExecuteWorkflowModel:
+        """This will get by executed id"""
+        item = WorkflowExecuteManager().get_workflow_by_id(wf_id, id)
+        if item:
+            return item
+        raise ClientError(detail=f"Unable to find Executed Workflow with {wf_id} {id}")
+
     def execute(
         self, id: str, data: CreateExecuteWorkflowRequest
     ) -> ExecuteWorkflowModel:
