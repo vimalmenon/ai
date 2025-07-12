@@ -40,13 +40,14 @@ class WorkflowService:
                 detail=f"Error fetching workflows: {str(exc)}",
             ) from None
 
-    def get_workflow_by_id(self, id: str) -> WorkflowModelWithExecutedWorkflow | None:
+    def get_workflow_by_id(self, id: str) -> WorkflowModelWithExecutedWorkflow:
         """Get the workflow by ID"""
         try:
             workflow = WorkflowManager().get_workflow_by_id(id)
             if workflow:
                 return self.__attach_executed_workflow(workflow)
-            return None
+            else:
+                raise ClientError(detail=f"Workflow with id : {id} not found")
         except Exception as exc:
             logger.error(f"Error fetching workflow by ID: {str(exc)}")
             raise ServerError(
