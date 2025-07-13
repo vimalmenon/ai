@@ -55,9 +55,3 @@ Find the process running in 8000
 ```sh
 sudo lsof -i :8000
 ```
-
-
-###links
-https://programmablesearchengine.google.com/controlpanel/overview?cx=57753f9050ba444e1
-https://console.cloud.google.com/apis/credentials?pli=1&inv=1&invt=Ab2mgw&project=quickstart-1549345072704
-https://stackoverflow.com/questions/37083058/programmatically-searching-google-in-python-using-custom-searchcccbv `
