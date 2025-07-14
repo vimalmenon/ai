@@ -18,7 +18,7 @@ I am an AI Agent named after the moon of Jupiter, representing curiosity and exp
 - [x] Create a job to run the workflow
 - [x] Resume workflow
 - [x] Show trimmed WF in list page
-- [ ] Create advanced workflows
+- [x] Create advanced workflows
 - [ ] Handle exception better
 - [ ] Remove test warning
 - [ ] Set up mock
@@ -37,10 +37,12 @@ I am an AI Agent named after the moon of Jupiter, representing curiosity and exp
 
 
 ## Links
+
 - [Sonar](https://sonarcloud.io/project/overview?id=vimalmenon_ai)
 
 
 ## Command
+
 ```sh
 poetry run fastapi dev main.py
 ```
