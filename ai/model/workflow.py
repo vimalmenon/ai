@@ -14,7 +14,7 @@ from ai.model.others import (
 from ai.utilities import created_date
 
 
-class UpdateWorkflowRequest(BaseModel):
+class UpdateWorkflowRequest(Base):
     name: str
     detail: str | None
     complete: bool
@@ -261,3 +261,21 @@ class WorkflowModelWithExecutedWorkflow(WorkflowModel):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.executed_workflows = kwargs.get("executed_workflows")
+
+    @classmethod
+    def use_workflow_cls(
+        cls, data: WorkflowModel, executed_wf: list[ExecuteWorkflowModel]
+    ) -> Self:
+        return cls(
+            id=data.id,
+            name=data.name,
+            detail=data.detail,
+            complete=data.complete,
+            nodes=data.nodes,
+            updated_at=data.updated_at,
+            executed_workflows=executed_wf,
+        )
+
+
+class ExecuteWorkflowModelData(Base):
+    data: list[ExecuteWorkflowModel]

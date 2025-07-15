@@ -19,8 +19,8 @@ class WorkflowService:
         self, workflow: WorkflowModel
     ) -> WorkflowModelWithExecutedWorkflow:
         executed_workflows = WorkflowExecuteManager().get_workflow(workflow.id)
-        return WorkflowModelWithExecutedWorkflow(
-            **workflow.to_dict(), executed_workflows=executed_workflows
+        return WorkflowModelWithExecutedWorkflow.use_workflow_cls(
+            workflow, executed_workflows
         )
 
     def get_workflows(self) -> list[WorkflowModelWithExecutedWorkflow]:
