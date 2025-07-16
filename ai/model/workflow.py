@@ -279,3 +279,7 @@ class WorkflowModelWithExecutedWorkflow(WorkflowModel):
 
 class ExecuteWorkflowModelData(Base):
     data: list[ExecuteWorkflowModel]
+
+
+class WorkflowModelData(Base):
+    data: list[WorkflowModel]

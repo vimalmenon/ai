@@ -8,9 +8,11 @@ from ai.model.workflow import (
     CreateExecuteWorkflowRequest,
     CreateNodeRequest,
     ExecuteWorkflowModel,
+    ExecuteWorkflowModelData,
     ExecuteWorkflowNodeModel,
     UpdateWorkflowRequest,
     WorkflowModel,
+    WorkflowModelData,
     WorkflowModelWithExecutedWorkflow,
     WorkflowNodeRequest,
     WorkflowSlimModel,
@@ -36,4 +38,6 @@ __all__ = [
     "ResumeWorkflowRequest",
     "DbServiceModel",
     "WorkflowModelWithExecutedWorkflow",
+    "ExecuteWorkflowModelData",
+    "WorkflowModelData",
 ]
