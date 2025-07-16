@@ -6,7 +6,7 @@ from ai.services import WorkflowService
 router = APIRouter()
 
 
-@router.get("", tags=["workflow"], response_model=WorkflowsModelData)
+@router.get("", tags=["workflow"])
 async def get_workflows():
     """This list out all workflows details"""
     return {"data": WorkflowService().get_workflows()}
