@@ -1,12 +1,12 @@
 from fastapi import APIRouter
 
-from ai.model import UpdateWorkflowRequest, WorkflowModelData, WorkflowSlimModel
+from ai.model import UpdateWorkflowRequest, WorkflowSlimModel, WorkflowsModelData
 from ai.services import WorkflowService
 
 router = APIRouter()
 
 
-@router.get("", tags=["workflow"], response_model=WorkflowModelData)
+@router.get("", tags=["workflow"], response_model=WorkflowsModelData)
 async def get_workflows():
     """This list out all workflows details"""
     return {"data": WorkflowService().get_workflows()}

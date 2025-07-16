@@ -281,5 +281,9 @@ class ExecuteWorkflowModelData(Base):
     data: list[ExecuteWorkflowModel]
 
 
-class WorkflowModelData(Base):
+class WorkflowsModelData(Base):
     data: list[WorkflowModel]
+
+
+class WorkflowModelData(Base):
+    data: WorkflowModel

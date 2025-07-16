@@ -16,6 +16,7 @@ from ai.model.workflow import (
     WorkflowModelWithExecutedWorkflow,
     WorkflowNodeRequest,
     WorkflowSlimModel,
+    WorkflowsModelData,
     WorkflowStatus,
 )
 
@@ -40,4 +41,5 @@ __all__ = [
     "WorkflowModelWithExecutedWorkflow",
     "ExecuteWorkflowModelData",
     "WorkflowModelData",
+    "WorkflowsModelData",
 ]
