@@ -5,6 +5,7 @@ from ai.model.llm import LLMs
 from ai.services.llm_service.deepseek import deepseek_llm
 from ai.services.llm_service.google import google_llm
 from ai.services.llm_service.ollama import ollama_llm
+from ai.services.llm_service.openai import openai_llm
 
 
 class LLmService:
@@ -17,6 +18,8 @@ class LLmService:
             self.item = google_llm
         elif llm == LLMs.OLLAMA:
             self.item = ollama_llm
+        elif llm == LLMs.OpenAI:
+            self.item = openai_llm
 
     def get_llm(self) -> LanguageModelLike:
         return self.item
@@ -39,6 +42,11 @@ class ListLLMServices:
                 "name": LLMs.OLLAMA,
                 "model": "mistral",
                 "supported": LLMs.OLLAMA.value in env.supported_llm,
+            },
+            {
+                "name": LLMs.OpenAI,
+                "model": "gpt-4o",
+                "supported": LLMs.OpenAI.value in env.supported_llm,
             },
         ]
 
