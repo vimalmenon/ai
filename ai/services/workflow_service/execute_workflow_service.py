@@ -12,7 +12,7 @@ from ai.model import (
 )
 from ai.model.others import WorkflowNodeStatus, WorkflowType
 from ai.services.llm_execute.llm_execute_service import LLMExecuteService
-from ai.services.service.service import DbService
+from ai.services.service.db_service import DbService
 from ai.services.workflow_service.workflow_service import WorkflowService
 from ai.utilities import created_date, generate_uuid
 
