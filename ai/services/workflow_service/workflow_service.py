@@ -2,18 +2,34 @@ import traceback
 from logging import getLogger
 
 from ai.exceptions.exceptions import ClientError, ServerError
-from ai.managers import WorkflowManager
-from ai.model import UpdateWorkflowRequest, WorkflowModel, WorkflowSlimModel
+from ai.managers import WorkflowExecuteManager, WorkflowManager
+from ai.model import (
+    UpdateWorkflowRequest,
+    WorkflowModel,
+    WorkflowModelWithExecutedWorkflow,
+    WorkflowSlimModel,
+)
 
 logger = getLogger(__name__)
 
 
 class WorkflowService:
 
-    def get_workflows(self) -> list[WorkflowModel]:
+    def __attach_executed_workflow(
+        self, workflow: WorkflowModel
+    ) -> WorkflowModelWithExecutedWorkflow:
+        executed_workflows = WorkflowExecuteManager().get_workflow(workflow.id)
+        return WorkflowModelWithExecutedWorkflow.use_workflow_cls(
+            workflow, executed_workflows
+        )
+
+    def get_workflows(self) -> list[WorkflowModelWithExecutedWorkflow]:
         """This List out all workflows details"""
         try:
-            return WorkflowManager().get_workflows()
+            return [
+                self.__attach_executed_workflow(workflow)
+                for workflow in WorkflowManager().get_workflows()
+            ]
         except Exception as exc:
             logger.error(
                 f"Error fetching workflows: {str(exc)}",
@@ -24,10 +40,14 @@ class WorkflowService:
                 detail=f"Error fetching workflows: {str(exc)}",
             ) from None
 
-    def get_workflow_by_id(self, id: str) -> WorkflowModel | None:
+    def get_workflow_by_id(self, id: str) -> WorkflowModelWithExecutedWorkflow:
         """Get the workflow by ID"""
         try:
-            return WorkflowManager().get_workflow_by_id(id)
+            workflow = WorkflowManager().get_workflow_by_id(id)
+            if workflow:
+                return self.__attach_executed_workflow(workflow)
+            else:
+                raise ClientError(detail=f"Workflow with id : {id} not found")
         except Exception as exc:
             logger.error(f"Error fetching workflow by ID: {str(exc)}")
             raise ServerError(
@@ -67,7 +87,6 @@ class WorkflowService:
             return WorkflowManager().delete_workflows_by_id(id)
         except ClientError as ce:
             logger.error(ce.detail)
-
             raise ClientError(
                 status_code=ce.status_code,
                 detail=ce.detail,

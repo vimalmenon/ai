@@ -1,9 +1,6 @@
 from fastapi import APIRouter
 
-from ai.model import (
-    UpdateWorkflowRequest,
-    WorkflowSlimModel,
-)
+from ai.model import UpdateWorkflowRequest, WorkflowSlimModel
 from ai.services import WorkflowService
 
 router = APIRouter()

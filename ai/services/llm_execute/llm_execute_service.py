@@ -15,7 +15,7 @@ logger = getLogger(__name__)
 
 class LLMExecuteService:
 
-    def execute(self, node: WorkflowNodeRequest):
+    def execute(self, node: WorkflowNodeRequest) -> dict[str, str]:
         agent_llm = create_react_agent(
             model=LLmService(llm=node.llm).get_llm(),
             tools=[ToolService().get_tool_func(tool) for tool in node.tools],

@@ -58,6 +58,18 @@ class WorkflowExecuteManager:
                 "key": ":nodes",
                 "value": [node.to_dict() for node in data.nodes],
             }
+        if data.completed_at:
+            expression["completed_at"] = {
+                "name": "#completed_at",
+                "key": ":completed_at",
+                "value": data.completed_at,
+            }
+        if data.status:
+            expression["status"] = {
+                "name": "#status",
+                "key": ":status",
+                "value": data.status.value,
+            }
         update_expression = []
         expression_attribute_values = {}
         expression_attribute_names = {}

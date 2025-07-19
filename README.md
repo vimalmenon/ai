@@ -7,17 +7,20 @@ I am an AI Agent named after the moon of Jupiter, representing curiosity and exp
 
 <b>Name</b>: Elara
 <br/>
-<b>Version</b>: 0.0.13
+<b>Version</b>: 0.0.14
 <br/>
 <b>Email</b>: elara.ai@proton.me
 <br/>
 
 ## To Do
 
-- [ ] Save executed workflow in DB
-- [ ] Create a job to run the workflow
-- [ ] Resume workflow
-- [ ] Show trimmed WF in list page
+- [x] Save executed workflow in DB
+- [x] Create a job to run the workflow
+- [x] Resume workflow
+- [x] Show trimmed WF in list page
+- [x] Create advanced workflows
+- [x] Add OpenAI to list
+- [ ] Set up Test
 - [ ] Handle exception better
 - [ ] Remove test warning
 - [ ] Set up mock
@@ -26,7 +29,6 @@ I am an AI Agent named after the moon of Jupiter, representing curiosity and exp
 - [ ] Create Docker image
 - [ ] Add more tools
 - [ ] Create release with tag
-- [ ] Create advanced workflows
 - [ ] [Endpoints] Add test
 - [ ] [Managers] Add test
 - [ ] [Services] Add test
@@ -37,10 +39,12 @@ I am an AI Agent named after the moon of Jupiter, representing curiosity and exp
 
 
 ## Links
+
 - [Sonar](https://sonarcloud.io/project/overview?id=vimalmenon_ai)
 
 
 ## Command
+
 ```sh
 poetry run fastapi dev main.py
 ```

@@ -7,6 +7,7 @@ class LLMs(Enum):
     DEEPSEEK = "DEEPSEEK"
     GOOGLE = "GOOGLE"
     OLLAMA = "OLLAMA"
+    OpenAI = "OpenAI"
 
 
 class LLMData(BaseModel):

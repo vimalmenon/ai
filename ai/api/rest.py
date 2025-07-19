@@ -2,7 +2,7 @@ from fastapi import APIRouter
 
 from ai.model import LLMResponse, WorkflowType
 from ai.model.others import Service, Tool
-from ai.services import ListLLMServices
+from ai.services import DbService, ListLLMServices
 from ai.utilities import generate_uuid
 
 router = APIRouter()
@@ -36,3 +36,10 @@ async def get_services():
 async def get_workflow_types():
     """This List out all available tools"""
     return {"data": list(WorkflowType)}
+
+
+@router.get("/from_db/{id}")
+async def get_from_db(id: str):
+    """Get from db"""
+    data = DbService().get_by_id(id)
+    return {"data": data}

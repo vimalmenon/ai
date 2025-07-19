@@ -24,6 +24,12 @@ async def get_workflow(wf_id: str):
     return {"data": ExecuteWorkflowService().get(wf_id)}
 
 
+@router.get("/{wf_id}/{id}", tags=["Execute"])
+async def get_executed_workflow(wf_id: str, id: str):
+    """This will get the executed workflow"""
+    return {"data": ExecuteWorkflowService().get_executed_workflow_id(wf_id, id)}
+
+
 @router.delete("/{wf_id}/{id}", tags=["Execute"], status_code=204)
 async def delete_workflow(wf_id: str, id: str):
     """This will delete the executed workflow"""

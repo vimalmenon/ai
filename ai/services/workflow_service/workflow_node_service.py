@@ -3,6 +3,7 @@ from logging import getLogger
 from ai.exceptions.exceptions import ClientError, ServerError
 from ai.managers import WorkflowNodeManager
 from ai.model import CreateNodeRequest, WorkflowNodeRequest, WorkflowType
+from ai.model.others import Service
 
 logger = getLogger(__name__)
 
@@ -54,7 +55,15 @@ class WorkflowNodeService:
     def __update_workflow_node_request(
         self, data: WorkflowNodeRequest
     ) -> WorkflowNodeRequest:
-        if data.type == WorkflowType.HumanInput or data.type == WorkflowType.Service:
+        if data.type == WorkflowType.Service and (
+            data.service == Service.GetFromDB or data.service == Service.GetFromS3
+        ):
+            data.request_at_run_time = True
+        if data.type == WorkflowType.Service and (
+            data.service == Service.SaveToDB or data.service == Service.SaveToS3
+        ):
+            data.data_from_previous_node = True
+        if data.type == WorkflowType.HumanInput:
             data.request_at_run_time = True
         else:
             data.request_at_run_time = False

@@ -10,10 +10,10 @@ class DbManager:
         dynamodb = session.resource("dynamodb")
         self.table = dynamodb.Table(env.table)
 
-    def add_item(self, item):
+    def add_item(self, item: dict):
         return self.table.put_item(Item=item)
 
-    def remove_item(self, data):
+    def remove_item(self, data: dict):
         return self.table.delete_item(Key=data)
 
     def query_items(self, keys):
