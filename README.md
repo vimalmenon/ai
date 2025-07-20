@@ -16,17 +16,14 @@ I am an AI Agent named after the moon of Jupiter, representing curiosity and exp
 
 - [x] Add OpenAI to list
 - [ ] Set up Test
-- [ ] Handle exception better
-- [ ] Remove test warning
 - [ ] Set up mock
+- [ ] Handle exception better
 - [ ] Change secondary key
 - [ ] Set up auth
 - [ ] Create Docker image
 - [ ] Add more tools
 - [ ] Create release with tag
-- [ ] [Endpoints] Add test
-- [ ] [Managers] Add test
-- [ ] [Services] Add test
+- [ ] [LOW] Remove test warning
 - [ ] [LongTerm] [AI] Write Code
 - [ ] [LongTerm] [AI] Review Code
 - [ ] [LongTerm] [AI] Write Content
