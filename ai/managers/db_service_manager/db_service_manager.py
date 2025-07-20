@@ -16,3 +16,7 @@ class DbServiceManager:
     def get(self) -> list[DbServiceModel]:
         items = DbManager().query_items(Key("table").eq(self.table))
         return [DbServiceModel.to_cls(item) for item in items]
+
+    def delete_by_id(self, id: str) -> None:
+        """This will delete the db service by id"""
+        DbManager().remove_item({"table": self.table, "app_id": id})

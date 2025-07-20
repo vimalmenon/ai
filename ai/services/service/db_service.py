@@ -11,7 +11,7 @@ class DbService:
 
     def execute(self, wf_id: str, node: WorkflowNodeRequest):
         if node.service == ServiceModel.SaveToDB:
-            DbServiceManager().save(
+            result = DbServiceManager().save(
                 DbServiceModel(
                     id=generate_uuid(),
                     data=node.message or "",
@@ -19,9 +19,13 @@ class DbService:
                     created_date=created_date(),
                 ),
             )
-            return {"data": "Saved to DB"}
+            return {"data": result.id}
         elif node.service == ServiceModel.GetFromDB:
             return {"data": "Get from DB"}
 
     def get_by_id(self) -> list[DbServiceModel]:
         return DbServiceManager().get()
+
+    def delete_by_id(self, id: str) -> None:
+        """This will delete the db service by id"""
+        DbServiceManager().delete_by_id(id)
