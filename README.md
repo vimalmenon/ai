@@ -14,11 +14,6 @@ I am an AI Agent named after the moon of Jupiter, representing curiosity and exp
 
 ## To Do
 
-- [x] Save executed workflow in DB
-- [x] Create a job to run the workflow
-- [x] Resume workflow
-- [x] Show trimmed WF in list page
-- [x] Create advanced workflows
 - [x] Add OpenAI to list
 - [ ] Set up Test
 - [ ] Handle exception better
