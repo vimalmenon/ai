@@ -10,6 +10,7 @@ from ai.model import (
     WorkflowNodeRequest,
     WorkflowStatus,
 )
+from ai.model.others import Service as ServiceModel
 from ai.model.others import WorkflowNodeStatus, WorkflowType
 from ai.services.llm_execute.llm_execute_service import LLMExecuteService
 from ai.services.service.db_service import DbService
@@ -134,20 +135,30 @@ class ExecuteWorkflowService:
                 self.__process_next_node(node, workflow.nodes[index + 1])
             self.__check_if_workflow_is_completed(index, workflow)
         elif node.node.type == WorkflowType.Service:
-            self.__execute_service_workflow_node(workflow.id, node)
+            self.__execute_service_workflow_node(workflow.id, node, data)
             if len(workflow.nodes) > index + 1:
                 self.__process_next_node(node, workflow.nodes[index + 1])
             self.__check_if_workflow_is_completed(index, workflow)
         return True
 
     def __execute_service_workflow_node(
-        self, id: str, node: ExecuteWorkflowNodeModel
+        self, id: str, node: ExecuteWorkflowNodeModel, data: ResumeWorkflowRequest
     ) -> None:
-        node.started_at = created_date()
-        content = DbService().execute(id, node.node)
-        node.content = content["data"]
-        node.status = WorkflowNodeStatus.COMPLETED
-        node.completed_at = created_date()
+        if node.node.service == ServiceModel.GetFromDB:
+            node.started_at = created_date()
+            node.status = WorkflowNodeStatus.COMPLETED
+            node.content = data.data
+            node.completed_at = created_date()
+        elif node.node.service == ServiceModel.SaveToDB:
+            node.started_at = created_date()
+            content = DbService().execute(id, node.node)
+            node.content = content["data"]
+            node.status = WorkflowNodeStatus.COMPLETED
+            node.completed_at = created_date()
+        else:
+            node.started_at = created_date()
+            node.status = WorkflowNodeStatus.COMPLETED
+            node.completed_at = created_date()
 
     def __execute_llm_workflow_node(self, node: ExecuteWorkflowNodeModel) -> None:
         """This will execute the LLM workflow node"""

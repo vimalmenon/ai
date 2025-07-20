@@ -59,11 +59,11 @@ class WorkflowNodeService:
             data.service == Service.GetFromDB or data.service == Service.GetFromS3
         ):
             data.request_at_run_time = True
-        if data.type == WorkflowType.Service and (
+        elif data.type == WorkflowType.Service and (
             data.service == Service.SaveToDB or data.service == Service.SaveToS3
         ):
             data.data_from_previous_node = True
-        if data.type == WorkflowType.HumanInput:
+        elif data.type == WorkflowType.HumanInput:
             data.request_at_run_time = True
         else:
             data.request_at_run_time = False
