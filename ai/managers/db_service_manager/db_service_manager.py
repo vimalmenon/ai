@@ -9,12 +9,10 @@ from ai.model import (
 class DbServiceManager:
     table = "DB_SERVICE"
 
-    def save(self, id: str, data: DbServiceModel) -> DbServiceModel:
-        DbManager().add_item(
-            {"table": f"{self.table}#{id}", "app_id": data.id, **data.to_dict()}
-        )
+    def save(self, data: DbServiceModel) -> DbServiceModel:
+        DbManager().add_item({"table": self.table, "app_id": data.id, **data.to_dict()})
         return data
 
-    def get(self, id: str) -> list[DbServiceModel]:
-        items = DbManager().query_items(Key("table").eq(f"{self.table}#{id}"))
+    def get(self) -> list[DbServiceModel]:
+        items = DbManager().query_items(Key("table").eq(self.table))
         return [DbServiceModel.to_cls(item) for item in items]

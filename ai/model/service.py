@@ -7,9 +7,15 @@ class DbServiceModel(Base):
     id: str
     data: str
     created_date: str
+    wf_id: str
 
     def to_dict(self) -> dict:
-        return {"id": self.id, "data": self.data, "created_date": self.created_date}
+        return {
+            "id": self.id,
+            "data": self.data,
+            "wf_id": self.wf_id,
+            "created_date": self.created_date,
+        }
 
     @classmethod
     def to_cls(cls, data: dict) -> Self:
@@ -17,4 +23,5 @@ class DbServiceModel(Base):
             id=data.get("id", ""),
             data=data.get("data", ""),
             created_date=data.get("created_date", ""),
+            wf_id=data.get("wf_id", ""),
         )
