@@ -112,7 +112,10 @@ class ExecuteWorkflowService:
             ]
             WorkflowExecuteManager().update_workflow(wf_id, id, workflow)
             return workflow
-        return None
+        raise ClientError(
+            status_code=404,
+            detail=f"Workflow with ID {wf_id} not found.",
+        )
 
     def __process_workflow_node(
         self,
