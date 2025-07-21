@@ -1028,13 +1028,13 @@ wmi = ["wmi (>=1.5.1)"]
 
 [[package]]
 name = "elevenlabs"
-version = "2.7.1"
+version = "2.8.0"
 description = ""
 optional = false
 python-versions = "<4.0,>=3.8"
 files = [
-    {file = "elevenlabs-2.7.1-py3-none-any.whl", hash = "sha256:076f61f0945c721aa3fa2a63f26029515e8e2464bc64f247b56ae1042a25737a"},
-    {file = "elevenlabs-2.7.1.tar.gz", hash = "sha256:7136cd3e8056fe123ea8736b876aff8023c430aad7fd2c9405cbca60eb675504"},
+    {file = "elevenlabs-2.8.0-py3-none-any.whl", hash = "sha256:a1a7c42ba7ff6a51b3db5c2261452dd47a9d83664dc00f1f434e6d65f415fde6"},
+    {file = "elevenlabs-2.8.0.tar.gz", hash = "sha256:82401bcb191eb29e30feceda3b179ad89e69f18b45b18ce00f492313187e0ff1"},
 ]
 
 [package.dependencies]
