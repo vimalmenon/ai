@@ -16,6 +16,7 @@ I am an AI Agent named after the moon of Jupiter, representing curiosity and exp
 
 - [x] Add OpenAI to list
 - [ ] check if some fetching can be parallelized
+- [ ] Set up Google Auth
 - [ ] Set up Test
 - [ ] Set up mock
 - [ ] Handle exception better
