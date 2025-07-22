@@ -7,6 +7,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from humps import decamelize
 
 from ai.api import (
+    router_blog,
     router_llm_data,
     router_rest,
     router_s3,
@@ -58,6 +59,11 @@ app.include_router(
 app.include_router(
     router_workflow_execute,
     prefix="/workflow/execute",
+)
+
+app.include_router(
+    router_blog,
+    prefix="/blog",
 )
 
 app.include_router(
