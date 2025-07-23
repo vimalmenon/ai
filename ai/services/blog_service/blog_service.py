@@ -1,0 +1,2 @@
+class BlogService:
+    pass
