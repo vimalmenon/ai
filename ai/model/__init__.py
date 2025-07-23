@@ -1,3 +1,4 @@
+from ai.model.blog import BlogTopic
 from ai.model.contact import ContactRequestForm
 from ai.model.llm import LLMResponse, LLMs
 from ai.model.others import WorkflowType
@@ -42,4 +43,5 @@ __all__ = [
     "ExecuteWorkflowModelData",
     "WorkflowModelData",
     "WorkflowsModelData",
+    "BlogTopic",
 ]
