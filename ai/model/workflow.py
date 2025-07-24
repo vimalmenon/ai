@@ -5,6 +5,7 @@ from pydantic import BaseModel
 from ai.model.base_model import Base
 from ai.model.enums import (
     Service,
+    StructuredOutputType,
     Tool,
     WorkflowNodeStatus,
     WorkflowStatus,
@@ -35,6 +36,7 @@ class WorkflowNodeRequest(Base):
     is_start: bool = False
     request_at_run_time: bool = False
     data_from_previous_node: bool = False
+    structured_output: StructuredOutputType | None = None
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -56,6 +58,11 @@ class WorkflowNodeRequest(Base):
         )
         self.request_at_run_time = kwargs.get("request_at_run_time", False)
         self.data_from_previous_node = kwargs.get("data_from_previous_node", False)
+        self.structured_output = (
+            StructuredOutputType[str(kwargs.get("structured_output"))]
+            if kwargs.get("structured_output")
+            else None
+        )
 
     def to_dict(self) -> dict:
         """Convert the object to a dictionary."""
@@ -74,6 +81,9 @@ class WorkflowNodeRequest(Base):
             "service": self.service.value if self.service else None,
             "request_at_run_time": self.request_at_run_time,
             "data_from_previous_node": self.data_from_previous_node,
+            "structured_output": (
+                self.structured_output.value if self.structured_output else None
+            ),
         }
 
     @classmethod
@@ -94,6 +104,7 @@ class WorkflowNodeRequest(Base):
             service=data.get("service"),
             request_at_run_time=data.get("request_at_run_time"),
             data_from_previous_node=data.get("data_from_previous_node", False),
+            structured_output=data.get("structured_output"),
         )
 
 
