@@ -1,7 +1,7 @@
 from fastapi import APIRouter
 
 from ai.model import LLMResponse
-from ai.model.others import Service, StructuredOutputType, Tool, WorkflowType
+from ai.model.enums import Service, StructuredOutputType, Tool, WorkflowType
 from ai.services import ListLLMServices
 from ai.utilities import generate_uuid
 

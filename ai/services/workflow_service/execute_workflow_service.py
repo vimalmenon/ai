@@ -10,8 +10,8 @@ from ai.model import (
     WorkflowNodeRequest,
     WorkflowStatus,
 )
-from ai.model.others import Service as ServiceModel
-from ai.model.others import WorkflowNodeStatus, WorkflowType
+from ai.model.enums import Service as ServiceModel
+from ai.model.enums import WorkflowNodeStatus, WorkflowType
 from ai.services.llm_execute.llm_execute_service import LLMExecuteService
 from ai.services.service.db_service import DbService
 from ai.services.workflow_service.workflow_service import WorkflowService

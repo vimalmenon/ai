@@ -3,7 +3,7 @@ from ai.model import (
     DbServiceModel,
     WorkflowNodeRequest,
 )
-from ai.model.others import Service as ServiceModel
+from ai.model.enums import Service as ServiceModel
 from ai.utilities import created_date, generate_uuid
 
 

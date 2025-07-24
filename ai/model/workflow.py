@@ -3,14 +3,14 @@ from typing import Self
 from pydantic import BaseModel
 
 from ai.model.base_model import Base
-from ai.model.llm import LLMs
-from ai.model.others import (
+from ai.model.enums import (
     Service,
     Tool,
     WorkflowNodeStatus,
     WorkflowStatus,
     WorkflowType,
 )
+from ai.model.llm import LLMs
 from ai.utilities import created_date
 
 

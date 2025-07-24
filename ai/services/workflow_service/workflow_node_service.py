@@ -2,7 +2,7 @@ from logging import getLogger
 
 from ai.managers import WorkflowNodeManager
 from ai.model import CreateNodeRequest, WorkflowNodeRequest
-from ai.model.others import Service, WorkflowType
+from ai.model.enums import Service, WorkflowType
 
 logger = getLogger(__name__)
 
