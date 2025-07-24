@@ -1,7 +1,7 @@
 from fastapi import APIRouter
 
-from ai.model import LLMResponse, WorkflowType
-from ai.model.others import Service, Tool
+from ai.model import LLMResponse
+from ai.model.others import Service, StructuredOutputType, Tool, WorkflowType
 from ai.services import ListLLMServices
 from ai.utilities import generate_uuid
 
@@ -36,3 +36,9 @@ async def get_services():
 async def get_workflow_types():
     """This List out all available tools"""
     return {"data": list(WorkflowType)}
+
+
+@router.get("/structured_output_types")
+async def get_structured_output_types():
+    """This List out all available structured output types"""
+    return {"data": list(StructuredOutputType)}

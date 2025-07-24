@@ -1,8 +1,8 @@
 from logging import getLogger
 
 from ai.managers import WorkflowNodeManager
-from ai.model import CreateNodeRequest, WorkflowNodeRequest, WorkflowType
-from ai.model.others import Service
+from ai.model import CreateNodeRequest, WorkflowNodeRequest
+from ai.model.others import Service, WorkflowType
 
 logger = getLogger(__name__)
 
