@@ -9,7 +9,7 @@ from ai.model.llm import LLMs
 from ai.services.service.structured_output_service import StructuredOutputService
 
 
-class LLmService:
+class LlmService:
 
     def get_llm(
         self,
@@ -34,31 +34,6 @@ class LLmService:
             openai_llm.with_structured_output(output_cls)
             return openai_llm
 
-    def __deepseek_llm(self):
-        return ChatDeepSeek(
-            model="deepseek-chat",
-            temperature=env.temperature,
-            max_tokens=None,
-        )
-
-    def __google_llm(self):
-        return ChatGoogleGenerativeAI(
-            temperature=env.temperature, model="gemini-1.5-pro"
-        )
-
-    def __openai_llm(self):
-        return ChatOpenAI(
-            model="gpt-4o",
-            temperature=env.temperature,
-        )
-
-    def __ollama_llm(self):
-        return init_chat_model(
-            "mistral", model_provider="ollama", temperature=env.temperature
-        )
-
-
-class ListLLMServices:
     def list_llm_details(self):
         return [
             {
@@ -83,6 +58,25 @@ class ListLLMServices:
             },
         ]
 
+    def __deepseek_llm(self):
+        return ChatDeepSeek(
+            model="deepseek-chat",
+            temperature=env.temperature,
+            max_tokens=None,
+        )
 
-class CreateLLMServices:
-    pass
+    def __google_llm(self):
+        return ChatGoogleGenerativeAI(
+            temperature=env.temperature, model="gemini-1.5-pro"
+        )
+
+    def __openai_llm(self):
+        return ChatOpenAI(
+            model="gpt-4o",
+            temperature=env.temperature,
+        )
+
+    def __ollama_llm(self):
+        return init_chat_model(
+            "mistral", model_provider="ollama", temperature=env.temperature
+        )

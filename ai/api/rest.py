@@ -2,7 +2,7 @@ from fastapi import APIRouter
 
 from ai.model import LLMResponse
 from ai.model.enums import Service, StructuredOutputType, Tool, WorkflowType
-from ai.services import ListLLMServices
+from ai.services import LlmService
 from ai.utilities import generate_uuid
 
 router = APIRouter()
@@ -17,7 +17,7 @@ async def get_uuid():
 @router.get("/llms", response_model=LLMResponse)
 async def get_llm():
     """This List out all llm's"""
-    return {"data": ListLLMServices().list_llm_details()}
+    return {"data": LlmService().list_llm_details()}
 
 
 @router.get("/tools")

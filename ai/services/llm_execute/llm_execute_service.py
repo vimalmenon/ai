@@ -7,7 +7,7 @@ from ai.model import (
     WorkflowNodeRequest,
 )
 from ai.model.enums import WorkflowType
-from ai.services.llm_service.llm_service import LLmService
+from ai.services.llm_service.llm_service import LlmService
 from ai.services.tool_service.tool_service import ToolService
 from ai.utilities import created_date, generate_uuid
 
@@ -24,7 +24,7 @@ class LLMExecuteService:
 
     def execute_agent(self, node: WorkflowNodeRequest) -> dict[str, str]:
         agent_llm = create_react_agent(
-            model=LLmService().get_llm(llm=node.llm),
+            model=LlmService().get_llm(llm=node.llm),
             tools=[ToolService().get_tool_func(tool) for tool in node.tools],
             name=node.name,
             prompt=node.prompt,
@@ -36,7 +36,7 @@ class LLMExecuteService:
         return self.__parse_response(result["messages"][-1])
 
     def execute_llm(self, node: WorkflowNodeRequest) -> dict[str, str]:
-        llm = LLmService().get_llm(
+        llm = LlmService().get_llm(
             llm=node.llm, structured_output=node.structured_output
         )
         result = llm.invoke({"messages": [{"role": "user", "content": node.message}]})
