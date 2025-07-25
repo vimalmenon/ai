@@ -57,3 +57,7 @@ Find the process running in 8000
 ```sh
 sudo lsof -i :8000
 ```
+Run Celery
+```sh
+poetry run celery -A tasks worker -l info
+```
