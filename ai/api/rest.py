@@ -42,3 +42,8 @@ async def get_workflow_types():
 async def get_structured_output_types():
     """This List out all available structured output types"""
     return {"data": list(StructuredOutputType)}
+
+
+@router.get("/health")
+async def get_health():
+    return {"data": []}

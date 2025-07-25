@@ -3,7 +3,7 @@ from langgraph.graph import END, START, StateGraph
 from langgraph.prebuilt import create_react_agent
 
 from ai.exceptions.exceptions import LLmException
-from ai.model.llm import LLMs
+from ai.model.enums import LLMs
 from ai.services import LlmService
 from ai.utilities import generate_uuid
 from ai.workflows.base_builder.base_builder import State

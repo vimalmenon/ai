@@ -4,8 +4,7 @@ from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain_openai import ChatOpenAI
 
 from ai.config import env
-from ai.model.enums import StructuredOutputType
-from ai.model.llm import LLMs
+from ai.model.enums import LLMs, StructuredOutputType
 from ai.services.service.structured_output_service import StructuredOutputService
 
 

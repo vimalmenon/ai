@@ -47,3 +47,15 @@ class WorkflowNodeStatus(Enum):
 
 class StructuredOutputType(Enum):
     TestStructuredOutput = TestStructuredOutput.__name__
+
+
+class LLMs(Enum):
+    DEEPSEEK = "DEEPSEEK"
+    GOOGLE = "GOOGLE"
+    OLLAMA = "OLLAMA"
+    OpenAI = "OpenAI"
+
+
+class HealthStatus(Enum):
+    OK = ("OK",)
+    NOK = "NOK"

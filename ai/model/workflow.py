@@ -4,6 +4,7 @@ from pydantic import BaseModel
 
 from ai.model.base_model import Base
 from ai.model.enums import (
+    LLMs,
     Service,
     StructuredOutputType,
     Tool,
@@ -11,7 +12,6 @@ from ai.model.enums import (
     WorkflowStatus,
     WorkflowType,
 )
-from ai.model.llm import LLMs
 from ai.utilities import created_date
 
 
