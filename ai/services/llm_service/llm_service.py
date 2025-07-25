@@ -29,12 +29,12 @@ class LlmService:
         elif llm == LLMs.OLLAMA:
             ollama_llm = self.__ollama_llm()
             if output_cls:
-                google_llm.with_structured_output(output_cls)
+                ollama_llm.with_structured_output(output_cls)
             return ollama_llm
         elif llm == LLMs.OpenAI:
             openai_llm = self.__openai_llm()
             if output_cls:
-                google_llm.with_structured_output(output_cls)
+                openai_llm.with_structured_output(output_cls)
             return openai_llm
 
     def list_llm_details(self):
