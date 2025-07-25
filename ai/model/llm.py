@@ -1,7 +1,5 @@
 from pydantic import BaseModel
 
-# from ai.model.enums import LLMs
-
 
 class LLMData(BaseModel):
     name: str
