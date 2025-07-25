@@ -18,19 +18,23 @@ class LlmService:
         output_cls = StructuredOutputService().get_structured_output(structured_output)
         if llm == LLMs.DEEPSEEK:
             deepseek_llm = self.__deepseek_llm()
-            # deepseek_llm.with_structured_output(output_cls)
+            if output_cls:
+                deepseek_llm.with_structured_output(output_cls)
             return deepseek_llm
         elif llm == LLMs.GOOGLE:
             google_llm = self.__google_llm()
-            google_llm.with_structured_output(output_cls)
+            if output_cls:
+                google_llm.with_structured_output(output_cls)
             return google_llm
         elif llm == LLMs.OLLAMA:
             ollama_llm = self.__ollama_llm()
-            ollama_llm.with_structured_output(output_cls)
+            if output_cls:
+                google_llm.with_structured_output(output_cls)
             return ollama_llm
         elif llm == LLMs.OpenAI:
             openai_llm = self.__openai_llm()
-            openai_llm.with_structured_output(output_cls)
+            if output_cls:
+                google_llm.with_structured_output(output_cls)
             return openai_llm
 
     def list_llm_details(self):
