@@ -11,7 +11,7 @@ class BlogWorkflow:
 
     def __init__(self, llm: LLMs):
         self.id = generate_uuid()
-        self.llm_model = LLmService(llm=llm).get_llm()
+        self.llm_model = LLmService().get_llm(llm=llm)
         if not self.llm_model:
             raise LLmException(detail="LLM not selected")
 

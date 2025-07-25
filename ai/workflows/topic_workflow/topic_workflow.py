@@ -14,7 +14,7 @@ class TopicWorkflow:
 
     def __init__(self, llm: LLMs):
         self.id = generate_uuid()
-        self.llm_model = LLmService(llm=llm).get_llm()
+        self.llm_model = LLmService().get_llm(llm=llm)
         self.graph_builder = StateGraph(State)
         self.messages: list = []
         if not self.llm_model:

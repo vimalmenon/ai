@@ -180,6 +180,9 @@ class ExecuteWorkflowService:
     def __execute_agent_workflow_node(self, node: ExecuteWorkflowNodeModel) -> None:
         """This will execute the Agent workflow node"""
         node.started_at = created_date()
+        content = LLMExecuteService().execute(node.node)
+        node.content = content["content"]
+        node.total_tokens = int(content["total_tokens"])
         node.status = WorkflowNodeStatus.COMPLETED
         node.completed_at = created_date()
 
