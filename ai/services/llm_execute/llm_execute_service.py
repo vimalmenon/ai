@@ -28,6 +28,13 @@ class LLMExecuteService:
         logger.warning(self.__parse_response(result["messages"][-1]))
         return self.__parse_response(result["messages"][-1])
 
+    def execute_agent(self):
+        pass
+
+    def execute_llm(self, node: WorkflowNodeRequest):
+        llm = LLmService(llm=node.llm).get_llm()
+        pass
+
     def __parse_response(self, response: AIMessage) -> dict[str, str]:
         response_metadata = response.response_metadata
         return {

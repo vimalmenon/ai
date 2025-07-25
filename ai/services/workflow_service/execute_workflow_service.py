@@ -137,6 +137,11 @@ class ExecuteWorkflowService:
             if len(workflow.nodes) > index + 1:
                 self.__process_next_node(node, workflow.nodes[index + 1])
             self.__check_if_workflow_is_completed(index, workflow)
+        elif node.node.type == WorkflowType.Agent:
+            self.__execute_agent_workflow_node(node)
+            if len(workflow.nodes) > index + 1:
+                self.__process_next_node(node, workflow.nodes[index + 1])
+            self.__check_if_workflow_is_completed(index, workflow)
         elif node.node.type == WorkflowType.Service:
             self.__execute_service_workflow_node(workflow.id, node, data)
             if len(workflow.nodes) > index + 1:
@@ -169,6 +174,12 @@ class ExecuteWorkflowService:
         content = LLMExecuteService().execute(node.node)
         node.content = content["content"]
         node.total_tokens = int(content["total_tokens"])
+        node.status = WorkflowNodeStatus.COMPLETED
+        node.completed_at = created_date()
+
+    def __execute_agent_workflow_node(self, node: ExecuteWorkflowNodeModel) -> None:
+        """This will execute the Agent workflow node"""
+        node.started_at = created_date()
         node.status = WorkflowNodeStatus.COMPLETED
         node.completed_at = created_date()
 
