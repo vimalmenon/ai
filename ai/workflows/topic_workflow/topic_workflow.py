@@ -3,8 +3,8 @@ from langgraph.graph import END, START, StateGraph
 from langgraph.prebuilt import create_react_agent
 
 from ai.exceptions.exceptions import LLmException
-from ai.model.llm import LLMs
-from ai.services import LLmService
+from ai.model.enums import LLMs
+from ai.services import LlmService
 from ai.utilities import generate_uuid
 from ai.workflows.base_builder.base_builder import State
 
@@ -14,7 +14,7 @@ class TopicWorkflow:
 
     def __init__(self, llm: LLMs):
         self.id = generate_uuid()
-        self.llm_model = LLmService(llm=llm).get_llm()
+        self.llm_model = LlmService().get_llm(llm=llm)
         self.graph_builder = StateGraph(State)
         self.messages: list = []
         if not self.llm_model:

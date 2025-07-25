@@ -1,8 +1,8 @@
 from fastapi import APIRouter
 
-from ai.model import LLMResponse, WorkflowType
-from ai.model.others import Service, Tool
-from ai.services import DbService, ListLLMServices
+from ai.model import LLMResponse
+from ai.model.enums import Service, StructuredOutputType, Tool, WorkflowType
+from ai.services import LlmService
 from ai.utilities import generate_uuid
 
 router = APIRouter()
@@ -17,7 +17,7 @@ async def get_uuid():
 @router.get("/llms", response_model=LLMResponse)
 async def get_llm():
     """This List out all llm's"""
-    return {"data": ListLLMServices().list_llm_details()}
+    return {"data": LlmService().list_llm_details()}
 
 
 @router.get("/tools")
@@ -38,8 +38,12 @@ async def get_workflow_types():
     return {"data": list(WorkflowType)}
 
 
-@router.get("/from_db/{id}")
-async def get_from_db(id: str):
-    """Get from db"""
-    data = DbService().get_by_id(id)
-    return {"data": data}
+@router.get("/structured_output_types")
+async def get_structured_output_types():
+    """This List out all available structured output types"""
+    return {"data": list(StructuredOutputType)}
+
+
+@router.get("/health")
+async def get_health():
+    return {"data": []}

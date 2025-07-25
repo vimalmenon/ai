@@ -10,9 +10,10 @@ from ai.model import (
     WorkflowNodeRequest,
     WorkflowStatus,
 )
-from ai.model.others import WorkflowNodeStatus, WorkflowType
+from ai.model.enums import Service as ServiceModel
+from ai.model.enums import WorkflowNodeStatus, WorkflowType
 from ai.services.llm_execute.llm_execute_service import LLMExecuteService
-from ai.services.service.service import DbService
+from ai.services.service.db_service import DbService
 from ai.services.workflow_service.workflow_service import WorkflowService
 from ai.utilities import created_date, generate_uuid
 
@@ -111,7 +112,10 @@ class ExecuteWorkflowService:
             ]
             WorkflowExecuteManager().update_workflow(wf_id, id, workflow)
             return workflow
-        return None
+        raise ClientError(
+            status_code=404,
+            detail=f"Workflow with ID {wf_id} not found.",
+        )
 
     def __process_workflow_node(
         self,
@@ -133,24 +137,48 @@ class ExecuteWorkflowService:
             if len(workflow.nodes) > index + 1:
                 self.__process_next_node(node, workflow.nodes[index + 1])
             self.__check_if_workflow_is_completed(index, workflow)
+        elif node.node.type == WorkflowType.Agent:
+            self.__execute_agent_workflow_node(node)
+            if len(workflow.nodes) > index + 1:
+                self.__process_next_node(node, workflow.nodes[index + 1])
+            self.__check_if_workflow_is_completed(index, workflow)
         elif node.node.type == WorkflowType.Service:
-            self.__execute_service_workflow_node(workflow.id, node)
+            self.__execute_service_workflow_node(workflow.id, node, data)
             if len(workflow.nodes) > index + 1:
                 self.__process_next_node(node, workflow.nodes[index + 1])
             self.__check_if_workflow_is_completed(index, workflow)
         return True
 
     def __execute_service_workflow_node(
-        self, id: str, node: ExecuteWorkflowNodeModel
+        self, id: str, node: ExecuteWorkflowNodeModel, data: ResumeWorkflowRequest
     ) -> None:
-        node.started_at = created_date()
-        content = DbService().execute(id, node.node)
-        node.content = content["data"]
-        node.status = WorkflowNodeStatus.COMPLETED
-        node.completed_at = created_date()
+        if node.node.service == ServiceModel.GetFromDB:
+            node.started_at = created_date()
+            node.status = WorkflowNodeStatus.COMPLETED
+            node.content = data.data
+            node.completed_at = created_date()
+        elif node.node.service == ServiceModel.SaveToDB:
+            node.started_at = created_date()
+            content = DbService().execute(id, node.node)
+            node.content = content["data"]
+            node.status = WorkflowNodeStatus.COMPLETED
+            node.completed_at = created_date()
+        else:
+            node.started_at = created_date()
+            node.status = WorkflowNodeStatus.COMPLETED
+            node.completed_at = created_date()
 
     def __execute_llm_workflow_node(self, node: ExecuteWorkflowNodeModel) -> None:
         """This will execute the LLM workflow node"""
+        node.started_at = created_date()
+        content = LLMExecuteService().execute(node.node)
+        node.content = content["content"]
+        node.total_tokens = int(content["total_tokens"])
+        node.status = WorkflowNodeStatus.COMPLETED
+        node.completed_at = created_date()
+
+    def __execute_agent_workflow_node(self, node: ExecuteWorkflowNodeModel) -> None:
+        """This will execute the Agent workflow node"""
         node.started_at = created_date()
         content = LLMExecuteService().execute(node.node)
         node.content = content["content"]

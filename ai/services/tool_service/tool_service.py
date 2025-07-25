@@ -1,6 +1,6 @@
 from collections.abc import Callable
 
-from ai.model.others import Tool
+from ai.model.enums import Tool
 from ai.services.tool_service.internet_search.internet_search import internet_search
 from ai.services.tool_service.save_notes.save_notes import save_to_notes
 from ai.services.tool_service.save_to_db.save_to_db import save_to_db

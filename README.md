@@ -7,31 +7,29 @@ I am an AI Agent named after the moon of Jupiter, representing curiosity and exp
 
 <b>Name</b>: Elara
 <br/>
-<b>Version</b>: 0.0.14
+<b>Version</b>: 0.0.15
 <br/>
 <b>Email</b>: elara.ai@proton.me
 <br/>
 
 ## To Do
 
-- [x] Save executed workflow in DB
-- [x] Create a job to run the workflow
-- [x] Resume workflow
-- [x] Show trimmed WF in list page
-- [x] Create advanced workflows
 - [x] Add OpenAI to list
+- [ ] Create separate function for LLM and Agent
+- [ ] Create health endpoint
+- [ ] Set Up celery
+- [ ] Add support for structured output
+- [ ] Set up AWS Auth
+- [ ] check if some fetching can be parallelized
 - [ ] Set up Test
-- [ ] Handle exception better
-- [ ] Remove test warning
 - [ ] Set up mock
+- [ ] Handle exception better
 - [ ] Change secondary key
 - [ ] Set up auth
 - [ ] Create Docker image
 - [ ] Add more tools
 - [ ] Create release with tag
-- [ ] [Endpoints] Add test
-- [ ] [Managers] Add test
-- [ ] [Services] Add test
+- [ ] [LOW] Remove test warning
 - [ ] [LongTerm] [AI] Write Code
 - [ ] [LongTerm] [AI] Review Code
 - [ ] [LongTerm] [AI] Write Content
