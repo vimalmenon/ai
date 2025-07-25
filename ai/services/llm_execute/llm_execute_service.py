@@ -1,6 +1,8 @@
 from logging import getLogger
 
+from langchain_core.messages import HumanMessage, SystemMessage
 from langchain_core.messages.ai import AIMessage
+from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langgraph.prebuilt import create_react_agent
 
 from ai.model import (
@@ -29,9 +31,15 @@ class LLMExecuteService:
             name=node.name,
             prompt=node.prompt,
         )
-        result = agent_llm.invoke(
-            {"messages": [{"role": "user", "content": node.message}]}
+        prompt_template = ChatPromptTemplate(
+            [SystemMessage(content=node.prompt or ""), MessagesPlaceholder("msgs")]
         )
+        prompt_messages = prompt_template.invoke(
+            {
+                "msgs": [HumanMessage(content=node.message or "")],
+            }
+        )
+        result = agent_llm.invoke(prompt_messages)
         logger.warning(self.__parse_response(result["messages"][-1]))
         return self.__parse_response(result["messages"][-1])
 
@@ -39,9 +47,17 @@ class LLMExecuteService:
         llm = LlmService().get_llm(
             llm=node.llm, structured_output=node.structured_output
         )
-        result = llm.invoke({"messages": [{"role": "user", "content": node.message}]})
-        logger.warning(self.__parse_response(result["messages"][-1]))
-        return self.__parse_response(result["messages"][-1])
+        prompt_template = ChatPromptTemplate(
+            [SystemMessage(content=node.prompt or ""), MessagesPlaceholder("msgs")]
+        )
+        prompt_messages = prompt_template.invoke(
+            {
+                "msgs": [HumanMessage(content=node.message or "")],
+            }
+        )
+        result = llm.invoke(prompt_messages)
+        logger.warning(self.__parse_response(result))
+        return self.__parse_response(result)
 
     def __parse_response(self, response: AIMessage) -> dict[str, str]:
         response_metadata = response.response_metadata

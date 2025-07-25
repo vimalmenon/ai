@@ -18,7 +18,7 @@ class LlmService:
         output_cls = StructuredOutputService().get_structured_output(structured_output)
         if llm == LLMs.DEEPSEEK:
             deepseek_llm = self.__deepseek_llm()
-            deepseek_llm.with_structured_output(output_cls)
+            # deepseek_llm.with_structured_output(output_cls)
             return deepseek_llm
         elif llm == LLMs.GOOGLE:
             google_llm = self.__google_llm()
