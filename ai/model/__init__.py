@@ -1,3 +1,4 @@
+from ai.model.ai_message import AiMessage
 from ai.model.blog import BlogTopic
 from ai.model.contact import ContactRequestForm
 from ai.model.llm import LLMResponse
@@ -41,4 +42,5 @@ __all__ = [
     "WorkflowModelData",
     "WorkflowsModelData",
     "BlogTopic",
+    "AiMessage",
 ]

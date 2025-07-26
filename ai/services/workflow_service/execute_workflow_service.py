@@ -12,9 +12,12 @@ from ai.model import (
 )
 from ai.model.enums import Service as ServiceModel
 from ai.model.enums import WorkflowNodeStatus, WorkflowType
-from ai.services.llm_execute.llm_execute_service import LLMExecuteService
 from ai.services.service.db_service import DbService
 from ai.services.workflow_service.workflow_service import WorkflowService
+from ai.tasks.execute_workflow_node_task import (
+    execute_workflow_node_agent,
+    execute_workflow_node_llm,
+)
 from ai.utilities import created_date, generate_uuid
 
 logger = getLogger(__name__)
@@ -171,20 +174,16 @@ class ExecuteWorkflowService:
     def __execute_llm_workflow_node(self, node: ExecuteWorkflowNodeModel) -> None:
         """This will execute the LLM workflow node"""
         node.started_at = created_date()
-        content = LLMExecuteService().execute(node.node)
-        node.content = content["content"]
-        node.total_tokens = int(content["total_tokens"])
-        node.status = WorkflowNodeStatus.COMPLETED
-        node.completed_at = created_date()
+        task = execute_workflow_node_llm.delay(node=node.to_dict())
+        node.task_id = task.id
+        node.status = WorkflowNodeStatus.RUNNING
 
     def __execute_agent_workflow_node(self, node: ExecuteWorkflowNodeModel) -> None:
         """This will execute the Agent workflow node"""
         node.started_at = created_date()
-        content = LLMExecuteService().execute(node.node)
-        node.content = content["content"]
-        node.total_tokens = int(content["total_tokens"])
-        node.status = WorkflowNodeStatus.COMPLETED
-        node.completed_at = created_date()
+        task = execute_workflow_node_agent.delay(node=node.to_dict())
+        node.task_id = task.id
+        node.status = WorkflowNodeStatus.RUNNING
 
     def __check_if_workflow_is_completed(
         self, index: int, workflow: ExecuteWorkflowModel

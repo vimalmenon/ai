@@ -178,6 +178,7 @@ class ExecuteWorkflowNodeModel(Base):
     total_tokens: int | None = None
     started_at: str | None = None
     completed_at: str | None = None
+    task_id: str | None = None
     status: WorkflowNodeStatus
     node: WorkflowNodeRequest
 
@@ -192,6 +193,7 @@ class ExecuteWorkflowNodeModel(Base):
         self.node = kwargs.get("node")
         self.started_at = kwargs.get("started_at")
         self.completed_at = kwargs.get("completed_at")
+        self.task_id = kwargs.get("task_id")
 
     @classmethod
     def to_cls(cls, data: dict) -> Self:
@@ -207,6 +209,7 @@ class ExecuteWorkflowNodeModel(Base):
             node=WorkflowNodeRequest.to_cls(data.get("node", {})),
             started_at=data.get("started_at"),
             completed_at=data.get("completed_at"),
+            task_id=data.get("task_id"),
         )
 
     def to_dict(self) -> dict:
@@ -220,6 +223,7 @@ class ExecuteWorkflowNodeModel(Base):
             "node": self.node.to_dict(),
             "started_at": self.started_at,
             "completed_at": self.completed_at,
+            "task_id": self.task_id,
         }
 
 
