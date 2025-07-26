@@ -9,7 +9,7 @@ class WorkflowNodeManager:
         """Create the workflow node"""
         workflow = self.__validate_and_return_workflow(wf_id)
         uuid = generate_uuid()
-        workflow.nodes[uuid] = WorkflowNodeRequest(id=uuid, name=body.name)
+        workflow.nodes[uuid] = WorkflowNodeRequest(id=uuid, wf_id=wf_id, name=body.name)
         WorkflowManager().update_workflow_node(
             wf_id, self.__convert_nodes_to_dict(workflow.nodes)
         )

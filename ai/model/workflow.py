@@ -23,6 +23,7 @@ class UpdateWorkflowRequest(Base):
 
 class WorkflowNodeRequest(Base):
     id: str | None = None
+    wf_id: str | None = None
     name: str
     prompt: str | None = None
     message: str | None = None
@@ -42,6 +43,7 @@ class WorkflowNodeRequest(Base):
         super().__init__(**kwargs)
         self.name = kwargs.get("name")
         self.id = kwargs.get("id")
+        self.wf_id = kwargs.get("wf_id")
         self.prompt = kwargs.get("prompt")
         self.message = kwargs.get("message")
         self.type = (
@@ -68,6 +70,7 @@ class WorkflowNodeRequest(Base):
         """Convert the object to a dictionary."""
         return {
             "id": self.id,
+            "wf_id": self.wf_id,
             "name": self.name,
             "prompt": self.prompt,
             "message": self.message,
@@ -91,6 +94,7 @@ class WorkflowNodeRequest(Base):
         """Convert a dictionary to a WorkflowNodeRequest object."""
         return cls(
             id=data.get("id"),
+            wf_id=data.get("wf_id"),
             name=data.get("name"),
             prompt=data.get("prompt"),
             message=data.get("message"),
