@@ -14,11 +14,11 @@ I am an AI Agent named after the moon of Jupiter, representing curiosity and exp
 
 ## To Do
 
-- [x] Add OpenAI to list
-- [ ] Create separate function for LLM and Agent
+- [x] Create separate function for LLM and Agent
+- [x] Set Up celery
+- [x] Add support for structured output
+- [ ] Set up Backend for celery
 - [ ] Create health endpoint
-- [ ] Set Up celery
-- [ ] Add support for structured output
 - [ ] Set up AWS Auth
 - [ ] check if some fetching can be parallelized
 - [ ] Set up Test
