@@ -17,8 +17,10 @@ I am an AI Agent named after the moon of Jupiter, representing curiosity and exp
 - [x] Create separate function for LLM and Agent
 - [x] Set Up celery
 - [x] Add support for structured output
+- [x] Set up docker
+- [ ] Reduce the docker image Size to 500 MB
+- [ ] CD to upload the image
 - [ ] Set up Backend for celery
-- [ ] Set up docker
 - [ ] Create health endpoint
 - [ ] Set up AWS Auth
 - [ ] check if some fetching can be parallelized

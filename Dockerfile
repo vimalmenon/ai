@@ -1,4 +1,4 @@
-FROM python:3.11.9-slim
+FROM python:3.11-slim-bookworm
 
 WORKDIR /app
 
@@ -6,8 +6,8 @@ COPY ai ai
 
 RUN pip install poetry
 
-COPY pyproject.toml  poetry.lock README.md tasks.py ./
+COPY pyproject.toml poetry.lock README.md tasks.py ./
 
-RUN poetry install
+RUN poetry install --without dev
 
 CMD ["poetry", "run", "app"]
