@@ -147,15 +147,24 @@ class ExecuteWorkflowService:
                 self.__process_next_node(node, workflow.nodes[index + 1])
             self.__check_if_workflow_is_completed(index, workflow)
         elif node.node.type == WorkflowType.LLM:
-            self.__execute_llm_workflow_node(node)
-            if len(workflow.nodes) > index + 1:
-                self.__process_next_node(node, workflow.nodes[index + 1])
-            self.__check_if_workflow_is_completed(index, workflow)
+            if data.data == "COMPLETE":
+                node.status = WorkflowNodeStatus.COMPLETED
+                node.completed_at = created_date()
+                if len(workflow.nodes) > index + 1:
+                    self.__process_next_node(node, workflow.nodes[index + 1])
+                self.__check_if_workflow_is_completed(index, workflow)
+            else:
+                self.__execute_llm_workflow_node(node)
+
         elif node.node.type == WorkflowType.Agent:
-            self.__execute_agent_workflow_node(node)
-            if len(workflow.nodes) > index + 1:
-                self.__process_next_node(node, workflow.nodes[index + 1])
-            self.__check_if_workflow_is_completed(index, workflow)
+            if data.data == "COMPLETE":
+                node.status = WorkflowNodeStatus.COMPLETED
+                node.completed_at = created_date()
+                if len(workflow.nodes) > index + 1:
+                    self.__process_next_node(node, workflow.nodes[index + 1])
+                self.__check_if_workflow_is_completed(index, workflow)
+            else:
+                self.__execute_agent_workflow_node(node)
         elif node.node.type == WorkflowType.Service:
             self.__execute_service_workflow_node(workflow.id, node, data)
             if len(workflow.nodes) > index + 1:

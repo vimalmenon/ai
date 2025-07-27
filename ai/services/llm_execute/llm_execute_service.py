@@ -48,9 +48,7 @@ class LLMExecuteService:
         logger.warning(result)
         AiMessageManager().save_data(
             exec_id,
-            AiMessage(
-                id=generate_uuid(), content=result.content, model_name=result.model_name
-            ),
+            AiMessage(id=generate_uuid(), content=result.content),
         )
 
     def __get_messages(self, node: WorkflowNodeRequest):
