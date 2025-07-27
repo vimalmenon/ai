@@ -7,17 +7,13 @@ I am an AI Agent named after the moon of Jupiter, representing curiosity and exp
 
 <b>Name</b>: Elara
 <br/>
-<b>Version</b>: 0.0.16
+<b>Version</b>: 0.0.17
 <br/>
 <b>Email</b>: elara.ai@proton.me
 <br/>
 
 ## To Do
 
-- [x] Create separate function for LLM and Agent
-- [x] Set Up celery
-- [x] Add support for structured output
-- [x] Set up docker
 - [ ] Reduce the docker image Size to 500 MB
 - [ ] CD to upload the image
 - [ ] Set up Backend for celery
