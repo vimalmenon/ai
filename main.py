@@ -6,7 +6,7 @@ from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from humps import decamelize
 
-from ai.api import (
+from ai.apis import (
     router_blog,
     router_llm_data,
     router_rest,

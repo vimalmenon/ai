@@ -7,18 +7,21 @@ I am an AI Agent named after the moon of Jupiter, representing curiosity and exp
 
 <b>Name</b>: Elara
 <br/>
-<b>Version</b>: 0.0.15
+<b>Version</b>: 0.0.16
 <br/>
 <b>Email</b>: elara.ai@proton.me
 <br/>
 
 ## To Do
 
-- [x] Add OpenAI to list
-- [ ] Create separate function for LLM and Agent
+- [x] Create separate function for LLM and Agent
+- [x] Set Up celery
+- [x] Add support for structured output
+- [x] Set up docker
+- [ ] Reduce the docker image Size to 500 MB
+- [ ] CD to upload the image
+- [ ] Set up Backend for celery
 - [ ] Create health endpoint
-- [ ] Set Up celery
-- [ ] Add support for structured output
 - [ ] Set up AWS Auth
 - [ ] check if some fetching can be parallelized
 - [ ] Set up Test
@@ -56,4 +59,8 @@ git remote update origin --prune
 Find the process running in 8000
 ```sh
 sudo lsof -i :8000
+```
+Run Celery
+```sh
+poetry run celery -A tasks worker -l info
 ```

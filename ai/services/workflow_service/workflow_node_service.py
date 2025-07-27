@@ -20,6 +20,7 @@ class WorkflowNodeService:
         self, wf_id: str, id: str, data: WorkflowNodeRequest
     ) -> None:
         """Update the workflow node"""
+        data.wf_id = wf_id
         WorkflowNodeManager().update_workflow_node(
             wf_id, id, self.__update_workflow_node_request(data)
         )

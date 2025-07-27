@@ -1,73 +1,62 @@
 from logging import getLogger
 
 from langchain_core.messages import HumanMessage, SystemMessage
-from langchain_core.messages.ai import AIMessage
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langgraph.prebuilt import create_react_agent
 
-from ai.model import (
-    WorkflowNodeRequest,
-)
+from ai.managers.ai_message_manager.ai_message_manager import AiMessageManager
+from ai.model import AiMessage, WorkflowNodeRequest
 from ai.model.enums import WorkflowType
 from ai.services.llm_service.llm_service import LlmService
 from ai.services.tool_service.tool_service import ToolService
-from ai.utilities import created_date, generate_uuid
+from ai.utilities import generate_uuid
 
 logger = getLogger(__name__)
 
 
 class LLMExecuteService:
 
-    def execute(self, node: WorkflowNodeRequest) -> dict[str, str]:
+    def execute(self, exec_id: str, node: WorkflowNodeRequest) -> None:
         if node.type == WorkflowType.LLM:
-            return self.execute_llm(node)
+            self.execute_llm(exec_id, node)
         else:
-            return self.execute_agent(node)
+            self.execute_agent(exec_id, node)
 
-    def execute_agent(self, node: WorkflowNodeRequest) -> dict[str, str]:
+    def execute_agent(self, exec_id: str, node: WorkflowNodeRequest) -> None:
+        llm = LlmService().get_llm(
+            llm=node.llm, structured_output=node.structured_output
+        )
         agent_llm = create_react_agent(
-            model=LlmService().get_llm(llm=node.llm),
+            model=llm,
             tools=[ToolService().get_tool_func(tool) for tool in node.tools],
             name=node.name,
             prompt=node.prompt,
         )
-        prompt_template = ChatPromptTemplate(
-            [SystemMessage(content=node.prompt or ""), MessagesPlaceholder("msgs")]
-        )
-        prompt_messages = prompt_template.invoke(
-            {
-                "msgs": [HumanMessage(content=node.message or "")],
-            }
-        )
-        result = agent_llm.invoke(prompt_messages)
-        logger.warning(self.__parse_response(result["messages"][-1]))
-        return self.__parse_response(result["messages"][-1])
+        prompt_messages = self.__get_messages(node)
+        for result in agent_llm.stream(prompt_messages):
+            logger.warning(result)
+            AiMessageManager().save_data(
+                exec_id, AiMessage(id=generate_uuid(), content=result["content"])
+            )
 
-    def execute_llm(self, node: WorkflowNodeRequest) -> dict[str, str]:
+    def execute_llm(self, exec_id: str, node: WorkflowNodeRequest) -> None:
         llm = LlmService().get_llm(
             llm=node.llm, structured_output=node.structured_output
         )
+        prompt_messages = self.__get_messages(node)
+        result = llm.invoke(prompt_messages)
+        logger.warning(result)
+        AiMessageManager().save_data(
+            exec_id,
+            AiMessage(id=generate_uuid(), content=result.content),
+        )
+
+    def __get_messages(self, node: WorkflowNodeRequest):
         prompt_template = ChatPromptTemplate(
             [SystemMessage(content=node.prompt or ""), MessagesPlaceholder("msgs")]
         )
-        prompt_messages = prompt_template.invoke(
+        return prompt_template.invoke(
             {
                 "msgs": [HumanMessage(content=node.message or "")],
             }
         )
-        result = llm.invoke(prompt_messages)
-        logger.warning(self.__parse_response(result))
-        return self.__parse_response(result)
-
-    def __parse_response(self, response: AIMessage) -> dict[str, str]:
-        response_metadata = response.response_metadata
-        return {
-            "id": generate_uuid(),
-            "content": str(response.content) or "",
-            "model_name": response_metadata.get("model_name", ""),
-            "name": response.name or "",
-            "total_tokens": response_metadata.get("token_usage", {}).get(
-                "total_tokens", ""
-            ),
-            "created_at": created_date(),
-        }

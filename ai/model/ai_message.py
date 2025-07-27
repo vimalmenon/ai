@@ -1,0 +1,24 @@
+from ai.model.base_model import Base
+
+
+class AiMessage(Base):
+    id: str
+    content: str
+    total_token: str | None = None
+    model_name: str | None = None
+
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.id = kwargs.get("id")
+        self.content = kwargs.get("content")
+        self.total_token = kwargs.get("total_token")
+        self.model_name = kwargs.get("model_name")
+
+    def to_dict(self) -> dict:
+        """Convert the object to a dictionary."""
+        return {
+            "id": self.id,
+            "content": self.content,
+            "total_token": self.total_token,
+            "model_name": self.model_name,
+        }

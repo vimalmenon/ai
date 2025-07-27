@@ -23,6 +23,7 @@ class UpdateWorkflowRequest(Base):
 
 class WorkflowNodeRequest(Base):
     id: str | None = None
+    wf_id: str | None = None
     name: str
     prompt: str | None = None
     message: str | None = None
@@ -42,6 +43,7 @@ class WorkflowNodeRequest(Base):
         super().__init__(**kwargs)
         self.name = kwargs.get("name")
         self.id = kwargs.get("id")
+        self.wf_id = kwargs.get("wf_id")
         self.prompt = kwargs.get("prompt")
         self.message = kwargs.get("message")
         self.type = (
@@ -68,6 +70,7 @@ class WorkflowNodeRequest(Base):
         """Convert the object to a dictionary."""
         return {
             "id": self.id,
+            "wf_id": self.wf_id,
             "name": self.name,
             "prompt": self.prompt,
             "message": self.message,
@@ -91,6 +94,7 @@ class WorkflowNodeRequest(Base):
         """Convert a dictionary to a WorkflowNodeRequest object."""
         return cls(
             id=data.get("id"),
+            wf_id=data.get("wf_id"),
             name=data.get("name"),
             prompt=data.get("prompt"),
             message=data.get("message"),
@@ -174,52 +178,54 @@ class CreateExecuteWorkflowRequest(BaseModel):
 
 class ExecuteWorkflowNodeModel(Base):
     id: str
+    exec_id: str
     content: str | None = None
-    total_tokens: int | None = None
     started_at: str | None = None
     completed_at: str | None = None
+    task_id: str | None = None
     status: WorkflowNodeStatus
     node: WorkflowNodeRequest
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.id = kwargs.get("id", "")
+        self.id = kwargs.get("id")
+        self.exec_id = kwargs.get("exec_id")
         self.content = kwargs.get("content")
         self.status = kwargs.get("status")
-        self.total_tokens = (
-            int(kwargs.get("total_tokens")) if kwargs.get("total_tokens") else None
-        )
         self.node = kwargs.get("node")
         self.started_at = kwargs.get("started_at")
         self.completed_at = kwargs.get("completed_at")
+        self.task_id = kwargs.get("task_id")
 
     @classmethod
     def to_cls(cls, data: dict) -> Self:
         return cls(
             id=data.get("id", ""),
+            exec_id=data.get("exec_id"),
             content=data.get("content"),
             status=(
                 WorkflowNodeStatus[str(data.get("status"))]
                 if data.get("status")
                 else WorkflowNodeStatus.NEW
             ),
-            total_tokens=data.get("total_tokens"),
             node=WorkflowNodeRequest.to_cls(data.get("node", {})),
             started_at=data.get("started_at"),
             completed_at=data.get("completed_at"),
+            task_id=data.get("task_id"),
         )
 
     def to_dict(self) -> dict:
         return {
             "id": self.id,
+            "exec_id": self.exec_id,
             "content": self.content,
             "status": (
                 self.status.value if self.status else WorkflowNodeStatus.NEW.value
             ),
-            "total_tokens": self.total_tokens,
             "node": self.node.to_dict(),
             "started_at": self.started_at,
             "completed_at": self.completed_at,
+            "task_id": self.task_id,
         }
 
 
