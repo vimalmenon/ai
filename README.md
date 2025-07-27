@@ -18,6 +18,7 @@ I am an AI Agent named after the moon of Jupiter, representing curiosity and exp
 - [x] Set Up celery
 - [x] Add support for structured output
 - [ ] Set up Backend for celery
+- [ ] Set up docker
 - [ ] Create health endpoint
 - [ ] Set up AWS Auth
 - [ ] check if some fetching can be parallelized

@@ -16,13 +16,13 @@ logger = getLogger(__name__)
 
 class LLMExecuteService:
 
-    def execute(self, node: WorkflowNodeRequest) -> None:
+    def execute(self, exec_id: str, node: WorkflowNodeRequest) -> None:
         if node.type == WorkflowType.LLM:
-            self.execute_llm(node)
+            self.execute_llm(exec_id, node)
         else:
-            self.execute_agent(node)
+            self.execute_agent(exec_id, node)
 
-    def execute_agent(self, node: WorkflowNodeRequest) -> None:
+    def execute_agent(self, exec_id: str, node: WorkflowNodeRequest) -> None:
         llm = LlmService().get_llm(
             llm=node.llm, structured_output=node.structured_output
         )
@@ -36,10 +36,10 @@ class LLMExecuteService:
         for result in agent_llm.stream(prompt_messages):
             logger.warning(result)
             AiMessageManager().save_data(
-                AiMessage(id=generate_uuid(), content=result["content"])
+                exec_id, AiMessage(id=generate_uuid(), content=result["content"])
             )
 
-    def execute_llm(self, node: WorkflowNodeRequest) -> None:
+    def execute_llm(self, exec_id: str, node: WorkflowNodeRequest) -> None:
         llm = LlmService().get_llm(
             llm=node.llm, structured_output=node.structured_output
         )
@@ -47,9 +47,10 @@ class LLMExecuteService:
         result = llm.invoke(prompt_messages)
         logger.warning(result)
         AiMessageManager().save_data(
+            exec_id,
             AiMessage(
                 id=generate_uuid(), content=result.content, model_name=result.model_name
-            )
+            ),
         )
 
     def __get_messages(self, node: WorkflowNodeRequest):

@@ -7,15 +7,15 @@ router = APIRouter()
 
 
 @router.put("/{wf_id}", tags=["Execute"])
-async def execute_workflow(wf_id: str, data: CreateExecuteWorkflowRequest):
+async def create_executed_workflow(wf_id: str, data: CreateExecuteWorkflowRequest):
     """This will execute the workflow"""
-    return {"data": ExecuteWorkflowService().execute(wf_id, data)}
+    return {"data": ExecuteWorkflowService().create_executed_workflow(wf_id, data)}
 
 
-@router.post("/resume/{wf_id}/{id}", tags=["Execute"])
-async def resume_workflow(wf_id: str, id: str, data: ResumeWorkflowRequest):
+@router.post("/resume/{wf_id}/{exec_id}", tags=["Execute"])
+async def resume_workflow(wf_id: str, exec_id: str, data: ResumeWorkflowRequest):
     """This will resume the pending workflow"""
-    return {"data": ExecuteWorkflowService().resume_execute(wf_id, id, data)}
+    return {"data": ExecuteWorkflowService().resume_execute(wf_id, exec_id, data)}
 
 
 @router.get("/{wf_id}", tags=["Execute"])
@@ -24,13 +24,13 @@ async def get_workflow(wf_id: str):
     return {"data": ExecuteWorkflowService().get(wf_id)}
 
 
-@router.get("/{wf_id}/{id}", tags=["Execute"])
-async def get_executed_workflow(wf_id: str, id: str):
+@router.get("/{wf_id}/{exec_id}", tags=["Execute"])
+async def get_executed_workflow(wf_id: str, exec_id: str):
     """This will get the executed workflow"""
-    return {"data": ExecuteWorkflowService().get_executed_workflow_id(wf_id, id)}
+    return {"data": ExecuteWorkflowService().get_executed_workflow_id(wf_id, exec_id)}
 
 
-@router.delete("/{wf_id}/{id}", tags=["Execute"], status_code=204)
-async def delete_workflow(wf_id: str, id: str):
+@router.delete("/{wf_id}/{exec_id}", tags=["Execute"], status_code=204)
+async def delete_workflow(wf_id: str, exec_id: str):
     """This will delete the executed workflow"""
-    ExecuteWorkflowService().delete(wf_id, id)
+    ExecuteWorkflowService().delete(wf_id, exec_id)
