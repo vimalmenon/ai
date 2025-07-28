@@ -33,11 +33,14 @@ class LLMExecuteService:
             prompt=node.prompt,
         )
         prompt_messages = self.__get_messages(node)
-        for result in agent_llm.stream(prompt_messages):
-            logger.warning(result)
-            AiMessageManager().save_data(
-                exec_id, AiMessage(id=generate_uuid(), content=result["content"])
+        for step in agent_llm.stream(prompt_messages, stream_mode="values"):
+            logger.warning(step)
+            result = step["messages"][-1]
+            message = AiMessage(
+                id=generate_uuid(),
+                content=result.content,
             )
+            AiMessageManager().save_data(exec_id, message)
 
     def execute_llm(self, exec_id: str, node: WorkflowNodeRequest) -> None:
         llm = LlmService().get_llm(
@@ -46,9 +49,14 @@ class LLMExecuteService:
         prompt_messages = self.__get_messages(node)
         result = llm.invoke(prompt_messages)
         logger.warning(result)
+        message = AiMessage(
+            id=result.id,
+            content=result.content,
+            model_name=result.response_metadata.get("model_name"),
+        )
         AiMessageManager().save_data(
             exec_id,
-            AiMessage(id=generate_uuid(), content=result.content),
+            message,
         )
 
     def __get_messages(self, node: WorkflowNodeRequest):
