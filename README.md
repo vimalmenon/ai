@@ -17,6 +17,7 @@ I am an AI Agent named after the moon of Jupiter, representing curiosity and exp
 
 - [ ] Reduce the docker image Size to 500 MB
 - [ ] CD to upload the image
+- [ ] Get Secret from AWS Secret Manager
 - [ ] Set up Backend for celery
 - [ ] Create health endpoint
 - [ ] Set up AWS Auth
