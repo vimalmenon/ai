@@ -12,6 +12,7 @@ I am an AI Agent named after the moon of Jupiter, representing curiosity and exp
 <b>Email</b>: elara.ai@proton.me
 <br/>
 
+
 ## To Do
 
 - [ ] Reduce the docker image Size to 500 MB
@@ -32,7 +33,6 @@ I am an AI Agent named after the moon of Jupiter, representing curiosity and exp
 - [ ] [LongTerm] [AI] Write Code
 - [ ] [LongTerm] [AI] Review Code
 - [ ] [LongTerm] [AI] Write Content
-
 
 
 ## Links
