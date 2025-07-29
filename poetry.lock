@@ -2306,20 +2306,20 @@ langchain-core = ">=0.3.72,<1.0.0"
 
 [[package]]
 name = "langgraph"
-version = "0.5.4"
+version = "0.6.0"
 description = "Building stateful, multi-actor applications with LLMs"
 optional = false
 python-versions = ">=3.9"
 files = [
-    {file = "langgraph-0.5.4-py3-none-any.whl", hash = "sha256:7122840225623e081be24ac30a691a24e5dac4c0361f593208f912838192d7f6"},
-    {file = "langgraph-0.5.4.tar.gz", hash = "sha256:ab8f6b7b9c50fd2ae35a2efb072fbbfe79500dfc18071ac4ba6f5de5fa181931"},
+    {file = "langgraph-0.6.0-py3-none-any.whl", hash = "sha256:fd8596c2469902f41df627b155a4d3e30fd782f728dcbd6f526a213c630514e2"},
+    {file = "langgraph-0.6.0.tar.gz", hash = "sha256:8a920c05aab6d1d2415078b9619d6c81f663a7619bcc4232b9715f9b877072f2"},
 ]
 
 [package.dependencies]
 langchain-core = ">=0.1"
 langgraph-checkpoint = ">=2.1.0,<3.0.0"
-langgraph-prebuilt = ">=0.5.0,<0.6.0"
-langgraph-sdk = ">=0.1.42,<0.2.0"
+langgraph-prebuilt = ">=0.6.0,<0.7.0"
+langgraph-sdk = ">=0.2.0,<0.3.0"
 pydantic = ">=2.7.4"
 xxhash = ">=3.5.0"
 
@@ -2340,28 +2340,28 @@ ormsgpack = ">=1.10.0"
 
 [[package]]
 name = "langgraph-prebuilt"
-version = "0.5.2"
+version = "0.6.0"
 description = "Library with high-level APIs for creating and executing LangGraph agents and tools."
 optional = false
 python-versions = ">=3.9"
 files = [
-    {file = "langgraph_prebuilt-0.5.2-py3-none-any.whl", hash = "sha256:1f4cd55deca49dffc3e5127eec12fcd244fc381321002f728afa88642d5ec59d"},
-    {file = "langgraph_prebuilt-0.5.2.tar.gz", hash = "sha256:2c900a5be0d6a93ea2521e0d931697cad2b646f1fcda7aa5c39d8d7539772465"},
+    {file = "langgraph_prebuilt-0.6.0-py3-none-any.whl", hash = "sha256:b00058c5b044401b46b7c0360d855d9d0a0f386b032f6de0a5ebb8457880d163"},
+    {file = "langgraph_prebuilt-0.6.0.tar.gz", hash = "sha256:15b97f9d6f4cd5a2c460f6e75774098b22ba03ac9c21c283493d49e586a3863b"},
 ]
 
 [package.dependencies]
 langchain-core = ">=0.3.67"
-langgraph-checkpoint = ">=2.1.0"
+langgraph-checkpoint = ">=2.1.0,<3.0.0"
 
 [[package]]
 name = "langgraph-sdk"
-version = "0.1.74"
+version = "0.2.0"
 description = "SDK for interacting with LangGraph API"
 optional = false
 python-versions = ">=3.9"
 files = [
-    {file = "langgraph_sdk-0.1.74-py3-none-any.whl", hash = "sha256:3a265c3757fe0048adad4391d10486db63ef7aa5a2cbd22da22d4503554cb890"},
-    {file = "langgraph_sdk-0.1.74.tar.gz", hash = "sha256:7450e0db5b226cc2e5328ca22c5968725873630ef47c4206a30707cb25dc3ad6"},
+    {file = "langgraph_sdk-0.2.0-py3-none-any.whl", hash = "sha256:150722264f225c4d47bbe7394676be102fdbf04c4400a0dd1bd41a70c6430cc7"},
+    {file = "langgraph_sdk-0.2.0.tar.gz", hash = "sha256:cd8b5f6595e5571be5cbffd04cf936978ab8f5d1005517c99715947ef871e246"},
 ]
 
 [package.dependencies]
@@ -2370,18 +2370,18 @@ orjson = ">=3.10.1"
 
 [[package]]
 name = "langgraph-supervisor"
-version = "0.0.28"
+version = "0.0.29"
 description = "An implementation of a supervisor multi-agent architecture using LangGraph"
 optional = false
 python-versions = ">=3.10"
 files = [
-    {file = "langgraph_supervisor-0.0.28-py3-none-any.whl", hash = "sha256:4daaeef17dadf2fe701b7d8ff1b76623dafd80a0a605870c163f67a18f30641e"},
-    {file = "langgraph_supervisor-0.0.28.tar.gz", hash = "sha256:58af7c66fd184bf8adaff14ea31270ba576ae0b6809537a74b9fa6cc217b28e3"},
+    {file = "langgraph_supervisor-0.0.29-py3-none-any.whl", hash = "sha256:611dd4545f566f690d30004af3742887ec78134921118706ae7eeb12ce77763d"},
+    {file = "langgraph_supervisor-0.0.29.tar.gz", hash = "sha256:0ab6e06e102096071d605268a4138084b87128f0c965e1544f77a7d4f65ca16b"},
 ]
 
 [package.dependencies]
 langchain-core = ">=0.3.40"
-langgraph = ">=0.4.6"
+langgraph = ">=0.6.0,<0.7.0"
 
 [[package]]
 name = "langsmith"
@@ -5095,4 +5095,4 @@ cffi = ["cffi (>=1.11)"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "a796dde2f4cc93569dfeb36e341d4f8183978dd5fb64c654fc04953dec0e4f7b"
+content-hash = "55ff42b4580a1597cffb7105904f259679a715aee0fe9648896dae0777507907"
