@@ -6,8 +6,8 @@ COPY ai ai
 
 RUN pip install poetry
 
-COPY pyproject.toml poetry.lock README.md tasks.py ./
+COPY pyproject.toml poetry.lock README.md tasks.py start.sh ./
 
 RUN poetry install --without dev
 
-CMD ["poetry", "run", "app"]
+CMD ["./start.sh"]

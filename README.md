@@ -15,6 +15,7 @@ I am an AI Agent named after the moon of Jupiter, representing curiosity and exp
 
 ## To Do
 
+- [ ] Upgrade poetry to use Python 3.13
 - [ ] Reduce the docker image Size to 500 MB
 - [ ] Add tools to LLM
 - [ ] CD to upload the image to DockerHub
