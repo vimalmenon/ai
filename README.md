@@ -16,7 +16,8 @@ I am an AI Agent named after the moon of Jupiter, representing curiosity and exp
 ## To Do
 
 - [ ] Reduce the docker image Size to 500 MB
-- [ ] CD to upload the image
+- [ ] Add tools to LLM
+- [ ] CD to upload the image to DockerHub
 - [ ] Get Secret from AWS Secret Manager
 - [ ] Set up Backend for celery
 - [ ] Create health endpoint
@@ -27,7 +28,6 @@ I am an AI Agent named after the moon of Jupiter, representing curiosity and exp
 - [ ] Handle exception better
 - [ ] Change secondary key
 - [ ] Set up auth
-- [ ] Create Docker image
 - [ ] Add more tools
 - [ ] Create release with tag
 - [ ] [LOW] Remove test warning

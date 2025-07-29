@@ -56,6 +56,13 @@ class LLMs(Enum):
     OpenAI = "OpenAI"
 
 
+class AIMessageType(Enum):
+    Human = "Human"
+    AI = "AI"
+    System = "System"
+    Tool = "Tool"
+
+
 class HealthStatus(Enum):
-    OK = ("OK",)
+    OK = "OK"
     NOK = "NOK"

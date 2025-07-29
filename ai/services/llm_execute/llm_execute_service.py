@@ -6,7 +6,7 @@ from langgraph.prebuilt import create_react_agent
 
 from ai.managers.ai_message_manager.ai_message_manager import AiMessageManager
 from ai.model import AiMessage, WorkflowNodeRequest
-from ai.model.enums import WorkflowType
+from ai.model.enums import AIMessageType, WorkflowType
 from ai.services.llm_service.llm_service import LlmService
 from ai.services.tool_service.tool_service import ToolService
 from ai.utilities import generate_uuid
@@ -37,8 +37,7 @@ class LLMExecuteService:
             logger.warning(step)
             result = step["messages"][-1]
             message = AiMessage(
-                id=generate_uuid(),
-                content=result.content,
+                id=generate_uuid(), content=result.content, type=AIMessageType.AI
             )
             AiMessageManager().save_data(exec_id, message)
 
@@ -53,6 +52,7 @@ class LLMExecuteService:
             id=result.id,
             content=result.content,
             model_name=result.response_metadata.get("model_name"),
+            type=AIMessageType.AI,
         )
         AiMessageManager().save_data(
             exec_id,
