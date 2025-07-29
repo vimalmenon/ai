@@ -5,6 +5,13 @@ on:
   push:
     branches: ["main"]
 
+env:
+  DOCKER_REGISTRY: vimalsmenon
+  RELEASE: 0.0.17
+  APP_NAME: ai.vimalmenon.com
+  DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+  DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+
 jobs:
   # Single deploy job since we're just deploying
   build-deploy-and-release:
@@ -13,8 +20,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Install and Build 🔧 # This example project is built using npm and outputs the result to the 'build' folder. Replace with the commands required to build your project, or remove this step entirely if your site is pre-built.
-        run: echo ping
-    
-      - name: build Docker
-        run: docker build .
+      - name: Login to DockerHub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ env.DOCKERHUB_USERNAME }}
+          password: ${{ env.DOCKERHUB_TOKEN }}
+      - name: Docker push
+        run: |
+          docker build -t ${{ env.APP_NAME }}:${{ env.RELEASE }} .
+          docker tag ${{ env.APP_NAME }}:${{ env.RELEASE }} ${{ env.DOCKER_REGISTRY }}/${{ env.APP_NAME }}:${{ env.RELEASE }}
+          docker push ${{ env.DOCKER_REGISTRY }}/${{env.APP_NAME}}:${{ env.RELEASE }}
