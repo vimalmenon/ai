@@ -7,6 +7,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from humps import decamelize
 
 from ai.apis import (
+    router_ai_messages,
     router_blog,
     router_llm_data,
     router_rest,
@@ -74,6 +75,11 @@ app.include_router(
 app.include_router(
     router_s3,
     prefix="/s3",
+)
+
+app.include_router(
+    router_ai_messages,
+    prefix="/ai_messages",
 )
 
 app.include_router(
