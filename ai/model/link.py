@@ -10,8 +10,6 @@ class LinkSlim(Base):
 
 class Link(LinkSlim):
     id: str
-    name: str
-    link: str
 
     @classmethod
     def to_cls(cls, data: dict[str, str]) -> Self:
@@ -23,11 +21,11 @@ class Link(LinkSlim):
 
 class LinkGroupSlim(Base):
     name: str
-    links: list[Link]
 
 
 class LinkGroup(LinkGroupSlim):
     id: str
+    links: list[Link]
 
     @classmethod
     def to_cls(cls, data: dict) -> Self:

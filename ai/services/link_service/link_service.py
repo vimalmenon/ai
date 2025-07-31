@@ -7,11 +7,11 @@ class LinkService:
 
     def create_group_link(self, data: LinkGroupSlim) -> list[LinkGroup]:
         LinkManager().create_group_link(
-            LinkGroup(id=generate_uuid(), name=data.name, links=data.links)
+            LinkGroup(id=generate_uuid(), name=data.name, links=[])
         )
         return LinkManager().get_links()
 
-    def create_link(self, id: str, data=LinkSlim) -> list[LinkGroup]:
+    def create_link(self, id: str, data: LinkSlim) -> list[LinkGroup]:
         manager = LinkManager()
         result = manager.get_group_link_by_id(id)
         result.links.append(Link(id=generate_uuid(), name=data.name, link=data.link))
