@@ -1,6 +1,7 @@
 from ai.model.ai_message import AiMessage
 from ai.model.blog import BlogTopic
 from ai.model.contact import ContactRequestForm
+from ai.model.link import Link, LinkGroup, LinkGroupSlim, LinkSlim
 from ai.model.llm import LLMResponse
 from ai.model.request import ResumeWorkflowRequest
 from ai.model.s3 import S3Item, S3Request
@@ -43,4 +44,8 @@ __all__ = [
     "WorkflowsModelData",
     "BlogTopic",
     "AiMessage",
+    "Link",
+    "LinkGroup",
+    "LinkSlim",
+    "LinkGroupSlim",
 ]

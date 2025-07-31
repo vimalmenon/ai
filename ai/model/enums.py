@@ -67,3 +67,8 @@ class AIMessageType(Enum):
 class HealthStatus(Enum):
     OK = "OK"
     NOK = "NOK"
+
+
+class DbKeys(Enum):
+    Primary = "table"
+    Secondary = "app_id"
