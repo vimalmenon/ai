@@ -23,9 +23,8 @@ class LinkManager:
         )
 
     def get_group_link_by_id(self, id: str) -> LinkGroup:
-        item = DbManager().query_items(
-            Key(DbKeys.Primary.value).eq(self.table)
-            & Key(DbKeys.Secondary.value).eq(id)
+        item = DbManager().get_item(
+            {DbKeys.Primary.value: self.table, DbKeys.Secondary.value: id}
         )
         if item:
             return LinkGroup.to_cls(item)

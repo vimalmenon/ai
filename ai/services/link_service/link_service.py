@@ -14,7 +14,14 @@ class LinkService:
     def create_link(self, id: str, data: LinkSlim) -> list[LinkGroup]:
         manager = LinkManager()
         result = manager.get_group_link_by_id(id)
-        result.links.append(Link(id=generate_uuid(), name=data.name, link=data.link))
+        result.links.append(
+            Link(
+                id=generate_uuid(),
+                name=data.name,
+                link=data.link,
+                reference=data.reference,
+            )
+        )
         manager.update_group_link(result)
         return LinkManager().get_links()
 
