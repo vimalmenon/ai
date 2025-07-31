@@ -6,6 +6,7 @@ from ai.model.output import TestStructuredOutput
 class WorkflowType(Enum):
     LLM = "LLM"
     Agent = "Agent"
+    Workflow = "Workflow"
     HumanInput = "HumanInput"
     Service = "Service"
     ManualConfirmation = "ManualConfirmation"
