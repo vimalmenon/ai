@@ -38,7 +38,19 @@ class LinkManager:
             }
         )
 
-    def update_group_link(self, data: LinkGroup):
+    def delete_link(self, lg_id: str, id: str) -> None:
+        item = DbManager().get_item(
+            {DbKeys.Primary.value: self.table, DbKeys.Secondary.value: lg_id}
+        )
+        if item:
+            item = LinkGroup.to_cls(item)
+            for link in item.links:
+                if link.id == id:
+                    del link
+            self.update_group_link(item)
+        raise ClientError(detail=f"Link with {id} not found")
+
+    def update_group_link(self, data: LinkGroup) -> None:
         (
             update_expression,
             expression_attribute_values,
@@ -51,7 +63,7 @@ class LinkManager:
             ExpressionAttributeNames=expression_attribute_names,
         )
 
-    def __get_updated_details(self, data: LinkGroup):
+    def __get_updated_details(self, data: LinkGroup) -> tuple:
         expression: dict = {}
         if data.links:
             expression["links"] = {

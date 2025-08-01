@@ -25,11 +25,11 @@ class LinkService:
         manager.update_group_link(result)
         return LinkManager().get_links()
 
-    def delete_link(self, id: str) -> None:
+    def delete_link_group(self, id: str) -> None:
         LinkManager().delete_link_group(id)
 
-    def delete_group_link(self, id: str):
-        pass
+    def delete_link(self, lg_id: str, id: str) -> None:
+        LinkManager().delete_link(lg_id, id)
 
     def get_links(self) -> list[LinkGroup]:
         return LinkManager().get_links()

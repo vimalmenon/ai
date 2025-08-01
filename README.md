@@ -16,6 +16,7 @@ I am an AI Agent named after the moon of Jupiter, representing curiosity and exp
 ## To Do
 
 - [ ] Create API for links
+- [ ] Move All Primary Key and Secondary Key reference to enums
 - [ ] [fix] Google LLM not working
 - [ ] Upgrade poetry to use Python 3.13
 - [ ] Reduce the docker image Size to 500 MB

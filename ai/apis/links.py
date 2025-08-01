@@ -13,13 +13,13 @@ async def get_links():
 
 
 @router.delete("/{id}", tags=["links"], status_code=204)
-async def delete_link(id: str):
-    LinkService().delete_link(id)
+async def delete_link_group(id: str):
+    LinkService().delete_link_group(id)
 
 
 @router.delete("/{lg_id}/{id}", tags=["links"], status_code=204)
-async def delete_link_group(lg_id: str, id: str):
-    pass
+async def delete_link(lg_id: str, id: str):
+    LinkService().delete_link(lg_id, id)
 
 
 @router.put("", tags=["links"])
