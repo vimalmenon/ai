@@ -20,6 +20,8 @@ I am an AI Agent named after the moon of Jupiter, representing curiosity and exp
 - [x] Set up mock
 - [x] Reduce the docker image Size to 500 MB
 - [x] CD to upload the image to DockerHub
+- [x] Create release with tag
+- [ ] Get release automatically
 - [ ] Move All Primary Key and Secondary Key reference to enums
 - [ ] [fix] Google LLM not working
 - [ ] Upgrade poetry to use Python 3.13
@@ -33,7 +35,6 @@ I am an AI Agent named after the moon of Jupiter, representing curiosity and exp
 - [ ] Change secondary key
 - [ ] Set up auth
 - [ ] Add more tools
-- [ ] Create release with tag
 - [ ] [LOW] Remove test warning
 - [ ] [LongTerm] [AI] Write Code
 - [ ] [LongTerm] [AI] Review Code
