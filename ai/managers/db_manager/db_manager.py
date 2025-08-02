@@ -1,13 +1,14 @@
 from botocore.exceptions import ClientError
 
-from ai.config.env import env
+from ai.config.env import Env
 from ai.managers.aws.session import Session
 
 
 class DbManager:
     def __init__(self):
+        env = Env()
         session = Session().get_session()
-        dynamodb = session.resource("dynamodb")
+        dynamodb = session.resource("dynamodb", region_name=env.aws_region)
         self.table = dynamodb.Table(env.table)
 
     def add_item(self, item: dict):
