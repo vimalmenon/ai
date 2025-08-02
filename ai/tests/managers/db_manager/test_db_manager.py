@@ -4,6 +4,7 @@ from pytest import fixture
 
 from ai.managers.db_manager.db_manager import DbManager
 from ai.model.enums import DbKeys
+from boto3.dynamodb.conditions import Key
 
 
 @dataclass
@@ -33,3 +34,39 @@ def test_add_item_and_get_item(dynamodb_mock, setup_environment, mock_data):
         }
     )
     assert retrieved_item == item
+
+
+def test_remove_item(dynamodb_mock, setup_environment, mock_data):
+    db_manager = DbManager()
+    item = {
+        DbKeys.Primary.value: mock_data.primary,
+        DbKeys.Secondary.value: mock_data.secondary,
+        "data": mock_data.data,
+    }
+    db_manager.add_item(item)
+    db_manager.remove_item(
+        {
+            DbKeys.Primary.value: mock_data.primary,
+            DbKeys.Secondary.value: mock_data.secondary,
+        }
+    )
+    retrieved_item = db_manager.get_item(
+        {
+            DbKeys.Primary.value: mock_data.primary,
+            DbKeys.Secondary.value: mock_data.secondary,
+        }
+    )
+    assert retrieved_item is None
+
+
+def test_query_items(dynamodb_mock, setup_environment, mock_data):
+    db_manager = DbManager()
+    item = {
+        DbKeys.Primary.value: mock_data.primary,
+        DbKeys.Secondary.value: mock_data.secondary,
+        "data": mock_data.data,
+    }
+    db_manager.add_item(item)
+    items = db_manager.query_items(Key(DbKeys.Primary.value).eq(mock_data.primary))
+    assert len(items) == 1
+    assert items[0] == item
