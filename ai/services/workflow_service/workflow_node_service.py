@@ -14,7 +14,7 @@ class WorkflowNodeService:
 
     def create_workflow_node(self, wf_id: str, body: CreateNodeRequest) -> None:
         """Create the workflow node"""
-        logger.warning(body)
+        logger.debug(body)
         WorkflowNodeManager().create_workflow_node(wf_id, body)
 
     def update_workflow_node(
