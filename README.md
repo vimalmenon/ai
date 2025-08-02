@@ -22,6 +22,7 @@ I am an AI Agent named after the moon of Jupiter, representing curiosity and exp
 - [x] CD to upload the image to DockerHub
 - [x] Create release with tag
 - [x] Improve the class for env
+- [ ] Remove test from docker
 - [ ] Get release automatically
 - [ ] Move All Primary Key and Secondary Key reference to enums
 - [ ] [fix] Google LLM not working
