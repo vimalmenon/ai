@@ -23,7 +23,7 @@ class WorkflowNodeService:
         """Update the workflow node"""
         data.wf_id = wf_id
         result = self.__update_workflow_node_request(data)
-        logger.warning(result)
+        logger.debug(result)
         WorkflowNodeManager().update_workflow_node(wf_id, id, result)
 
     def __update_workflow_node_request(
