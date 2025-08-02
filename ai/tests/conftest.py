@@ -20,6 +20,7 @@ def setup_env() -> None:
     os.environ["DEEPSEEK_API_KEY"] = "DEEPSEEK"
     os.environ["GOOGLE_API_KEY"] = "GOOGLE_API_KEY"
     os.environ["GOOGLE_CSE_ID"] = "GOOGLE_CSE_ID"
+    # Changed from "TABLE" to "AWS_TABLE" to clarify AWS-specific usage and avoid naming conflicts.
     os.environ["AWS_TABLE"] = "application"
     os.environ["AWS_REGION"] = "us-east-1"
     os.environ["AWS_SECRET_MANAGER"] = "AWS_SECRET_MANAGER"
