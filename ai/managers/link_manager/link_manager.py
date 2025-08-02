@@ -44,10 +44,11 @@ class LinkManager:
         )
         if item:
             item = LinkGroup.to_cls(item)
-            for link in item.links:
+            for i, link in enumerate(item.links):
                 if link.id == id:
-                    del link
-            self.update_group_link(item)
+                    del item.links[i]
+                    self.update_group_link(item)
+                    return
         raise ClientError(detail=f"Link with {id} not found")
 
     def update_group_link(self, data: LinkGroup) -> None:
