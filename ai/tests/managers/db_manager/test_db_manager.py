@@ -1,10 +1,10 @@
 from dataclasses import dataclass
 
+from boto3.dynamodb.conditions import Key
 from pytest import fixture
 
 from ai.managers.db_manager.db_manager import DbManager
 from ai.model.enums import DbKeys
-from boto3.dynamodb.conditions import Key
 
 
 @dataclass
@@ -70,3 +70,32 @@ def test_query_items(dynamodb_mock, setup_environment, mock_data):
     items = db_manager.query_items(Key(DbKeys.Primary.value).eq(mock_data.primary))
     assert len(items) == 1
     assert items[0] == item
+
+
+def test_update_item(dynamodb_mock, setup_environment, mock_data):
+    db_manager = DbManager()
+    item = {
+        DbKeys.Primary.value: mock_data.primary,
+        DbKeys.Secondary.value: mock_data.secondary,
+        "data": mock_data.data,
+    }
+    db_manager.add_item(item)
+
+    updated_data = "Updated data"
+    db_manager.update_item(
+        Key={
+            DbKeys.Primary.value: mock_data.primary,
+            DbKeys.Secondary.value: mock_data.secondary,
+        },
+        UpdateExpression="SET #data = :val",
+        ExpressionAttributeValues={":val": updated_data},
+        ExpressionAttributeNames={"#data": "data"},
+    )
+
+    retrieved_item = db_manager.get_item(
+        {
+            DbKeys.Primary.value: mock_data.primary,
+            DbKeys.Secondary.value: mock_data.secondary,
+        }
+    )
+    assert retrieved_item["data"] == updated_data
