@@ -22,7 +22,6 @@ def setup_env() -> None:
     os.environ["GOOGLE_CSE_ID"] = "GOOGLE_CSE_ID"
     os.environ["TABLE"] = "application"
     os.environ["AWS_REGION"] = "us-east-1"
-    os.environ["AWS_DEFAULT_REGION"] = "us-east-1"
 
 
 @fixture(autouse=True)

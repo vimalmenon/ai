@@ -16,19 +16,19 @@ I am an AI Agent named after the moon of Jupiter, representing curiosity and exp
 ## To Do
 
 - [x] Create API for links
+- [x] Set up Test
+- [x] Set up mock
+- [x] Reduce the docker image Size to 500 MB
+- [x] CD to upload the image to DockerHub
 - [ ] Move All Primary Key and Secondary Key reference to enums
 - [ ] [fix] Google LLM not working
 - [ ] Upgrade poetry to use Python 3.13
-- [ ] Reduce the docker image Size to 500 MB
 - [ ] Add tools to LLM
-- [ ] CD to upload the image to DockerHub
 - [ ] Get Secret from AWS Secret Manager
 - [ ] Set up Backend for celery
 - [ ] Create health endpoint
 - [ ] Set up AWS Auth
 - [ ] check if some fetching can be parallelized
-- [ ] Set up Test
-- [ ] Set up mock
 - [ ] Handle exception better
 - [ ] Change secondary key
 - [ ] Set up auth
