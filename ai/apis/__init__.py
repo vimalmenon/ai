@@ -1,4 +1,6 @@
+from ai.apis.ai_messages import router as router_ai_messages
 from ai.apis.blog import router as router_blog
+from ai.apis.links import router as router_links
 from ai.apis.llm_data import router as router_llm_data
 from ai.apis.rest import router as router_rest
 from ai.apis.s3 import router as router_s3
@@ -14,4 +16,6 @@ __all__ = [
     "router_workflow_execute",
     "router_llm_data",
     "router_blog",
+    "router_ai_messages",
+    "router_links",
 ]

@@ -16,6 +16,23 @@ class Env(BaseModel):
     eden_ai_api: str = str(os.getenv("EDEN_AI_API"))
     openai_api: str = str(os.getenv("OPENAI_API_KEY"))
     aws_sqs: str = str(os.getenv("AWS_SQS"))
+    aws_region: str = str(os.getenv("AWS_DEFAULT_REGION"))
+
+    def __init__(self, **data):
+        super().__init__(**data)
+        self.temperature = float(os.getenv("TEMPERATURE", 0.0))
+        self.notes_path = f"{os.getcwd()}/ai/data/notes/data.txt"
+        self.debug = bool(os.getenv("DEBUG", False))
+        self.table = str(os.getenv("TABLE"))
+        self.aws_client_id = str(os.getenv("AWS_CLIENT_ID"))
+        self.aws_secret = str(os.getenv("AWS_SECRET"))
+        self.supported_llm = os.getenv("SUPPORTED_LLM", "").split(",")
+        self.port = int(os.getenv("PORT", 8000))
+        self.bucket = str(os.getenv("S3_BUCKET"))
+        self.eden_ai_api = str(os.getenv("EDEN_AI_API"))
+        self.openai_api = str(os.getenv("OPENAI_API_KEY"))
+        self.aws_sqs = str(os.getenv("AWS_SQS"))
+        self.aws_region = str(os.getenv("AWS_DEFAULT_REGION"))
 
 
 env = Env()

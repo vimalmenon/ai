@@ -1,3 +1,3 @@
-from ai.config.env import env
+from ai.config.env import Env, env
 
-__all__ = ["env"]
+__all__ = ["env", "Env"]

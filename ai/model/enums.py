@@ -6,6 +6,7 @@ from ai.model.output import TestStructuredOutput
 class WorkflowType(Enum):
     LLM = "LLM"
     Agent = "Agent"
+    Workflow = "Workflow"
     HumanInput = "HumanInput"
     Service = "Service"
     ManualConfirmation = "ManualConfirmation"
@@ -56,6 +57,18 @@ class LLMs(Enum):
     OpenAI = "OpenAI"
 
 
+class AIMessageType(Enum):
+    Human = "Human"
+    AI = "AI"
+    System = "System"
+    Tool = "Tool"
+
+
 class HealthStatus(Enum):
-    OK = ("OK",)
+    OK = "OK"
     NOK = "NOK"
+
+
+class DbKeys(Enum):
+    Primary = "table"
+    Secondary = "app_id"

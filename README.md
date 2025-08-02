@@ -7,19 +7,22 @@ I am an AI Agent named after the moon of Jupiter, representing curiosity and exp
 
 <b>Name</b>: Elara
 <br/>
-<b>Version</b>: 0.0.16
+<b>Version</b>: 0.0.17
 <br/>
 <b>Email</b>: elara.ai@proton.me
 <br/>
 
+
 ## To Do
 
-- [x] Create separate function for LLM and Agent
-- [x] Set Up celery
-- [x] Add support for structured output
-- [x] Set up docker
+- [x] Create API for links
+- [ ] Move All Primary Key and Secondary Key reference to enums
+- [ ] [fix] Google LLM not working
+- [ ] Upgrade poetry to use Python 3.13
 - [ ] Reduce the docker image Size to 500 MB
-- [ ] CD to upload the image
+- [ ] Add tools to LLM
+- [ ] CD to upload the image to DockerHub
+- [ ] Get Secret from AWS Secret Manager
 - [ ] Set up Backend for celery
 - [ ] Create health endpoint
 - [ ] Set up AWS Auth
@@ -29,14 +32,12 @@ I am an AI Agent named after the moon of Jupiter, representing curiosity and exp
 - [ ] Handle exception better
 - [ ] Change secondary key
 - [ ] Set up auth
-- [ ] Create Docker image
 - [ ] Add more tools
 - [ ] Create release with tag
 - [ ] [LOW] Remove test warning
 - [ ] [LongTerm] [AI] Write Code
 - [ ] [LongTerm] [AI] Review Code
 - [ ] [LongTerm] [AI] Write Content
-
 
 
 ## Links
@@ -63,4 +64,9 @@ sudo lsof -i :8000
 Run Celery
 ```sh
 poetry run celery -A tasks worker -l info
+```
+Remove old branch
+
+```sh
+git branch | grep -v "$(git branch --show-current)" | xargs git branch -D
 ```

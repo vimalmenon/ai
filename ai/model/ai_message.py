@@ -1,9 +1,11 @@
 from ai.model.base_model import Base
+from ai.model.enums import AIMessageType
 
 
 class AiMessage(Base):
     id: str
     content: str
+    type: AIMessageType
     total_token: str | None = None
     model_name: str | None = None
 
@@ -11,6 +13,7 @@ class AiMessage(Base):
         super().__init__(**kwargs)
         self.id = kwargs.get("id")
         self.content = kwargs.get("content")
+        self.type = kwargs.get("type")
         self.total_token = kwargs.get("total_token")
         self.model_name = kwargs.get("model_name")
 
@@ -21,4 +24,5 @@ class AiMessage(Base):
             "content": self.content,
             "total_token": self.total_token,
             "model_name": self.model_name,
+            "type": self.type.value,
         }
