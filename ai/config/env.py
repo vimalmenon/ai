@@ -48,7 +48,7 @@ class Env:
             self.__get_from_env_or_secret(secrets, "AWS_SECRET_MANAGER", "")
         )
         self.aws_region = str(self.__get_from_env_or_secret(secrets, "AWS_REGION", ""))
-        self.debug = (self.__get_from_env_or_secret(secrets, "DEBUG", False),)
+        self.debug = bool(self.__get_from_env_or_secret(secrets, "DEBUG", False))
 
     def __get_from_env_or_secret(self, secrets: dict[str, str], key: str, default=None):
         """
