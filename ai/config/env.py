@@ -1,6 +1,6 @@
+import json
 import os
 
-import json
 from pydantic import BaseModel
 
 
@@ -54,5 +54,5 @@ class Env(BaseModel):
         try:
             response = client.get_secret_value(SecretId=self.aws_secret_manager)
             return json.loads(response["SecretString"])
-        except ClientError as e:
-            raise Exception(f"Error fetching secret {self.aws_secret_manager}: {e}")
+        except ClientError:
+            return {}
