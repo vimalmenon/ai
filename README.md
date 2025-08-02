@@ -21,7 +21,7 @@ I am an AI Agent named after the moon of Jupiter, representing curiosity and exp
 - [x] Reduce the docker image Size to 500 MB
 - [x] CD to upload the image to DockerHub
 - [x] Create release with tag
-- [ ] Improve the class for env
+- [x] Improve the class for env
 - [ ] Get release automatically
 - [ ] Move All Primary Key and Secondary Key reference to enums
 - [ ] [fix] Google LLM not working
