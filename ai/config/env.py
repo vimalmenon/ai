@@ -1,5 +1,6 @@
 import os
 
+import json
 from pydantic import BaseModel
 
 
@@ -16,6 +17,7 @@ class Env(BaseModel):
     eden_ai_api: str = str(os.getenv("EDEN_AI_API"))
     openai_api: str = str(os.getenv("OPENAI_API_KEY"))
     aws_sqs: str = str(os.getenv("AWS_SQS"))
+    aws_secret_manager: str = str(os.getenv("AWS_SECRET_MANAGER"))
     aws_region: str = str(os.getenv("AWS_REGION"))
 
     def __init__(self, **data):
@@ -33,3 +35,24 @@ class Env(BaseModel):
         self.openai_api = str(os.getenv("OPENAI_API_KEY"))
         self.aws_sqs = str(os.getenv("AWS_SQS"))
         self.aws_region = str(os.getenv("AWS_REGION"))
+
+    def get_from_aws_secret(self) -> dict[str, str]:
+        """
+        Fetches a secret from AWS Secrets Manager.
+        :param key: The key of the secret to fetch.
+        :return: The value of the secret.
+        """
+        import boto3
+        from botocore.exceptions import ClientError
+
+        session = boto3.Session(
+            aws_access_key_id=str(os.getenv("AWS_CLIENT_ID")),
+            aws_secret_access_key=str(os.getenv("AWS_SECRET")),
+            region_name=str(os.getenv("AWS_REGION")),
+        )
+        client = session.client("secretsmanager")
+        try:
+            response = client.get_secret_value(SecretId=self.aws_secret_manager)
+            return json.loads(response["SecretString"])
+        except ClientError as e:
+            raise Exception(f"Error fetching secret {self.aws_secret_manager}: {e}")
