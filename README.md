@@ -15,7 +15,7 @@ I am an AI Agent named after the moon of Jupiter, representing curiosity and exp
 
 ## To Do
 
-- [ ] Create API for links
+- [x] Create API for links
 - [ ] Move All Primary Key and Secondary Key reference to enums
 - [ ] [fix] Google LLM not working
 - [ ] Upgrade poetry to use Python 3.13
@@ -64,4 +64,9 @@ sudo lsof -i :8000
 Run Celery
 ```sh
 poetry run celery -A tasks worker -l info
+```
+Remove old branch
+
+```sh
+git branch | grep -v "$(git branch --show-current)" | xargs git branch -D
 ```
