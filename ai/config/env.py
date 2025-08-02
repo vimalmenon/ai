@@ -16,6 +16,7 @@ class Env(BaseModel):
     eden_ai_api: str = str(os.getenv("EDEN_AI_API"))
     openai_api: str = str(os.getenv("OPENAI_API_KEY"))
     aws_sqs: str = str(os.getenv("AWS_SQS"))
+    aws_region: str = str(os.getenv("AWS_REGION"))
 
 
 env = Env()
