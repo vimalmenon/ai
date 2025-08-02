@@ -1,4 +1,4 @@
-from ai.config import env
+from ai.config import Env
 from ai.managers.aws.session import Session
 from ai.model import S3Item
 
@@ -9,7 +9,8 @@ class S3Manager:
         session = Session().get_session()
         self.s3_resource = session.resource("s3")
         self.s3_client = session.client("s3")
-        self.bucket = self.s3_resource.Bucket(name=env.bucket)
+        self.env = Env()
+        self.bucket = self.s3_resource.Bucket(name=self.env.bucket)
 
     def list_buckets(self):
         return self.s3_resource.list_buckets()
@@ -25,10 +26,10 @@ class S3Manager:
         return items
 
     def delete_item(self, file_name: str):
-        return self.s3_client.delete_object(Bucket=env.bucket, Key=file_name)
+        return self.s3_client.delete_object(Bucket=self.env.bucket, Key=file_name)
 
     def get_object(self, file_name: str):
-        return self.s3_client.get_object(Bucket=env.bucket, Key=file_name)
+        return self.s3_client.get_object(Bucket=self.env.bucket, Key=file_name)
 
     def upload_item(self, buffer, file_name: str):
-        self.s3_client.upload_fileobj(buffer, env.bucket, file_name)
+        self.s3_client.upload_fileobj(buffer, self.env.bucket, file_name)

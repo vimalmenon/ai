@@ -3,8 +3,9 @@ from logging import INFO, basicConfig
 from celery import Celery
 from kombu.utils.url import safequote
 
-from ai.config.env import env
+from ai.config import Env
 
+env = Env()
 aws_access_key = safequote(env.aws_client_id)
 aws_secret_key = safequote(env.aws_secret)
 
