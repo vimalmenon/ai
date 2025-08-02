@@ -22,6 +22,9 @@ def setup_env() -> None:
     os.environ["GOOGLE_CSE_ID"] = "GOOGLE_CSE_ID"
     os.environ["AWS_TABLE"] = "application"
     os.environ["AWS_REGION"] = "us-east-1"
+    os.environ["AWS_SECRET_MANAGER"] = "AWS_SECRET_MANAGER"
+    os.environ["AWS_CLIENT_ID"] = "AWS_CLIENT_ID"
+    os.environ["AWS_SECRET"] = "AWS_SECRET"
 
 
 @fixture(autouse=True)

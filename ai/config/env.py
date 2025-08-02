@@ -78,3 +78,5 @@ class Env:
             return json.loads(response["SecretString"])
         except ClientError:
             return {}
+        except Exception:
+            return {}
