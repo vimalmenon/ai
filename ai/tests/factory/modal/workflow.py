@@ -1,7 +1,7 @@
 from factory import Factory, Faker
 
 # from factory import FactoryList
-from ai.model import WorkflowModel
+from ai.model import WorkflowModel, WorkflowSlimModel
 
 
 class FactoryWorkflowModel(Factory):
@@ -12,3 +12,10 @@ class FactoryWorkflowModel(Factory):
     name = Faker("name")
     detail = Faker("text")
     nodes: dict = {}
+
+
+class FactoryWorkflowSlimModel(Factory):
+    class Meta:
+        model = WorkflowSlimModel
+
+    name = Faker("name")

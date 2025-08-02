@@ -19,7 +19,7 @@ def mock_data(faker) -> MockData:
     return MockData(primary=faker.uuid4(), secondary=faker.uuid4(), data=faker.text())
 
 
-def test_add_item_and_get_item(dynamodb_mock, setup_environment, mock_data):
+def test_add_item_and_get_item(dynamodb_mock, setup_environment, mock_data) -> None:
     db_manager = DbManager()
     item = {
         DbKeys.Primary.value: mock_data.primary,
@@ -36,7 +36,7 @@ def test_add_item_and_get_item(dynamodb_mock, setup_environment, mock_data):
     assert retrieved_item == item
 
 
-def test_remove_item(dynamodb_mock, setup_environment, mock_data):
+def test_remove_item(dynamodb_mock, setup_environment, mock_data) -> None:
     db_manager = DbManager()
     item = {
         DbKeys.Primary.value: mock_data.primary,
@@ -59,7 +59,7 @@ def test_remove_item(dynamodb_mock, setup_environment, mock_data):
     assert retrieved_item is None
 
 
-def test_query_items(dynamodb_mock, setup_environment, mock_data):
+def test_query_items(dynamodb_mock, setup_environment, mock_data) -> None:
     db_manager = DbManager()
     item = {
         DbKeys.Primary.value: mock_data.primary,
@@ -72,7 +72,7 @@ def test_query_items(dynamodb_mock, setup_environment, mock_data):
     assert items[0] == item
 
 
-def test_update_item(dynamodb_mock, setup_environment, mock_data):
+def test_update_item(dynamodb_mock, setup_environment, mock_data) -> None:
     db_manager = DbManager()
     item = {
         DbKeys.Primary.value: mock_data.primary,
