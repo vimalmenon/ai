@@ -7,7 +7,7 @@ on:
 
 env:
   DOCKER_REGISTRY: vimalsmenon
-  RELEASE: 0.0.17
+  RELEASE: 0.0.18
   APP_NAME: ai.vimalmenon.com
   DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
   DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
