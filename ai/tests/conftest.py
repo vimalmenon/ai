@@ -20,6 +20,7 @@ def setup_env() -> None:
     os.environ["DEEPSEEK_API_KEY"] = "DEEPSEEK"
     os.environ["GOOGLE_API_KEY"] = "GOOGLE_API_KEY"
     os.environ["GOOGLE_CSE_ID"] = "GOOGLE_CSE_ID"
+    os.environ["TABLE"] = "application"
 
 
 @fixture(autouse=True)
