@@ -24,7 +24,7 @@ jobs:
       - name: Install dependencies
         run: poetry install --no-interaction --no-root
       - name: Run Tox
-        run: poetry run tox
+        run: poetry run tox -r
       - name: SonarQube Scan
         uses: SonarSource/sonarqube-scan-action@v5
         env:
