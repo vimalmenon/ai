@@ -1,6 +1,6 @@
 from botocore.exceptions import ClientError
 
-from ai.config.env import Env
+from ai.config import Env
 from ai.managers.aws.session import Session
 
 

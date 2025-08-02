@@ -6,14 +6,15 @@ from ai.managers.db_manager.db_manager import DbManager
 from ai.model.enums import DbKeys
 
 
-@fixture
-def mock_data(faker):
-    @dataclass
-    class MockData:
-        primary: str
-        secondary: str
-        data: str
+@dataclass
+class MockData:
+    primary: str
+    secondary: str
+    data: str
 
+
+@fixture
+def mock_data(faker) -> MockData:
     return MockData(primary=faker.uuid4(), secondary=faker.uuid4(), data=faker.text())
 
 

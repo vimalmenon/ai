@@ -7,7 +7,7 @@ from fastapi.testclient import TestClient
 from moto import mock_aws
 from pytest import fixture
 
-from ai.config.env import Env
+from ai.config import Env
 from ai.model.enums import DbKeys
 from main import app
 

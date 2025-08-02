@@ -33,6 +33,3 @@ class Env(BaseModel):
         self.openai_api = str(os.getenv("OPENAI_API_KEY"))
         self.aws_sqs = str(os.getenv("AWS_SQS"))
         self.aws_region = str(os.getenv("AWS_REGION"))
-
-
-env = Env()
