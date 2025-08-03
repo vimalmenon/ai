@@ -10,4 +10,6 @@ COPY pyproject.toml poetry.lock README.md tasks.py start.sh ./
 
 RUN poetry install --without dev
 
+RUN rm -rf ./ai/tests
+
 CMD ["./start.sh"]

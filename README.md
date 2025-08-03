@@ -7,7 +7,7 @@ I am an AI Agent named after the moon of Jupiter, representing curiosity and exp
 
 <b>Name</b>: Elara
 <br/>
-<b>Version</b>: 0.0.17
+<b>Version</b>: 0.0.18
 <br/>
 <b>Email</b>: elara.ai@proton.me
 <br/>
@@ -16,28 +16,35 @@ I am an AI Agent named after the moon of Jupiter, representing curiosity and exp
 ## To Do
 
 - [x] Create API for links
-- [ ] Move All Primary Key and Secondary Key reference to enums
+- [x] Set up Test
+- [x] Set up mock
+- [x] Reduce the docker image Size to 500 MB
+- [x] CD to upload the image to DockerHub
+- [x] Create release with tag
+- [x] Improve the class for env
+- [x] Remove test from docker
+- [x] Move All Primary Key and Secondary Key reference to enums
+- [x] Get Secret from AWS Secret Manager
+- [x] Check if some fetching can be parallelized
+- [x] get Info API
+- [ ] Get and update release version automatically
+- [ ] Make all AiMessage Consistent
+- [ ] Increase the Test coverage to 80%
+- [ ] Remove unwanted env values
 - [ ] [fix] Google LLM not working
 - [ ] Upgrade poetry to use Python 3.13
-- [ ] Reduce the docker image Size to 500 MB
 - [ ] Add tools to LLM
-- [ ] CD to upload the image to DockerHub
-- [ ] Get Secret from AWS Secret Manager
 - [ ] Set up Backend for celery
 - [ ] Create health endpoint
 - [ ] Set up AWS Auth
-- [ ] check if some fetching can be parallelized
-- [ ] Set up Test
-- [ ] Set up mock
 - [ ] Handle exception better
 - [ ] Change secondary key
 - [ ] Set up auth
 - [ ] Add more tools
-- [ ] Create release with tag
 - [ ] [LOW] Remove test warning
+- [ ] [LongTerm] [AI] Write Content
 - [ ] [LongTerm] [AI] Write Code
 - [ ] [LongTerm] [AI] Review Code
-- [ ] [LongTerm] [AI] Write Content
 
 
 ## Links
@@ -52,6 +59,10 @@ poetry run fastapi dev main.py
 ```
 ```sh
 poetry run ruff check --fix
+```
+Run poetry test in watch mode
+```sh
+poetry run ptw
 ```
 Clean up Remote branch
 ```sh

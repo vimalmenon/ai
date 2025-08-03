@@ -2,6 +2,7 @@ from boto3.dynamodb.conditions import Key
 
 from ai.managers import DbManager
 from ai.model import ExecuteWorkflowModel
+from ai.model.enums import DbKeys
 
 
 class WorkflowExecuteManager:
@@ -10,7 +11,11 @@ class WorkflowExecuteManager:
     def add_workflow(self, id: str, data: ExecuteWorkflowModel) -> None:
         """This will save executed workflow"""
         DbManager().add_item(
-            {"table": self.table, "app_id": f"{id}#{data.id}", **data.to_dict()}
+            {
+                DbKeys.Primary.value: self.table,
+                DbKeys.Secondary.value: f"{id}#{data.id}",
+                **data.to_dict(),
+            }
         )
 
     def update_workflow(self, wf_id: str, id: str, data: ExecuteWorkflowModel) -> None:
@@ -21,7 +26,10 @@ class WorkflowExecuteManager:
             expression_attribute_names,
         ) = self.__get_updated_executed_details(data)
         DbManager().update_item(
-            Key={"table": self.table, "app_id": f"{wf_id}#{id}"},
+            Key={
+                DbKeys.Primary.value: self.table,
+                DbKeys.Secondary.value: f"{wf_id}#{id}",
+            },
             UpdateExpression=update_expression,
             ExpressionAttributeValues=expression_attribute_values,
             ExpressionAttributeNames=expression_attribute_names,
@@ -30,13 +38,16 @@ class WorkflowExecuteManager:
     def get_workflow(self, id: str) -> list[ExecuteWorkflowModel]:
         """This will get the executed workflow"""
         items = DbManager().query_items(
-            Key("table").eq(self.table) & Key("app_id").begins_with(f"{id}#")
+            Key(DbKeys.Primary.value).eq(self.table)
+            & Key(DbKeys.Secondary.value).begins_with(f"{id}#")
         )
         return [ExecuteWorkflowModel.to_cls(item) for item in items]
 
     def get_workflow_by_id(self, wf_id: str, id: str) -> ExecuteWorkflowModel | None:
         """This will get the executed workflow by ID"""
-        item = DbManager().get_item({"table": self.table, "app_id": f"{wf_id}#{id}"})
+        item = DbManager().get_item(
+            {DbKeys.Primary.value: self.table, DbKeys.Secondary.value: f"{wf_id}#{id}"}
+        )
         if item:
             return ExecuteWorkflowModel.to_cls(item)
         return None
@@ -45,8 +56,8 @@ class WorkflowExecuteManager:
         """This will delete the executed workflow"""
         DbManager().remove_item(
             {
-                "table": self.table,
-                "app_id": f"{wf_id}#{id}",
+                DbKeys.Primary.value: self.table,
+                DbKeys.Secondary.value: f"{wf_id}#{id}",
             }
         )
 

@@ -7,7 +7,7 @@ from fastapi.testclient import TestClient
 from moto import mock_aws
 from pytest import fixture
 
-from ai.config.env import Env
+from ai.config import Env
 from ai.model.enums import DbKeys
 from main import app
 
@@ -20,9 +20,14 @@ def setup_env() -> None:
     os.environ["DEEPSEEK_API_KEY"] = "DEEPSEEK"
     os.environ["GOOGLE_API_KEY"] = "GOOGLE_API_KEY"
     os.environ["GOOGLE_CSE_ID"] = "GOOGLE_CSE_ID"
-    os.environ["TABLE"] = "application"
+    # Changed from "TABLE" to "AWS_TABLE" to clarify AWS-specific usage and avoid naming conflicts.
+    os.environ["AWS_TABLE"] = "application"
     os.environ["AWS_REGION"] = "us-east-1"
-    os.environ["AWS_DEFAULT_REGION"] = "us-east-1"
+    os.environ["AWS_SECRET_MANAGER"] = "AWS_SECRET_MANAGER"
+    os.environ["AWS_CLIENT_ID"] = "AWS_CLIENT_ID"
+    os.environ["AWS_SECRET"] = "AWS_SECRET"
+    os.environ["APP_VERSION"] = "0.0.5t"
+    os.environ["APP_ENV"] = "test"
 
 
 @fixture(autouse=True)

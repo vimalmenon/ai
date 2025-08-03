@@ -1,38 +1,90 @@
+import json
 import os
+from dataclasses import dataclass
+from logging import getLogger
 
-from pydantic import BaseModel
+from botocore.exceptions import ClientError
+
+logger = getLogger(__name__)
 
 
-class Env(BaseModel):
-    temperature: float = float(os.getenv("TEMPERATURE", 0.0))
-    notes_path: str = f"{os.getcwd()}/ai/data/notes/data.txt"
-    debug: bool = bool(os.getenv("DEBUG", False))
-    table: str = str(os.getenv("TABLE"))
-    aws_client_id: str = str(os.getenv("AWS_CLIENT_ID"))
-    aws_secret: str = str(os.getenv("AWS_SECRET"))
-    supported_llm: list[str] = os.getenv("SUPPORTED_LLM", "").split(",")
-    port: int = int(os.getenv("PORT", 8000))
-    bucket: str = str(os.getenv("S3_BUCKET"))
-    eden_ai_api: str = str(os.getenv("EDEN_AI_API"))
-    openai_api: str = str(os.getenv("OPENAI_API_KEY"))
-    aws_sqs: str = str(os.getenv("AWS_SQS"))
-    aws_region: str = str(os.getenv("AWS_DEFAULT_REGION"))
+@dataclass
+class Env:
+    temperature: float
+    notes_path: str
+    table: str
+    aws_client_id: str
+    aws_secret: str
+    supported_llm: list[str]
+    port: int
+    bucket: str
+    eden_ai_api: str
+    openai_api: str
+    aws_sqs: str
+    aws_secret_manager: str
+    aws_region: str
+    version: str
+    env: str
+    debug: bool = False
 
     def __init__(self, **data):
-        super().__init__(**data)
-        self.temperature = float(os.getenv("TEMPERATURE", 0.0))
+        secrets = self.get_from_aws_secret()
+        self.temperature = float(
+            self.__get_from_env_or_secret(secrets, "TEMPERATURE", 0.0)
+        )
         self.notes_path = f"{os.getcwd()}/ai/data/notes/data.txt"
-        self.debug = bool(os.getenv("DEBUG", False))
-        self.table = str(os.getenv("TABLE"))
-        self.aws_client_id = str(os.getenv("AWS_CLIENT_ID"))
-        self.aws_secret = str(os.getenv("AWS_SECRET"))
-        self.supported_llm = os.getenv("SUPPORTED_LLM", "").split(",")
-        self.port = int(os.getenv("PORT", 8000))
-        self.bucket = str(os.getenv("S3_BUCKET"))
-        self.eden_ai_api = str(os.getenv("EDEN_AI_API"))
-        self.openai_api = str(os.getenv("OPENAI_API_KEY"))
-        self.aws_sqs = str(os.getenv("AWS_SQS"))
-        self.aws_region = str(os.getenv("AWS_DEFAULT_REGION"))
+        self.debug = bool(self.__get_from_env_or_secret(secrets, "DEBUG", False))
+        self.table = str(self.__get_from_env_or_secret(secrets, "AWS_TABLE", ""))
+        self.aws_client_id = str(
+            self.__get_from_env_or_secret(secrets, "AWS_CLIENT_ID", "")
+        )
+        self.aws_secret = str(self.__get_from_env_or_secret(secrets, "AWS_SECRET", ""))
+        self.supported_llm = self.__get_from_env_or_secret(
+            secrets, "SUPPORTED_LLM", ""
+        ).split(",")
+        self.port = int(self.__get_from_env_or_secret(secrets, "PORT", 8000))
+        self.bucket = str(self.__get_from_env_or_secret(secrets, "S3_BUCKET", ""))
+        self.eden_ai_api = str(
+            self.__get_from_env_or_secret(secrets, "EDEN_AI_API", "")
+        )
+        self.openai_api = str(
+            self.__get_from_env_or_secret(secrets, "OPENAI_API_KEY", "")
+        )
+        self.aws_sqs = str(self.__get_from_env_or_secret(secrets, "AWS_SQS", ""))
+        self.aws_secret_manager = str(
+            self.__get_from_env_or_secret(secrets, "AWS_SECRET_MANAGER", "")
+        )
+        self.aws_region = str(self.__get_from_env_or_secret(secrets, "AWS_REGION", ""))
+        self.version = str(os.getenv("APP_VERSION"))
+        self.env = str(os.getenv("APP_ENV"))
 
+    def __get_from_env_or_secret(self, secrets: dict[str, str], key: str, default=None):
+        """
+        Fetches a value from environment variables or AWS Secrets Manager.
+        :param key: The key to fetch.
+        :return: The value of the key.
+        """
+        return os.getenv(key, secrets.get(key, default))
 
-env = Env()
+    def get_from_aws_secret(self) -> dict[str, str]:
+        """
+        Fetches a secret from AWS Secrets Manager.
+        :param key: The key of the secret to fetch.
+        :return: The value of the secret.
+        """
+        import boto3
+
+        session = boto3.Session(
+            aws_access_key_id=os.getenv("AWS_CLIENT_ID"),
+            aws_secret_access_key=os.getenv("AWS_SECRET"),
+            region_name=os.getenv("AWS_REGION", "us-east-1"),
+        )
+        client = session.client("secretsmanager")
+        try:
+            response = client.get_secret_value(SecretId=os.getenv("AWS_SECRET_MANAGER"))
+            return json.loads(response["SecretString"])
+        except ClientError:
+            return {}
+        except Exception:
+            logger.error("Unexpected error occurred while fetching AWS secret")
+            return {}

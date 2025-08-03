@@ -17,7 +17,7 @@ from ai.apis import (
     router_workflow_execute,
     router_workflow_node,
 )
-from ai.config.env import env
+from ai.config import Env
 
 logger = getLogger(__name__)
 basicConfig(
@@ -25,7 +25,7 @@ basicConfig(
 )
 logger.info("Starting the application...")
 
-
+env = Env()
 app = FastAPI(debug=env.debug)
 
 
