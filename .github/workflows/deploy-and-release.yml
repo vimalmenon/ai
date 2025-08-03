@@ -26,8 +26,48 @@ env:
 
 jobs:
   # Single deploy job since we're just deploying
+  Prepare:
+    name: Prepare release
+    runs-on: ubuntu-latest
+    outputs:
+      patch: ${{ steps.values.outputs.patch }}
+      minor: ${{ steps.values.outputs.minor }}
+      major: ${{ steps.values.outputs.major }}
+      date: ${{ steps.values.outputs.date }}
+      selected: ${{ steps.values.outputs.selected }}
+    steps:
+      - uses: actions/checkout@v2.2.0
+        with:
+          fetch-depth: 0 # Required due to the weg Git works, without it this action won't be able to find any or the correct tags
+      - name: "Get Previous tag"
+        id: previoustag
+        uses: "WyriHaximus/github-action-get-previous-tag@v1"
+        with:
+          fallback: 0.0.0 # Optional fallback tag to use when no tag can be found
+      - name: "Get next minor version"
+        id: semvers
+        uses: "WyriHaximus/github-action-next-semvers@v1"
+        with:
+          version: ${{ steps.previoustag.outputs.tag }}
+        env:
+          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+      - name: "Setting values"
+        id: values
+        run: |
+          echo "::set-output name=patch::${{ steps.semvers.outputs.patch }}"
+          echo "::set-output name=minor::${{ steps.semvers.outputs.minor }}"
+          echo "::set-output name=major::${{ steps.semvers.outputs.major }}"
+          echo "::set-output name=date::$(date +'%d-%b-%Y')"
+          if [[ ${{github.event.inputs.Release}} == "Patch" ]]; then
+            echo "::set-output name=selected::${{ steps.semvers.outputs.patch }}"
+          elif [[ ${{github.event.inputs.Release}} == "Minor" ]]; then
+            echo "::set-output name=selected::${{ steps.semvers.outputs.minor }}"
+          else
+            echo "::set-output name=selected::${{ steps.semvers.outputs.major }}"
+          fi
   build-deploy-and-release:
     runs-on: ubuntu-latest
+    needs: [Prepare]
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -52,3 +92,5 @@ jobs:
           release_name: Release v${{ env.RELEASE }}
           draft: false
           prerelease: false
+      - name: echo Release
+        run: echo "Release created with tag v${{ needs.prepare.outputs.selected  }}"
