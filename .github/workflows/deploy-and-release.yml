@@ -36,7 +36,7 @@ jobs:
       date: ${{ steps.values.outputs.date }}
       selected: ${{ steps.values.outputs.selected }}
     steps:
-      - uses: actions/checkout@v2.2.0
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0 # Required due to the weg Git works, without it this action won't be able to find any or the correct tags
       - name: "Get Previous tag"
