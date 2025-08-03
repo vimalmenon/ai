@@ -4,6 +4,17 @@ on:
   # Runs on pushes targeting the default branch
   push:
     branches: ["main"]
+  workflow_dispatch:
+    inputs:
+      Release:
+        description: "Select a Release Type"
+        type: choice
+        required: true
+        default: Patch
+        options:
+          - Patch
+          - Minor
+          - Major
 
 env:
   DOCKER_REGISTRY: vimalsmenon
@@ -11,6 +22,7 @@ env:
   APP_NAME: ai.vimalmenon.com
   DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
   DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+  RELEASE_TYPE: Patch
 
 jobs:
   # Single deploy job since we're just deploying

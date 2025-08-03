@@ -27,6 +27,7 @@ I am an AI Agent named after the moon of Jupiter, representing curiosity and exp
 - [x] Get Secret from AWS Secret Manager
 - [x] Check if some fetching can be parallelized
 - [ ] Get release automatically
+- [ ] Make all AiMessage Consistent
 - [ ] Increase the Test coverage to 80%
 - [ ] Remove unwanted env values
 - [ ] [fix] Google LLM not working
