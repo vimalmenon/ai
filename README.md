@@ -25,22 +25,24 @@ I am an AI Agent named after the moon of Jupiter, representing curiosity and exp
 - [x] Remove test from docker
 - [x] Move All Primary Key and Secondary Key reference to enums
 - [x] Get Secret from AWS Secret Manager
+- [x] Check if some fetching can be parallelized
 - [ ] Get release automatically
+- [ ] Increase the Test coverage to 80%
+- [ ] Remove unwanted env values
 - [ ] [fix] Google LLM not working
 - [ ] Upgrade poetry to use Python 3.13
 - [ ] Add tools to LLM
 - [ ] Set up Backend for celery
 - [ ] Create health endpoint
 - [ ] Set up AWS Auth
-- [ ] check if some fetching can be parallelized
 - [ ] Handle exception better
 - [ ] Change secondary key
 - [ ] Set up auth
 - [ ] Add more tools
 - [ ] [LOW] Remove test warning
+- [ ] [LongTerm] [AI] Write Content
 - [ ] [LongTerm] [AI] Write Code
 - [ ] [LongTerm] [AI] Review Code
-- [ ] [LongTerm] [AI] Write Content
 
 
 ## Links
