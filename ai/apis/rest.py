@@ -1,6 +1,7 @@
 from fastapi import APIRouter
 
-from ai.model import LLMResponse
+from ai.config import Env
+from ai.model import AppInfo, LLMResponse
 from ai.model.enums import Service, StructuredOutputType, Tool, WorkflowType
 from ai.services import LlmService
 from ai.utilities import generate_uuid
@@ -47,3 +48,10 @@ async def get_structured_output_types():
 @router.get("/health")
 async def get_health():
     return {"data": []}
+
+
+@router.get("/info")
+async def get_info():
+    """This List out all available info"""
+    env = Env()
+    return {"data": AppInfo(env=env.env, version=env.version)}

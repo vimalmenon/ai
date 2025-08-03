@@ -3,6 +3,7 @@ from ai.model.blog import BlogTopic
 from ai.model.contact import ContactRequestForm
 from ai.model.link import Link, LinkGroup, LinkGroupSlim, LinkSlim
 from ai.model.llm import LLMResponse
+from ai.model.other import AppInfo
 from ai.model.request import ResumeWorkflowRequest
 from ai.model.s3 import S3Item, S3Request
 from ai.model.service import DbServiceModel
@@ -48,4 +49,5 @@ __all__ = [
     "LinkGroup",
     "LinkSlim",
     "LinkGroupSlim",
+    "AppInfo",
 ]

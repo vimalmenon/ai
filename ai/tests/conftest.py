@@ -26,6 +26,8 @@ def setup_env() -> None:
     os.environ["AWS_SECRET_MANAGER"] = "AWS_SECRET_MANAGER"
     os.environ["AWS_CLIENT_ID"] = "AWS_CLIENT_ID"
     os.environ["AWS_SECRET"] = "AWS_SECRET"
+    os.environ["APP_VERSION"] = "0.0.5t"
+    os.environ["APP_ENV"] = "test"
 
 
 @fixture(autouse=True)

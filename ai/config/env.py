@@ -23,6 +23,8 @@ class Env:
     aws_sqs: str
     aws_secret_manager: str
     aws_region: str
+    version: str
+    env: str
     debug: bool = False
 
     def __init__(self, **data):
@@ -53,6 +55,8 @@ class Env:
             self.__get_from_env_or_secret(secrets, "AWS_SECRET_MANAGER", "")
         )
         self.aws_region = str(self.__get_from_env_or_secret(secrets, "AWS_REGION", ""))
+        self.version = str(os.getenv("APP_VERSION"))
+        self.env = str(os.getenv("APP_ENV"))
 
     def __get_from_env_or_secret(self, secrets: dict[str, str], key: str, default=None):
         """
