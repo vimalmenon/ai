@@ -56,6 +56,10 @@ poetry run fastapi dev main.py
 ```sh
 poetry run ruff check --fix
 ```
+Run poetry test in watch mode
+```sh
+poetry run ptw
+```
 Clean up Remote branch
 ```sh
 git remote update origin --prune

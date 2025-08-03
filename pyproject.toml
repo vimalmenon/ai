@@ -46,6 +46,7 @@ moto = "^5.1.9"
 pytest-cov = "^6.2.1"
 factory-boy = "^3.3.3"
 pytest-factoryboy = "^2.8.1"
+pytest-watch = "^4.2.0"
 
 [build-system]
 requires = ["poetry-core"]
