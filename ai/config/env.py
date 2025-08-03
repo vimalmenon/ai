@@ -64,8 +64,6 @@ class Env:
         :return: The value of the secret.
         """
         import boto3
-        from botocore.exceptions import ClientError
-
         session = boto3.Session(
             aws_access_key_id=os.getenv("AWS_CLIENT_ID"),
             aws_secret_access_key=os.getenv("AWS_SECRET"),
