@@ -77,25 +77,25 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Login to DockerHub
-        uses: docker/login-action@v3
-        with:
-          username: ${{ env.DOCKERHUB_USERNAME }}
-          password: ${{ env.DOCKERHUB_TOKEN }}
-      - name: Docker push
-        run: |
-          docker build -t ${{ env.APP_NAME }}:${{ env.RELEASE }} .
-          docker tag ${{ env.APP_NAME }}:${{ env.RELEASE }} ${{ env.DOCKER_REGISTRY }}/${{ env.APP_NAME }}:${{ env.RELEASE }}
-          docker push ${{ env.DOCKER_REGISTRY }}/${{env.APP_NAME}}:${{ env.RELEASE }}
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@latest
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
-        with:
-          tag_name: v${{ env.RELEASE }}
-          release_name: Release v${{ env.RELEASE }}
-          draft: false
-          prerelease: false
+      # - name: Login to DockerHub
+      #   uses: docker/login-action@v3
+      #   with:
+      #     username: ${{ env.DOCKERHUB_USERNAME }}
+      #     password: ${{ env.DOCKERHUB_TOKEN }}
+      # - name: Docker push
+      #   run: |
+      #     docker build -t ${{ env.APP_NAME }}:${{ env.RELEASE }} .
+      #     docker tag ${{ env.APP_NAME }}:${{ env.RELEASE }} ${{ env.DOCKER_REGISTRY }}/${{ env.APP_NAME }}:${{ env.RELEASE }}
+      #     docker push ${{ env.DOCKER_REGISTRY }}/${{env.APP_NAME}}:${{ env.RELEASE }}
+      # - name: Create Release
+      #   id: create_release
+      #   uses: actions/create-release@latest
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+      #   with:
+      #     tag_name: v${{ env.RELEASE }}
+      #     release_name: Release v${{ env.RELEASE }}
+      #     draft: false
+      #     prerelease: false
       - name: echo Release
         run: echo "Release created with tag v${{ needs.prepare.outputs.selected  }}"
