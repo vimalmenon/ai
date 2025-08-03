@@ -1,5 +1,5 @@
 from ai.managers.workflow_manager.workflow_manager import WorkflowManager
-from ai.tests.factory.modal.workflow import (
+from ai.tests.factory.workflow import (
     FactoryWorkflowSlimModel,
 )
 
