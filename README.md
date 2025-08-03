@@ -26,8 +26,8 @@ I am an AI Agent named after the moon of Jupiter, representing curiosity and exp
 - [x] Move All Primary Key and Secondary Key reference to enums
 - [x] Get Secret from AWS Secret Manager
 - [x] Check if some fetching can be parallelized
-- [ ] Get release automatically
-- [ ] get Info API
+- [x] get Info API
+- [ ] Get and update release version automatically
 - [ ] Make all AiMessage Consistent
 - [ ] Increase the Test coverage to 80%
 - [ ] Remove unwanted env values
