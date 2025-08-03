@@ -6,6 +6,7 @@ from boto3.dynamodb.conditions import Key
 from ai.exceptions.exceptions import ClientError
 from ai.managers import DbManager
 from ai.model import UpdateWorkflowRequest, WorkflowModel, WorkflowSlimModel
+from ai.model.enums import DbKeys
 from ai.utilities import created_date, generate_uuid
 
 logger = getLogger(__name__)
@@ -16,14 +17,16 @@ class WorkflowManager:
 
     def get_workflows(self) -> list[WorkflowModel]:
         """This List out all workflows details"""
-        items = DbManager().query_items(Key("table").eq(self.table))
+        items = DbManager().query_items(Key(DbKeys.Primary.value).eq(self.table))
         if not items:
             return []
         return [WorkflowModel.to_cls(item) for item in items]
 
     def get_workflow_by_id(self, id: str) -> WorkflowModel | None:
         """Get the workflow by ID"""
-        item = DbManager().get_item({"table": self.table, "app_id": id})
+        item = DbManager().get_item(
+            {DbKeys.Primary.value: self.table, DbKeys.Secondary.value: id}
+        )
         if item:
             return WorkflowModel.to_cls(item)
         return None
@@ -32,12 +35,20 @@ class WorkflowManager:
         """Create workflow"""
         uuid = generate_uuid()
         item = WorkflowModel(id=uuid, name=data.name)
-        DbManager().add_item({"table": self.table, "app_id": uuid, **item.to_dict()})
+        DbManager().add_item(
+            {
+                DbKeys.Primary.value: self.table,
+                DbKeys.Secondary.value: uuid,
+                **item.to_dict(),
+            }
+        )
         return item
 
     def update_workflow(self, id: str, data: UpdateWorkflowRequest) -> None:
         """Update workflow"""
-        item = DbManager().get_item({"table": self.table, "app_id": id})
+        item = DbManager().get_item(
+            {DbKeys.Primary.value: self.table, DbKeys.Secondary.value: id}
+        )
         if item:
             (
                 update_expression,
@@ -45,7 +56,7 @@ class WorkflowManager:
                 expression_attribute_names,
             ) = self.__get_workflow_details(data)
             DbManager().update_item(
-                Key={"table": self.table, "app_id": id},
+                Key={DbKeys.Primary.value: self.table, DbKeys.Secondary.value: id},
                 UpdateExpression=update_expression,
                 ExpressionAttributeValues=expression_attribute_values,
                 ExpressionAttributeNames=expression_attribute_names,
@@ -59,9 +70,13 @@ class WorkflowManager:
 
     def delete_workflows_by_id(self, id: str) -> None:
         """Delete the workflow by ID"""
-        item = DbManager().get_item({"table": self.table, "app_id": id})
+        item = DbManager().get_item(
+            {DbKeys.Primary.value: self.table, DbKeys.Secondary.value: id}
+        )
         if item:
-            DbManager().remove_item({"table": self.table, "app_id": id})
+            DbManager().remove_item(
+                {DbKeys.Primary.value: self.table, DbKeys.Secondary.value: id}
+            )
         else:
             logger.warning(f"Workflow with ID {id} not found.")
             raise ClientError(
@@ -72,7 +87,7 @@ class WorkflowManager:
     def update_workflow_node(self, wf_id: str, nodes: dict) -> None:
         """Update the workflow node by ID"""
         DbManager().update_item(
-            Key={"table": self.table, "app_id": wf_id},
+            Key={DbKeys.Primary.value: self.table, DbKeys.Secondary.value: wf_id},
             UpdateExpression="set nodes= :nodes",
             ExpressionAttributeValues={":nodes": nodes},
         )
