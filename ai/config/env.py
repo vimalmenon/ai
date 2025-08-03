@@ -1,6 +1,11 @@
 import json
 import os
 from dataclasses import dataclass
+from logging import getLogger
+
+from botocore.exceptions import ClientError
+
+logger = getLogger(__name__)
 
 
 @dataclass
@@ -64,6 +69,7 @@ class Env:
         :return: The value of the secret.
         """
         import boto3
+
         session = boto3.Session(
             aws_access_key_id=os.getenv("AWS_CLIENT_ID"),
             aws_secret_access_key=os.getenv("AWS_SECRET"),
@@ -75,6 +81,6 @@ class Env:
             return json.loads(response["SecretString"])
         except ClientError:
             return {}
-        except Exception as e:
-            logging.exception("Unexpected error occurred while fetching AWS secret")
+        except Exception:
+            logger.error("Unexpected error occurred while fetching AWS secret")
             return {}
