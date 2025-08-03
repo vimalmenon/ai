@@ -16,6 +16,9 @@ on:
           - Minor
           - Major
 
+permissions:
+  contents: write
+
 env:
   DOCKER_REGISTRY: vimalsmenon
   RELEASE: 0.0.19
