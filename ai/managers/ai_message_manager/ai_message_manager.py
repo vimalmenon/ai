@@ -1,3 +1,5 @@
+from boto3.dynamodb.conditions import Key
+
 from ai.managers import DbManager
 from ai.model import AiMessage
 
@@ -14,3 +16,7 @@ class AiMessageManager:
             }
         )
         return data
+
+    def get_data(self, exec_id: str) -> list[AiMessage]:
+        items = DbManager().query_items(Key("table").eq(f"{self.table}#{exec_id}"))
+        return [AiMessage.to_cls(item) for item in items]

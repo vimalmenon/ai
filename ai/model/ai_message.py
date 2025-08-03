@@ -26,3 +26,14 @@ class AiMessage(Base):
             "model_name": self.model_name,
             "type": self.type.value,
         }
+
+    @classmethod
+    def to_cls(cls, data: dict) -> "AiMessage":
+        """Convert a dictionary to an AiMessage instance."""
+        return cls(
+            id=data.get("id"),
+            content=data.get("content"),
+            type=AIMessageType(data.get("type")),
+            total_token=data.get("total_token"),
+            model_name=data.get("model_name"),
+        )
