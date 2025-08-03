@@ -23,12 +23,12 @@ I am an AI Agent named after the moon of Jupiter, representing curiosity and exp
 - [x] Create release with tag
 - [x] Improve the class for env
 - [x] Remove test from docker
+- [x] Move All Primary Key and Secondary Key reference to enums
+- [x] Get Secret from AWS Secret Manager
 - [ ] Get release automatically
-- [ ] Move All Primary Key and Secondary Key reference to enums
 - [ ] [fix] Google LLM not working
 - [ ] Upgrade poetry to use Python 3.13
 - [ ] Add tools to LLM
-- [ ] Get Secret from AWS Secret Manager
 - [ ] Set up Backend for celery
 - [ ] Create health endpoint
 - [ ] Set up AWS Auth
