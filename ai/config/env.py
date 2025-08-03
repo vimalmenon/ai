@@ -77,5 +77,6 @@ class Env:
             return json.loads(response["SecretString"])
         except ClientError:
             return {}
-        except Exception:
+        except Exception as e:
+            logging.exception("Unexpected error occurred while fetching AWS secret")
             return {}
