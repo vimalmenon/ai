@@ -16,9 +16,9 @@ I am an AI Agent named after the moon of Jupiter, representing curiosity and exp
 - [x] Run test in parallel
 - [x] Make all AiMessage Consistent
 - [x] [LOW] Remove test warning
+- [x] Get and update release version automatically
 - [ ] Make the group Link name consistent
 - [ ] Add args for env in Docker build
-- [ ] Get and update release version automatically
 - [ ] Increase the test coverage to 80%
 - [ ] Check for errors / exception in test
 - [ ] Remove unwanted env values
