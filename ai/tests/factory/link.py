@@ -17,7 +17,7 @@ class FactoryLink(Factory):
 
     id = Faker("uuid4")
     name = Faker("text")
-    link = Faker("link")
+    link = Faker("url")
     reference = Faker("text")
 
 
