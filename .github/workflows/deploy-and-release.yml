@@ -84,7 +84,7 @@ jobs:
           password: ${{ env.DOCKERHUB_TOKEN }}
       - name: Docker push
         run: |
-          docker build -t --build-arg APP_VERSION=${{ needs.prepare.outputs.selected }} ${{ env.APP_NAME }}:${{ needs.prepare.outputs.selected }} .
+          docker build --build-arg APP_VERSION=${{ needs.prepare.outputs.selected }} -t ${{ env.APP_NAME }}:${{ needs.prepare.outputs.selected }} .
           docker tag ${{ env.APP_NAME }}:${{ needs.prepare.outputs.selected }} ${{ env.DOCKER_REGISTRY }}/${{ env.APP_NAME }}:${{ needs.prepare.outputs.selected }}
           docker push ${{ env.DOCKER_REGISTRY }}/${{env.APP_NAME}}:${{ needs.prepare.outputs.selected }}
       - name: Create Release
