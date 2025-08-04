@@ -26,5 +26,6 @@ RUN chown -R appuser:appgroup /app
 # Switch to non-root user
 USER appuser
 
+EXPOSE 8000
 
 CMD ["poetry", "run", "app", "&", "poetry", "run", "celery", "-A", "tasks", "worker", "-l", "info"]
