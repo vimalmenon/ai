@@ -4,7 +4,6 @@ ARG APP_VERSION=0.0.0
 ARG APP_ENV="Prod"
 
 
-
 WORKDIR /app
 
 COPY ai ai
