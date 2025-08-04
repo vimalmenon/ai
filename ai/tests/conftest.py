@@ -12,34 +12,26 @@ from ai.model.enums import DbKeys
 from main import app
 
 
-def setup_env() -> None:
+@fixture(autouse=True)
+def setup_env(faker) -> None:
     """
     Set up the environment for testing.
     """
     os.environ["SUPPORTED_LLM"] = "OLLAMA"
     os.environ["DEEPSEEK_API_KEY"] = "DEEPSEEK"
-    os.environ["GOOGLE_API_KEY"] = "GOOGLE_API_KEY"
-    os.environ["GOOGLE_CSE_ID"] = "GOOGLE_CSE_ID"
-    # Changed from "TABLE" to "AWS_TABLE" to clarify AWS-specific usage and avoid naming conflicts.
+    os.environ["GOOGLE_API_KEY"] = faker.pystr()
+    os.environ["GOOGLE_CSE_ID"] = faker.pystr()
     os.environ["AWS_TABLE"] = "application"
     os.environ["AWS_REGION"] = "us-east-1"
-    os.environ["AWS_SECRET_MANAGER"] = "AWS_SECRET_MANAGER"
-    os.environ["AWS_CLIENT_ID"] = "AWS_CLIENT_ID"
-    os.environ["AWS_SECRET"] = "AWS_SECRET"
+    os.environ["AWS_SECRET_MANAGER"] = faker.pystr()
+    os.environ["AWS_CLIENT_ID"] = faker.pystr()
+    os.environ["AWS_SECRET"] = faker.pystr()
     os.environ["APP_VERSION"] = "0.0.5t"
     os.environ["APP_ENV"] = "test"
 
 
-@fixture(autouse=True)
-def setup_environment() -> None:
-    """
-    Fixture to set up the environment for testing.
-    """
-    setup_env()
-
-
 @fixture(scope="function")
-def dynamodb_mock(setup_environment):
+def dynamodb_mock(setup_env):
     env = Env()
     with mock_aws():
         dynamodb = boto3.resource("dynamodb", region_name="us-east-1")
@@ -60,7 +52,7 @@ def dynamodb_mock(setup_environment):
 
 
 @fixture(scope="function")
-def client(setup_environment) -> Generator[TestClient, Any, None]:
+def client(setup_env) -> Generator[TestClient, Any, None]:
     """
     Fixture to create a test client for the FastAPI application.
     """

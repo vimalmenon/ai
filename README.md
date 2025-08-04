@@ -13,9 +13,14 @@ I am an AI Agent named after the moon of Jupiter, representing curiosity and exp
 
 ## To Do
 
+- [x] Run test in parallel
+- [x] Make all AiMessage Consistent
+- [x] [LOW] Remove test warning
+- [ ] Make the group Link name consistent
+- [ ] Add args for env in Docker build
 - [ ] Get and update release version automatically
-- [ ] Make all AiMessage Consistent
-- [ ] Increase the Test coverage to 80%
+- [ ] Increase the test coverage to 80%
+- [ ] Check for errors / exception in test
 - [ ] Remove unwanted env values
 - [ ] [fix] Google LLM not working
 - [ ] Upgrade poetry to use Python 3.13
@@ -27,7 +32,6 @@ I am an AI Agent named after the moon of Jupiter, representing curiosity and exp
 - [ ] Change secondary key
 - [ ] Set up auth
 - [ ] Add more tools
-- [ ] [LOW] Remove test warning
 - [ ] [LongTerm] [AI] Write Content
 - [ ] [LongTerm] [AI] Write Code
 - [ ] [LongTerm] [AI] Review Code

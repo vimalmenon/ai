@@ -1,5 +1,7 @@
 FROM python:3.11-slim-bookworm
 
+ARG APP_VERSION=0.0.0, APP_ENV="Prod"
+
 WORKDIR /app
 
 COPY ai ai

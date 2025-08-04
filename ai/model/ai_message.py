@@ -1,11 +1,11 @@
 from ai.model.base_model import Base
-from ai.model.enums import AIMessageType
+from ai.model.enums import AiMessageType
 
 
 class AiMessage(Base):
     id: str
     content: str
-    type: AIMessageType
+    type: AiMessageType
     total_token: str | None = None
     model_name: str | None = None
 
@@ -33,7 +33,7 @@ class AiMessage(Base):
         return cls(
             id=data.get("id"),
             content=data.get("content"),
-            type=AIMessageType(data.get("type")),
+            type=AiMessageType(data.get("type")),
             total_token=data.get("total_token"),
             model_name=data.get("model_name"),
         )

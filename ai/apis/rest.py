@@ -3,7 +3,7 @@ from fastapi import APIRouter
 from ai.config import Env
 from ai.model import AppInfo, LLMResponse
 from ai.model.enums import Service, StructuredOutputType, Tool, WorkflowType
-from ai.services import LlmService
+from ai.services import HealthService, LlmService
 from ai.utilities import generate_uuid
 
 router = APIRouter()
@@ -47,7 +47,7 @@ async def get_structured_output_types():
 
 @router.get("/health")
 async def get_health():
-    return {"data": []}
+    return {"data": HealthService().get_status()}
 
 
 @router.get("/info")
