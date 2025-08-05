@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "ai"
-version = "0.0.0"
+version = "0.0.19"
 description = "This is AI Agent"
 authors = ["Vimal Menon"]
 readme = "README.md"
