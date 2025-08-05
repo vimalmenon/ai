@@ -5,15 +5,15 @@ from ai.utilities import generate_uuid
 
 class LinkService:
 
-    def create_group_link(self, data: LinkGroupSlim) -> list[LinkGroup]:
-        LinkManager().create_group_link(
+    def create_link_group(self, data: LinkGroupSlim) -> list[LinkGroup]:
+        LinkManager().create_link_group(
             LinkGroup(id=generate_uuid(), name=data.name, links=[])
         )
         return LinkManager().get_links()
 
     def create_link(self, id: str, data: LinkSlim) -> list[LinkGroup]:
         manager = LinkManager()
-        result = manager.get_group_link_by_id(id)
+        result = manager.get_link_group_by_id(id)
         result.links.append(
             Link(
                 id=generate_uuid(),
@@ -22,7 +22,7 @@ class LinkService:
                 reference=data.reference,
             )
         )
-        manager.update_group_link(result)
+        manager.update_link_group(result)
         return LinkManager().get_links()
 
     def delete_link_group(self, id: str) -> None:
