@@ -5,12 +5,13 @@ on:
   workflow_dispatch:
 
 jobs:
-  test-workflow:
-    name: Test Workflow
+  Prepare:
+    name: Prepare Workflow
     uses: vimalmenon/git-action-anywhere/.github/workflows/next-version.yml@main
   quality-check:
     name: Quality Check
     runs-on: ubuntu-latest
+    needs: [Prepare]
     strategy:
       matrix:
         python-version: ["3.11"]
@@ -35,3 +36,5 @@ jobs:
         uses: SonarSource/sonarqube-scan-action@v5
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      - name: echo Release
+        run: echo "Release created with tag v${{ needs.prepare.outputs.selected  }}"
