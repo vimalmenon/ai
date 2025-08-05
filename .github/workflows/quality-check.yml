@@ -5,13 +5,9 @@ on:
   workflow_dispatch:
 
 jobs:
-  Prepare:
-    name: Prepare Workflow
-    uses: vimalmenon/git-action-anywhere/.github/workflows/next-version.yml@main
   quality-check:
     name: Quality Check
     runs-on: ubuntu-latest
-    needs: [Prepare]
     strategy:
       matrix:
         python-version: ["3.11"]
@@ -25,6 +21,7 @@ jobs:
     uses: vimalmenon/git-action-anywhere/.github/workflows/next-version.yml@main
     with:
       release_type: ${{ github.event.inputs.Release || 'Patch' }}
+      
       # - name: Install Poetry
       #   uses: snok/install-poetry@v1
       #   with:
@@ -42,6 +39,6 @@ jobs:
       #     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
   echo-release:
     runs-on: ubuntu-latest
-    needs: Prepare
+    needs: versions
     steps:
-      - run: echo "Release created with tag v${{ needs.release.outputs.selected  }}"
+      - run: echo "Release created with tag v${{ needs.versions.outputs.selected  }}"
