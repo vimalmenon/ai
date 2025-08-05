@@ -6,6 +6,7 @@ on:
 
 jobs:
   test-workflow:
+    name: Test Workflow
     uses: vimalmenon/git-action-anywhere/.github/workflows/next-version.yml@main
   quality-check:
     name: Quality Check
