@@ -28,4 +28,4 @@ USER appuser
 
 EXPOSE 8000
 
-CMD ["poetry", "run", "app", "&", "poetry", "run", "celery", "-A", "tasks", "worker", "-l", "info"]
+CMD ["sh", "-c", "poetry run app & poetry run celery -A tasks worker -l info"]
