@@ -18,9 +18,9 @@ I am an AI Agent named after the moon of Jupiter, representing curiosity and exp
 - [x] [LOW] Remove test warning
 - [x] Get and update release version automatically
 - [x] Add args for env in Docker build
+- [x] Check for errors / exception in test
 - [ ] Make the group Link name consistent
 - [ ] Increase the test coverage to 80%
-- [ ] Check for errors / exception in test
 - [ ] Remove unwanted env values
 - [ ] [fix] Google LLM not working
 - [ ] Upgrade poetry to use Python 3.13
