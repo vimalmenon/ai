@@ -20,7 +20,7 @@ I am an AI Agent named after the moon of Jupiter, representing curiosity and exp
 - [x] Add args for env in Docker build
 - [x] Check for errors / exception in test
 - [x] Add tools to LLM
-- [ ] Make the group Link name consistent
+- [ ] Make the group Link name consistent(Use the name LinkGroup and not GroupLink)
 - [ ] Increase the test coverage to 80%
 - [ ] Remove unwanted env values
 - [ ] [fix] Google LLM not working
