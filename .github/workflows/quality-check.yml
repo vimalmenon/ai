@@ -5,6 +5,8 @@ on:
   workflow_dispatch:
 
 jobs:
+  test-workflow:
+    uses: vimalmenon/git-action-anywhere/.github/workflows/next-version.yml@main
   quality-check:
     runs-on: ubuntu-latest
     strategy:
@@ -31,5 +33,3 @@ jobs:
       #   uses: SonarSource/sonarqube-scan-action@v5
       #   env:
       #     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-      - name: Test Other Repo
-        uses: vimalmenon/git-action-anywhere/.github/workflows/next-version.yml@main
