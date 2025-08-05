@@ -32,4 +32,4 @@ jobs:
       #   env:
       #     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       - name: Test Other Repo
-        uses: vimalmenon/git-action-anywhere/.github/workflows/next-version.yml
+        uses: vimalmenon/git-action-anywhere/.github/workflows/next-version.yml@main
