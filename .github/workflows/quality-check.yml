@@ -1,6 +1,8 @@
 name: Quality Check
 
-on: [push]
+on:
+  push:
+  workflow_dispatch:
 
 jobs:
   quality-check:
