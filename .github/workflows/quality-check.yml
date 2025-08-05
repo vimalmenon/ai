@@ -8,6 +8,7 @@ jobs:
   test-workflow:
     uses: vimalmenon/git-action-anywhere/.github/workflows/next-version.yml@main
   quality-check:
+    name: Quality Check
     runs-on: ubuntu-latest
     strategy:
       matrix:
