@@ -11,13 +11,6 @@ I am an AI Agent named after the moon of Jupiter, representing curiosity and exp
 
 ## To Do
 
-- [x] Run test in parallel
-- [x] Make all AiMessage Consistent
-- [x] [LOW] Remove test warning
-- [x] Get and update release version automatically
-- [x] Add args for env in Docker build
-- [x] Check for errors / exception in test
-- [x] Add tools to LLM
 - [ ] Make the group Link name consistent(Use the name LinkGroup and not GroupLink)
 - [ ] Increase the test coverage to 80%
 - [ ] Remove unwanted env values
