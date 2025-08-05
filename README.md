@@ -19,12 +19,12 @@ I am an AI Agent named after the moon of Jupiter, representing curiosity and exp
 - [x] Get and update release version automatically
 - [x] Add args for env in Docker build
 - [x] Check for errors / exception in test
+- [x] Add tools to LLM
 - [ ] Make the group Link name consistent
 - [ ] Increase the test coverage to 80%
 - [ ] Remove unwanted env values
 - [ ] [fix] Google LLM not working
 - [ ] Upgrade poetry to use Python 3.13
-- [ ] Add tools to LLM
 - [ ] Set up Backend for celery
 - [ ] Create health endpoint
 - [ ] Set up AWS Auth
