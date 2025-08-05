@@ -37,4 +37,4 @@ jobs:
       #   env:
       #     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       - name: echo Release
-        run: echo "Release created with tag v${{ needs.Prepare.outputs.selected  }}"
+        run: echo "Release created with tag v${{ needs.release.outputs.selected  }}"
