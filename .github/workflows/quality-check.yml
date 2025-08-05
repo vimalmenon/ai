@@ -34,5 +34,4 @@ jobs:
       - name: Test Other Repo
         uses: actions/checkout@v4
         with:
-          repository: vimalmenon/git-action-anywhere
-          path: next-version.yml
+          repository: vimalmenon/git-action-anywhere/.github/workflows/next-version.yml
