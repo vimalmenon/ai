@@ -29,3 +29,8 @@ jobs:
         uses: SonarSource/sonarqube-scan-action@v5
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      - name: Test Other Repo
+        uses: actions/checkout@v4
+        with:
+          repository: vimalmenon/git-action-anywhere
+          path: next-version.yml
