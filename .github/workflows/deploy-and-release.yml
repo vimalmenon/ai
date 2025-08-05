@@ -16,9 +16,11 @@ on:
           - Minor
           - Major
 
+permissions:
+  contents: write
+
 env:
   DOCKER_REGISTRY: vimalsmenon
-  RELEASE: 0.0.18
   APP_NAME: ai.vimalmenon.com
   DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
   DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
@@ -26,48 +28,14 @@ env:
 
 jobs:
   # Single deploy job since we're just deploying
-  Prepare:
-    name: Prepare release
-    runs-on: ubuntu-latest
-    outputs:
-      patch: ${{ steps.values.outputs.patch }}
-      minor: ${{ steps.values.outputs.minor }}
-      major: ${{ steps.values.outputs.major }}
-      date: ${{ steps.values.outputs.date }}
-      selected: ${{ steps.values.outputs.selected }}
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0 # Required due to the weg Git works, without it this action won't be able to find any or the correct tags
-      - name: "Get Previous tag"
-        id: previoustag
-        uses: "WyriHaximus/github-action-get-previous-tag@v1"
-        with:
-          fallback: 0.0.0 # Optional fallback tag to use when no tag can be found
-      - name: "Get next minor version"
-        id: semvers
-        uses: "WyriHaximus/github-action-next-semvers@v1"
-        with:
-          version: ${{ steps.previoustag.outputs.tag }}
-        env:
-          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
-      - name: "Setting values"
-        id: values
-        run: |
-          echo "::set-output name=patch::${{ steps.semvers.outputs.patch }}"
-          echo "::set-output name=minor::${{ steps.semvers.outputs.minor }}"
-          echo "::set-output name=major::${{ steps.semvers.outputs.major }}"
-          echo "::set-output name=date::$(date +'%d-%b-%Y')"
-          if [[ ${{github.event.inputs.Release}} == "Patch" ]]; then
-            echo "::set-output name=selected::${{ steps.semvers.outputs.patch }}"
-          elif [[ ${{github.event.inputs.Release}} == "Minor" ]]; then
-            echo "::set-output name=selected::${{ steps.semvers.outputs.minor }}"
-          else
-            echo "::set-output name=selected::${{ steps.semvers.outputs.major }}"
-          fi
+  get-version:
+    uses: vimalmenon/git-action-anywhere/.github/workflows/next-version.yml@main
+    with:
+      release_type: ${{ github.event.inputs.Release }}
+
   build-deploy-and-release:
     runs-on: ubuntu-latest
-    needs: [Prepare]
+    needs: [get-version]
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -79,18 +47,18 @@ jobs:
           password: ${{ env.DOCKERHUB_TOKEN }}
       - name: Docker push
         run: |
-          docker build -t ${{ env.APP_NAME }}:${{ env.RELEASE }} .
-          docker tag ${{ env.APP_NAME }}:${{ env.RELEASE }} ${{ env.DOCKER_REGISTRY }}/${{ env.APP_NAME }}:${{ env.RELEASE }}
-          docker push ${{ env.DOCKER_REGISTRY }}/${{env.APP_NAME}}:${{ env.RELEASE }}
+          docker build --build-arg APP_VERSION=${{ needs.get-version.outputs.release }} -t ${{ env.APP_NAME }}:${{ needs.get-version.outputs.release }} .
+          docker tag ${{ env.APP_NAME }}:${{ needs.get-version.outputs.release }} ${{ env.DOCKER_REGISTRY }}/${{ env.APP_NAME }}:${{ needs.get-version.outputs.release }}
+          docker push ${{ env.DOCKER_REGISTRY }}/${{env.APP_NAME}}:${{ needs.get-version.outputs.release }}
       - name: Create Release
         id: create_release
         uses: actions/create-release@latest
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
         with:
-          tag_name: v${{ env.RELEASE }}
-          release_name: Release v${{ env.RELEASE }}
+          tag_name: v${{ needs.get-version.outputs.release }}
+          release_name: Release v${{ needs.get-version.outputs.release }}
           draft: false
           prerelease: false
       - name: echo Release
-        run: echo "Release created with tag v${{ needs.prepare.outputs.selected  }}"
+        run: echo "Release created with tag v${{ needs.get-version.outputs.release  }}"

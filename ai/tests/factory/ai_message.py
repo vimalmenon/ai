@@ -1,7 +1,7 @@
 from factory import Factory, Faker
 
 from ai.model import AiMessage
-from ai.model.enums import AIMessageType
+from ai.model.enums import AiMessageType
 
 
 class FactoryAiMessage(Factory):
@@ -13,10 +13,10 @@ class FactoryAiMessage(Factory):
     type = Faker(
         "random_element",
         elements=[
-            AIMessageType.AI,
-            AIMessageType.Human,
-            AIMessageType.System,
-            AIMessageType.Tool,
+            AiMessageType.AI,
+            AiMessageType.Human,
+            AiMessageType.System,
+            AiMessageType.Tool,
         ],
     )
     total_token = Faker("random_int", min=0, max=1000)

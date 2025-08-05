@@ -1,4 +1,4 @@
-def test_workflow(client) -> None:
+def test_workflow(client, dynamodb_mock) -> None:
     """
     Test the workflow API endpoints.
     """

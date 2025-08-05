@@ -57,7 +57,7 @@ class LLMs(Enum):
     OpenAI = "OpenAI"
 
 
-class AIMessageType(Enum):
+class AiMessageType(Enum):
     Human = "Human"
     AI = "AI"
     System = "System"
