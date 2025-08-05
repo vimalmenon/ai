@@ -11,7 +11,8 @@ I am an AI Agent named after the moon of Jupiter, representing curiosity and exp
 
 ## To Do
 
-- [ ] Make the group Link name consistent(Use the name LinkGroup and not GroupLink)
+- [x] Make the group Link name consistent(Use the name LinkGroup and not GroupLink)
+- [x] Handle exception better
 - [ ] Increase the test coverage to 80%
 - [ ] Remove unwanted env values
 - [ ] [fix] Google LLM not working
@@ -19,7 +20,6 @@ I am an AI Agent named after the moon of Jupiter, representing curiosity and exp
 - [ ] Set up Backend for celery
 - [ ] Create health endpoint
 - [ ] Set up AWS Auth
-- [ ] Handle exception better
 - [ ] Change secondary key
 - [ ] Set up auth
 - [ ] Add more tools
