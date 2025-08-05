@@ -26,7 +26,7 @@ class FactoryLinkSlim(Factory):
         model = LinkSlim
 
     name = Faker("text")
-    link = Faker("text")
+    link = Faker("url")
     reference = Faker("text")
 
 
