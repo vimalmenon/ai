@@ -6,7 +6,7 @@ authors = ["Vimal Menon"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.11"
+python = "^3.13"
 langchain = "^0.3.19"
 pydantic = "^2.10.6"
 langchain-google-genai = "^2.0.10"
