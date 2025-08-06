@@ -13,7 +13,7 @@ I am an AI Agent named after the moon of Jupiter, representing curiosity and exp
 
 - [x] Make the group Link name consistent(Use the name LinkGroup and not GroupLink)
 - [x] Handle exception better
-- [x] Set up auth
+- [x] [Duplicate] Set up auth
 - [ ] Workflow / Service to create nodes automatically from DB
 - [ ] Add logger in all the Service and Manager class
 - [ ] Run Celery Batch Job to run every 30 Minutes
