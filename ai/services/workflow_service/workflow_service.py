@@ -68,17 +68,4 @@ class WorkflowService:
 
     def delete_workflows_by_id(self, id: str) -> None:
         """Delete the workflow by ID"""
-        try:
-            return WorkflowManager().delete_workflows_by_id(id)
-        except ClientError as ce:
-            logger.error(ce.detail)
-            raise ClientError(
-                status_code=ce.status_code,
-                detail=ce.detail,
-            ) from ce
-        except Exception as exc:
-            logger.error(f"Error deleting workflow by ID: {str(exc)}")
-            raise ServerError(
-                status_code=500,
-                detail=f"Error deleting workflow by ID: {str(exc)}",
-            ) from None
+        WorkflowManager().delete_workflows_by_id(id)
