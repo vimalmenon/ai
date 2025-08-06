@@ -66,7 +66,6 @@ class WorkflowNodeRequest(Base):
             if kwargs.get("structured_output")
             else None
         )
-        self.input_needed = kwargs.get("input_needed", False)
 
     def to_dict(self) -> dict:
         """Convert the object to a dictionary."""
@@ -89,7 +88,6 @@ class WorkflowNodeRequest(Base):
             "structured_output": (
                 self.structured_output.value if self.structured_output else None
             ),
-            "input_needed": self.input_needed,
         }
 
     @classmethod
@@ -112,7 +110,6 @@ class WorkflowNodeRequest(Base):
             request_at_run_time=data.get("request_at_run_time"),
             data_from_previous_node=data.get("data_from_previous_node", False),
             structured_output=data.get("structured_output"),
-            input_needed=data.get("input_needed", False),
         )
 
 
