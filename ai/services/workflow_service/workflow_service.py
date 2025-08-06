@@ -42,29 +42,14 @@ class WorkflowService:
 
     def get_workflow_by_id(self, id: str) -> WorkflowModelWithExecutedWorkflow:
         """Get the workflow by ID"""
-        try:
-            workflow = WorkflowManager().get_workflow_by_id(id)
-            if workflow:
-                return self.__attach_executed_workflow(workflow)
-            else:
-                raise ClientError(detail=f"Workflow with id : {id} not found")
-        except Exception as exc:
-            logger.error(f"Error fetching workflow by ID: {str(exc)}")
-            raise ServerError(
-                status_code=500,
-                detail=f"Error fetching workflow by ID: {str(exc)}",
-            ) from None
+        workflow = WorkflowManager().get_workflow_by_id(id)
+        if workflow:
+            return self.__attach_executed_workflow(workflow)
+        raise ClientError(detail=f"Workflow with id : {id} not found")
 
     def create_workflow(self, data: WorkflowSlimModel) -> WorkflowModel:
         """Create workflow"""
-        try:
-            return WorkflowManager().create_workflow(data)
-        except Exception as exc:
-            logger.error(f"Error creating workflow: {str(exc)}")
-            raise ServerError(
-                status_code=500,
-                detail=f"Error creating workflow: {str(exc)}",
-            ) from None
+        return WorkflowManager().create_workflow(data)
 
     def update_workflow(
         self, id: str, data: UpdateWorkflowRequest
