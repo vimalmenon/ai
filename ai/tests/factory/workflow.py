@@ -1,7 +1,7 @@
 from factory import Factory, Faker
 
 # from factory import FactoryList
-from ai.model import WorkflowModel, WorkflowSlimModel
+from ai.model import UpdateWorkflowRequest, WorkflowModel, WorkflowSlimModel
 
 
 class FactoryWorkflowModel(Factory):
@@ -19,3 +19,12 @@ class FactoryWorkflowSlimModel(Factory):
         model = WorkflowSlimModel
 
     name = Faker("name")
+
+
+class FactoryUpdateWorkflowRequest(Factory):
+    class Meta:
+        model = UpdateWorkflowRequest
+
+    name = Faker("name")
+    detail = Faker("text")
+    complete = Faker("boolean")
