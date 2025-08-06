@@ -1,7 +1,12 @@
 from factory import Factory, Faker
 
 # from factory import FactoryList
-from ai.model import UpdateWorkflowRequest, WorkflowModel, WorkflowSlimModel, WorkflowNodeRequest
+from ai.model import (
+    UpdateWorkflowRequest,
+    WorkflowModel,
+    WorkflowNodeRequest,
+    WorkflowSlimModel,
+)
 
 
 class FactoryWorkflowModel(Factory):
