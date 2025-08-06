@@ -1,5 +1,5 @@
 from json import JSONDecodeError, dumps, loads
-from logging import INFO, basicConfig, getLogger
+from logging import DEBUG, basicConfig, getLogger
 
 import uvicorn
 from fastapi import FastAPI, Request
@@ -21,7 +21,9 @@ from ai.config import Env
 
 logger = getLogger(__name__)
 basicConfig(
-    filename="myapp.log", level=INFO, format="%(asctime)s - %(levelname)s - %(message)s"
+    filename="myapp.log",
+    level=DEBUG,
+    format="%(asctime)s - %(levelname)s - %(message)s",
 )
 logger.info("Starting the application...")
 

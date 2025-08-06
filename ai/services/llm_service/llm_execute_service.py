@@ -34,7 +34,7 @@ class LLMExecuteService:
         )
         prompt_messages = self.__get_messages(node)
         for step in agent_llm.stream(prompt_messages, stream_mode="values"):
-            logger.warning(step)
+            logger.info(step)
             result = step["messages"][-1]
             message = AiMessage(
                 id=generate_uuid(), content=result.content, type=AiMessageType.AI
@@ -47,7 +47,7 @@ class LLMExecuteService:
         )
         prompt_messages = self.__get_messages(node)
         result = llm.invoke(prompt_messages)
-        logger.warning(result)
+        logger.info(result)
         message = AiMessage(
             id=result.id,
             content=result.content,

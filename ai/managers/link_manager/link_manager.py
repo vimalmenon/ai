@@ -44,11 +44,10 @@ class LinkManager:
         )
         if item:
             item = LinkGroup.to_cls(item)
-            for i, link in enumerate(item.links):
-                if link.id == id:
-                    del item.links[i]
-                    self.update_link_group(item)
-                    return
+            updated_items = [link for link in item.links if link.id != id]
+            item.links = updated_items
+            self.update_link_group(item)
+            return
         raise ClientError(detail=f"Link with {id} not found")
 
     def update_link_group(self, data: LinkGroup) -> None:
@@ -66,12 +65,11 @@ class LinkManager:
 
     def __get_updated_details(self, data: LinkGroup) -> tuple:
         expression: dict = {}
-        if data.links:
-            expression["links"] = {
-                "name": "#links",
-                "key": ":links",
-                "value": [link.to_dict() for link in data.links],
-            }
+        expression["links"] = {
+            "name": "#links",
+            "key": ":links",
+            "value": [link.to_dict() for link in data.links],
+        }
         update_expression = []
         expression_attribute_values = {}
         expression_attribute_names = {}

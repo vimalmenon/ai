@@ -13,6 +13,12 @@ I am an AI Agent named after the moon of Jupiter, representing curiosity and exp
 
 - [x] Make the group Link name consistent(Use the name LinkGroup and not GroupLink)
 - [x] Handle exception better
+- [x] Set up auth
+- [ ] Workflow / Service to create nodes automatically from DB
+- [ ] Add logger in all the Service and Manager class
+- [ ] Run Celery Batch Job to run every 30 Minutes
+- [ ] Automatically execute node unless there is human input required
+- [ ] [Optional] Node can connect to multiple node
 - [ ] Increase the test coverage to 80%
 - [ ] Remove unwanted env values
 - [ ] [fix] Google LLM not working
@@ -21,7 +27,6 @@ I am an AI Agent named after the moon of Jupiter, representing curiosity and exp
 - [ ] Create health endpoint
 - [ ] Set up AWS Auth
 - [ ] Change secondary key
-- [ ] Set up auth
 - [ ] Add more tools
 - [ ] [LongTerm] [AI] Write Content
 - [ ] [LongTerm] [AI] Write Code
