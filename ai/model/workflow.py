@@ -38,7 +38,6 @@ class WorkflowNodeRequest(Base):
     request_at_run_time: bool = False
     data_from_previous_node: bool = False
     structured_output: StructuredOutputType | None = None
-    input_needed: bool = False
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
