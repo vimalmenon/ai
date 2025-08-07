@@ -1,3 +1,4 @@
+import os
 from logging import INFO, basicConfig
 
 from celery import Celery
@@ -29,7 +30,13 @@ celery_app = Celery("tasks", broker=broker_url)
 
 celery_app.autodiscover_tasks(["ai.tasks.execute_workflow_node_task"])
 
+# Create logs directory if it doesn't exist and determine log path
+log_dir = "/app/logs" if os.path.exists("/app") else "logs"
+os.makedirs(log_dir, exist_ok=True)
+log_path = os.path.join(log_dir, "tasks.log")
 
 basicConfig(
-    filename="/app/logs/tasks.log", level=INFO, format="%(asctime)s - %(levelname)s - %(message)s"
+    filename=log_path,
+    level=INFO,
+    format="%(asctime)s - %(levelname)s - %(message)s",
 )

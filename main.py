@@ -1,3 +1,4 @@
+import os
 import sys
 import time
 from collections.abc import AsyncGenerator, Callable
@@ -29,12 +30,16 @@ from ai.config import Env
 logger = getLogger(__name__)
 
 # Configure logging to both file and console
+log_dir = "/app/logs" if os.path.exists("/app") else "logs"
+os.makedirs(log_dir, exist_ok=True)
+log_path = os.path.join(log_dir, "app.log")
+
 basicConfig(
     level=DEBUG,
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
     handlers=[
         StreamHandler(sys.stdout),  # Console output
-        FileHandler("/app/logs/app.log"),  # File output
+        FileHandler(log_path),  # File output
     ],
 )
 
