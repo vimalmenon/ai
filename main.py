@@ -1,3 +1,4 @@
+import logging
 import os
 import sys
 import time
@@ -34,13 +35,19 @@ log_dir = "/app/logs" if os.path.exists("/app") else "logs"
 os.makedirs(log_dir, exist_ok=True)
 log_path = os.path.join(log_dir, "app.log")
 
+# Create handlers manually for better control
+console_handler = StreamHandler(sys.stdout)
+file_handler = FileHandler(log_path)
+
+# Set format for handlers
+formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
+console_handler.setFormatter(formatter)
+file_handler.setFormatter(formatter)
+
+# Configure logging
 basicConfig(
     level=DEBUG,
-    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
-    handlers=[
-        StreamHandler(sys.stdout),  # Console output
-        FileHandler(log_path),  # File output
-    ],
+    handlers=[console_handler, file_handler],
 )
 
 logger.info("Starting the application...")
@@ -56,6 +63,10 @@ async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
     yield
     # Shutdown
     logger.info("Application shutdown completed")
+    # Close file handler to prevent ResourceWarning
+    for handler in logging.getLogger().handlers:
+        if isinstance(handler, FileHandler):
+            handler.close()
 
 
 app = FastAPI(
