@@ -518,6 +518,36 @@ docker-compose -f docker-compose.prod.yml logs -f app
 - Add docstrings for public functions and classes
 - Update README for significant changes
 
+### Pre-Push Quality Checks
+
+This project has several mechanisms to ensure code quality before pushing:
+
+#### Automatic Git Hook
+A pre-push git hook is installed that automatically runs all quality checks before allowing a push. The hook will prevent pushing if any checks fail.
+
+#### Manual Quality Checks
+You can manually run quality checks using any of these methods:
+
+```bash
+# Using make (recommended)
+make pre-push
+
+# Using the dedicated script
+./scripts/pre-push-check.sh
+
+# Using tox for comprehensive testing
+tox
+```
+
+#### What Gets Checked
+- **Code Formatting**: Black formatting compliance
+- **Linting**: Ruff and Flake8 code quality checks  
+- **Type Checking**: MyPy static type analysis
+- **Tests**: Full test suite with coverage reporting
+
+#### GitHub Actions CI/CD
+The repository includes GitHub Actions workflows that run the same checks on every push and pull request to the main branches.
+
 ## License
 
 This project is private and proprietary.

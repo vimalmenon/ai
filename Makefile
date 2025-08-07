@@ -1,4 +1,4 @@
-.PHONY: test test-fast test-cov test-unit test-integration test-units test-apis test-parallel test-file test-pattern test-watch help clean lint format setup
+.PHONY: test test-fast test-cov test-unit test-integration test-units test-apis test-parallel test-file test-pattern test-watch pre-push quality-check help clean lint format setup
 
 # Python executable path
 PYTHON := .tox/py313/bin/python
@@ -17,6 +17,8 @@ help:
 	@echo "  test-watch    - Run tests in watch mode"
 	@echo "  test-file FILE=<path> - Run specific test file"
 	@echo "  test-pattern PATTERN=<name> - Run tests matching pattern"
+	@echo "  pre-push      - Run all quality checks before pushing"
+	@echo "  quality-check - Alias for pre-push"
 	@echo "  clean         - Clean test artifacts"
 	@echo "  lint          - Run linting tools"
 	@echo "  format        - Format code"
@@ -91,3 +93,19 @@ test-file:
 test-pattern:
 	@if [ -z "$(PATTERN)" ]; then echo "Usage: make test-pattern PATTERN=test_name_pattern"; exit 1; fi
 	$(PYTHON) -m pytest -k "$(PATTERN)" -v
+
+# Pre-push checks - run all quality checks before pushing
+pre-push:
+	@echo "🚀 Running pre-push checks..."
+	@echo "📋 Running linting checks..."
+	$(PYTHON) -m black --check --diff .
+	$(PYTHON) -m ruff check .
+	$(PYTHON) -m flake8 .
+	@echo "🔍 Running type checking..."
+	$(PYTHON) -m mypy ai/
+	@echo "🧪 Running tests..."
+	$(PYTHON) -m pytest -n auto --cov=ai --cov-report=term-missing -q
+	@echo "✅ All pre-push checks passed!"
+
+# Full quality check (alias for pre-push)
+quality-check: pre-push
