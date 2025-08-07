@@ -141,6 +141,48 @@ print('Ready! Use wm, app objects')
 poetry run ruff check --fix
 ```
 
+## Testing and Quality Assurance with Tox
+
+This project uses tox for testing and quality assurance across different environments:
+
+### Available Tox Environments
+
+```sh
+# Run all environments (tests, linting, type checking)
+tox
+
+# Run only tests
+tox -e py313
+
+# Run only linting checks
+tox -e lint
+
+# Run only type checking
+tox -e type-check
+
+# Auto-format code (black + ruff fix)
+tox -e format
+
+# Documentation environment (placeholder)
+tox -e docs
+```
+
+### Individual Commands
+
+```sh
+# Test coverage with detailed reporting
+tox -e py313
+
+# Check code formatting and style
+tox -e lint
+
+# Type checking with mypy
+tox -e type-check
+
+# Format code automatically
+tox -e format
+```
+
 Run poetry test in watch mode
 
 ```sh
