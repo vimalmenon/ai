@@ -43,6 +43,7 @@ class AiMessage(Base):
             total_token=data.get("total_token"),
             model_name=data.get("model_name"),
             created_date=data.get("created_date"),
+            tool_name=data.get("tool_name"),
         )
 
 
