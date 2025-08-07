@@ -1,4 +1,7 @@
-def test_workflow(client, dynamodb_mock) -> None:
+from fastapi.testclient import TestClient
+
+
+def test_workflow(client: TestClient, dynamodb_mock) -> None:
     """
     Test the workflow API endpoints.
     """

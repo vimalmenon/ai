@@ -17,7 +17,7 @@ class DbManager:
     def remove_item(self, data: dict):
         return self.table.delete_item(Key=data)
 
-    def query_items(self, keys):
+    def query_items(self, keys) -> list:
         try:
             return self.table.query(
                 Select="ALL_ATTRIBUTES",
@@ -38,3 +38,6 @@ class DbManager:
             return None
         except ClientError:
             return None
+
+    def get_batch_data(self):
+        pass

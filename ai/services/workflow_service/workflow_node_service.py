@@ -1,8 +1,13 @@
 from logging import getLogger
 
 from ai.managers import WorkflowNodeManager
-from ai.model import CreateNodeRequest, WorkflowNodeRequest
+from ai.model import (
+    CreateNodeRequest,
+    WorkflowModelWithExecutedWorkflow,
+    WorkflowNodeRequest,
+)
 from ai.model.enums import Service, WorkflowType
+from ai.services.workflow_service.workflow_service import WorkflowService
 
 logger = getLogger(__name__)
 
@@ -42,3 +47,6 @@ class WorkflowNodeService:
         else:
             data.request_at_run_time = False
         return data
+
+    def __get_workflow_by_id(self, wf_id: str) -> WorkflowModelWithExecutedWorkflow:
+        return WorkflowService().get_workflow_by_id(wf_id)

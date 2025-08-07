@@ -42,8 +42,7 @@ class WorkflowService:
 
     def get_workflow_by_id(self, id: str) -> WorkflowModelWithExecutedWorkflow:
         """Get the workflow by ID"""
-        workflow = WorkflowManager().get_workflow_by_id(id)
-        if workflow:
+        if workflow := WorkflowManager().get_workflow_by_id(id):
             return self.__attach_executed_workflow(workflow)
         raise ClientError(detail=f"Workflow with id : {id} not found")
 

@@ -34,25 +34,23 @@ class WorkflowNodeManager:
 
     def __validate_and_return_workflow(self, wf_id: str) -> WorkflowModel:
         """Validate the workflow"""
-        workflow = WorkflowManager().get_workflow_by_id(wf_id)
-        if not workflow:
-            raise ClientError(
-                status_code=404,
-                detail=f"Workflow with ID {wf_id} not found.",
-            )
-        return workflow
+        if workflow := WorkflowManager().get_workflow_by_id(wf_id):
+            return workflow
+        raise ClientError(
+            status_code=404,
+            detail=f"Workflow with ID {wf_id} not found.",
+        )
 
     def __validate_and_return_node(
         self, workflow: WorkflowModel, id: str
     ) -> WorkflowNodeRequest:
         """Validate the workflow node"""
-        node = workflow.nodes.get(id)
-        if not node:
-            raise ClientError(
-                status_code=404,
-                detail=f"Workflow node with ID {id} not found.",
-            )
-        return node
+        if node := workflow.nodes.get(id):
+            return node
+        raise ClientError(
+            status_code=404,
+            detail=f"Workflow node with ID {id} not found.",
+        )
 
     def __convert_nodes_to_dict(self, nodes: dict[str, WorkflowNodeRequest]) -> dict:
         """Convert nodes to dictionary"""

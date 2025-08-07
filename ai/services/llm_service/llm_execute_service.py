@@ -9,7 +9,7 @@ from ai.model import AiMessage, WorkflowNodeRequest
 from ai.model.enums import AiMessageType, WorkflowType
 from ai.services.llm_service.llm_service import LlmService
 from ai.services.tool_service.tool_service import ToolService
-from ai.utilities import generate_uuid
+from ai.utilities import created_date, generate_uuid
 
 logger = getLogger(__name__)
 
@@ -37,7 +37,10 @@ class LLMExecuteService:
             logger.info(step)
             result = step["messages"][-1]
             message = AiMessage(
-                id=generate_uuid(), content=result.content, type=AiMessageType.AI
+                id=generate_uuid(),
+                content=result.content,
+                type=AiMessageType.AI,
+                created_date=created_date(),
             )
             AiMessageManager().save_data(exec_id, message)
 
@@ -53,6 +56,7 @@ class LLMExecuteService:
             content=result.content,
             model_name=result.response_metadata.get("model_name"),
             type=AiMessageType.AI,
+            created_date=created_date(),
         )
         AiMessageManager().save_data(
             exec_id,

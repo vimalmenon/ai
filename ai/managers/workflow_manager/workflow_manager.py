@@ -17,17 +17,15 @@ class WorkflowManager:
 
     def get_workflows(self) -> list[WorkflowModel]:
         """This List out all workflows details"""
-        items = DbManager().query_items(Key(DbKeys.Primary.value).eq(self.table))
-        if not items:
-            return []
-        return [WorkflowModel.to_cls(item) for item in items]
+        if items := DbManager().query_items(Key(DbKeys.Primary.value).eq(self.table)):
+            return [WorkflowModel.to_cls(item) for item in items]
+        return []
 
     def get_workflow_by_id(self, id: str) -> WorkflowModel | None:
         """Get the workflow by ID"""
-        item = DbManager().get_item(
+        if item := DbManager().get_item(
             {DbKeys.Primary.value: self.table, DbKeys.Secondary.value: id}
-        )
-        if item:
+        ):
             return WorkflowModel.to_cls(item)
         return None
 
@@ -46,10 +44,9 @@ class WorkflowManager:
 
     def update_workflow(self, id: str, data: UpdateWorkflowRequest) -> None:
         """Update workflow"""
-        item = DbManager().get_item(
+        if DbManager().get_item(
             {DbKeys.Primary.value: self.table, DbKeys.Secondary.value: id}
-        )
-        if item:
+        ):
             (
                 update_expression,
                 expression_attribute_values,
@@ -70,11 +67,11 @@ class WorkflowManager:
 
     def delete_workflows_by_id(self, id: str) -> None:
         """Delete the workflow by ID"""
-        item = DbManager().get_item(
+        db_manager = DbManager()
+        if db_manager.get_item(
             {DbKeys.Primary.value: self.table, DbKeys.Secondary.value: id}
-        )
-        if item:
-            DbManager().remove_item(
+        ):
+            db_manager.remove_item(
                 {DbKeys.Primary.value: self.table, DbKeys.Secondary.value: id}
             )
         else:
@@ -92,7 +89,9 @@ class WorkflowManager:
             ExpressionAttributeValues={":nodes": nodes},
         )
 
-    def __get_workflow_details(self, data: WorkflowModel | UpdateWorkflowRequest):
+    def __get_workflow_details(
+        self, data: WorkflowModel | UpdateWorkflowRequest
+    ) -> tuple[str, dict, dict]:
         expression: dict[str, Any] = {}
         if data.name:
             expression["name"] = {

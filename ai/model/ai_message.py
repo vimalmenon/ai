@@ -6,8 +6,10 @@ class AiMessage(Base):
     id: str
     content: str
     type: AiMessageType
+    created_date: str
     total_token: str | None = None
     model_name: str | None = None
+    tool_name: str | None = None
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -16,6 +18,7 @@ class AiMessage(Base):
         self.type = kwargs.get("type")
         self.total_token = kwargs.get("total_token")
         self.model_name = kwargs.get("model_name")
+        self.created_date = kwargs.get("created_date")
 
     def to_dict(self) -> dict:
         """Convert the object to a dictionary."""
@@ -25,6 +28,7 @@ class AiMessage(Base):
             "total_token": self.total_token,
             "model_name": self.model_name,
             "type": self.type.value,
+            "created_date": self.created_date,
         }
 
     @classmethod
@@ -36,4 +40,12 @@ class AiMessage(Base):
             type=AiMessageType(data.get("type")),
             total_token=data.get("total_token"),
             model_name=data.get("model_name"),
+            created_date=data.get("created_date"),
         )
+
+
+class AiMessageGroup(Base):
+    config_id: str
+    execute_id: str
+    workflow_id: str
+    messages: list[AiMessage]

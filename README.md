@@ -16,11 +16,16 @@ I am an AI Agent named after the moon of Jupiter, representing curiosity and exp
 - [x] [Duplicate] Set up auth
 - [x] Upgrade poetry to use Python 3.13
 - [x] [Test] Mock LLM service
+- [ ] Check if Workflow and execute can me made Parallel (Fetch takes lot of time)
+- [ ] Can batch get from dynamo fetch in multiple table
+- [ ] Need to move some business logic to service from manager
+- [ ] Need to do set batch processes for scheduler
+- [ ] Remove warning from test
 - [ ] Workflow / Service to create nodes automatically from DB
 - [ ] Add logger in all the Service and Manager class
 - [ ] Run Celery Batch Job to run every 30 Minutes
 - [ ] Automatically execute node unless there is human input required
-- [ ] [Optional] Node can connect to multiple node
+- [ ] Move id from str to UUID
 - [ ] Increase the test coverage to 80%
 - [ ] Remove unwanted env values
 - [ ] [fix] Google LLM not working
@@ -29,6 +34,7 @@ I am an AI Agent named after the moon of Jupiter, representing curiosity and exp
 - [ ] Set up AWS Auth
 - [ ] Change secondary key
 - [ ] Add more tools
+- [ ] [Low] Node can connect to multiple node
 - [ ] [LongTerm] [AI] Write Content
 - [ ] [LongTerm] [AI] Write Code
 - [ ] [LongTerm] [AI] Review Code
