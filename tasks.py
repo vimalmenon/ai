@@ -31,5 +31,5 @@ celery_app.autodiscover_tasks(["ai.tasks.execute_workflow_node_task"])
 
 
 basicConfig(
-    filename="tasks.log", level=INFO, format="%(asctime)s - %(levelname)s - %(message)s"
+    filename="/app/logs/tasks.log", level=INFO, format="%(asctime)s - %(levelname)s - %(message)s"
 )

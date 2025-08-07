@@ -24,8 +24,11 @@ WORKDIR /app
 # Copy dependency files first for better caching
 COPY pyproject.toml poetry.lock ./
 
-# Install dependencies
-RUN poetry install --only=main && rm -rf $POETRY_CACHE_DIR
+# Install dependencies and ensure virtual environment is created
+RUN poetry config virtualenvs.create true && \
+    poetry config virtualenvs.in-project true && \
+    poetry install --only=main && \
+    rm -rf $POETRY_CACHE_DIR
 
 # Production stage
 FROM python:3.13-slim-bookworm AS production

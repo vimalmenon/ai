@@ -34,7 +34,7 @@ basicConfig(
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
     handlers=[
         StreamHandler(sys.stdout),  # Console output
-        FileHandler("myapp.log"),  # File output
+        FileHandler("/app/logs/app.log"),  # File output
     ],
 )
 

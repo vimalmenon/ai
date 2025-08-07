@@ -20,7 +20,7 @@ mkdir -p /app/logs
 
 # Start FastAPI application in background
 echo "Starting FastAPI application..."
-poetry run app > /app/logs/app.log 2>&1 &
+/app/.venv/bin/uvicorn main:app --host 0.0.0.0 --port 8000 > /app/logs/app.log 2>&1 &
 APP_PID=$!
 
 # Wait a moment for app to start
@@ -28,7 +28,7 @@ sleep 2
 
 # Start Celery worker in background
 echo "Starting Celery worker..."
-poetry run celery -A tasks worker -l info > /app/logs/celery.log 2>&1 &
+/app/.venv/bin/celery -A tasks worker -l info > /app/logs/celery.log 2>&1 &
 CELERY_PID=$!
 
 echo "Services started. App PID: $APP_PID, Celery PID: $CELERY_PID"
