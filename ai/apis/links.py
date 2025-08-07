@@ -23,8 +23,8 @@ async def delete_link(lg_id: str, id: str):
 
 
 @router.put("", tags=["links"])
-async def create_group_link(data: LinkGroupSlim):
-    result = LinkService().create_group_link(data)
+async def create_link_group(data: LinkGroupSlim):
+    result = LinkService().create_link_group(data)
     return {"data": result}
 
 

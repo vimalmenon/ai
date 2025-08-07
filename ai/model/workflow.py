@@ -125,14 +125,12 @@ class WorkflowModel(Base):
     name: str
     detail: str | None = None
     complete: bool = False
-    updated_at: str | None = None
     nodes: dict[str, WorkflowNodeRequest] = {}
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.id = kwargs.get("id")
         self.name = kwargs.get("name")
-        self.updated_at = kwargs.get("updated_at", created_date())
         self.detail = kwargs.get("detail")
         self.complete = kwargs.get("complete", False)
         self.nodes = kwargs.get("nodes", {})
@@ -145,7 +143,6 @@ class WorkflowModel(Base):
             detail=data.get("detail"),
             complete=data.get("complete", False),
             nodes=cls.__convert_nodes_from_dict(data.get("nodes", {})),
-            updated_at=data.get("updated_at", created_date()),
         )
 
     @classmethod
@@ -161,7 +158,6 @@ class WorkflowModel(Base):
             "detail": self.detail,
             "complete": self.complete,
             "nodes": self.__convert_nodes_to_dict(self.nodes),
-            "updated_at": self.updated_at,
         }
 
     def __convert_nodes_to_dict(self, nodes: dict[str, WorkflowNodeRequest]) -> dict:
@@ -289,7 +285,6 @@ class WorkflowModelWithExecutedWorkflow(WorkflowModel):
             detail=data.detail,
             complete=data.complete,
             nodes=data.nodes,
-            updated_at=data.updated_at,
             executed_workflows=executed_wf,
         )
 

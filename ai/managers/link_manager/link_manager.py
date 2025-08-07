@@ -13,7 +13,7 @@ class LinkManager:
         items = DbManager().query_items(Key(DbKeys.Primary.value).eq(self.table))
         return [LinkGroup.to_cls(item) for item in items]
 
-    def create_group_link(self, data: LinkGroup) -> None:
+    def create_link_group(self, data: LinkGroup) -> None:
         DbManager().add_item(
             {
                 DbKeys.Primary.value: self.table,
@@ -22,7 +22,7 @@ class LinkManager:
             }
         )
 
-    def get_group_link_by_id(self, id: str) -> LinkGroup:
+    def get_link_group_by_id(self, id: str) -> LinkGroup:
         item = DbManager().get_item(
             {DbKeys.Primary.value: self.table, DbKeys.Secondary.value: id}
         )
@@ -44,14 +44,13 @@ class LinkManager:
         )
         if item:
             item = LinkGroup.to_cls(item)
-            for i, link in enumerate(item.links):
-                if link.id == id:
-                    del item.links[i]
-                    self.update_group_link(item)
-                    return
+            updated_items = [link for link in item.links if link.id != id]
+            item.links = updated_items
+            self.update_link_group(item)
+            return
         raise ClientError(detail=f"Link with {id} not found")
 
-    def update_group_link(self, data: LinkGroup) -> None:
+    def update_link_group(self, data: LinkGroup) -> None:
         (
             update_expression,
             expression_attribute_values,
@@ -66,12 +65,11 @@ class LinkManager:
 
     def __get_updated_details(self, data: LinkGroup) -> tuple:
         expression: dict = {}
-        if data.links:
-            expression["links"] = {
-                "name": "#links",
-                "key": ":links",
-                "value": [link.to_dict() for link in data.links],
-            }
+        expression["links"] = {
+            "name": "#links",
+            "key": ":links",
+            "value": [link.to_dict() for link in data.links],
+        }
         update_expression = []
         expression_attribute_values = {}
         expression_attribute_names = {}

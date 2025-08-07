@@ -33,8 +33,7 @@ class ExecuteWorkflowService:
         self, wf_id: str, exec_id: str
     ) -> ExecuteWorkflowModel:
         """This will get by executed id"""
-        item = WorkflowExecuteManager().get_workflow_by_id(wf_id, exec_id)
-        if item:
+        if item := WorkflowExecuteManager().get_workflow_by_id(wf_id, exec_id):
             return item
         raise ClientError(
             detail=f"Unable to find Executed Workflow with {wf_id} {exec_id}"

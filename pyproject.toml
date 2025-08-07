@@ -6,7 +6,7 @@ authors = ["Vimal Menon"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.11"
+python = "^3.13"
 langchain = "^0.3.19"
 pydantic = "^2.10.6"
 langchain-google-genai = "^2.0.10"
@@ -55,3 +55,30 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry.scripts]
 app = "main:run"
+
+[tool.pytest.ini_options]
+minversion = "6.0"
+addopts = [
+    "--strict-markers",
+    "--strict-config",
+    "--verbose",
+    "--tb=short",
+    "--cov=ai",
+    "--cov-report=term-missing",
+    "--cov-report=html",
+    "--cov-branch",
+]
+testpaths = ["ai/tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+markers = [
+    "slow: marks tests as slow (deselect with '-m \"not slow\"')",
+    "integration: marks tests as integration tests",
+    "unit: marks tests as unit tests",
+]
+filterwarnings = [
+    "error",
+    "ignore::UserWarning",
+    "ignore::DeprecationWarning",
+]

@@ -9,6 +9,7 @@ class WorkflowType(Enum):
     Workflow = "Workflow"
     HumanInput = "HumanInput"
     Service = "Service"
+    ExecuteWorkflowCreator = "ExecuteWorkflowCreator"
     ManualConfirmation = "ManualConfirmation"
 
 

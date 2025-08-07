@@ -1,4 +1,7 @@
-def test_get_info(client) -> None:
+from fastapi.testclient import TestClient
+
+
+def test_get_info(client: TestClient) -> None:
     """
     Test the get_info API endpoint.
     """
@@ -10,7 +13,7 @@ def test_get_info(client) -> None:
     assert data["data"]["version"] == "0.0.5t"
 
 
-def test_llm(client) -> None:
+def test_llm(client: TestClient) -> None:
     response = client.get("/llms")
     assert response.status_code == 200
     data = response.json()["data"]
