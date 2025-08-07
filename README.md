@@ -26,8 +26,11 @@ An AI Agent named after the moon of Jupiter, representing curiosity and explorat
 - Python 3.13+
 - Poetry for dependency management
 - AWS credentials (for DynamoDB and S3)
+- Docker and Docker Compose (optional, for containerized deployment)
 
 ### Installation
+
+#### Local Development
 
 ```sh
 # Clone the repository
@@ -42,6 +45,32 @@ poetry run fastapi dev main.py
 ```
 
 The API will be available at `http://localhost:8000`
+
+#### Docker Development
+
+```sh
+# Build and run with Docker Compose
+docker-compose up --build
+
+# Or run in detached mode
+docker-compose up -d --build
+
+# View logs
+docker-compose logs -f app
+
+# Stop services
+docker-compose down
+```
+
+#### Production Deployment
+
+```sh
+# Production deployment with optimized settings
+docker-compose -f docker-compose.prod.yml up -d --build
+
+# With Nginx reverse proxy
+docker-compose -f docker-compose.prod.yml --profile with-nginx up -d --build
+```
 
 ## Development Roadmap
 
@@ -246,6 +275,47 @@ git branch | grep -v "$(git branch --show-current)" | xargs git branch -D
 ```sh
 # Find process running on port 8000
 sudo lsof -i :8000
+```
+
+## Docker Commands
+
+### Development
+
+```sh
+# Build the Docker image
+docker build -t elara-ai .
+
+# Run the container
+docker run -p 8000:8000 --env-file .env elara-ai
+
+# Build and run with Docker Compose
+docker-compose up --build
+
+# Run in background
+docker-compose up -d
+
+# View logs
+docker-compose logs -f app
+
+# Stop and remove containers
+docker-compose down
+```
+
+### Production
+
+```sh
+# Production deployment
+docker-compose -f docker-compose.prod.yml up -d --build
+
+# Scale the application
+docker-compose -f docker-compose.prod.yml up -d --scale app=3
+
+# Update application
+docker-compose -f docker-compose.prod.yml pull
+docker-compose -f docker-compose.prod.yml up -d --build
+
+# View production logs
+docker-compose -f docker-compose.prod.yml logs -f app
 ```
 
 ## Contributing
