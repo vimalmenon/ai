@@ -6,7 +6,6 @@ An AI Agent named after the moon of Jupiter, representing curiosity and explorat
 
 **Name**: Elara  
 **Email**: elara.ai@proton.me  
-**Version**: 0.0.19  
 **Python**: 3.13+
 
 ## Features
