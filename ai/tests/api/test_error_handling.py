@@ -38,6 +38,7 @@ def test_general_exception_handling():
 
     from fastapi import Request
 
+    from ai.config.env import Env
     from main import general_exception_handler
 
     # Create a mock request
@@ -53,7 +54,13 @@ def test_general_exception_handling():
         assert response.status_code == 500
         response_data = json.loads(response.body.decode())
         assert response_data["error"] == "Internal Server Error"
-        assert response_data["message"] == "An unexpected error occurred"
+
+        # Check message based on debug mode
+        env = Env()
+        if env.debug:
+            assert response_data["message"] == "Test error message"
+        else:
+            assert response_data["message"] == "An unexpected error occurred"
 
     # Run the async test
     asyncio.run(run_test())

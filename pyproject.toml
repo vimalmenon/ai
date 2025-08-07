@@ -55,3 +55,30 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry.scripts]
 app = "main:run"
+
+[tool.pytest.ini_options]
+minversion = "6.0"
+addopts = [
+    "--strict-markers",
+    "--strict-config",
+    "--verbose",
+    "--tb=short",
+    "--cov=ai",
+    "--cov-report=term-missing",
+    "--cov-report=html",
+    "--cov-branch",
+]
+testpaths = ["ai/tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+markers = [
+    "slow: marks tests as slow (deselect with '-m \"not slow\"')",
+    "integration: marks tests as integration tests",
+    "unit: marks tests as unit tests",
+]
+filterwarnings = [
+    "error",
+    "ignore::UserWarning",
+    "ignore::DeprecationWarning",
+]
