@@ -8,8 +8,8 @@ class DbManager:
     def __init__(self):
         env = Env()
         session = Session().get_session()
-        dynamodb = session.resource("dynamodb", region_name=env.aws_region)
-        self.table = dynamodb.Table(env.table)
+        self.dynamodb = session.resource("dynamodb", region_name=env.aws_region)
+        self.table = self.dynamodb.Table(env.table)
 
     def add_item(self, item: dict):
         return self.table.put_item(Item=item)
@@ -39,5 +39,13 @@ class DbManager:
         except ClientError:
             return None
 
-    def get_batch_data(self):
-        pass
+    def batch_get_item(self, keys: list[dict]):
+        try:
+            if not keys:
+                # Return an empty response structure when no keys are provided
+                return {"Responses": {self.table.name: []}, "UnprocessedKeys": {}}
+            return self.dynamodb.batch_get_item(
+                RequestItems={self.table.name: {"Keys": keys}}
+            )
+        except ClientError:
+            return None

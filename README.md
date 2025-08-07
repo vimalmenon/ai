@@ -25,7 +25,6 @@ I am an AI Agent named after the moon of Jupiter, representing curiosity and exp
 - [ ] Add logger in all the Service and Manager class
 - [ ] Run Celery Batch Job to run every 30 Minutes
 - [ ] Automatically execute node unless there is human input required
-- [ ] Move id from str to UUID
 - [ ] Increase the test coverage to 80%
 - [ ] Remove unwanted env values
 - [ ] [fix] Google LLM not working
@@ -34,6 +33,7 @@ I am an AI Agent named after the moon of Jupiter, representing curiosity and exp
 - [ ] Set up AWS Auth
 - [ ] Change secondary key
 - [ ] Add more tools
+- [ ] [Low] Move id from str to UUID
 - [ ] [Low] Node can connect to multiple node
 - [ ] [LongTerm] [AI] Write Content
 - [ ] [LongTerm] [AI] Write Code
