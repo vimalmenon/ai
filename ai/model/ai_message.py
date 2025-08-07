@@ -19,6 +19,7 @@ class AiMessage(Base):
         self.total_token = kwargs.get("total_token")
         self.model_name = kwargs.get("model_name")
         self.created_date = kwargs.get("created_date")
+        self.tool_name = kwargs.get("tool_name")
 
     def to_dict(self) -> dict:
         """Convert the object to a dictionary."""
