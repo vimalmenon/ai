@@ -28,6 +28,7 @@ class AiMessage(Base):
             "content": self.content,
             "total_token": self.total_token,
             "model_name": self.model_name,
+            "tool_name": self.tool_name,
             "type": self.type.value,
             "created_date": self.created_date,
         }
