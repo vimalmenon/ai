@@ -108,6 +108,7 @@ docker-compose -f docker-compose.prod.yml --profile with-nginx up -d --build
 - [ ] Auto-execute nodes (except human input required)
 - [ ] Increase test coverage to 85%+ (currently at 76%)
 - [ ] Clean up environment variables
+- [ ] 100% test confidence
 - [ ] Fix Google LLM integration
 - [ ] Set up Celery backend
 - [ ] Implement AWS authentication
