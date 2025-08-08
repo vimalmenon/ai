@@ -85,12 +85,9 @@ docker-compose -f docker-compose.prod.yml --profile with-nginx up -d --build
 ### Completed ✅
 - [x] Make the group Link name consistent (Use the name LinkGroup and not GroupLink)
 - [x] Handle exception better
-- [x] Set up auth
-- [x] Upgrade poetry to use Python 3.13
 - [x] Mock LLM service for testing
 - [x] Add interactive development shell with FastAPI context
 - [x] Enhanced main.py with improved logging and error handling
-- [x] Modern FastAPI lifespan event handlers (replaced deprecated @app.on_event)
 - [x] Comprehensive pytest configuration with coverage reporting
 - [x] Developer-friendly testing tools and Makefile commands
 - [x] Request timing middleware for performance monitoring
