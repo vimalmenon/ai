@@ -75,9 +75,9 @@ lint:
 
 # Format code
 format:
-	$(PYTHON) -m black ai/
-	$(PYTHON) -m isort ai/
-	$(PYTHON) -m autoflake --remove-all-unused-imports --recursive --remove-unused-variables --in-place ai/
+	$(PYTHON) -m black .
+	$(PYTHON) -m isort .
+	$(PYTHON) -m autoflake --remove-all-unused-imports --recursive --remove-unused-variables --in-place .
 
 # Development setup
 setup:
