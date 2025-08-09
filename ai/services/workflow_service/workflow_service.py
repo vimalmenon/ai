@@ -39,7 +39,12 @@ class WorkflowService:
 
     def delete_workflows_by_id(self, id: str) -> None:
         """Delete the workflow by ID"""
-        if self.get_workflow_by_id(id):
-            WorkflowManager().delete_workflows_by_id(id)
-            return None
+        if item := self.get_workflow_by_id(id):
+            if len(item.executed_workflows) == 0:
+                WorkflowManager().delete_workflows_by_id(id)
+                return None
+            else:
+                raise ClientError(
+                    "Workflow has executed workflows and cannot be deleted"
+                )
         raise ClientError(detail=f"Workflow with id : {id} not found")

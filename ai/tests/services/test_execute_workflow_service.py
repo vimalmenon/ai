@@ -8,7 +8,7 @@ from ai.tests.factory.workflow import (
 )
 
 
-def test_execute_workflow_service_workflow_not_found(faker, dynamodb_mock):
+def test_execute_workflow_service_workflow_not_found(faker, dynamodb_mock) -> None:
     service = ExecuteWorkflowService()
     with pytest.raises(ClientError):
         service.create_executed_workflow(
@@ -16,9 +16,10 @@ def test_execute_workflow_service_workflow_not_found(faker, dynamodb_mock):
         )
 
 
-def test_execute_workflow_service_workflow_not_complete(faker, dynamodb_mock):
+def test_execute_workflow_service_workflow_not_complete(dynamodb_mock) -> None:
     service = WorkflowService().create_workflow(FactoryWorkflowSlimModel.build())
-    with pytest.raises(ClientError):
+    with pytest.raises(ClientError) as msg:
         ExecuteWorkflowService().create_executed_workflow(
             service.id, FactoryCreateExecuteWorkflowRequest.build()
         )
+    assert str(msg.value.detail) == f"Workflow with ID {service.id} is not complete."

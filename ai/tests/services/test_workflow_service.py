@@ -1,8 +1,9 @@
 import pytest
 
 from ai.exceptions.exceptions import ClientError
-from ai.services import WorkflowService
+from ai.services import ExecuteWorkflowService, WorkflowService
 from ai.tests.factory.workflow import (
+    FactoryCreateExecuteWorkflowRequest,
     FactoryUpdateWorkflowRequest,
     FactoryWorkflowSlimModel,
 )
@@ -28,8 +29,18 @@ def test_workflow_service_get_workflows(dynamodb_mock) -> None:
 def test_workflow_service_delete_workflow_by_id(dynamodb_mock) -> None:
     workflow = WorkflowService().create_workflow(FactoryWorkflowSlimModel.build())
     WorkflowService().delete_workflows_by_id(workflow.id)
+
+
+def test_workflow_service_delete_when_execute_workflow_exists(dynamodb_mock) -> None:
+    workflow = WorkflowService().create_workflow(FactoryWorkflowSlimModel.build())
+    update_data = FactoryUpdateWorkflowRequest.build()
+    update_data.complete = True
+    WorkflowService().update_workflow(workflow.id, update_data)
+    ExecuteWorkflowService().create_executed_workflow(
+        workflow.id, FactoryCreateExecuteWorkflowRequest.build()
+    )
     with pytest.raises(ClientError):
-        WorkflowService().get_workflow_by_id(workflow.id)
+        WorkflowService().delete_workflows_by_id(workflow.id)
 
 
 def test_workflow_service_update_workflow(dynamodb_mock) -> None:
