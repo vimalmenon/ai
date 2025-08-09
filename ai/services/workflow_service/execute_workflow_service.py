@@ -97,6 +97,11 @@ class ExecuteWorkflowService:
                 status_code=404,
                 detail=f"Workflow with ID {wf_id} not found.",
             )
+        if not item.complete:
+            raise ClientError(
+                status_code=400,
+                detail=f"Workflow with ID {wf_id} is not complete.",
+            )
         return item.nodes
 
     def __create_execute_workflow_model(

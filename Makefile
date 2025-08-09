@@ -49,7 +49,7 @@ test-parallel:
 
 # Run tests in watch mode
 test-watch:
-	$(PYTHON) -m pytest-watch
+	poetry run pytest-watch --config pytest.ini
 
 # Run tests without markers (managers and services)
 test-units:

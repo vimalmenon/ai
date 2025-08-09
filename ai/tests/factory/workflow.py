@@ -2,6 +2,7 @@ from factory import Factory, Faker
 
 # from factory import FactoryList
 from ai.model import (
+    CreateExecuteWorkflowRequest,
     CreateNodeRequest,
     UpdateWorkflowRequest,
     WorkflowModel,
@@ -52,5 +53,12 @@ class FactoryWorkflowNodeRequest(Factory):
 class FactoryCreateNodeRequest(Factory):
     class Meta:
         model = CreateNodeRequest
+
+    name = Faker("name")
+
+
+class FactoryCreateExecuteWorkflowRequest(Factory):
+    class Meta:
+        model = CreateExecuteWorkflowRequest
 
     name = Faker("name")
