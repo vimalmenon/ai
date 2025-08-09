@@ -1,7 +1,5 @@
 from typing import Self
 
-from pydantic import BaseModel
-
 from ai.model.base_model import Base
 from ai.model.enums import (
     LLMs,
@@ -112,12 +110,8 @@ class WorkflowNodeRequest(Base):
         )
 
 
-class WorkflowSlimModel(BaseModel):
+class WorkflowSlimModel(Base):
     name: str
-
-    def __init__(self, name: str):
-        super().__init__(name=name)
-        self.name = name
 
 
 class WorkflowModel(Base):
@@ -164,11 +158,11 @@ class WorkflowModel(Base):
         return {id: node.to_dict() for id, node in nodes.items()}
 
 
-class CreateNodeRequest(BaseModel):
+class CreateNodeRequest(Base):
     name: str
 
 
-class CreateExecuteWorkflowRequest(BaseModel):
+class CreateExecuteWorkflowRequest(Base):
     name: str
 
 
@@ -288,14 +282,14 @@ class WorkflowModelWithExecutedWorkflow(WorkflowModel):
             executed_workflows=executed_wf,
         )
 
+    # @property
+    # def completed_workflow(self):
+    #     return 5
 
-class ExecuteWorkflowModelData(Base):
+
+class ExecuteWorkflowModelListData(Base):
     data: list[ExecuteWorkflowModel]
 
 
-class WorkflowsModelData(Base):
-    data: list[WorkflowModel]
-
-
-class WorkflowModelData(Base):
-    data: WorkflowModel
+class ExecuteWorkflowModelData(Base):
+    data: ExecuteWorkflowModel

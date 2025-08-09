@@ -6,7 +6,6 @@ An AI Agent named after the moon of Jupiter, representing curiosity and explorat
 
 **Name**: Elara  
 **Email**: elara.ai@proton.me  
-**Version**: 0.0.19  
 **Python**: 3.13+
 
 ## Features
@@ -86,12 +85,9 @@ docker-compose -f docker-compose.prod.yml --profile with-nginx up -d --build
 ### Completed ✅
 - [x] Make the group Link name consistent (Use the name LinkGroup and not GroupLink)
 - [x] Handle exception better
-- [x] Set up auth
-- [x] Upgrade poetry to use Python 3.13
 - [x] Mock LLM service for testing
 - [x] Add interactive development shell with FastAPI context
 - [x] Enhanced main.py with improved logging and error handling
-- [x] Modern FastAPI lifespan event handlers (replaced deprecated @app.on_event)
 - [x] Comprehensive pytest configuration with coverage reporting
 - [x] Developer-friendly testing tools and Makefile commands
 - [x] Request timing middleware for performance monitoring
@@ -112,6 +108,7 @@ docker-compose -f docker-compose.prod.yml --profile with-nginx up -d --build
 - [ ] Auto-execute nodes (except human input required)
 - [ ] Increase test coverage to 85%+ (currently at 76%)
 - [ ] Clean up environment variables
+- [ ] 100% test confidence
 - [ ] Fix Google LLM integration
 - [ ] Set up Celery backend
 - [ ] Implement AWS authentication

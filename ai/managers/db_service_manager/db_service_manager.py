@@ -1,9 +1,7 @@
 from boto3.dynamodb.conditions import Key
 
 from ai.managers import DbManager
-from ai.model import (
-    DbServiceModel,
-)
+from ai.model import DbServiceModel
 from ai.model.enums import DbKeys
 
 

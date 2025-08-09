@@ -6,12 +6,8 @@ from ai.services.service.db_service import DbService
 from ai.services.service.health_service import HealthService
 from ai.services.service.link_service import LinkService
 from ai.services.tool_service.tool_service import ToolService
-from ai.services.workflow_service.execute_workflow_service import (
-    ExecuteWorkflowService,
-)
-from ai.services.workflow_service.workflow_node_service import (
-    WorkflowNodeService,
-)
+from ai.services.workflow_service.execute_workflow_service import ExecuteWorkflowService
+from ai.services.workflow_service.workflow_node_service import WorkflowNodeService
 from ai.services.workflow_service.workflow_service import WorkflowService
 
 __all__ = [

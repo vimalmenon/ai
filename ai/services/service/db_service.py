@@ -1,8 +1,5 @@
 from ai.managers import DbServiceManager
-from ai.model import (
-    DbServiceModel,
-    WorkflowNodeRequest,
-)
+from ai.model import DbServiceModel, WorkflowNodeRequest
 from ai.model.enums import Service as ServiceModel
 from ai.utilities import created_date, generate_uuid
 

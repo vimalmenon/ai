@@ -5,7 +5,13 @@ from boto3.dynamodb.conditions import Key
 
 from ai.exceptions.exceptions import ClientError
 from ai.managers import DbManager
-from ai.model import UpdateWorkflowRequest, WorkflowModel, WorkflowSlimModel
+from ai.managers.workflow_manager.workflow_execute_manager import WorkflowExecuteManager
+from ai.model import (
+    UpdateWorkflowRequest,
+    WorkflowModel,
+    WorkflowModelWithExecutedWorkflow,
+    WorkflowSlimModel,
+)
 from ai.model.enums import DbKeys
 from ai.utilities import created_date, generate_uuid
 
@@ -15,21 +21,32 @@ logger = getLogger(__name__)
 class WorkflowManager:
     table = "AI#WORKFLOWS"
 
-    def get_workflows(self) -> list[WorkflowModel]:
+    def get_workflows(self) -> list[WorkflowModelWithExecutedWorkflow]:
         """This List out all workflows details"""
         if items := DbManager().query_items(Key(DbKeys.Primary.value).eq(self.table)):
-            return [WorkflowModel.to_cls(item) for item in items]
+            workflows = [WorkflowModel.to_cls(item) for item in items]
+            return [self.__attach_executed_workflow(workflow) for workflow in workflows]
         return []
 
-    def get_workflow_by_id(self, id: str) -> WorkflowModel | None:
+    def __attach_executed_workflow(
+        self, workflow: WorkflowModel
+    ) -> WorkflowModelWithExecutedWorkflow:
+        executed_workflows = WorkflowExecuteManager().get_workflow(workflow.id)
+        return WorkflowModelWithExecutedWorkflow.use_workflow_cls(
+            workflow, executed_workflows
+        )
+
+    def get_workflow_by_id(self, id: str) -> WorkflowModelWithExecutedWorkflow | None:
         """Get the workflow by ID"""
         if item := DbManager().get_item(
             {DbKeys.Primary.value: self.table, DbKeys.Secondary.value: id}
         ):
-            return WorkflowModel.to_cls(item)
+            return self.__attach_executed_workflow(WorkflowModel.to_cls(item))
         return None
 
-    def create_workflow(self, data: WorkflowSlimModel) -> WorkflowModel:
+    def create_workflow(
+        self, data: WorkflowSlimModel
+    ) -> WorkflowModelWithExecutedWorkflow:
         """Create workflow"""
         uuid = generate_uuid()
         item = WorkflowModel(id=uuid, name=data.name)
@@ -40,7 +57,7 @@ class WorkflowManager:
                 **item.to_dict(),
             }
         )
-        return item
+        return self.__attach_executed_workflow(item)
 
     def update_workflow(self, id: str, data: UpdateWorkflowRequest) -> None:
         """Update workflow"""
