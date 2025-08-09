@@ -30,11 +30,19 @@ class WorkflowService:
 
     def update_workflow(
         self, id: str, data: UpdateWorkflowRequest
-    ) -> WorkflowModelWithExecutedWorkflow | None:
+    ) -> WorkflowModelWithExecutedWorkflow:
         """Update workflow"""
-        if self.get_workflow_by_id(id):
+        if workflow := self.get_workflow_by_id(id):
+            if data.complete and len(workflow.nodes.keys()) == 0:
+                raise ClientError(
+                    detail=(
+                        f"Workflow {workflow.id} cannot be marked as complete "
+                        "because it has no nodes"
+                    )
+                )
             WorkflowManager().update_workflow(id, data)
-            return WorkflowManager().get_workflow_by_id(id)
+            if updated_workflow := WorkflowManager().get_workflow_by_id(id):
+                return updated_workflow
         raise ClientError(detail=f"Workflow with id : {id} not found")
 
     def delete_workflows_by_id(self, id: str) -> None:

@@ -1,9 +1,10 @@
 import pytest
 
 from ai.exceptions.exceptions import ClientError
-from ai.services import ExecuteWorkflowService, WorkflowService
+from ai.services import ExecuteWorkflowService, WorkflowNodeService, WorkflowService
 from ai.tests.factory.workflow import (
     FactoryCreateExecuteWorkflowRequest,
+    FactoryCreateNodeRequest,
     FactoryUpdateWorkflowRequest,
     FactoryWorkflowSlimModel,
 )
@@ -34,6 +35,11 @@ def test_workflow_service_delete_workflow_by_id(dynamodb_mock) -> None:
 def test_workflow_service_delete_when_execute_workflow_exists(dynamodb_mock) -> None:
     workflow = WorkflowService().create_workflow(FactoryWorkflowSlimModel.build())
     update_data = FactoryUpdateWorkflowRequest.build()
+    update_data.complete = False
+    updated_workflow = WorkflowService().update_workflow(workflow.id, update_data)
+    WorkflowNodeService().create_workflow_node(
+        updated_workflow.id, FactoryCreateNodeRequest.build()
+    )
     update_data.complete = True
     WorkflowService().update_workflow(workflow.id, update_data)
     ExecuteWorkflowService().create_executed_workflow(
@@ -46,6 +52,7 @@ def test_workflow_service_delete_when_execute_workflow_exists(dynamodb_mock) -> 
 def test_workflow_service_update_workflow(dynamodb_mock) -> None:
     workflow = WorkflowService().create_workflow(FactoryWorkflowSlimModel.build())
     update_data = FactoryUpdateWorkflowRequest.build()
+    update_data.complete = False
     WorkflowService().update_workflow(workflow.id, update_data)
     updated_workflow = WorkflowService().get_workflow_by_id(workflow.id)
     assert updated_workflow.name == update_data.name
