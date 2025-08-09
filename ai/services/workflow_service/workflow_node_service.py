@@ -47,6 +47,3 @@ class WorkflowNodeService:
         else:
             data.request_at_run_time = False
         return data
-
-    def __get_workflow_by_id(self, wf_id: str) -> WorkflowModelWithExecutedWorkflow:
-        return WorkflowService().get_workflow_by_id(wf_id)
