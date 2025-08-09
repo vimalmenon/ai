@@ -3,11 +3,9 @@ from logging import getLogger
 from ai.managers import WorkflowNodeManager
 from ai.model import (
     CreateNodeRequest,
-    WorkflowModelWithExecutedWorkflow,
     WorkflowNodeRequest,
 )
 from ai.model.enums import Service, WorkflowType
-from ai.services.workflow_service.workflow_service import WorkflowService
 
 logger = getLogger(__name__)
 
