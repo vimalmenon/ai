@@ -1,14 +1,16 @@
 import pytest
 
 from ai.exceptions.exceptions import ClientError
-from ai.services import ExecuteWorkflowService, WorkflowService
+from ai.services import ExecuteWorkflowService, WorkflowNodeService, WorkflowService
 from ai.tests.factory.workflow import (
     FactoryCreateExecuteWorkflowRequest,
+    FactoryCreateNodeRequest,
+    FactoryUpdateWorkflowRequest,
     FactoryWorkflowSlimModel,
 )
 
 
-def test_execute_workflow_service_workflow_not_found(faker, dynamodb_mock) -> None:
+def test_execute_workflow_service__without_valid_workflow(faker, dynamodb_mock) -> None:
     service = ExecuteWorkflowService()
     with pytest.raises(ClientError):
         service.create_executed_workflow(
@@ -23,3 +25,18 @@ def test_execute_workflow_service_workflow_not_complete(dynamodb_mock) -> None:
             service.id, FactoryCreateExecuteWorkflowRequest.build()
         )
     assert str(msg.value.detail) == f"Workflow with ID {service.id} is not complete."
+
+
+def test_execute_workflow_service_create_executed_workflow(dynamodb_mock) -> None:
+    workflow = WorkflowService().create_workflow(FactoryWorkflowSlimModel.build())
+    update_data = FactoryUpdateWorkflowRequest.build()
+    update_data.complete = False
+    updated_workflow = WorkflowService().update_workflow(workflow.id, update_data)
+    WorkflowNodeService().create_workflow_node(
+        updated_workflow.id, FactoryCreateNodeRequest.build()
+    )
+    update_data.complete = True
+    WorkflowService().update_workflow(workflow.id, update_data)
+    ExecuteWorkflowService().create_executed_workflow(
+        workflow.id, FactoryCreateExecuteWorkflowRequest.build()
+    )
