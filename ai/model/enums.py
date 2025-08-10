@@ -18,7 +18,6 @@ class Tool(Enum):
     SaveToDB = "SaveToDB"
     SaveToS3 = "SaveToS3"
     InternetSearch = "InternetSearch"
-    TextToSpeech = "TextToSpeech"
 
 
 class Service(Enum):
@@ -26,7 +25,12 @@ class Service(Enum):
     GetFromS3 = "GetFromS3"
     SaveToDB = "SaveToDB"
     SaveToS3 = "SaveToS3"
+    HumanInput = "HumanInput"
+    ManualConfirmation = "ManualConfirmation"
     InternetSearch = "InternetSearch"
+    TextToSpeech = "TextToSpeech"
+    AddToScheduler = "AddToScheduler"
+    GetFromScheduler = "GetFromScheduler"
 
 
 class WorkflowStatus(Enum):

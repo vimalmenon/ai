@@ -99,6 +99,7 @@ docker-compose -f docker-compose.prod.yml --profile with-nginx up -d --build
 - [ ] Implement batch operations for DynamoDB
 - [ ] Move business logic from managers to services
 - [ ] Set up batch processes for scheduler
+- [ ] Move HumanInput & Human Confirm to Service
 
 ### Planned 📋
 - [ ] Optimize workflow execution (make Workflow and execute parallel - fetch optimization)
