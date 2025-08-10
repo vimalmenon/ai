@@ -33,7 +33,7 @@ class WorkflowNodeService:
         self, data: WorkflowNodeRequest
     ) -> WorkflowNodeRequest:
         if data.type == WorkflowType.Service:
-            return self.__update_workflow_node_service_request(data)
+            data = self.__update_workflow_node_service_request(data)
         return data
 
     # TODO : Need to add test
