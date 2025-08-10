@@ -32,7 +32,7 @@ def test_workflow_service_delete_workflow_by_id(dynamodb_mock) -> None:
     WorkflowService().delete_workflows_by_id(workflow.id)
 
 
-def test_workflow_service_delete_when_execute_workflow_exists(dynamodb_mock) -> None:
+def test_workflow_service_delete_workflow_raises_error_when_executed_workflow_exists(dynamodb_mock) -> None:
     workflow = WorkflowService().create_workflow(FactoryWorkflowSlimModel.build())
     update_data = FactoryUpdateWorkflowRequest.build()
     update_data.complete = False
@@ -63,7 +63,7 @@ def test_workflow_service_update_workflow_with_no_nodes_should_fail(
     )
 
 
-def test_workflow_service_update_workflow_with_nodes_should_pass(dynamodb_mock) -> None:
+def test_workflow_service_update_workflow_marks_complete_when_nodes_exist(dynamodb_mock) -> None:
     workflow = WorkflowService().create_workflow(FactoryWorkflowSlimModel.build())
     WorkflowNodeService().create_workflow_node(
         workflow.id, FactoryCreateNodeRequest.build()
@@ -76,7 +76,7 @@ def test_workflow_service_update_workflow_with_nodes_should_pass(dynamodb_mock) 
     assert workflow.detail == update_data.detail
 
 
-def test_workflow_service_update_workflow(dynamodb_mock) -> None:
+def test_workflow_service_update_workflow_updates_name_detail_and_complete_status(dynamodb_mock) -> None:
     workflow = WorkflowService().create_workflow(FactoryWorkflowSlimModel.build())
     update_data = FactoryUpdateWorkflowRequest.build()
     update_data.complete = False
