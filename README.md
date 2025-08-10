@@ -49,6 +49,7 @@ poetry run app
 ```
 
 The API will be available at:
+
 - Main API: `http://localhost:8000`
 - Health Check: `http://localhost:8000/health`
 - API Documentation: `http://localhost:8000/docs`
@@ -83,6 +84,7 @@ docker-compose -f docker-compose.prod.yml --profile with-nginx up -d --build
 ## Development Roadmap
 
 ### Completed ✅
+
 - [x] Make the group Link name consistent (Use the name LinkGroup and not GroupLink)
 - [x] Handle exception better
 - [x] Mock LLM service for testing
@@ -95,13 +97,16 @@ docker-compose -f docker-compose.prod.yml --profile with-nginx up -d --build
 - [x] Environment-based CORS configuration
 
 ### In Progress 🔄
+
 - [ ] Optimize workflow execution (make Workflow and execute parallel - fetch optimization)
 - [ ] Implement batch operations for DynamoDB
 - [ ] Move business logic from managers to services
 - [ ] Set up batch processes for scheduler
 - [ ] Move HumanInput & Human Confirm to Service
+- [ ] Remove Unused Model
 
 ### Planned 📋
+
 - [ ] Optimize workflow execution (make Workflow and execute parallel - fetch optimization)
 - [ ] Auto-generate workflow nodes from database
 - [ ] Add comprehensive logging to Service and Manager classes
@@ -117,6 +122,7 @@ docker-compose -f docker-compose.prod.yml --profile with-nginx up -d --build
 - [ ] Add more AI tools
 
 ### Future Enhancements 🚀
+
 - [ ] **[Low Priority]** Migrate from string IDs to UUID
 - [ ] **[Low Priority]** Multi-node connections
 - [ ] **[AI Features]** Content generation
@@ -124,9 +130,11 @@ docker-compose -f docker-compose.prod.yml --profile with-nginx up -d --build
 - [ ] **[AI Features]** Code review automation
 
 ## ToDo
+
 - [ ] TODO: Review workflow_node_service.py - ai/services/workflow_service/workflow_node_service.py
 
 ### Immediate Actions 🎯
+
 - [ ] Review and update environment variable documentation
 - [ ] Add error handling examples to API documentation
 - [ ] Create deployment guide for production environment
@@ -134,6 +142,7 @@ docker-compose -f docker-compose.prod.yml --profile with-nginx up -d --build
 - [ ] Update API examples with latest endpoints
 
 ### Code Quality & Maintenance 🔧
+
 - [ ] Refactor long functions in workflow services
 - [ ] Add missing docstrings to public methods
 - [ ] Improve error messages for better debugging
@@ -141,6 +150,7 @@ docker-compose -f docker-compose.prod.yml --profile with-nginx up -d --build
 - [ ] Create troubleshooting guide
 
 ### Testing & Coverage 🧪
+
 - [ ] Add integration tests for workflow execution
 - [ ] Test error scenarios in API endpoints
 - [ ] Add performance tests for large datasets
@@ -148,6 +158,7 @@ docker-compose -f docker-compose.prod.yml --profile with-nginx up -d --build
 - [ ] Validate test data factories
 
 ### Documentation & Examples 📖
+
 - [ ] Create API usage examples
 - [ ] Add workflow creation tutorial
 - [ ] Document environment setup variations
@@ -165,34 +176,40 @@ docker-compose -f docker-compose.prod.yml --profile with-nginx up -d --build
 The main application (`main.py`) includes several production-ready features:
 
 #### 🔧 **Robust Error Handling**
+
 - Custom exception handlers for validation errors, HTTP exceptions, and general errors
 - Backward-compatible error responses with enhanced detail structure
 - Request URL context in error logs
 - Debug-conditional error message exposure
 
 #### 📊 **Comprehensive Logging**
+
 - Console and file logging with structured format
 - Request/response timing middleware
 - Error logging with stack traces
 - Configurable log levels
 
 #### ⚡ **Performance Monitoring**
+
 - Request timing middleware
 - Response time logging
 - Performance metrics tracking
 
 #### 🛡️ **Modern Patterns**
+
 - FastAPI lifespan event handlers (replaces deprecated `@app.on_event`)
 - Type-safe request/response handling
 - Proper middleware implementation
 
 #### 🌐 **API Endpoints**
+
 - `GET /` - Root endpoint with API information
 - `GET /health` - Health check with environment details
 - `GET /docs` - Interactive API documentation
 - `GET /redoc` - ReDoc API documentation
 
 #### 🔄 **Middleware Features**
+
 - CamelCase to snake_case request body conversion
 - Environment-based CORS configuration
 - Request logging and timing
@@ -226,8 +243,9 @@ poetry run python ishell.py
 ```
 
 **Available objects in the shell:**
+
 - `app` - FastAPI application instance
-- `wm` - Pre-configured WorkflowManager instance  
+- `wm` - Pre-configured WorkflowManager instance
 - `db` - Pre-configured DbManager instance
 - `WorkflowManager`, `DbManager` - Manager classes
 - `WorkflowModel`, `WorkflowSlimModel`, `UpdateWorkflowRequest` - Model classes
@@ -374,7 +392,7 @@ ai/tests/
 ├── api/           # API endpoint tests
 ├── conftest.py    # Shared fixtures and test configuration
 ├── factory/       # Test data factories
-├── managers/      # Manager layer tests  
+├── managers/      # Manager layer tests
 └── services/      # Service layer tests
 ```
 
@@ -521,19 +539,21 @@ docker-compose -f docker-compose.prod.yml logs -f app
 2. Create a feature branch (`git checkout -b feature/amazing-feature`)
 3. Make your changes
 4. Run quality checks:
+
    ```sh
    # Run tests
    make test-cov
-   
+
    # Run linting
    make lint
-   
-   # Run type checking  
+
+   # Run type checking
    make type-check
-   
+
    # Or run everything with tox
    tox
    ```
+
 5. Ensure tests pass and coverage is maintained
 6. Commit your changes (`git commit -m 'Add amazing feature'`)
 7. Push to the branch (`git push origin feature/amazing-feature`)
@@ -552,9 +572,11 @@ docker-compose -f docker-compose.prod.yml logs -f app
 This project has several mechanisms to ensure code quality before pushing:
 
 #### Automatic Git Hook
+
 A pre-push git hook is installed that automatically runs all quality checks before allowing a push. The hook will prevent pushing if any checks fail.
 
 #### Manual Quality Checks
+
 You can manually run quality checks using any of these methods:
 
 ```bash
@@ -569,12 +591,14 @@ tox
 ```
 
 #### What Gets Checked
+
 - **Code Formatting**: Black formatting compliance
-- **Linting**: Ruff and Flake8 code quality checks  
+- **Linting**: Ruff and Flake8 code quality checks
 - **Type Checking**: MyPy static type analysis
 - **Tests**: Full test suite with coverage reporting
 
 #### GitHub Actions CI/CD
+
 The repository includes GitHub Actions workflows that run the same checks on every push and pull request to the main branches.
 
 ## License
