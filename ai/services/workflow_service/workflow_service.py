@@ -32,6 +32,7 @@ class WorkflowService:
         self, id: str, data: UpdateWorkflowRequest
     ) -> WorkflowModelWithExecutedWorkflow:
         """Update workflow"""
+        # TODO: Add test for this case
         if workflow := self.get_workflow_by_id(id):
             if data.complete and len(workflow.nodes.keys()) == 0:
                 raise ClientError(
