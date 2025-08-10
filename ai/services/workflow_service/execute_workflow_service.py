@@ -142,7 +142,10 @@ class ExecuteWorkflowService:
         workflow: ExecuteWorkflowModel,
         data: ResumeWorkflowRequest,
     ) -> bool:
-        if node.node.type == WorkflowType.HumanInput:
+        if (
+            node.node.type == WorkflowType.Service
+            and node.node.service == ServiceModel.HumanInput
+        ):
             node.status = WorkflowNodeStatus.COMPLETED
             node.content = data.data
             node.started_at = created_date()

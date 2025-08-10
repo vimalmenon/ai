@@ -32,16 +32,23 @@ class WorkflowNodeService:
     def __update_workflow_node_request(
         self, data: WorkflowNodeRequest
     ) -> WorkflowNodeRequest:
-        if data.type == WorkflowType.Service and (
-            data.service == Service.GetFromDB or data.service == Service.GetFromS3
-        ):
-            data.request_at_run_time = True
-        elif data.type == WorkflowType.Service and (
-            data.service == Service.SaveToDB or data.service == Service.SaveToS3
-        ):
-            data.data_from_previous_node = True
-        elif data.type == WorkflowType.HumanInput:
+        if data.type == WorkflowType.Service:
+            return self.__update_workflow_node_service_request(data)
+        return data
+
+    def __update_workflow_node_service_request(
+        self, data: WorkflowNodeRequest
+    ) -> WorkflowNodeRequest:
+        if data.service in [
+            Service.GetFromDB,
+            Service.GetFromS3,
+            Service.SaveToDB,
+            Service.SaveToS3,
+            Service.HumanInput,
+            Service.ManualConfirmation,
+        ]:
             data.request_at_run_time = True
         else:
             data.request_at_run_time = False
+
         return data
