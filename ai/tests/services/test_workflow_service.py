@@ -49,6 +49,33 @@ def test_workflow_service_delete_when_execute_workflow_exists(dynamodb_mock) -> 
         WorkflowService().delete_workflows_by_id(workflow.id)
 
 
+def test_workflow_service_update_workflow_with_no_nodes_should_fail(
+    dynamodb_mock,
+) -> None:
+    workflow = WorkflowService().create_workflow(FactoryWorkflowSlimModel.build())
+    update_data = FactoryUpdateWorkflowRequest.build()
+    update_data.complete = True
+    with pytest.raises(ClientError) as exc_info:
+        WorkflowService().update_workflow(workflow.id, update_data)
+    assert (
+        str(exc_info.value.detail)
+        == f"Workflow {workflow.id} cannot be marked as complete because it has no nodes"
+    )
+
+
+def test_workflow_service_update_workflow_with_nodes_should_pass(dynamodb_mock) -> None:
+    workflow = WorkflowService().create_workflow(FactoryWorkflowSlimModel.build())
+    WorkflowNodeService().create_workflow_node(
+        workflow.id, FactoryCreateNodeRequest.build()
+    )
+    update_data = FactoryUpdateWorkflowRequest.build()
+    update_data.complete = True
+    workflow = WorkflowService().update_workflow(workflow.id, update_data)
+    assert workflow.complete
+    assert len(workflow.nodes) == 1
+    assert workflow.detail == update_data.detail
+
+
 def test_workflow_service_update_workflow(dynamodb_mock) -> None:
     workflow = WorkflowService().create_workflow(FactoryWorkflowSlimModel.build())
     update_data = FactoryUpdateWorkflowRequest.build()
