@@ -47,6 +47,9 @@ poetry install
 poetry run fastapi dev main.py
 # or using the poetry script
 poetry run app
+
+# Or start all services together (FastAPI + Celery + Celery Beat)
+./start-local.sh
 ```
 
 The API will be available at:
@@ -84,24 +87,36 @@ docker-compose -f docker-compose.prod.yml --profile with-nginx up -d --build
 
 #### Service Management with start.sh
 
-The `start.sh` script provides a convenient way to start all services in production environments. It automatically starts:
+The project includes two startup scripts for different environments:
 
+**For Docker/Production (`start.sh`):**
+- Uses containerized paths (`/app/.venv/bin/`, `/app/logs/`)
+- Designed for Docker containers and production deployments
+
+**For Local Development (`start-local.sh`):**
+- Uses Poetry and local paths (`logs/`)
+- Designed for local development environments
+
+Both scripts automatically start:
 - **FastAPI application** (main web server)
 - **Celery worker** (background task processing)
 - **Celery beat scheduler** (periodic task scheduling)
 
 ```sh
-# Run all services with start.sh
+# For local development
+./start-local.sh
+
+# For Docker/production
 ./start.sh
 
-# The script handles:
+# Both scripts handle:
 # - Graceful shutdown with SIGTERM/SIGINT
 # - Process monitoring and logging
 # - Automatic service restart on failure
 # - Separate log files for each service:
-#   - /app/logs/app.log (FastAPI)
-#   - /app/logs/celery.log (Celery worker)
-#   - /app/logs/celery-beat.log (Celery scheduler)
+#   - logs/app.log (FastAPI)
+#   - logs/celery.log (Celery worker)
+#   - logs/celery-beat.log (Celery scheduler)
 ```
 
 ## Development Roadmap
