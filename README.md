@@ -15,11 +15,12 @@ An AI Agent named after the moon of Jupiter, representing curiosity and explorat
 - 📝 Blog content generation
 - 🌐 FastAPI-based REST API with modern lifespan management
 - 📊 Comprehensive testing and quality assurance (76% coverage)
-- 🔄 Celery-based background task processing
+- 🔄 Celery-based background task processing with scheduled tasks
 - 🔍 Interactive development environment
 - 🛡️ Enhanced error handling and logging
 - ⚡ Request timing and performance monitoring
 - 🔧 Developer-friendly testing tools and scripts
+- 🚀 Production-ready deployment script with service orchestration
 
 ## Quick Start
 
@@ -79,6 +80,28 @@ docker-compose -f docker-compose.prod.yml up -d --build
 
 # With Nginx reverse proxy
 docker-compose -f docker-compose.prod.yml --profile with-nginx up -d --build
+```
+
+#### Service Management with start.sh
+
+The `start.sh` script provides a convenient way to start all services in production environments. It automatically starts:
+
+- **FastAPI application** (main web server)
+- **Celery worker** (background task processing)
+- **Celery beat scheduler** (periodic task scheduling)
+
+```sh
+# Run all services with start.sh
+./start.sh
+
+# The script handles:
+# - Graceful shutdown with SIGTERM/SIGINT
+# - Process monitoring and logging
+# - Automatic service restart on failure
+# - Separate log files for each service:
+#   - /app/logs/app.log (FastAPI)
+#   - /app/logs/celery.log (Celery worker)
+#   - /app/logs/celery-beat.log (Celery scheduler)
 ```
 
 ## Development Roadmap
@@ -471,6 +494,9 @@ poetry run ptw
 
 # Run Celery worker
 poetry run celery -A tasks worker -l info
+
+# Run Celery beat scheduler (in separate terminal)
+poetry run celery -A tasks beat -l info
 ```
 
 ## Utility Commands

@@ -1,4 +1,5 @@
 import os
+from datetime import timedelta
 from logging import INFO, basicConfig
 
 from celery import Celery
@@ -28,7 +29,19 @@ celery_app = Celery("tasks", broker=broker_url)
 # }
 # celery_app.conf.broker_transport_options = broker_transport_options
 
-celery_app.autodiscover_tasks(["ai.tasks.execute_workflow_node_task"])
+celery_app.autodiscover_tasks(
+    ["ai.tasks.execute_workflow_node_task", "ai.tasks.scheduler_task"]
+)
+
+
+# Schedule the batch_process task to run after 2 minutes
+celery_app.conf.beat_schedule = {
+    "run-batch-process-every-2-minutes": {
+        "task": "ai.tasks.scheduler_task.run_every_2_minutes",
+        "schedule": timedelta(seconds=10),
+    },
+}
+
 
 # Create logs directory if it doesn't exist and determine log path
 log_dir = "/app/logs" if os.path.exists("/app") else "logs"
