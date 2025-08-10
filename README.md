@@ -198,6 +198,7 @@ Both scripts provide:
 - [ ] Migrate business logic from managers to services
 - [ ] Set up batch processes for scheduler
 - [ ] Refactor HumanInput & HumanConfirm to Service layer
+- [ ] DynamdoDB fetch is very slow, Need to check another region. 
 
 ### 📋 Planned Features
 
