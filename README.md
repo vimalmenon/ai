@@ -123,6 +123,37 @@ docker-compose -f docker-compose.prod.yml --profile with-nginx up -d --build
 - [ ] **[AI Features]** Code generation
 - [ ] **[AI Features]** Code review automation
 
+## ToDo
+- [ ] TODO: Review workflow_node_service.py - ai/services/workflow_service/workflow_node_service.py
+
+### Immediate Actions 🎯
+- [ ] Review and update environment variable documentation
+- [ ] Add error handling examples to API documentation
+- [ ] Create deployment guide for production environment
+- [ ] Add performance benchmarking tests
+- [ ] Update API examples with latest endpoints
+
+### Code Quality & Maintenance 🔧
+- [ ] Refactor long functions in workflow services
+- [ ] Add missing docstrings to public methods
+- [ ] Improve error messages for better debugging
+- [ ] Add input validation examples
+- [ ] Create troubleshooting guide
+
+### Testing & Coverage 🧪
+- [ ] Add integration tests for workflow execution
+- [ ] Test error scenarios in API endpoints
+- [ ] Add performance tests for large datasets
+- [ ] Mock external service dependencies
+- [ ] Validate test data factories
+
+### Documentation & Examples 📖
+- [ ] Create API usage examples
+- [ ] Add workflow creation tutorial
+- [ ] Document environment setup variations
+- [ ] Create contributor onboarding guide
+- [ ] Add architecture decision records
+
 ## Links
 
 - [SonarCloud Analysis](https://sonarcloud.io/project/overview?id=vimalmenon_ai)
