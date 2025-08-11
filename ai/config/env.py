@@ -11,7 +11,6 @@ logger = getLogger(__name__)
 @dataclass
 class Env:
     temperature: float
-    notes_path: str
     table: str
     aws_client_id: str
     aws_secret: str
@@ -32,7 +31,6 @@ class Env:
         self.temperature = float(
             self.__get_from_env_or_secret(secrets, "TEMPERATURE", 0.0)
         )
-        self.notes_path = f"{os.getcwd()}/ai/data/notes/data.txt"
         self.debug = bool(self.__get_from_env_or_secret(secrets, "DEBUG", False))
         self.table = str(self.__get_from_env_or_secret(secrets, "AWS_TABLE", ""))
         self.aws_client_id = str(
