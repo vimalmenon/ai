@@ -1,7 +1,6 @@
 from logging import getLogger
 
-from ai.model.request import ResumeWorkflowRequest
-from ai.model.workflow import ExecuteWorkflowNodeModel
+from ai.model import ExecuteWorkflowNodeModel, ResumeWorkflowRequest
 from tasks import celery_app
 
 logger = getLogger(__name__)

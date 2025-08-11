@@ -293,3 +293,8 @@ class ExecuteWorkflowModelListData(Base):
 
 class ExecuteWorkflowModelData(Base):
     data: ExecuteWorkflowModel
+
+
+class ResumeWorkflowRequest(Base):
+    id: str
+    data: str | None = None

@@ -12,7 +12,7 @@ class WorkflowType(Enum):
 
 
 class Tool(Enum):
-    SaveToNotes = "SaveToNotes"
+    # SaveToNotes = "SaveToNotes"
     SaveToDB = "SaveToDB"
     SaveToS3 = "SaveToS3"
     InternetSearch = "InternetSearch"
@@ -20,8 +20,8 @@ class Tool(Enum):
 
 class Service(Enum):
     GetFromDB = "GetFromDB"
-    GetFromS3 = "GetFromS3"
     SaveToDB = "SaveToDB"
+    GetFromS3 = "GetFromS3"
     SaveToS3 = "SaveToS3"
     HumanInput = "HumanInput"
     ManualConfirmation = "ManualConfirmation"
@@ -29,6 +29,7 @@ class Service(Enum):
     TextToSpeech = "TextToSpeech"
     AddToScheduler = "AddToScheduler"
     GetFromScheduler = "GetFromScheduler"
+    ExecuteWorkflowCreator = "ExecuteWorkflowCreator"
 
 
 class WorkflowStatus(Enum):
@@ -75,3 +76,10 @@ class HealthStatus(Enum):
 class DbKeys(Enum):
     Primary = "table"
     Secondary = "app_id"
+
+
+class DbTable(Enum):
+    AI_SCHEDULER = "AI#SCHEDULER"
+    AI_EXECUTE = "AI#EXECUTE"
+    AI_WORKFLOWS = "AI#WORKFLOWS"
+    AI_LINKS = "AI#LINKS"

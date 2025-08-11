@@ -179,38 +179,35 @@ Both scripts provide:
 
 ### ✅ Completed Features
 
-- [x] Consistent Link/LinkGroup naming conventions
-- [x] Enhanced exception handling throughout the application
 - [x] Mock LLM service for comprehensive testing
 - [x] Interactive development shell with FastAPI context
 - [x] Improved main.py with robust logging and error handling
-- [x] Comprehensive pytest configuration with 76% coverage
 - [x] Developer-friendly testing tools and Makefile commands
 - [x] Request timing middleware for performance monitoring
 - [x] Health check and root API endpoints
 - [x] Environment-based CORS configuration
 - [x] Production-ready deployment scripts
+- [x] [Not possible] Optimize workflow execution with parallel processing
+- [x] Set up batch processes for scheduler
+- [x] Refactor HumanInput & HumanConfirm to Service layer
 
 ### 🔄 In Progress
 
-- [ ] Optimize workflow execution with parallel processing
 - [ ] Implement DynamoDB batch operations
 - [ ] Migrate business logic from managers to services
-- [ ] Set up batch processes for scheduler
-- [ ] Refactor HumanInput & HumanConfirm to Service layer
-- [ ] DynamdoDB fetch is very slow, Need to check another region. 
+- [ ] DynamdoDB fetch is very slow, Need to check singapore region.
+- [ ] Update secondary key name (Check with copilot)
+- [ ] Implement Celery batch jobs (30-minute intervals)
 
 ### 📋 Planned Features
 
 - [ ] **Performance**: Parallel workflow execution and fetch optimization
 - [ ] **Automation**: Auto-generate workflow nodes from database
 - [ ] **Monitoring**: Comprehensive logging for Service and Manager classes
-- [ ] **Batch Processing**: Implement Celery batch jobs (30-minute intervals)
 - [ ] **Auto-execution**: Auto-execute nodes (except human input required)
 - [ ] **Testing**: Increase test coverage to 85%+ (currently 76%)
 - [ ] **Environment**: Clean up and document environment variables
 - [ ] **Integrations**: Fix Google LLM integration and AWS authentication
-- [ ] **Architecture**: Update secondary key structure
 
 ### 🚀 Future Enhancements
 

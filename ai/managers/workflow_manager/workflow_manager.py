@@ -12,14 +12,14 @@ from ai.model import (
     WorkflowModelWithExecutedWorkflow,
     WorkflowSlimModel,
 )
-from ai.model.enums import DbKeys
+from ai.model.enums import DbKeys, DbTable
 from ai.utilities import created_date, generate_uuid
 
 logger = getLogger(__name__)
 
 
 class WorkflowManager:
-    table = "AI#WORKFLOWS"
+    table = DbTable.AI_WORKFLOWS.value
 
     def get_workflows(self) -> list[WorkflowModelWithExecutedWorkflow]:
         """This List out all workflows details"""

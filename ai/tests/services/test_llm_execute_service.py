@@ -8,7 +8,7 @@ from ai.model.workflow import WorkflowNodeRequest
 from ai.services.llm_service.llm_execute_service import LLMExecuteService
 
 
-def test_llm_execute_service_with_mock_fixture(mock_llm_execute_service):
+def test_llm_execute_service_with_mock_fixture(mock_llm_execute_service) -> None:
     """
     Test using the mock fixture directly (for testing external code that uses the service)
     """
@@ -24,7 +24,7 @@ def test_llm_execute_service_with_mock_fixture(mock_llm_execute_service):
     mock_llm_execute_service.execute.assert_called_once_with(exec_id, node)
 
 
-def test_llm_execute_service_execute_llm_with_dependencies_mocked():
+def test_llm_execute_service_execute_llm_with_dependencies_mocked() -> None:
     """
     Test the actual LLMExecuteService by mocking its dependencies
     """
@@ -67,7 +67,7 @@ def test_llm_execute_service_execute_llm_with_dependencies_mocked():
         mock_ai_message_manager.return_value.save_data.assert_called_once()
 
 
-def test_llm_execute_service_execute_agent_with_dependencies_mocked():
+def test_llm_execute_service_execute_agent_with_dependencies_mocked() -> None:
     """
     Test the agent execution path with mocked dependencies
     """
@@ -139,7 +139,7 @@ def test_llm_execute_service_with_complete_patch(mock_service_class):
     mock_instance.execute.assert_called_once_with(exec_id, node)
 
 
-def test_llm_execute_service_execute_method_routing():
+def test_llm_execute_service_execute_method_routing() -> None:
     """
     Test that the execute method correctly routes to LLM or Agent execution
     """
