@@ -38,7 +38,7 @@ celery_app.autodiscover_tasks(
 celery_app.conf.beat_schedule = {
     "run-batch-process-every-2-minutes": {
         "task": "ai.tasks.scheduler_task.run_every_2_minutes",
-        "schedule": timedelta(seconds=10),
+        "schedule": timedelta(minutes=2),
     },
 }
 
