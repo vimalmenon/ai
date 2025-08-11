@@ -119,6 +119,7 @@ class WorkflowModel(Base):
     name: str
     detail: str | None = None
     complete: bool = False
+    archive: bool = False
     nodes: dict[str, WorkflowNodeRequest] = {}
 
     def __init__(self, **kwargs):
@@ -127,6 +128,7 @@ class WorkflowModel(Base):
         self.name = kwargs.get("name")
         self.detail = kwargs.get("detail")
         self.complete = kwargs.get("complete", False)
+        self.archive = kwargs.get("archive", False)
         self.nodes = kwargs.get("nodes", {})
 
     @classmethod
@@ -136,6 +138,7 @@ class WorkflowModel(Base):
             name=data.get("name"),
             detail=data.get("detail"),
             complete=data.get("complete", False),
+            archive=data.get("archive", False),
             nodes=cls.__convert_nodes_from_dict(data.get("nodes", {})),
         )
 
@@ -151,6 +154,7 @@ class WorkflowModel(Base):
             "name": self.name,
             "detail": self.detail,
             "complete": self.complete,
+            "archive": self.archive,
             "nodes": self.__convert_nodes_to_dict(self.nodes),
         }
 
