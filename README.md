@@ -200,6 +200,7 @@ Both scripts provide:
 - [ ] Implement DynamoDB batch operations
 - [ ] Migrate business logic from managers to services
 - [ ] FastAPI to upload the data to S# bucket
+- [ ] Improve DynamoDB performance
 
 ### 📋 Planned Features
 
