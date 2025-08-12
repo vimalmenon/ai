@@ -4,8 +4,8 @@ from ai.model import AiMessage
 
 class AiMessageService:
 
-    def __init__(self):
-        pass
+    def __init__(self, **kwargs):
+        self.data = kwargs.get("data", [])
 
     def process(self) -> list[AiMessage]:
         return []
