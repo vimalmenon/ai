@@ -22,7 +22,7 @@ class WorkflowManager:
     table = DbTable.AI_WORKFLOWS.value
 
     def get_workflows(self) -> list[WorkflowModelWithExecutedWorkflow]:
-        """This List out all workflows details"""
+        """List out all workflows with execute details"""
         if items := DbManager().query_items(Key(DbKeys.Primary.value).eq(self.table)):
             workflows = [WorkflowModel.to_cls(item) for item in items]
             return [self.__attach_executed_workflow(workflow) for workflow in workflows]
@@ -37,7 +37,7 @@ class WorkflowManager:
         )
 
     def get_workflow_by_id(self, id: str) -> WorkflowModelWithExecutedWorkflow | None:
-        """Get the workflow by ID"""
+        """Get the workflow with execute by ID"""
         if item := DbManager().get_item(
             {DbKeys.Primary.value: self.table, DbKeys.Secondary.value: id}
         ):
