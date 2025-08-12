@@ -191,13 +191,14 @@ Both scripts provide:
 - [x] Set up batch processes for scheduler
 - [x] Refactor HumanInput & HumanConfirm to Service layer
 - [x] Implement Celery beat jobs (5-minute intervals)
+- [x] DynamdoDB fetch is very slow, Need to check singapore region. (No Major difference)
+- [x] Update primary and secondary key name (Need to replace with new key)
+
 
 ### 🔄 In Progress
 
 - [ ] Implement DynamoDB batch operations
 - [ ] Migrate business logic from managers to services
-- [ ] DynamdoDB fetch is very slow, Need to check singapore region.
-- [ ] Update primary and secondary key name (Need to replace with new key)
 - [ ] FastAPI to upload the data to S# bucket
 
 ### 📋 Planned Features

@@ -74,10 +74,8 @@ class HealthStatus(Enum):
 
 
 class DbKeys(Enum):
-    Primary = "table"
-    Secondary = "app_id"
-    PrimaryNew = "table_name"
-    SecondaryNew = "record_id"
+    Primary = "table_name"
+    Secondary = "record_id"
 
 
 class DbTable(Enum):
