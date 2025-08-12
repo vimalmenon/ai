@@ -14,7 +14,7 @@ class S3Request(Base):
     data: str
 
 
-class S3Items:
+class S3Items(Base):
     name: str
     type: str
     data: Any
