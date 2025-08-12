@@ -40,7 +40,7 @@ class LLMExecuteService:
                 id=generate_uuid(),
                 content=result.content,
                 type=AiMessageType.AI,
-                created_date=created_date(),
+                generated_date=created_date(),
             )
             AiMessageManager().save_data(exec_id, message)
 
@@ -56,7 +56,7 @@ class LLMExecuteService:
             content=result.content,
             model_name=result.response_metadata.get("model_name"),
             type=AiMessageType.AI,
-            created_date=created_date(),
+            generated_date=created_date(),
         )
         AiMessageManager().save_data(
             exec_id,

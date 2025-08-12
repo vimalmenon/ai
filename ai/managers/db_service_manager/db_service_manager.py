@@ -2,11 +2,11 @@ from boto3.dynamodb.conditions import Key
 
 from ai.managers import DbManager
 from ai.model import DbServiceModel
-from ai.model.enums import DbKeys
+from ai.model.enums import DbKeys, DbTable
 
 
 class DbServiceManager:
-    table = "DB_SERVICE"
+    table = DbTable.AI_DB.value
 
     def save(self, data: DbServiceModel) -> DbServiceModel:
         DbManager().add_item(

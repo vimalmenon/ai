@@ -190,14 +190,15 @@ Both scripts provide:
 - [x] [Not possible] Optimize workflow execution with parallel processing
 - [x] Set up batch processes for scheduler
 - [x] Refactor HumanInput & HumanConfirm to Service layer
+- [x] Implement Celery beat jobs (5-minute intervals)
 
 ### 🔄 In Progress
 
 - [ ] Implement DynamoDB batch operations
 - [ ] Migrate business logic from managers to services
 - [ ] DynamdoDB fetch is very slow, Need to check singapore region.
-- [ ] Update secondary key name (Check with copilot)
-- [ ] Implement Celery batch jobs (30-minute intervals)
+- [ ] Update primary and secondary key name (Need to replace with new key)
+- [ ] FastAPI to upload the data to S# bucket
 
 ### 📋 Planned Features
 

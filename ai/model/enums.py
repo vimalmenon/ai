@@ -62,9 +62,9 @@ class LLMs(Enum):
 
 
 class AiMessageType(Enum):
+    System = "System"
     Human = "Human"
     AI = "AI"
-    System = "System"
     Tool = "Tool"
 
 
@@ -76,6 +76,8 @@ class HealthStatus(Enum):
 class DbKeys(Enum):
     Primary = "table"
     Secondary = "app_id"
+    PrimaryNew = "table_name"
+    SecondaryNew = "record_id"
 
 
 class DbTable(Enum):
@@ -83,3 +85,6 @@ class DbTable(Enum):
     AI_EXECUTE = "AI#EXECUTE"
     AI_WORKFLOWS = "AI#WORKFLOWS"
     AI_LINKS = "AI#LINKS"
+    AI_S3 = "AI#S3"
+    AI_MESSAGE = "AI#MESSAGE"
+    AI_DB = "AI#DB"

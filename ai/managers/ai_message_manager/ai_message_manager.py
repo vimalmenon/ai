@@ -2,11 +2,11 @@ from boto3.dynamodb.conditions import Key
 
 from ai.managers import DbManager
 from ai.model import AiMessage
-from ai.model.enums import DbKeys
+from ai.model.enums import DbKeys, DbTable
 
 
 class AiMessageManager:
-    table = "AI#MESSAGE"
+    table = DbTable.AI_MESSAGE.value
 
     def save_data(self, exec_id: str, data: AiMessage):
         DbManager().add_item(

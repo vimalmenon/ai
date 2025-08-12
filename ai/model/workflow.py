@@ -173,12 +173,13 @@ class CreateExecuteWorkflowRequest(Base):
 class ExecuteWorkflowNodeModel(Base):
     id: str
     exec_id: str
+    status: WorkflowNodeStatus
+    node: WorkflowNodeRequest
     content: str | None = None
     started_at: str | None = None
     completed_at: str | None = None
     task_id: str | None = None
-    status: WorkflowNodeStatus
-    node: WorkflowNodeRequest
+    ai_messages: list = []
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -190,6 +191,7 @@ class ExecuteWorkflowNodeModel(Base):
         self.started_at = kwargs.get("started_at")
         self.completed_at = kwargs.get("completed_at")
         self.task_id = kwargs.get("task_id")
+        self.ai_messages = kwargs.get("ai_messages", [])
 
     @classmethod
     def to_cls(cls, data: dict) -> Self:
