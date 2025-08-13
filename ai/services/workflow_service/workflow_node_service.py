@@ -20,18 +20,14 @@ class WorkflowNodeService:
         logger.info(body)
         WorkflowNodeManager().create_workflow_node(wf_id, body)
 
-    def update_workflow_node(
-        self, wf_id: str, id: str, data: WorkflowNodeRequest
-    ) -> None:
+    def update_workflow_node(self, wf_id: str, id: str, data: WorkflowNodeRequest) -> None:
         """Update the workflow node"""
         data.wf_id = wf_id
         result = self.__update_workflow_node_request(data)
         logger.info(result)
         WorkflowNodeManager().update_workflow_node(wf_id, id, result)
 
-    def __update_workflow_node_request(
-        self, data: WorkflowNodeRequest
-    ) -> WorkflowNodeRequest:
+    def __update_workflow_node_request(self, data: WorkflowNodeRequest) -> WorkflowNodeRequest:
         if data.type == WorkflowType.Service:
             data = self.__update_workflow_node_service_request(data)
         return data

@@ -32,9 +32,7 @@ class WorkflowManager:
         self, workflow: WorkflowModel
     ) -> WorkflowModelWithExecutedWorkflow:
         executed_workflows = WorkflowExecuteManager().get_workflow(workflow.id)
-        return WorkflowModelWithExecutedWorkflow.use_workflow_cls(
-            workflow, executed_workflows
-        )
+        return WorkflowModelWithExecutedWorkflow.use_workflow_cls(workflow, executed_workflows)
 
     def get_workflow_by_id(self, id: str) -> WorkflowModelWithExecutedWorkflow | None:
         """Get the workflow with execute by ID"""
@@ -44,9 +42,7 @@ class WorkflowManager:
             return self.__attach_executed_workflow(WorkflowModel.to_cls(item))
         return None
 
-    def create_workflow(
-        self, data: WorkflowSlimModel
-    ) -> WorkflowModelWithExecutedWorkflow:
+    def create_workflow(self, data: WorkflowSlimModel) -> WorkflowModelWithExecutedWorkflow:
         """Create workflow"""
         uuid = generate_uuid()
         item = WorkflowModel(id=uuid, name=data.name)
@@ -61,9 +57,7 @@ class WorkflowManager:
 
     def update_workflow(self, id: str, data: UpdateWorkflowRequest) -> None:
         """Update workflow"""
-        if DbManager().get_item(
-            {DbKeys.Primary.value: self.table, DbKeys.Secondary.value: id}
-        ):
+        if DbManager().get_item({DbKeys.Primary.value: self.table, DbKeys.Secondary.value: id}):
             (
                 update_expression,
                 expression_attribute_values,
@@ -85,12 +79,8 @@ class WorkflowManager:
     def delete_workflows_by_id(self, id: str) -> None:
         """Delete the workflow by ID"""
         db_manager = DbManager()
-        if db_manager.get_item(
-            {DbKeys.Primary.value: self.table, DbKeys.Secondary.value: id}
-        ):
-            db_manager.remove_item(
-                {DbKeys.Primary.value: self.table, DbKeys.Secondary.value: id}
-            )
+        if db_manager.get_item({DbKeys.Primary.value: self.table, DbKeys.Secondary.value: id}):
+            db_manager.remove_item({DbKeys.Primary.value: self.table, DbKeys.Secondary.value: id})
         else:
             logger.warning(f"Workflow with ID {id} not found.")
             raise ClientError(

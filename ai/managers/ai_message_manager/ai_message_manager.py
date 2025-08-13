@@ -19,7 +19,5 @@ class AiMessageManager:
         return data
 
     def get_data(self, exec_id: str) -> list[AiMessage]:
-        items = DbManager().query_items(
-            Key(DbKeys.Primary.value).eq(f"{self.table}#{exec_id}")
-        )
+        items = DbManager().query_items(Key(DbKeys.Primary.value).eq(f"{self.table}#{exec_id}"))
         return [AiMessage.to_cls(item) for item in items]

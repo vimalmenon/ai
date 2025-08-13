@@ -73,9 +73,7 @@ class LlmService:
         )
 
     def __google_llm(self):
-        return ChatGoogleGenerativeAI(
-            temperature=self.env.temperature, model="gemini-1.5-pro"
-        )
+        return ChatGoogleGenerativeAI(temperature=self.env.temperature, model="gemini-1.5-pro")
 
     def __openai_llm(self):
         return ChatOpenAI(
@@ -84,6 +82,4 @@ class LlmService:
         )
 
     def __ollama_llm(self):
-        return init_chat_model(
-            "mistral", model_provider="ollama", temperature=self.env.temperature
-        )
+        return init_chat_model("mistral", model_provider="ollama", temperature=self.env.temperature)

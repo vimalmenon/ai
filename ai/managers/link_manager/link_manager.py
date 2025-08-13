@@ -23,9 +23,7 @@ class LinkManager:
         )
 
     def get_link_group_by_id(self, id: str) -> LinkGroup:
-        item = DbManager().get_item(
-            {DbKeys.Primary.value: self.table, DbKeys.Secondary.value: id}
-        )
+        item = DbManager().get_item({DbKeys.Primary.value: self.table, DbKeys.Secondary.value: id})
         if item:
             return LinkGroup.to_cls(item)
         raise ClientError(detail=f"Link with {id} not found")

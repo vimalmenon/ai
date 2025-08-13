@@ -61,9 +61,7 @@ class WorkflowExecuteManager:
             }
         )
 
-    def __get_updated_executed_details(
-        self, data: ExecuteWorkflowModel
-    ) -> tuple[str, dict, dict]:
+    def __get_updated_executed_details(self, data: ExecuteWorkflowModel) -> tuple[str, dict, dict]:
         expression: dict = {}
         if data.nodes:
             expression["nodes"] = {

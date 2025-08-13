@@ -52,7 +52,5 @@ class WorkflowService:
                 WorkflowManager().delete_workflows_by_id(id)
                 return None
             else:
-                raise ClientError(
-                    "Workflow has executed workflows and cannot be deleted"
-                )
+                raise ClientError("Workflow has executed workflows and cannot be deleted")
         raise ClientError(detail=f"Workflow with id : {id} not found")

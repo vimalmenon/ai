@@ -44,18 +44,14 @@ class WorkflowNodeRequest(Base):
         self.wf_id = kwargs.get("wf_id")
         self.prompt = kwargs.get("prompt")
         self.message = kwargs.get("message")
-        self.type = (
-            WorkflowType[str(kwargs.get("type"))] if kwargs.get("type") else None
-        )
+        self.type = WorkflowType[str(kwargs.get("type"))] if kwargs.get("type") else None
         self.llm = LLMs[str(kwargs.get("llm"))] if kwargs.get("llm") else None
         self.tools = [Tool[tool] for tool in kwargs.get("tools", [])]
         self.tool = Tool[kwargs.get("tool")] if kwargs.get("tool") else None
         self.next = kwargs.get("next")
         self.updated_at = kwargs.get("updated_at", created_date())
         self.is_start = kwargs.get("is_start", False)
-        self.service = (
-            Service[str(kwargs.get("service"))] if kwargs.get("service") else None
-        )
+        self.service = Service[str(kwargs.get("service"))] if kwargs.get("service") else None
         self.request_at_run_time = kwargs.get("request_at_run_time", False)
         self.data_from_previous_node = kwargs.get("data_from_previous_node", False)
         self.structured_output = (
@@ -82,9 +78,7 @@ class WorkflowNodeRequest(Base):
             "service": self.service.value if self.service else None,
             "request_at_run_time": self.request_at_run_time,
             "data_from_previous_node": self.data_from_previous_node,
-            "structured_output": (
-                self.structured_output.value if self.structured_output else None
-            ),
+            "structured_output": (self.structured_output.value if self.structured_output else None),
         }
 
     @classmethod
@@ -215,9 +209,7 @@ class ExecuteWorkflowNodeModel(Base):
             "id": self.id,
             "exec_id": self.exec_id,
             "content": self.content,
-            "status": (
-                self.status.value if self.status else WorkflowNodeStatus.NEW.value
-            ),
+            "status": (self.status.value if self.status else WorkflowNodeStatus.NEW.value),
             "node": self.node.to_dict(),
             "started_at": self.started_at,
             "completed_at": self.completed_at,
@@ -262,9 +254,7 @@ class ExecuteWorkflowModel(Base):
             created_at=data.get("created_at", ""),
             status=data.get("status", ""),
             completed_at=data.get("completed_at"),
-            nodes=[
-                ExecuteWorkflowNodeModel.to_cls(node) for node in data.get("nodes", [])
-            ],
+            nodes=[ExecuteWorkflowNodeModel.to_cls(node) for node in data.get("nodes", [])],
         )
 
 
@@ -276,9 +266,7 @@ class WorkflowModelWithExecutedWorkflow(WorkflowModel):
         self.executed_workflows = kwargs.get("executed_workflows")
 
     @classmethod
-    def use_workflow_cls(
-        cls, data: WorkflowModel, executed_wf: list[ExecuteWorkflowModel]
-    ) -> Self:
+    def use_workflow_cls(cls, data: WorkflowModel, executed_wf: list[ExecuteWorkflowModel]) -> Self:
         return cls(
             id=data.id,
             name=data.name,
