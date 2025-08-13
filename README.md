@@ -202,6 +202,10 @@ Both scripts provide:
 - [ ] FastAPI to upload the data to S3 bucket
 - [ ] Improve DynamoDB performance
 - [ ] Need to create caching for DynamoDB
+- [ ] Use redis to cache data
+- [ ] Is redis free in AWS
+- [ ] Add more test
+- [ ] Add components to stories
 
 ### 📋 Planned Features
 

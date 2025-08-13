@@ -29,9 +29,7 @@ celery_app = Celery("tasks", broker=broker_url)
 # }
 # celery_app.conf.broker_transport_options = broker_transport_options
 
-celery_app.autodiscover_tasks(
-    ["ai.tasks.execute_workflow_node_task", "ai.tasks.scheduler_task"]
-)
+celery_app.autodiscover_tasks(["ai.tasks.execute_workflow_node_task", "ai.tasks.scheduler_task"])
 
 
 # Schedule the batch_process task to run after 2 minutes

@@ -85,6 +85,10 @@ filterwarnings = [
     "ignore::DeprecationWarning",
 ]
 
+[tool.black]
+line-length = 100
+target-version = ['py311']
+
 [tool.isort]
 profile = "black"
 multi_line_output = 3

@@ -28,26 +28,16 @@ class Env:
 
     def __init__(self, **data):
         secrets = self.get_from_aws_secret()
-        self.temperature = float(
-            self.__get_from_env_or_secret(secrets, "TEMPERATURE", 0.0)
-        )
+        self.temperature = float(self.__get_from_env_or_secret(secrets, "TEMPERATURE", 0.0))
         self.debug = bool(self.__get_from_env_or_secret(secrets, "DEBUG", False))
         self.table = str(self.__get_from_env_or_secret(secrets, "AWS_TABLE", ""))
-        self.aws_client_id = str(
-            self.__get_from_env_or_secret(secrets, "AWS_CLIENT_ID", "")
-        )
+        self.aws_client_id = str(self.__get_from_env_or_secret(secrets, "AWS_CLIENT_ID", ""))
         self.aws_secret = str(self.__get_from_env_or_secret(secrets, "AWS_SECRET", ""))
-        self.supported_llm = self.__get_from_env_or_secret(
-            secrets, "SUPPORTED_LLM", ""
-        ).split(",")
+        self.supported_llm = self.__get_from_env_or_secret(secrets, "SUPPORTED_LLM", "").split(",")
         self.port = int(self.__get_from_env_or_secret(secrets, "PORT", 8000))
         self.bucket = str(self.__get_from_env_or_secret(secrets, "S3_BUCKET", ""))
-        self.eden_ai_api = str(
-            self.__get_from_env_or_secret(secrets, "EDEN_AI_API", "")
-        )
-        self.openai_api = str(
-            self.__get_from_env_or_secret(secrets, "OPENAI_API_KEY", "")
-        )
+        self.eden_ai_api = str(self.__get_from_env_or_secret(secrets, "EDEN_AI_API", ""))
+        self.openai_api = str(self.__get_from_env_or_secret(secrets, "OPENAI_API_KEY", ""))
         self.aws_sqs = str(self.__get_from_env_or_secret(secrets, "AWS_SQS", ""))
         self.aws_secret_manager = str(
             self.__get_from_env_or_secret(secrets, "AWS_SECRET_MANAGER", "")
