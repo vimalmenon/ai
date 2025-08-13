@@ -24,9 +24,7 @@ def test_http_exception_with_custom_detail(client: TestClient) -> None:
     # This would require mocking an endpoint that raises HTTPException
     with patch("ai.apis.router_rest") as mock_router:
         # Mock an endpoint that raises HTTPException
-        mock_router.get.side_effect = HTTPException(
-            status_code=400, detail="Custom error message"
-        )
+        mock_router.get.side_effect = HTTPException(status_code=400, detail="Custom error message")
 
         # The actual test would depend on your specific endpoints
         # This is a pattern for testing custom HTTP exceptions
@@ -126,9 +124,7 @@ def test_request_validation_exception_handling():
 
     async def run_test():
         # Call the exception handler directly
-        response = await validation_exception_handler(
-            mock_request, request_validation_error
-        )
+        response = await validation_exception_handler(mock_request, request_validation_error)
 
         assert response.status_code == 422
         response_data = json.loads(response.body.decode())
@@ -223,9 +219,7 @@ def test_logging_on_errors(client: TestClient, caplog) -> None:
 
     # Check if error was logged
     assert len(caplog.records) > 0
-    assert any(
-        "validation error" in record.message.lower() for record in caplog.records
-    )
+    assert any("validation error" in record.message.lower() for record in caplog.records)
 
 
 def test_successful_request_with_valid_data(client: TestClient, dynamodb_mock) -> None:

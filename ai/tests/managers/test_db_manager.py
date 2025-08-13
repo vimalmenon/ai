@@ -248,9 +248,7 @@ def test_batch_get_item_client_error(dynamodb_mock, faker) -> None:
     # Mock the DynamoDB batch_get_item to raise ClientError
     with patch.object(db_manager.dynamodb, "batch_get_item") as mock_batch_get:
         mock_batch_get.side_effect = ClientError(
-            error_response={
-                "Error": {"Code": "ValidationException", "Message": "Test error"}
-            },
+            error_response={"Error": {"Code": "ValidationException", "Message": "Test error"}},
             operation_name="BatchGetItem",
         )
 

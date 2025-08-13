@@ -15,9 +15,7 @@ def test_execute_workflow_service_raises_error_with_invalid_workflow_id(
 ) -> None:
     service = ExecuteWorkflowService()
     with pytest.raises(ClientError):
-        service.create_executed_workflow(
-            faker.uuid4(), FactoryCreateExecuteWorkflowRequest.build()
-        )
+        service.create_executed_workflow(faker.uuid4(), FactoryCreateExecuteWorkflowRequest.build())
 
 
 def test_execute_workflow_service_raises_error_when_workflow_not_complete(

@@ -44,9 +44,7 @@ def test_request_validation_error(client: TestClient) -> None:
 def test_request_validation_error_missing_fields(client: TestClient) -> None:
     """Test validation error when required fields are missing."""
     # Test with completely empty body for link group creation
-    response = client.put(
-        "/links", json={}, headers={"Content-Type": "application/json"}
-    )
+    response = client.put("/links", json={}, headers={"Content-Type": "application/json"})
 
     assert response.status_code == 422
     data = response.json()

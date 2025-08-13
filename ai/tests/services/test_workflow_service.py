@@ -69,9 +69,7 @@ def test_workflow_service_update_workflow_marks_complete_when_nodes_exist(
     dynamodb_mock,
 ) -> None:
     workflow = WorkflowService().create_workflow(FactoryWorkflowSlimModel.build())
-    WorkflowNodeService().create_workflow_node(
-        workflow.id, FactoryCreateNodeRequest.build()
-    )
+    WorkflowNodeService().create_workflow_node(workflow.id, FactoryCreateNodeRequest.build())
     update_data = FactoryUpdateWorkflowRequest.build()
     update_data.complete = True
     workflow = WorkflowService().update_workflow(workflow.id, update_data)
