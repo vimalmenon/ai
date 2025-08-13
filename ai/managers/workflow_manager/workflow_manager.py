@@ -13,7 +13,7 @@ from ai.model import (
     WorkflowSlimModel,
 )
 from ai.model.enums import DbKeys, DbTable
-from ai.utilities import created_date, generate_uuid
+from ai.utilities import TimingOutput, advanced_timing, created_date, generate_uuid
 
 logger = getLogger(__name__)
 
@@ -21,6 +21,7 @@ logger = getLogger(__name__)
 class WorkflowManager:
     table = DbTable.AI_WORKFLOWS.value
 
+    @advanced_timing(output=TimingOutput.BOTH, include_args=True)
     def get_workflows(self) -> list[WorkflowModelWithExecutedWorkflow]:
         """List out all workflows with execute details"""
         if items := DbManager().query_items(Key(DbKeys.Primary.value).eq(self.table)):
