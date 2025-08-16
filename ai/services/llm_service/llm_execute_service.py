@@ -23,9 +23,7 @@ class LLMExecuteService:
             self.execute_agent(exec_id, node)
 
     def execute_agent(self, exec_id: str, node: WorkflowNodeRequest) -> None:
-        llm = LlmService().get_llm(
-            llm=node.llm, structured_output=node.structured_output
-        )
+        llm = LlmService().get_llm(llm=node.llm, structured_output=node.structured_output)
         agent_llm = create_react_agent(
             model=llm,
             tools=[ToolService().get_tool_func(tool) for tool in node.tools],
@@ -40,14 +38,12 @@ class LLMExecuteService:
                 id=generate_uuid(),
                 content=result.content,
                 type=AiMessageType.AI,
-                created_date=created_date(),
+                generated_date=created_date(),
             )
             AiMessageManager().save_data(exec_id, message)
 
     def execute_llm(self, exec_id: str, node: WorkflowNodeRequest) -> None:
-        llm = LlmService().get_llm(
-            llm=node.llm, structured_output=node.structured_output
-        )
+        llm = LlmService().get_llm(llm=node.llm, structured_output=node.structured_output)
         prompt_messages = self.__get_messages(node)
         result = llm.invoke(prompt_messages)
         logger.info(result)
@@ -56,7 +52,7 @@ class LLMExecuteService:
             content=result.content,
             model_name=result.response_metadata.get("model_name"),
             type=AiMessageType.AI,
-            created_date=created_date(),
+            generated_date=created_date(),
         )
         AiMessageManager().save_data(
             exec_id,

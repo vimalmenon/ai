@@ -72,9 +72,7 @@ def workflow_command(args):
         print(f"Executed workflows: {len(executed_items)}")
 
         for ew in executed_items:
-            print(
-                f"  Executed: {ew.get('workflow_id', 'N/A')} - {ew.get('status', 'N/A')}"
-            )
+            print(f"  Executed: {ew.get('workflow_id', 'N/A')} - {ew.get('status', 'N/A')}")
 
     elif args.action == "create":
         from ai.model import WorkflowSlimModel

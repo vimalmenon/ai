@@ -6,27 +6,30 @@ from ai.model.output import TestStructuredOutput
 class WorkflowType(Enum):
     LLM = "LLM"
     Agent = "Agent"
-    Workflow = "Workflow"
-    HumanInput = "HumanInput"
     Service = "Service"
+    Workflow = "Workflow"
     ExecuteWorkflowCreator = "ExecuteWorkflowCreator"
-    ManualConfirmation = "ManualConfirmation"
 
 
 class Tool(Enum):
-    SaveToNotes = "SaveToNotes"
+    # SaveToNotes = "SaveToNotes"
     SaveToDB = "SaveToDB"
     SaveToS3 = "SaveToS3"
     InternetSearch = "InternetSearch"
-    TextToSpeech = "TextToSpeech"
 
 
 class Service(Enum):
     GetFromDB = "GetFromDB"
-    GetFromS3 = "GetFromS3"
     SaveToDB = "SaveToDB"
+    GetFromS3 = "GetFromS3"
     SaveToS3 = "SaveToS3"
+    HumanInput = "HumanInput"
+    ManualConfirmation = "ManualConfirmation"
     InternetSearch = "InternetSearch"
+    TextToSpeech = "TextToSpeech"
+    AddToScheduler = "AddToScheduler"
+    GetFromScheduler = "GetFromScheduler"
+    ExecuteWorkflowCreator = "ExecuteWorkflowCreator"
 
 
 class WorkflowStatus(Enum):
@@ -59,9 +62,9 @@ class LLMs(Enum):
 
 
 class AiMessageType(Enum):
+    System = "System"
     Human = "Human"
     AI = "AI"
-    System = "System"
     Tool = "Tool"
 
 
@@ -71,5 +74,15 @@ class HealthStatus(Enum):
 
 
 class DbKeys(Enum):
-    Primary = "table"
-    Secondary = "app_id"
+    Primary = "table_name"
+    Secondary = "record_id"
+
+
+class DbTable(Enum):
+    AI_SCHEDULER = "AI#SCHEDULER"
+    AI_EXECUTE = "AI#EXECUTE"
+    AI_WORKFLOWS = "AI#WORKFLOWS"
+    AI_LINKS = "AI#LINKS"
+    AI_S3 = "AI#S3"
+    AI_MESSAGE = "AI#MESSAGE"
+    AI_DB = "AI#DB"

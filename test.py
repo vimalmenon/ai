@@ -62,13 +62,9 @@ def main():
 
     parser.add_argument("-v", "--verbose", action="store_true", help="Verbose output")
 
-    parser.add_argument(
-        "-c", "--coverage", action="store_true", help="Run with coverage report"
-    )
+    parser.add_argument("-c", "--coverage", action="store_true", help="Run with coverage report")
 
-    parser.add_argument(
-        "-p", "--parallel", action="store_true", help="Run tests in parallel"
-    )
+    parser.add_argument("-p", "--parallel", action="store_true", help="Run tests in parallel")
 
     parser.add_argument(
         "-f",
@@ -84,13 +80,9 @@ def main():
         help="Run tests with specific markers (e.g., 'unit', 'integration')",
     )
 
-    parser.add_argument(
-        "-k", "--keyword", type=str, help="Run tests matching keyword expression"
-    )
+    parser.add_argument("-k", "--keyword", type=str, help="Run tests matching keyword expression")
 
-    parser.add_argument(
-        "path", nargs="?", help="Specific test file or directory to run"
-    )
+    parser.add_argument("path", nargs="?", help="Specific test file or directory to run")
 
     parser.add_argument("extra", nargs="*", help="Extra arguments to pass to pytest")
 

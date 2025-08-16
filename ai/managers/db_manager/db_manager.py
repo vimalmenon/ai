@@ -44,8 +44,6 @@ class DbManager:
             if not keys:
                 # Return an empty response structure when no keys are provided
                 return {"Responses": {self.table.name: []}, "UnprocessedKeys": {}}
-            return self.dynamodb.batch_get_item(
-                RequestItems={self.table.name: {"Keys": keys}}
-            )
+            return self.dynamodb.batch_get_item(RequestItems={self.table.name: {"Keys": keys}})
         except ClientError:
             return None

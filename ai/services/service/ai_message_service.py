@@ -4,5 +4,11 @@ from ai.model import AiMessage
 
 class AiMessageService:
 
+    def __init__(self, **kwargs):
+        self.data = kwargs.get("data", [])
+
+    def process(self) -> list[AiMessage]:
+        return []
+
     def get_messages(self, id: str) -> list[AiMessage]:
         return AiMessageManager().get_data(id)

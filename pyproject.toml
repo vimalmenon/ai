@@ -48,6 +48,8 @@ factory-boy = "^3.3.3"
 pytest-factoryboy = "^2.8.1"
 pytest-watch = "^4.2.0"
 pytest-xdist = "^3.8.0"
+deadcode = "^2.4.1"
+ipython = "^9.4.0"
 
 [build-system]
 requires = ["poetry-core"]
@@ -82,3 +84,13 @@ filterwarnings = [
     "ignore::UserWarning",
     "ignore::DeprecationWarning",
 ]
+
+[tool.black]
+line-length = 100
+target-version = ['py311']
+
+[tool.isort]
+profile = "black"
+multi_line_output = 3
+line_length = 100
+known_first_party = ["ai"]

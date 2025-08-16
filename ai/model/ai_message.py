@@ -6,7 +6,9 @@ class AiMessage(Base):
     id: str
     content: str
     type: AiMessageType
-    created_date: str
+    generated_date: str
+    input_tokens: str | None = None
+    output_tokens: str | None = None
     total_token: str | None = None
     model_name: str | None = None
     tool_name: str | None = None
@@ -18,7 +20,7 @@ class AiMessage(Base):
         self.type = kwargs.get("type")
         self.total_token = kwargs.get("total_token")
         self.model_name = kwargs.get("model_name")
-        self.created_date = kwargs.get("created_date")
+        self.generated_date = kwargs.get("generated_date")
         self.tool_name = kwargs.get("tool_name")
 
     def to_dict(self) -> dict:
@@ -30,7 +32,7 @@ class AiMessage(Base):
             "model_name": self.model_name,
             "tool_name": self.tool_name,
             "type": self.type.value,
-            "created_date": self.created_date,
+            "generated_date": self.generated_date,
         }
 
     @classmethod
@@ -42,7 +44,7 @@ class AiMessage(Base):
             type=AiMessageType(data.get("type")),
             total_token=data.get("total_token"),
             model_name=data.get("model_name"),
-            created_date=data.get("created_date"),
+            generated_date=data.get("generated_date"),
             tool_name=data.get("tool_name"),
         )
 
