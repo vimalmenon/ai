@@ -193,6 +193,7 @@ Both scripts provide:
 - [x] Implement Celery beat jobs (5-minute intervals)
 - [x] DynamoDB fetch is very slow, Need to check singapore region. (No Major difference)
 - [x] Update primary and secondary key name (Need to replace with new key)
+- [x] Google LLM working now
 
 
 ### 🔄 In Progress
@@ -215,7 +216,7 @@ Both scripts provide:
 - [ ] **Auto-execution**: Auto-execute nodes (except human input required)
 - [ ] **Testing**: Increase test coverage to 85%+ (currently 76%)
 - [ ] **Environment**: Clean up and document environment variables
-- [ ] **Integrations**: Fix Google LLM integration and AWS authentication
+- [ ] **Integrations**: AWS authentication
 
 ### 🚀 Future Enhancements
 
