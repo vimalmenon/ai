@@ -31,7 +31,7 @@ jobs:
   get-version:
     uses: vimalmenon/git-action-anywhere/.github/workflows/next-version.yml@main
     with:
-      release_type: ${{ github.event.inputs.Release }}
+      release_type: ${{ github.event.inputs.Release || 'Patch' }}
 
   build-deploy-and-release:
     runs-on: ubuntu-latest
@@ -49,16 +49,14 @@ jobs:
         run: |
           docker build --build-arg APP_VERSION=${{ needs.get-version.outputs.release }} -t ${{ env.APP_NAME }}:${{ needs.get-version.outputs.release }} .
           docker tag ${{ env.APP_NAME }}:${{ needs.get-version.outputs.release }} ${{ env.DOCKER_REGISTRY }}/${{ env.APP_NAME }}:${{ needs.get-version.outputs.release }}
-          docker push ${{ env.DOCKER_REGISTRY }}/${{env.APP_NAME}}:${{ needs.get-version.outputs.release }}
+          docker push ${{ env.DOCKER_REGISTRY }}/${{ env.APP_NAME }}:${{ needs.get-version.outputs.release }}
       - name: Create Release
         id: create_release
-        uses: actions/create-release@latest
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+        uses: softprops/action-gh-release@v1
         with:
           tag_name: v${{ needs.get-version.outputs.release }}
-          release_name: Release v${{ needs.get-version.outputs.release }}
+          name: Release v${{ needs.get-version.outputs.release }}
           draft: false
           prerelease: false
       - name: echo Release
-        run: echo "Release created with tag v${{ needs.get-version.outputs.release  }}"
+        run: echo "Release created with tag v${{ needs.get-version.outputs.release }}"

@@ -6,9 +6,7 @@ from ai.utilities import generate_uuid
 class LinkService:
 
     def create_link_group(self, data: LinkGroupSlim) -> list[LinkGroup]:
-        LinkManager().create_link_group(
-            LinkGroup(id=generate_uuid(), name=data.name, links=[])
-        )
+        LinkManager().create_link_group(LinkGroup(id=generate_uuid(), name=data.name, links=[]))
         return LinkManager().get_links()
 
     def create_link(self, id: str, data: LinkSlim) -> list[LinkGroup]:

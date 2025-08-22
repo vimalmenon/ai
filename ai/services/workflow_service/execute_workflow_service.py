@@ -29,15 +29,11 @@ class ExecuteWorkflowService:
         """This will get the executed workflow"""
         return WorkflowExecuteManager().get_workflow(id)
 
-    def get_executed_workflow_id(
-        self, wf_id: str, exec_id: str
-    ) -> ExecuteWorkflowModel:
+    def get_executed_workflow_id(self, wf_id: str, exec_id: str) -> ExecuteWorkflowModel:
         """This will get by executed id"""
         if item := WorkflowExecuteManager().get_workflow_by_id(wf_id, exec_id):
             return item
-        raise ClientError(
-            detail=f"Unable to find Executed Workflow with {wf_id} {exec_id}"
-        )
+        raise ClientError(detail=f"Unable to find Executed Workflow with {wf_id} {exec_id}")
 
     def create_executed_workflow(
         self, wf_id: str, data: CreateExecuteWorkflowRequest
@@ -66,36 +62,33 @@ class ExecuteWorkflowService:
             node_list.append(
                 ExecuteWorkflowNodeModel(
                     id=generate_uuid(),
-                    status=(
-                        WorkflowNodeStatus.READY if is_start else WorkflowNodeStatus.NEW
-                    ),
+                    status=(WorkflowNodeStatus.READY if is_start else WorkflowNodeStatus.NEW),
                     exec_id=exec_id,
                     node=node,
                 )
             )
-            self.__create_node_model(
-                node_map[node.next], node_map, node_list, False, exec_id
-            )
+            self.__create_node_model(node_map[node.next], node_map, node_list, False, exec_id)
         else:
             node_list.append(
                 ExecuteWorkflowNodeModel(
                     id=generate_uuid(),
-                    status=(
-                        WorkflowNodeStatus.READY if is_start else WorkflowNodeStatus.NEW
-                    ),
+                    status=(WorkflowNodeStatus.READY if is_start else WorkflowNodeStatus.NEW),
                     exec_id=exec_id,
                     node=node,
                 )
             )
 
-    def __validate_workflow_nodes_and_return(
-        self, wf_id: str
-    ) -> dict[str, WorkflowNodeRequest]:
+    def __validate_workflow_nodes_and_return(self, wf_id: str) -> dict[str, WorkflowNodeRequest]:
         item = WorkflowService().get_workflow_by_id(wf_id)
         if not item:
             raise ClientError(
                 status_code=404,
                 detail=f"Workflow with ID {wf_id} not found.",
+            )
+        if not item.complete:
+            raise ClientError(
+                status_code=400,
+                detail=f"Workflow with ID {wf_id} is not complete.",
             )
         return item.nodes
 
@@ -137,7 +130,7 @@ class ExecuteWorkflowService:
         workflow: ExecuteWorkflowModel,
         data: ResumeWorkflowRequest,
     ) -> bool:
-        if node.node.type == WorkflowType.HumanInput:
+        if node.node.type == WorkflowType.Service and node.node.service == ServiceModel.HumanInput:
             node.status = WorkflowNodeStatus.COMPLETED
             node.content = data.data
             node.started_at = created_date()
@@ -204,9 +197,7 @@ class ExecuteWorkflowService:
         node.task_id = task.id
         node.status = WorkflowNodeStatus.RUNNING
 
-    def __check_if_workflow_is_completed(
-        self, index: int, workflow: ExecuteWorkflowModel
-    ) -> None:
+    def __check_if_workflow_is_completed(self, index: int, workflow: ExecuteWorkflowModel) -> None:
         """Check if the workflow is completed"""
         if index == len(workflow.nodes) - 1:
             workflow.status = WorkflowStatus.COMPLETED

@@ -2,11 +2,11 @@ from boto3.dynamodb.conditions import Key
 
 from ai.managers import DbManager
 from ai.model import ExecuteWorkflowModel
-from ai.model.enums import DbKeys
+from ai.model.enums import DbKeys, DbTable
 
 
 class WorkflowExecuteManager:
-    table = "AI#EXECUTE"
+    table = DbTable.AI_EXECUTE.value
 
     def add_workflow(self, id: str, data: ExecuteWorkflowModel) -> None:
         """This will save executed workflow"""
@@ -61,9 +61,7 @@ class WorkflowExecuteManager:
             }
         )
 
-    def __get_updated_executed_details(
-        self, data: ExecuteWorkflowModel
-    ) -> tuple[str, dict, dict]:
+    def __get_updated_executed_details(self, data: ExecuteWorkflowModel) -> tuple[str, dict, dict]:
         expression: dict = {}
         if data.nodes:
             expression["nodes"] = {

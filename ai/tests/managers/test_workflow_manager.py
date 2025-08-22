@@ -1,7 +1,5 @@
 from ai.managers.workflow_manager.workflow_manager import WorkflowManager
-from ai.tests.factory.workflow import (
-    FactoryWorkflowSlimModel,
-)
+from ai.tests.factory.workflow import FactoryWorkflowSlimModel
 
 
 def test_create_and_read_workflow_by_id(dynamodb_mock) -> None:

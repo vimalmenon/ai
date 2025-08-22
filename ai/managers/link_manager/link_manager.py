@@ -3,11 +3,11 @@ from boto3.dynamodb.conditions import Key
 from ai.exceptions.exceptions import ClientError
 from ai.managers import DbManager
 from ai.model import LinkGroup
-from ai.model.enums import DbKeys
+from ai.model.enums import DbKeys, DbTable
 
 
 class LinkManager:
-    table = "LINKS"
+    table = DbTable.AI_LINKS.value
 
     def get_links(self) -> list[LinkGroup]:
         items = DbManager().query_items(Key(DbKeys.Primary.value).eq(self.table))
@@ -23,9 +23,7 @@ class LinkManager:
         )
 
     def get_link_group_by_id(self, id: str) -> LinkGroup:
-        item = DbManager().get_item(
-            {DbKeys.Primary.value: self.table, DbKeys.Secondary.value: id}
-        )
+        item = DbManager().get_item({DbKeys.Primary.value: self.table, DbKeys.Secondary.value: id})
         if item:
             return LinkGroup.to_cls(item)
         raise ClientError(detail=f"Link with {id} not found")

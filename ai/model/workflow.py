@@ -1,7 +1,5 @@
 from typing import Self
 
-from pydantic import BaseModel
-
 from ai.model.base_model import Base
 from ai.model.enums import (
     LLMs,
@@ -46,18 +44,14 @@ class WorkflowNodeRequest(Base):
         self.wf_id = kwargs.get("wf_id")
         self.prompt = kwargs.get("prompt")
         self.message = kwargs.get("message")
-        self.type = (
-            WorkflowType[str(kwargs.get("type"))] if kwargs.get("type") else None
-        )
+        self.type = WorkflowType[str(kwargs.get("type"))] if kwargs.get("type") else None
         self.llm = LLMs[str(kwargs.get("llm"))] if kwargs.get("llm") else None
         self.tools = [Tool[tool] for tool in kwargs.get("tools", [])]
         self.tool = Tool[kwargs.get("tool")] if kwargs.get("tool") else None
         self.next = kwargs.get("next")
         self.updated_at = kwargs.get("updated_at", created_date())
         self.is_start = kwargs.get("is_start", False)
-        self.service = (
-            Service[str(kwargs.get("service"))] if kwargs.get("service") else None
-        )
+        self.service = Service[str(kwargs.get("service"))] if kwargs.get("service") else None
         self.request_at_run_time = kwargs.get("request_at_run_time", False)
         self.data_from_previous_node = kwargs.get("data_from_previous_node", False)
         self.structured_output = (
@@ -84,9 +78,7 @@ class WorkflowNodeRequest(Base):
             "service": self.service.value if self.service else None,
             "request_at_run_time": self.request_at_run_time,
             "data_from_previous_node": self.data_from_previous_node,
-            "structured_output": (
-                self.structured_output.value if self.structured_output else None
-            ),
+            "structured_output": (self.structured_output.value if self.structured_output else None),
         }
 
     @classmethod
@@ -112,12 +104,8 @@ class WorkflowNodeRequest(Base):
         )
 
 
-class WorkflowSlimModel(BaseModel):
+class WorkflowSlimModel(Base):
     name: str
-
-    def __init__(self, name: str):
-        super().__init__(name=name)
-        self.name = name
 
 
 class WorkflowModel(Base):
@@ -125,6 +113,7 @@ class WorkflowModel(Base):
     name: str
     detail: str | None = None
     complete: bool = False
+    archive: bool = False
     nodes: dict[str, WorkflowNodeRequest] = {}
 
     def __init__(self, **kwargs):
@@ -133,6 +122,7 @@ class WorkflowModel(Base):
         self.name = kwargs.get("name")
         self.detail = kwargs.get("detail")
         self.complete = kwargs.get("complete", False)
+        self.archive = kwargs.get("archive", False)
         self.nodes = kwargs.get("nodes", {})
 
     @classmethod
@@ -142,6 +132,7 @@ class WorkflowModel(Base):
             name=data.get("name"),
             detail=data.get("detail"),
             complete=data.get("complete", False),
+            archive=data.get("archive", False),
             nodes=cls.__convert_nodes_from_dict(data.get("nodes", {})),
         )
 
@@ -157,6 +148,7 @@ class WorkflowModel(Base):
             "name": self.name,
             "detail": self.detail,
             "complete": self.complete,
+            "archive": self.archive,
             "nodes": self.__convert_nodes_to_dict(self.nodes),
         }
 
@@ -164,23 +156,24 @@ class WorkflowModel(Base):
         return {id: node.to_dict() for id, node in nodes.items()}
 
 
-class CreateNodeRequest(BaseModel):
+class CreateNodeRequest(Base):
     name: str
 
 
-class CreateExecuteWorkflowRequest(BaseModel):
+class CreateExecuteWorkflowRequest(Base):
     name: str
 
 
 class ExecuteWorkflowNodeModel(Base):
     id: str
     exec_id: str
+    status: WorkflowNodeStatus
+    node: WorkflowNodeRequest
     content: str | None = None
     started_at: str | None = None
     completed_at: str | None = None
     task_id: str | None = None
-    status: WorkflowNodeStatus
-    node: WorkflowNodeRequest
+    ai_messages: list = []
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -192,6 +185,7 @@ class ExecuteWorkflowNodeModel(Base):
         self.started_at = kwargs.get("started_at")
         self.completed_at = kwargs.get("completed_at")
         self.task_id = kwargs.get("task_id")
+        self.ai_messages = kwargs.get("ai_messages", [])
 
     @classmethod
     def to_cls(cls, data: dict) -> Self:
@@ -215,9 +209,7 @@ class ExecuteWorkflowNodeModel(Base):
             "id": self.id,
             "exec_id": self.exec_id,
             "content": self.content,
-            "status": (
-                self.status.value if self.status else WorkflowNodeStatus.NEW.value
-            ),
+            "status": (self.status.value if self.status else WorkflowNodeStatus.NEW.value),
             "node": self.node.to_dict(),
             "started_at": self.started_at,
             "completed_at": self.completed_at,
@@ -262,9 +254,7 @@ class ExecuteWorkflowModel(Base):
             created_at=data.get("created_at", ""),
             status=data.get("status", ""),
             completed_at=data.get("completed_at"),
-            nodes=[
-                ExecuteWorkflowNodeModel.to_cls(node) for node in data.get("nodes", [])
-            ],
+            nodes=[ExecuteWorkflowNodeModel.to_cls(node) for node in data.get("nodes", [])],
         )
 
 
@@ -276,9 +266,7 @@ class WorkflowModelWithExecutedWorkflow(WorkflowModel):
         self.executed_workflows = kwargs.get("executed_workflows")
 
     @classmethod
-    def use_workflow_cls(
-        cls, data: WorkflowModel, executed_wf: list[ExecuteWorkflowModel]
-    ) -> Self:
+    def use_workflow_cls(cls, data: WorkflowModel, executed_wf: list[ExecuteWorkflowModel]) -> Self:
         return cls(
             id=data.id,
             name=data.name,
@@ -288,14 +276,19 @@ class WorkflowModelWithExecutedWorkflow(WorkflowModel):
             executed_workflows=executed_wf,
         )
 
+    # @property
+    # def completed_workflow(self):
+    #     return 5
 
-class ExecuteWorkflowModelData(Base):
+
+class ExecuteWorkflowModelListData(Base):
     data: list[ExecuteWorkflowModel]
 
 
-class WorkflowsModelData(Base):
-    data: list[WorkflowModel]
+class ExecuteWorkflowModelData(Base):
+    data: ExecuteWorkflowModel
 
 
-class WorkflowModelData(Base):
-    data: WorkflowModel
+class ResumeWorkflowRequest(Base):
+    id: str
+    data: str | None = None

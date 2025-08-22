@@ -105,9 +105,7 @@ def mock_llm_execute_service_patch():
             service.execute("exec_id", node)
             mock_llm_execute_service_patch.execute.assert_called_once()
     """
-    with patch(
-        "ai.services.llm_service.llm_execute_service.LLMExecuteService"
-    ) as mock_class:
+    with patch("ai.services.llm_service.llm_execute_service.LLMExecuteService") as mock_class:
         mock_instance = Mock()
         mock_instance.execute.return_value = None
         mock_instance.execute_llm.return_value = None

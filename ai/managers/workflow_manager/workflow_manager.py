@@ -5,31 +5,45 @@ from boto3.dynamodb.conditions import Key
 
 from ai.exceptions.exceptions import ClientError
 from ai.managers import DbManager
-from ai.model import UpdateWorkflowRequest, WorkflowModel, WorkflowSlimModel
-from ai.model.enums import DbKeys
-from ai.utilities import created_date, generate_uuid
+from ai.managers.workflow_manager.workflow_execute_manager import WorkflowExecuteManager
+from ai.model import (
+    UpdateWorkflowRequest,
+    WorkflowModel,
+    WorkflowModelWithExecutedWorkflow,
+    WorkflowSlimModel,
+)
+from ai.model.enums import DbKeys, DbTable
+from ai.utilities import TimingOutput, advanced_timing, created_date, generate_uuid
 
 logger = getLogger(__name__)
 
 
 class WorkflowManager:
-    table = "AI#WORKFLOWS"
+    table = DbTable.AI_WORKFLOWS.value
 
-    def get_workflows(self) -> list[WorkflowModel]:
-        """This List out all workflows details"""
+    @advanced_timing(output=TimingOutput.BOTH, include_args=True)
+    def get_workflows(self) -> list[WorkflowModelWithExecutedWorkflow]:
+        """List out all workflows with execute details"""
         if items := DbManager().query_items(Key(DbKeys.Primary.value).eq(self.table)):
-            return [WorkflowModel.to_cls(item) for item in items]
+            workflows = [WorkflowModel.to_cls(item) for item in items]
+            return [self.__attach_executed_workflow(workflow) for workflow in workflows]
         return []
 
-    def get_workflow_by_id(self, id: str) -> WorkflowModel | None:
-        """Get the workflow by ID"""
+    def __attach_executed_workflow(
+        self, workflow: WorkflowModel
+    ) -> WorkflowModelWithExecutedWorkflow:
+        executed_workflows = WorkflowExecuteManager().get_workflow(workflow.id)
+        return WorkflowModelWithExecutedWorkflow.use_workflow_cls(workflow, executed_workflows)
+
+    def get_workflow_by_id(self, id: str) -> WorkflowModelWithExecutedWorkflow | None:
+        """Get the workflow with execute by ID"""
         if item := DbManager().get_item(
             {DbKeys.Primary.value: self.table, DbKeys.Secondary.value: id}
         ):
-            return WorkflowModel.to_cls(item)
+            return self.__attach_executed_workflow(WorkflowModel.to_cls(item))
         return None
 
-    def create_workflow(self, data: WorkflowSlimModel) -> WorkflowModel:
+    def create_workflow(self, data: WorkflowSlimModel) -> WorkflowModelWithExecutedWorkflow:
         """Create workflow"""
         uuid = generate_uuid()
         item = WorkflowModel(id=uuid, name=data.name)
@@ -40,13 +54,11 @@ class WorkflowManager:
                 **item.to_dict(),
             }
         )
-        return item
+        return self.__attach_executed_workflow(item)
 
     def update_workflow(self, id: str, data: UpdateWorkflowRequest) -> None:
         """Update workflow"""
-        if DbManager().get_item(
-            {DbKeys.Primary.value: self.table, DbKeys.Secondary.value: id}
-        ):
+        if DbManager().get_item({DbKeys.Primary.value: self.table, DbKeys.Secondary.value: id}):
             (
                 update_expression,
                 expression_attribute_values,
@@ -68,12 +80,8 @@ class WorkflowManager:
     def delete_workflows_by_id(self, id: str) -> None:
         """Delete the workflow by ID"""
         db_manager = DbManager()
-        if db_manager.get_item(
-            {DbKeys.Primary.value: self.table, DbKeys.Secondary.value: id}
-        ):
-            db_manager.remove_item(
-                {DbKeys.Primary.value: self.table, DbKeys.Secondary.value: id}
-            )
+        if db_manager.get_item({DbKeys.Primary.value: self.table, DbKeys.Secondary.value: id}):
+            db_manager.remove_item({DbKeys.Primary.value: self.table, DbKeys.Secondary.value: id})
         else:
             logger.warning(f"Workflow with ID {id} not found.")
             raise ClientError(

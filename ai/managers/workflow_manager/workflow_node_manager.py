@@ -10,27 +10,21 @@ class WorkflowNodeManager:
         workflow = self.__validate_and_return_workflow(wf_id)
         uuid = generate_uuid()
         workflow.nodes[uuid] = WorkflowNodeRequest(id=uuid, wf_id=wf_id, name=body.name)
-        WorkflowManager().update_workflow_node(
-            wf_id, self.__convert_nodes_to_dict(workflow.nodes)
-        )
+        WorkflowManager().update_workflow_node(wf_id, self.__convert_nodes_to_dict(workflow.nodes))
 
     def delete_workflow_nodes(self, wf_id: str, id: str) -> None:
         """Delete the workflow node by ID"""
         workflow = self.__validate_and_return_workflow(wf_id)
         self.__validate_and_return_node(workflow, id)
         del workflow.nodes[id]
-        WorkflowManager().update_workflow_node(
-            wf_id, self.__convert_nodes_to_dict(workflow.nodes)
-        )
+        WorkflowManager().update_workflow_node(wf_id, self.__convert_nodes_to_dict(workflow.nodes))
 
     def update_workflow_node(self, wf_id, id, data: WorkflowNodeRequest) -> None:
         """Update the workflow node by ID"""
         workflow = self.__validate_and_return_workflow(wf_id)
         self.__validate_and_return_node(workflow, id)
         workflow.nodes[id] = data
-        WorkflowManager().update_workflow_node(
-            wf_id, self.__convert_nodes_to_dict(workflow.nodes)
-        )
+        WorkflowManager().update_workflow_node(wf_id, self.__convert_nodes_to_dict(workflow.nodes))
 
     def __validate_and_return_workflow(self, wf_id: str) -> WorkflowModel:
         """Validate the workflow"""
@@ -41,9 +35,7 @@ class WorkflowNodeManager:
             detail=f"Workflow with ID {wf_id} not found.",
         )
 
-    def __validate_and_return_node(
-        self, workflow: WorkflowModel, id: str
-    ) -> WorkflowNodeRequest:
+    def __validate_and_return_node(self, workflow: WorkflowModel, id: str) -> WorkflowNodeRequest:
         """Validate the workflow node"""
         if node := workflow.nodes.get(id):
             return node

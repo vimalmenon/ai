@@ -1,14 +1,12 @@
 from boto3.dynamodb.conditions import Key
 
 from ai.managers import DbManager
-from ai.model import (
-    DbServiceModel,
-)
-from ai.model.enums import DbKeys
+from ai.model import DbServiceModel
+from ai.model.enums import DbKeys, DbTable
 
 
 class DbServiceManager:
-    table = "DB_SERVICE"
+    table = DbTable.AI_DB.value
 
     def save(self, data: DbServiceModel) -> DbServiceModel:
         DbManager().add_item(
@@ -26,6 +24,4 @@ class DbServiceManager:
 
     def delete_by_id(self, id: str) -> None:
         """This will delete the db service by id"""
-        DbManager().remove_item(
-            {DbKeys.Primary.value: self.table, DbKeys.Secondary.value: id}
-        )
+        DbManager().remove_item({DbKeys.Primary.value: self.table, DbKeys.Secondary.value: id})

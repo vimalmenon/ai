@@ -1,9 +1,6 @@
 from fastapi import APIRouter
 
-from ai.model import (
-    CreateNodeRequest,
-    WorkflowNodeRequest,
-)
+from ai.model import CreateNodeRequest, WorkflowNodeRequest
 from ai.services import WorkflowNodeService, WorkflowService
 
 router = APIRouter()
